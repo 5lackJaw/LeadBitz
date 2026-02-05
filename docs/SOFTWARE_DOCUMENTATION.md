@@ -26,9 +26,10 @@ Deliverability-first cold outreach operations app:
 
 ## Local setup
 1. Install dependencies: `npm ci`
-2. Set env vars (names below)
-3. Run DB migrations (once Prisma is added)
-4. Start dev server: `npm run dev`
+2. Set env vars (names below). For local development you can copy `.env.example` to `.env` and adjust values.
+3. Generate Prisma client: `npm run prisma:generate`
+4. Run DB migrations: `npm run db:migrate:dev -- --name <migration_name>`
+5. Start dev server: `npm run dev`
 
 ## Env vars (names only)
 - `DATABASE_URL`
@@ -82,17 +83,22 @@ Deliverability-first cold outreach operations app:
 - Lint: `npm run lint`
 - Build/type check: `npm run build`
 - Unit:
-- Integration:
+- Integration: `npm run db:migrate:status` (with a reachable Postgres `DATABASE_URL`)
 - E2E (Playwright):
 
 ## Deployment notes
 - Vercel-first deployment.
 - Refer to `DEPLOYMENT_ENVIRONMENTS.md`.
 
+## Operational gotchas
+- Prisma migrations require a reachable PostgreSQL server.
+- If Docker Desktop is unavailable locally, use `npx prisma dev -d` to start Prisma's local Postgres and source the printed `DATABASE_URL`.
+
 ## Changelog
 - YYYY-MM-DD: Initial scaffold created.
 - 2026-02-05: Confirmed and documented Phase 1 scope boundaries and acceptance mapping.
 - 2026-02-05: Initialized Next.js App Router scaffold with TypeScript and ESLint; added `/app` shell route.
+- 2026-02-05: Added Prisma + PostgreSQL connection setup, migration scripts, and a shared Prisma client helper.
 
 ## Known issues / limitations
 - (empty)

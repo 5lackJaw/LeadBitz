@@ -10,14 +10,15 @@
   - Acceptance: tasks match docs
   - Tests: n/a
   - Note (2026-02-05): Confirmed Phase 1 scope alignment with `docs/PRODUCT_BRIEF.md`, `docs/UX_SPEC.md`, and `docs/ARCHITECTURE.md`; documented boundaries and acceptance mapping in `docs/SOFTWARE_DOCUMENTATION.md`. Files touched: `docs/IMPLEMENTATION_CHECKLIST.md`, `docs/SOFTWARE_DOCUMENTATION.md`.
-- [x] Initialize Next.js app shell + TypeScript + lint/format
+- [x] Initialize Next.js appbles ( shell + TypeScript + lint/format
   - Acceptance: `/app` loads locally
   - Tests: n/a
   - Note (2026-02-05): Bootstrapped Next.js App Router project with TypeScript + ESLint and added an explicit `/app` route page. Verified with lint/build and route generation. Files touched: `package.json`, `package-lock.json`, `tsconfig.json`, `next.config.ts`, `eslint.config.mjs`, `next-env.d.ts`, `.gitignore`, `app/*`, `public/*`, `docs/IMPLEMENTATION_CHECKLIST.md`, `docs/SOFTWARE_DOCUMENTATION.md`.
-- [ ] Add Prisma + Postgres connection + migration setup
+- [x] Add Prisma + Postgres connection + migration setup
   - Acceptance: migrations run
   - Tests: integration
-- [ ] Create migrations for core tables (users/workspaces/inboxes/campaigns/icp)
+  - Note (2026-02-05): Added Prisma 6 + PostgreSQL datasource setup, migration scripts, `.env.example`, and `lib/prisma.ts` singleton client helper. Verified `prisma generate` and migration commands against Prisma local Postgres (`prisma dev`). Files touched: `.gitignore`, `.env.example`, `package.json`, `package-lock.json`, `prisma/schema.prisma`, `lib/prisma.ts`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- [ ] Create migrations for core tausers/workspaces/inboxes/campaigns/icp)
   - Acceptance: schema matches ARCHITECTURE.md
   - Tests: integration
 - [ ] Create migrations for leads/campaign_leads/suppressions
