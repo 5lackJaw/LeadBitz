@@ -25,10 +25,10 @@ Deliverability-first cold outreach operations app:
   - Phase 1 checklist tasks match the product and architecture docs without adding requirements.
 
 ## Local setup
-1. Install dependencies
+1. Install dependencies: `npm ci`
 2. Set env vars (names below)
-3. Run DB migrations
-4. Start dev server
+3. Run DB migrations (once Prisma is added)
+4. Start dev server: `npm run dev`
 
 ## Env vars (names only)
 - `DATABASE_URL`
@@ -52,6 +52,8 @@ Deliverability-first cold outreach operations app:
 
 ## Routes/endpoints summary
 (Keep updated as built.)
+- `/` (landing scaffold)
+- `/app` (app shell scaffold route)
 - `/app/onboarding`, `/app/campaigns`, `/app/replies`, `/app/settings/*`
 - `/api/icp/generate`, `/api/messages/draft`
 - `/api/campaigns/*`, `/api/campaigns/:id/launch`
@@ -77,6 +79,8 @@ Deliverability-first cold outreach operations app:
 - OpenAI API
 
 ## Testing commands
+- Lint: `npm run lint`
+- Build/type check: `npm run build`
 - Unit:
 - Integration:
 - E2E (Playwright):
@@ -88,6 +92,7 @@ Deliverability-first cold outreach operations app:
 ## Changelog
 - YYYY-MM-DD: Initial scaffold created.
 - 2026-02-05: Confirmed and documented Phase 1 scope boundaries and acceptance mapping.
+- 2026-02-05: Initialized Next.js App Router scaffold with TypeScript and ESLint; added `/app` shell route.
 
 ## Known issues / limitations
 - (empty)
