@@ -2,12 +2,13 @@
 
 ## Rules of Engagement
 - Read all of the files inside /docs before you start building.
-- Implement exactly ONE unchecked task from IMPLEMENTATION_CHECKLIST.md per PR.
+- Implement the next logical unchecked task from IMPLEMENTATION_CHECKLIST.md per PR.
 - Do not invent requirements. If a task is ambiguous, resolve it by updating docs first (as part of that single task) or add a small clarification note to SOFTWARE_DOCUMENTATION.md.
 - Keep changes minimal and scoped to the selected task. No drive-by refactors.
 - Prefer boring, proven patterns over cleverness. Follow the chosen stack's idiomatic conventions.
 - Security defaults: never log secrets/PII; validate inputs; least privilege; treat external input as hostile.
 - If you need to change scope, add a new unchecked checkbox to IMPLEMENTATION_CHECKLIST.md instead of expanding the current task.
+- Whenever testing the app, either locally or live in the development envronment is prudent, instruct the user to do so. Never assume testing is happening. Suggest how the user should test the app, and inquire whether the user would like instructions on how to do so.
 
 ## Software Documentation Maintenance
 - SOFTWARE_DOCUMENTATION.md is the living source of truth.
