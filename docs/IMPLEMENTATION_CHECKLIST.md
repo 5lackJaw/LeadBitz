@@ -54,9 +54,10 @@
   - Acceptance: dedupe constraints present
   - Tests: integration
   - Note (2026-02-06): Added `Lead`, `CampaignLead`, and `Suppression` Prisma models with dedupe constraints (`@@unique([workspaceId, email])` on leads/suppressions and `@@unique([campaignId, leadId])` on campaign_leads). Created migration `20260206043217_create_leads_and_suppressions` and verified `prisma migrate status` reports schema up to date on the Neon dev database. Files touched: `prisma/schema.prisma`, `prisma/migrations/20260206043217_create_leads_and_suppressions/migration.sql`, `docs/IMPLEMENTATION_CHECKLIST.md`.
-- [ ] Create migrations for sequences/templates/send_jobs/conversations/messages/audit/provenance
+- [x] Create migrations for sequences/templates/send_jobs/conversations/messages/audit/provenance
   - Acceptance: idempotency unique key on send_jobs
   - Tests: integration
+  - Note (2026-02-06): Added Prisma models/enums for `sequences`, `sequence_steps`, `message_templates`, `send_jobs`, `conversations`, `messages`, `audit_events`, `lead_sources`, and `lead_field_provenance`; created migration `20260206050107` and verified `send_jobs_idempotency_key_key` unique index exists in SQL. Verified with `prisma migrate status` against Neon dev database. Files touched: `prisma/schema.prisma`, `prisma/migrations/20260206050107/migration.sql`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 - [ ] Update SOFTWARE_DOCUMENTATION.md (phase summary + decisions + gotchas)
 
 ## Phase 2 — Auth + workspace scoping
