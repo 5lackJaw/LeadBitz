@@ -12,3 +12,119 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  ownedWorkspaces Workspace[] @relation("WorkspaceOwner")
+
+  @@map("users")
+}
+
+model Workspace {
+  id        String   @id @default(cuid())
+  name      String
+  ownerId   String   @map("owner_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  owner            User              @relation("WorkspaceOwner", fields: [ownerId], references: [id], onDelete: Restrict)
+  campaigns        Campaign[]
+  inboxConnections InboxConnection[]
+  icpProfiles      IcpProfile[]
+
+  @@index([ownerId])
+  @@map("workspaces")
+}
+
+model InboxConnection {
+  id                    String                @id @default(cuid())
+  workspaceId           String                @map("workspace_id")
+  provider              InboxProvider
+  providerAccountId     String                @map("provider_account_id")
+  email                 String
+  accessTokenEncrypted  String?               @map("access_token_encrypted")
+  refreshTokenEncrypted String?               @map("refresh_token_encrypted")
+  status                InboxConnectionStatus @default(ACTIVE)
+  createdAt             DateTime              @default(now()) @map("created_at")
+  updatedAt             DateTime              @updatedAt @map("updated_at")
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@unique([workspaceId, email])
+  @@index([workspaceId])
+  @@map("inbox_connections")
+}
+
+model IcpProfile {
+  id          String        @id @default(cuid())
+  workspaceId String        @map("workspace_id")
+  name        String
+  sourceType  IcpSourceType @map("source_type")
+  sourceValue String?       @map("source_value")
+  icp         Json
+  createdAt   DateTime      @default(now()) @map("created_at")
+  updatedAt   DateTime      @updatedAt @map("updated_at")
+
+  workspace Workspace  @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  campaigns Campaign[]
+
+  @@index([workspaceId])
+  @@map("icp_profiles")
+}
+
+model Campaign {
+  id           String         @id @default(cuid())
+  workspaceId  String         @map("workspace_id")
+  icpProfileId String?        @map("icp_profile_id")
+  name         String
+  status       CampaignStatus @default(DRAFT)
+  createdAt    DateTime       @default(now()) @map("created_at")
+  updatedAt    DateTime       @updatedAt @map("updated_at")
+  launchedAt   DateTime?      @map("launched_at")
+
+  workspace  Workspace   @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  icpProfile IcpProfile? @relation(fields: [icpProfileId], references: [id], onDelete: SetNull)
+
+  @@index([workspaceId])
+  @@index([icpProfileId])
+  @@map("campaigns")
+}
+
+enum InboxProvider {
+  GMAIL
+  M365
+
+  @@map("inbox_provider")
+}
+
+enum InboxConnectionStatus {
+  ACTIVE
+  DISCONNECTED
+  ERROR
+
+  @@map("inbox_connection_status")
+}
+
+enum CampaignStatus {
+  DRAFT
+  ACTIVE
+  PAUSED
+  COMPLETED
+  ARCHIVED
+
+  @@map("campaign_status")
+}
+
+enum IcpSourceType {
+  WEBSITE_URL
+  PRODUCT_DESCRIPTION
+  MANUAL
+
+  @@map("icp_source_type")
+}

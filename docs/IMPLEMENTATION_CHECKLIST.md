@@ -46,9 +46,10 @@
   - Acceptance: migrations run
   - Tests: integration
   - Note (2026-02-05): Added Prisma 6 + PostgreSQL datasource setup, migration scripts, `.env.example`, and `lib/prisma.ts` singleton client helper. Verified `prisma generate` and migration commands against Prisma local Postgres (`prisma dev`). Files touched: `.gitignore`, `.env.example`, `package.json`, `package-lock.json`, `prisma/schema.prisma`, `lib/prisma.ts`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
-- [ ] Create migrations for core tausers/workspaces/inboxes/campaigns/icp)
+- [x] Create migrations for core tables (users/workspaces/inboxes/campaigns/icp)
   - Acceptance: schema matches ARCHITECTURE.md
   - Tests: integration
+  - Note (2026-02-06): Added core Prisma models/enums and created migration `prisma/migrations/20260206025124_create_core_tables/migration.sql` for `users`, `workspaces`, `inbox_connections`, `campaigns`, and `icp_profiles` with required keys/indexes/relations. Verified with `prisma migrate dev` + `prisma migrate status`. Files touched: `prisma/schema.prisma`, `prisma/migrations/20260206025124_create_core_tables/migration.sql`, `docs/IMPLEMENTATION_CHECKLIST.md`, `docs/SOFTWARE_DOCUMENTATION.md`.
 - [ ] Create migrations for leads/campaign_leads/suppressions
   - Acceptance: dedupe constraints present
   - Tests: integration

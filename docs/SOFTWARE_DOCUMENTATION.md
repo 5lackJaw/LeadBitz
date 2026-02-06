@@ -24,6 +24,13 @@ Deliverability-first cold outreach operations app:
 - Acceptance mapping:
   - Phase 1 checklist tasks match the product and architecture docs without adding requirements.
 
+### Phase 1 progress (2026-02-06)
+- Created and applied migration `20260206025124_create_core_tables` for core entities:
+  - `users`, `workspaces`, `inbox_connections`, `campaigns`, `icp_profiles`
+- Added enum types for core workflow state:
+  - `inbox_provider`, `inbox_connection_status`, `campaign_status`, `icp_source_type`
+- Migration includes foreign keys, uniqueness constraints, and indexes aligned to workspace-scoped access and campaign/ICP relationships.
+
 ## Local setup
 1. Install dependencies: `npm ci`
 2. Set env vars (names below). For local development you can copy `.env.example` to `.env` and adjust values.
@@ -74,6 +81,7 @@ Deliverability-first cold outreach operations app:
 - suppressions
 - lead_sources, lead_field_provenance
 - audit_events
+- Migration status: core tables created in `prisma/migrations/20260206025124_create_core_tables/migration.sql`
 
 ## Integrations + webhooks
 - Google OAuth + Gmail API
@@ -151,6 +159,7 @@ Deliverability-first cold outreach operations app:
 - 2026-02-06: Updated `DEPLOYMENT_ENVIRONMENTS.md` with B1 section for finding and classifying database URLs.
 - 2026-02-06: Added `.env*.local` to `.gitignore` for Vercel-pulled secrets.
 - 2026-02-06: Merged `feature/vercel-deploy-fixes` into `main`; production deploy verified `Ready`; production branch verified as `main`.
+- 2026-02-06: Added core Phase 1 table migration for users/workspaces/inbox_connections/campaigns/icp_profiles and related enums.
 
 ## Known issues / limitations
 - (empty)
