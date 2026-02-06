@@ -26,37 +26,31 @@ Non-negotiable UI principles:
 **All UI must map to these token names** (no parallel “primary-*” systems). Values below are canonical.
 
 ```css
-/* Backgrounds & Surfaces */
---color-bg-primary: #0B0F14;          /* app/page base */
---color-bg-surface: #111827;          /* default containers */
---color-bg-elevated: #151F2B;         /* overlays, modals, popovers */
+:root {
+  --color-bg-primary: #0b0e0d;
+  --color-bg-surface: #111516;
+  --color-bg-elevated: #121516;
 
-/* Text */
---color-text-primary: rgba(255,255,255,0.92);
---color-text-secondary: rgba(255,255,255,0.72);
---color-text-muted: #9CA3AF;
---color-text-inverse: #0B0F14;
+  --color-text-primary: rgba(255, 255, 255, 0.92);
+  --color-text-secondary: rgba(255, 255, 255, 0.74);
+  --color-text-muted: #9e9f9f;
+  --color-text-inverse: #0c0d0a;
 
-/* Borders */
---color-border-subtle: rgba(255,255,255,0.08);
---color-border-strong: rgba(255,255,255,0.14);
+  --color-border-subtle: rgba(255, 255, 255, 0.08);
+  --color-border-strong: rgba(255, 255, 255, 0.14);
 
-/* Brand Accent (actions only) */
---color-accent-primary: #df6d10;
---color-accent-hover: #963f05;
---color-accent-soft: rgba(185, 98, 16, 0.16);
+  --color-accent-primary: #657232;
+  --color-accent-hover: #7e865f;
+  --color-accent-soft: rgba(98, 193, 165, 0.16);
 
-/* Semantics (strictly semantic) */
---color-success: #22C55E;
---color-warning: #F59E0B;
---color-danger: #EF4444;
---color-info: #38BDF8;
+  --color-success: #62c19e;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+  --color-info: #92b46a;
 
-/* Focus */
---color-focus-ring: rgba(56,189,248,0.55);
-
-/* Overlay */
---color-overlay-backdrop: rgba(0,0,0,0.60);
+  --color-focus-ring: rgba(89, 102, 58, 0.55);
+  --color-overlay-backdrop: rgba(0, 0, 0, 0.6);
+}
 ```
 
 **Hard rules**
@@ -443,3 +437,36 @@ Focus ring:
 - Touch targets: ≥ 44x44 on mobile/tablet; ≥ 32px in dense tables on desktop only.
 - Errors include text + icon + association; never color-only.
 - Status includes label text; never color-only.
+
+## Color tokens (canonical)
+All UI work must use the canonical color tokens below. This palette must remain in sync with `app/globals.css`.
+
+```css
+:root {
+  --color-bg-primary: #0b0e0d;
+  --color-bg-surface: #111516;
+  --color-bg-elevated: #121516;
+
+  --color-text-primary: rgba(255, 255, 255, 0.92);
+  --color-text-secondary: rgba(255, 255, 255, 0.74);
+  --color-text-muted: #9e9f9f;
+  --color-text-inverse: #0c0d0a;
+
+  --color-border-subtle: rgba(255, 255, 255, 0.08);
+  --color-border-strong: rgba(255, 255, 255, 0.14);
+
+  --color-accent-primary: #657232;
+  --color-accent-hover: #7e865f;
+  --color-accent-soft: rgba(98, 193, 165, 0.16);
+
+  --color-success: #62c19e;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+  --color-info: #92b46a;
+
+  --color-focus-ring: rgba(89, 102, 58, 0.55);
+  --color-overlay-backdrop: rgba(0, 0, 0, 0.6);
+}
+```
+
+> If any other section in this document defines different color values for the same tokens, it must be updated to match the block above.

@@ -1,27 +1,30 @@
+/* Canonical palette: keep :root color tokens in sync with docs/UI_SPEC.md and
+   docs/CANONICAL_VISUAL_BRAND_SPECIFICATION.md. */
 :root {
-  --color-bg-primary: #0b0f14;
-  --color-bg-surface: #111827;
-  --color-bg-elevated: #151f2b;
+  --color-bg-primary: #0b0e0d;
+  --color-bg-surface: #111516;
+  --color-bg-elevated: #121516;
 
   --color-text-primary: rgba(255, 255, 255, 0.92);
-  --color-text-secondary: rgba(255, 255, 255, 0.72);
-  --color-text-muted: #9ca3af;
-  --color-text-inverse: #0b0f14;
+  --color-text-secondary: rgba(255, 255, 255, 0.74);
+  --color-text-muted: #9e9f9f;
+  --color-text-inverse: #0c0d0a;
 
   --color-border-subtle: rgba(255, 255, 255, 0.08);
   --color-border-strong: rgba(255, 255, 255, 0.14);
 
-  --color-accent-primary: #df6d10;
-  --color-accent-hover: #963f05;
-  --color-accent-soft: rgba(185, 98, 16, 0.16);
+  --color-accent-primary: #657232;
+  --color-accent-hover: #7e865f;
+  --color-accent-soft: rgba(98, 193, 165, 0.16);
 
-  --color-success: #22c55e;
+  --color-success: #62c19e;
   --color-warning: #f59e0b;
   --color-danger: #ef4444;
-  --color-info: #38bdf8;
+  --color-info: #92b46a;
 
-  --color-focus-ring: rgba(56, 189, 248, 0.55);
+  --color-focus-ring: rgba(89, 102, 58, 0.55);
   --color-overlay-backdrop: rgba(0, 0, 0, 0.6);
+
 
   --ui-bg-app: var(--color-bg-primary);
   --ui-bg-surface: var(--color-bg-surface);

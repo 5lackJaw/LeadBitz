@@ -128,9 +128,10 @@
   - Acceptance: create/list/rename works
   - Tests: integration+e2e
   - Note (2026-02-06): Added workspace-scoped campaign CRUD service + API routes (`GET/POST /api/campaigns`, `PATCH /api/campaigns/:campaignId`) and implemented `/app/campaigns` list UI with create + inline rename controls using the CVBS/UI spec token system. Added integration coverage in `tests/integration/campaign-crud.test.ts`. Files touched: `lib/campaigns/campaign-crud.ts`, `app/api/campaigns/route.ts`, `app/api/campaigns/[campaignId]/route.ts`, `app/app/campaigns/page.tsx`, `app/app/campaigns/campaigns-client.tsx`, `app/globals.css`, `app/login/page.tsx`, `app/app/page.tsx`, `app/app/settings/inboxes/*`, `tests/integration/campaign-crud.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
-- [ ] Wizard Step 1 inputs + validation
+- [x] Wizard Step 1 inputs + validation
   - Acceptance: URL xor text enforced
   - Tests: e2e
+  - Note (2026-02-06): Added `/app/campaigns/new` Step 1 form and `POST /api/campaigns/wizard/step1` validation endpoint enforcing `websiteUrl` xor `productDescription` with URL format checks (`http/https` only). Added unit validation coverage in `tests/unit/wizard-step1-validation.test.ts` and wired campaigns list CTA to wizard route. Files touched: `app/app/campaigns/new/page.tsx`, `app/app/campaigns/new/wizard-step1-form.tsx`, `app/api/campaigns/wizard/step1/route.ts`, `lib/campaigns/wizard-step1.ts`, `app/app/campaigns/campaigns-client.tsx`, `tests/unit/wizard-step1-validation.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 - [ ] ICP generate endpoint (AI mocked in tests)
   - Acceptance: saves icp_profile row
   - Tests: integration

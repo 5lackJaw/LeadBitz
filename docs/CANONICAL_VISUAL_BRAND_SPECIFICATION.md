@@ -72,19 +72,19 @@ Primary drivers:
 All tokens below are **authoritative**. Hex values are canonical.
 
 #### Background & surfaces (layering)
-- `--color-bg-primary: #0B0F14;`
+- `--color-bg-primary: #0b0e0d;`
   - Purpose: app/page base background.
   - Usage: full-bleed backgrounds; behind all surfaces.
   - Accessibility: must keep sufficient contrast with surface boundaries.
   - Forbidden: do not place body text directly on this without a surface unless contrast is verified.
 
-- `--color-bg-surface: #111827;`
+- `--color-bg-surface: #111516;`
   - Purpose: default content surface (cards, panels).
   - Usage: primary containers; tables; form panels.
   - Accessibility: body text on this surface must meet WCAG AA contrast.
   - Forbidden: do not use as global page background.
 
-- `--color-bg-elevated: #151F2B;`
+- `--color-bg-elevated: #121516;`
   - Purpose: elevated surfaces (modals, popovers, sticky nav).
   - Usage: overlays and “active focus” containers.
   - Accessibility: must be visually distinguishable from `--color-bg-surface` by at least one of: border, shadow, or delta in luminance.
@@ -108,64 +108,70 @@ All tokens below are **authoritative**. Hex values are canonical.
   - Usage: headings, body, primary labels.
   - Forbidden: do not use at 100% white; avoid glare.
 
-- `--color-text-secondary: rgba(255,255,255,0.72);`
+- `--color-text-secondary: rgba(255,255,255,0.74);`
   - Purpose: secondary text.
   - Usage: descriptions, helper text, timestamps.
   - Forbidden: do not use for critical instructions or error messages.
 
-- `--color-text-muted: #9CA3AF;`
+- `--color-text-muted: #9e9f9f;`
   - Purpose: muted/tertiary text, placeholder text.
   - Usage: placeholders, subtle metadata, disabled labels.
   - Accessibility: must not be used for required field labels or core instructions.
 
-- `--color-text-inverse: #0B0F14;`
+- `--color-text-inverse: #0c0d0a;`
   - Purpose: text on light/bright semantic fills (e.g., success badge).
   - Usage: used sparingly for contrast on bright fills.
   - Forbidden: do not use on dark surfaces.
 
 #### Brand accents (action + trust)
-- `--color-accent-primary: #df6d10;`
+- `--color-accent-primary: #657232;`
   - Purpose: primary action / trust signal.
   - Usage: primary buttons, active nav indicator, key toggles, progress confirmations.
   - Accessibility: text on accent fill must pass WCAG AA; default is `--color-text-inverse`.
   - Forbidden: do not use for success state *unless the UI element is also an action* (success uses semantic token).
 
-- `--color-accent-hover: #963f05;`
+- `--color-accent-hover: #7e865f;`
   - Purpose: hover/active accent variant.
   - Usage: hover state for primary buttons, active item hover.
   - Forbidden: do not use as standalone accent (must be tied to interaction state).
 
-- `--color-accent-soft: rgba(185, 98, 16, 0.16);`
+- `--color-accent-soft: rgba(98, 193, 165, 0.16);`
   - Purpose: low-intensity accent background.
   - Usage: selected rows, subtle highlights, active pill backgrounds.
   - Forbidden: do not use behind long text blocks; use for short labels/selection only.
 
 #### Semantic states (must be strictly semantic)
-- `--color-success: #22C55E;`
+- `--color-success: #62c19e;`
   - Purpose: successful completion state.
   - Usage: success badges, “sent”, “connected”, “passed checks”.
   - Forbidden: never use for primary CTAs.
 
-- `--color-warning: #F59E0B;`
+- `--color-warning: #f59e0b;`
   - Purpose: warning/risk state.
   - Usage: deliverability warnings, “needs attention”.
   - Forbidden: never use for decorative highlights.
 
-- `--color-danger: #EF4444;`
+- `--color-danger: #ef4444;`
   - Purpose: error/blocking state.
   - Usage: failures, bounces/complaints, destructive actions.
   - Forbidden: never use in neutral contexts; never use for emphasis text.
 
-- `--color-info: #38BDF8;`
+- `--color-info: #92b46a;`
   - Purpose: informational guidance state.
   - Usage: tips, neutral notices, “learn more”, non-blocking system notes.
   - Forbidden: do not use as secondary accent; reserve for info-only.
 
 #### Focus & interaction outlines
-- `--color-focus-ring: rgba(56,189,248,0.55);`
+- `--color-focus-ring: rgba(89, 102, 58, 0.55);`
   - Purpose: accessible focus ring.
   - Usage: keyboard focus outlines for all interactive components.
   - Forbidden: do not replace with subtle border-only focus.
+
+#### Overlay
+- `--color-overlay-backdrop: rgba(0, 0, 0, 0.6);`
+  - Purpose: dim the app behind modals / dialogs.
+  - Usage: modal backdrops only.
+  - Forbidden: do not use as a surface fill.
 
 #### Data visualization palette (restricted; for charts only)
 Rules:
@@ -557,6 +563,41 @@ Process:
   - where it is allowed
   - where it is forbidden
   - what it replaces (if anything)
+
+---
+
+## Canonical color palette (source of truth)
+The following CSS custom properties are the canonical brand/UI palette. These values must match `app/globals.css` exactly.
+
+```css
+:root {
+  --color-bg-primary: #0b0e0d;
+  --color-bg-surface: #111516;
+  --color-bg-elevated: #121516;
+
+  --color-text-primary: rgba(255, 255, 255, 0.92);
+  --color-text-secondary: rgba(255, 255, 255, 0.74);
+  --color-text-muted: #9e9f9f;
+  --color-text-inverse: #0c0d0a;
+
+  --color-border-subtle: rgba(255, 255, 255, 0.08);
+  --color-border-strong: rgba(255, 255, 255, 0.14);
+
+  --color-accent-primary: #657232;
+  --color-accent-hover: #7e865f;
+  --color-accent-soft: rgba(98, 193, 165, 0.16);
+
+  --color-success: #62c19e;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+  --color-info: #92b46a;
+
+  --color-focus-ring: rgba(89, 102, 58, 0.55);
+  --color-overlay-backdrop: rgba(0, 0, 0, 0.6);
+}
+```
+
+<!-- If this document contains older palette tables/swatches for these tokens, replace them with the values above. -->
 
 ---
 
