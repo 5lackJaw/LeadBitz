@@ -1,0 +1,51 @@
+import Link from "next/link";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+
+import { authOptions } from "@/auth";
+import { getPrimaryWorkspaceForUserEmail } from "@/lib/auth/get-primary-workspace";
+import { listCampaignsForWorkspace } from "@/lib/campaigns/campaign-crud";
+
+import { CampaignsClient } from "./campaigns-client";
+
+export default async function CampaignsPage() {
+  const session = await getServerSession(authOptions);
+
+  if (!session?.user?.email) {
+    redirect("/login");
+  }
+
+  const workspace = await getPrimaryWorkspaceForUserEmail(session.user.email);
+  const campaigns = await listCampaignsForWorkspace(workspace.workspaceId);
+
+  return (
+    <main className="lb-page">
+      <section className="lb-container">
+        <header className="lb-row">
+          <div>
+            <p className="lb-subtitle">Workspace</p>
+            <p>{workspace.workspaceName}</p>
+          </div>
+          <div className="lb-row" style={{ justifyContent: "flex-end", gap: "12px" }}>
+            <Link className="lb-link" href="/app">
+              App home
+            </Link>
+            <Link className="lb-link" href="/app/settings/inboxes">
+              Inbox settings
+            </Link>
+          </div>
+        </header>
+
+        <CampaignsClient
+          initialCampaigns={campaigns.map((campaign) => ({
+            id: campaign.id,
+            name: campaign.name,
+            status: campaign.status,
+            createdAt: campaign.createdAt.toISOString(),
+            updatedAt: campaign.updatedAt.toISOString(),
+          }))}
+        />
+      </section>
+    </main>
+  );
+}

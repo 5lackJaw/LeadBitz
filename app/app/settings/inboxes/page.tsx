@@ -53,44 +53,64 @@ export default async function InboxesSettingsPage({ searchParams }: InboxesPageP
   });
 
   return (
-    <main style={{ padding: "2rem", fontFamily: "sans-serif" }}>
-      <h1>Inbox Settings</h1>
-      <p>Workspace: {workspace.workspaceName}</p>
+    <main className="lb-page">
+      <section className="lb-container">
+        <header className="lb-row">
+          <div>
+            <h1 className="lb-title">Inbox Settings</h1>
+            <p className="lb-subtitle">Workspace: {workspace.workspaceName}</p>
+          </div>
+          <div className="lb-row" style={{ justifyContent: "flex-end", gap: "12px" }}>
+            <Link href="/app" className="lb-link">
+              App home
+            </Link>
+            <Link href="/app/campaigns" className="lb-link">
+              Campaigns
+            </Link>
+          </div>
+        </header>
 
-      {connected === "gmail" ? (
-        <p style={{ color: "#166534" }}>Google inbox connected successfully.</p>
-      ) : null}
+        {connected === "gmail" ? (
+          <p className="lb-alert lb-alert-success" role="status">
+            Google inbox connected successfully.
+          </p>
+        ) : null}
 
-      {error ? (
-        <p style={{ color: "#b91c1c" }}>Google connection failed: {error}</p>
-      ) : null}
+        {error ? (
+          <p className="lb-alert lb-alert-danger" role="alert">
+            Google connection failed: {error}
+          </p>
+        ) : null}
 
-      <section style={{ marginTop: "1.5rem" }}>
-        <h2>Google Inbox</h2>
-        {gmailConnection ? (
-          <>
-            <p>
-              Status: Connected as <strong>{gmailConnection.email}</strong>
+        <section className="lb-panel">
+          <h2 className="lb-title" style={{ fontSize: "20px", lineHeight: "28px" }}>
+            Google Inbox
+          </h2>
+          {gmailConnection ? (
+            <>
+              <p style={{ marginTop: "8px" }}>
+                Status: Connected as <strong>{gmailConnection.email}</strong>
+              </p>
+              <InboxSettingsForm
+                inboxConnectionId={gmailConnection.id}
+                dailySendCap={gmailConnection.dailySendCap}
+                sendWindowStartHour={gmailConnection.sendWindowStartHour}
+                sendWindowEndHour={gmailConnection.sendWindowEndHour}
+                rampUpPerDay={gmailConnection.rampUpPerDay}
+              />
+            </>
+          ) : (
+            <p className="lb-subtitle" style={{ marginTop: "12px" }}>
+              Status: Not connected
             </p>
-            <InboxSettingsForm
-              inboxConnectionId={gmailConnection.id}
-              dailySendCap={gmailConnection.dailySendCap}
-              sendWindowStartHour={gmailConnection.sendWindowStartHour}
-              sendWindowEndHour={gmailConnection.sendWindowEndHour}
-              rampUpPerDay={gmailConnection.rampUpPerDay}
-            />
-          </>
-        ) : (
-          <p>Status: Not connected</p>
-        )}
-        <form action="/api/inboxes/google/connect" method="get">
-          <button type="submit">Connect Google Inbox</button>
-        </form>
+          )}
+          <form action="/api/inboxes/google/connect" method="get" style={{ marginTop: "16px" }}>
+            <button className="lb-button lb-button-secondary" type="submit">
+              Connect Google Inbox
+            </button>
+          </form>
+        </section>
       </section>
-
-      <p style={{ marginTop: "1.5rem" }}>
-        <Link href="/app">Back to app</Link>
-      </p>
     </main>
   );
 }

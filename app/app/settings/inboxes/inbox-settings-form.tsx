@@ -54,10 +54,11 @@ export function InboxSettingsForm(props: InboxSettingsFormProps) {
   }
 
   return (
-    <form onSubmit={onSubmit} style={{ display: "grid", gap: "0.75rem", marginTop: "1rem" }}>
-      <label>
-        Daily send cap
+    <form onSubmit={onSubmit} className="lb-form-grid" style={{ marginTop: "16px" }}>
+      <label className="lb-field">
+        <span className="lb-label">Daily send cap</span>
         <input
+          className="lb-input"
           name="dailySendCap"
           type="number"
           min={1}
@@ -67,9 +68,10 @@ export function InboxSettingsForm(props: InboxSettingsFormProps) {
         />
       </label>
 
-      <label>
-        Send window start hour (0-23)
+      <label className="lb-field">
+        <span className="lb-label">Send window start hour (0-23)</span>
         <input
+          className="lb-input"
           name="sendWindowStartHour"
           type="number"
           min={0}
@@ -79,9 +81,10 @@ export function InboxSettingsForm(props: InboxSettingsFormProps) {
         />
       </label>
 
-      <label>
-        Send window end hour (1-24)
+      <label className="lb-field">
+        <span className="lb-label">Send window end hour (1-24)</span>
         <input
+          className="lb-input"
           name="sendWindowEndHour"
           type="number"
           min={1}
@@ -91,9 +94,10 @@ export function InboxSettingsForm(props: InboxSettingsFormProps) {
         />
       </label>
 
-      <label>
-        Ramp-up per day
+      <label className="lb-field">
+        <span className="lb-label">Ramp-up per day</span>
         <input
+          className="lb-input"
           name="rampUpPerDay"
           type="number"
           min={1}
@@ -103,12 +107,20 @@ export function InboxSettingsForm(props: InboxSettingsFormProps) {
         />
       </label>
 
-      <button type="submit" disabled={isSaving}>
+      <button className="lb-button lb-button-primary" type="submit" disabled={isSaving}>
         {isSaving ? "Saving..." : "Save inbox settings"}
       </button>
 
-      {statusMessage ? <p style={{ color: "#166534" }}>{statusMessage}</p> : null}
-      {errorMessage ? <p style={{ color: "#b91c1c" }}>{errorMessage}</p> : null}
+      {statusMessage ? (
+        <p className="lb-alert lb-alert-success" role="status">
+          {statusMessage}
+        </p>
+      ) : null}
+      {errorMessage ? (
+        <p className="lb-alert lb-alert-danger" role="alert">
+          {errorMessage}
+        </p>
+      ) : null}
     </form>
   );
 }
