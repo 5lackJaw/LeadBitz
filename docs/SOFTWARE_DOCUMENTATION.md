@@ -267,6 +267,19 @@ Deliverability-first cold outreach operations app:
 - Testing:
   - Added integration coverage in `tests/integration/icp-generate.test.ts` using a mocked AI generator function to verify profile persistence and campaign-link behavior.
 
+### Phase 4 progress: ICP editor UI (2026-02-06)
+- Added Step 2 ICP editor UI to `/app/campaigns/new`:
+  - Step 1 now generates draft ICP via `POST /api/icp/generate`.
+  - Step 2 renders editable ICP fields and profile name after generation.
+  - Save action persists edits through `PATCH /api/icp/profiles/:icpProfileId`.
+- Added persistence service:
+  - `lib/icp/update-icp-profile.ts` with validation for editable ICP structure and workspace ownership checks.
+- Added API endpoint:
+  - `PATCH /api/icp/profiles/:icpProfileId`
+  - Enforces authenticated workspace scope and returns persisted profile payload.
+- Testing:
+  - Added integration test `tests/integration/icp-editor.test.ts` to verify edit persistence and cross-workspace update blocking.
+
 ### Phase 0b workflow hardening follow-up (2026-02-06)
 - Added baseline developer workflow automation focused on consistency and speed:
   - `AGENTS.md` path/writing clarifications to reduce instruction ambiguity.
@@ -324,6 +337,7 @@ Deliverability-first cold outreach operations app:
 - `/api/campaigns/:campaignId` (campaign rename)
 - `/api/campaigns/wizard/step1` (Step 1 URL xor text validation)
 - `/api/icp/generate` (persist generated ICP profile for wizard Step 2)
+- `/api/icp/profiles/:icpProfileId` (persist ICP editor changes)
 - `/api/inboxes/google/connect` (Google OAuth start)
 - `/api/inboxes/google/callback` (Google OAuth callback)
 - `/api/inboxes/:inboxConnectionId/settings` (inbox cap/window/ramp update)
@@ -360,7 +374,7 @@ Deliverability-first cold outreach operations app:
   - `npm run test:unit` (token encryption + wizard Step 1 validation)
 - Integration:
   - `npm run db:migrate:status` (with a reachable Postgres `DATABASE_URL`)
-  - `npm run test:integration` (validates workspace auto-provision + workspace authorization helper + mocked Google connect + token refresh + inbox settings persistence + campaign create/list/rename + ICP generation persistence behavior)
+  - `npm run test:integration` (validates workspace auto-provision + workspace authorization helper + mocked Google connect + token refresh + inbox settings persistence + campaign create/list/rename + ICP generation + ICP editor persistence behavior)
 - E2E (Playwright):
 
 ## Deployment notes
@@ -445,6 +459,7 @@ Deliverability-first cold outreach operations app:
   - max 120 characters
 - Wizard Step 1 source input requires `websiteUrl` xor `productDescription`; empty or both-provided payloads are rejected by API validation.
 - `POST /api/icp/generate` currently uses an injectable draft generator abstraction; tests must mock the generator and verify DB persistence, while full OpenAI-backed generation remains a later implementation step.
+- ICP editor persistence requires non-empty list values per editable ICP field; empty lists are rejected by `PATCH /api/icp/profiles/:icpProfileId`.
 - Inbox settings API validation bounds:
   - `dailySendCap`: `1..500`
   - `sendWindowStartHour`: `0..23`
@@ -487,6 +502,7 @@ Deliverability-first cold outreach operations app:
 - 2026-02-06: Implemented campaign CRUD foundation (`/api/campaigns`, `/api/campaigns/:campaignId`) and `/app/campaigns` list UI with create/rename flows.
 - 2026-02-06: Implemented wizard Step 1 input route (`/app/campaigns/new`) and API validation endpoint (`/api/campaigns/wizard/step1`) enforcing website URL xor product description.
 - 2026-02-06: Implemented `POST /api/icp/generate` with workspace-scoped `icp_profiles` persistence and integration coverage using mocked AI generation.
+- 2026-02-06: Added Step 2 ICP editor UI on `/app/campaigns/new` and persisted editing API `PATCH /api/icp/profiles/:icpProfileId` with integration coverage.
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).

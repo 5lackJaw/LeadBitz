@@ -4,18 +4,63 @@ import { FormEvent, useMemo, useState } from "react";
 
 import { validateWizardStep1Input, WizardStep1ValidationError } from "@/lib/campaigns/wizard-step1";
 
-type WizardValidationResponse = {
+type IcpDraftPayload = {
+  targetIndustries: string[];
+  companySizeBands: string[];
+  buyerRoles: string[];
+  pains: string[];
+  exclusions: string[];
+  valuePropAngles: string[];
+  sourceSummary: string;
+};
+
+type IcpGenerationResponse = {
+  icpProfileId?: string;
+  profileName?: string;
+  icp?: IcpDraftPayload;
   sourceType?: "WEBSITE_URL" | "PRODUCT_DESCRIPTION";
-  websiteUrl?: string | null;
-  productDescription?: string | null;
-  nextStep?: string;
+  sourceValue?: string;
+  campaignId?: string | null;
   error?: string;
 };
+
+type IcpUpdateResponse = {
+  icpProfileId?: string;
+  profileName?: string;
+  icp?: IcpDraftPayload;
+  updatedAt?: string;
+  error?: string;
+};
+
+type IcpEditorState = {
+  targetIndustries: string;
+  companySizeBands: string;
+  buyerRoles: string;
+  pains: string;
+  exclusions: string;
+  valuePropAngles: string;
+  sourceSummary: string;
+};
+
+function listToTextarea(values: string[]): string {
+  return values.join("\n");
+}
+
+function textareaToList(value: string): string[] {
+  return value
+    .split(/\r?\n/)
+    .map((item) => item.trim())
+    .filter((item) => item.length > 0);
+}
 
 export function WizardStep1Form() {
   const [websiteUrl, setWebsiteUrl] = useState("");
   const [productDescription, setProductDescription] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [profileName, setProfileName] = useState("");
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [isSavingIcp, setIsSavingIcp] = useState(false);
+  const [generatedIcpProfileId, setGeneratedIcpProfileId] = useState<string | null>(null);
+  const [icpEditorState, setIcpEditorState] = useState<IcpEditorState | null>(null);
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -34,16 +79,16 @@ export function WizardStep1Form() {
     return "None selected";
   }, [productDescription, websiteUrl]);
 
-  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+  async function onGenerateIcp(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setErrorMessage(null);
     setStatusMessage(null);
-    setIsSubmitting(true);
+    setIsGenerating(true);
 
     try {
       validateWizardStep1Input({ websiteUrl, productDescription });
 
-      const response = await fetch("/api/campaigns/wizard/step1", {
+      const response = await fetch("/api/icp/generate", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -51,26 +96,100 @@ export function WizardStep1Form() {
         body: JSON.stringify({
           websiteUrl,
           productDescription,
+          profileName,
         }),
       });
 
-      const data = (await response.json()) as WizardValidationResponse;
+      const data = (await response.json()) as IcpGenerationResponse;
 
-      if (!response.ok) {
-        throw new Error(data.error ?? "Step 1 validation failed.");
+      if (!response.ok || !data.icp || !data.icpProfileId) {
+        throw new Error(data.error ?? "ICP generation failed.");
       }
 
+      const resolvedProfileName = data.profileName ?? profileName.trim();
+      setGeneratedIcpProfileId(data.icpProfileId);
+      setProfileName(resolvedProfileName);
+      setIcpEditorState({
+        targetIndustries: listToTextarea(data.icp.targetIndustries),
+        companySizeBands: listToTextarea(data.icp.companySizeBands),
+        buyerRoles: listToTextarea(data.icp.buyerRoles),
+        pains: listToTextarea(data.icp.pains),
+        exclusions: listToTextarea(data.icp.exclusions),
+        valuePropAngles: listToTextarea(data.icp.valuePropAngles),
+        sourceSummary: data.icp.sourceSummary,
+      });
+
       setStatusMessage(
-        `Step 1 validated using ${data.sourceType === "WEBSITE_URL" ? "website URL" : "product description"}. Step 2 (ICP generation) is next.`,
+        `Step 1 validated using ${data.sourceType === "WEBSITE_URL" ? "website URL" : "product description"}. Step 2 ICP draft is ready to edit.`,
       );
     } catch (error) {
       if (error instanceof WizardStep1ValidationError) {
         setErrorMessage(error.message);
       } else {
-        setErrorMessage(error instanceof Error ? error.message : "Step 1 validation failed.");
+        setErrorMessage(error instanceof Error ? error.message : "ICP generation failed.");
       }
     } finally {
-      setIsSubmitting(false);
+      setIsGenerating(false);
+    }
+  }
+
+  async function onSaveIcpEdits(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setErrorMessage(null);
+    setStatusMessage(null);
+
+    if (!generatedIcpProfileId || !icpEditorState) {
+      setErrorMessage("Generate an ICP draft before saving edits.");
+      return;
+    }
+
+    setIsSavingIcp(true);
+
+    try {
+      const response = await fetch(`/api/icp/profiles/${generatedIcpProfileId}`, {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          profileName,
+          icp: {
+            targetIndustries: textareaToList(icpEditorState.targetIndustries),
+            companySizeBands: textareaToList(icpEditorState.companySizeBands),
+            buyerRoles: textareaToList(icpEditorState.buyerRoles),
+            pains: textareaToList(icpEditorState.pains),
+            exclusions: textareaToList(icpEditorState.exclusions),
+            valuePropAngles: textareaToList(icpEditorState.valuePropAngles),
+            sourceSummary: icpEditorState.sourceSummary.trim(),
+          },
+        }),
+      });
+
+      const data = (await response.json()) as IcpUpdateResponse;
+
+      if (!response.ok || !data.icp) {
+        throw new Error(data.error ?? "Failed to persist ICP edits.");
+      }
+
+      setIcpEditorState({
+        targetIndustries: listToTextarea(data.icp.targetIndustries),
+        companySizeBands: listToTextarea(data.icp.companySizeBands),
+        buyerRoles: listToTextarea(data.icp.buyerRoles),
+        pains: listToTextarea(data.icp.pains),
+        exclusions: listToTextarea(data.icp.exclusions),
+        valuePropAngles: listToTextarea(data.icp.valuePropAngles),
+        sourceSummary: data.icp.sourceSummary,
+      });
+
+      if (data.profileName) {
+        setProfileName(data.profileName);
+      }
+
+      setStatusMessage("ICP edits saved.");
+    } catch (error) {
+      setErrorMessage(error instanceof Error ? error.message : "Failed to persist ICP edits.");
+    } finally {
+      setIsSavingIcp(false);
     }
   }
 
@@ -86,7 +205,7 @@ export function WizardStep1Form() {
         <p className="lb-subtitle">Current mode: {activeInputMode}</p>
       </div>
 
-      <form onSubmit={onSubmit} className="lb-form-grid" style={{ marginTop: "16px" }} noValidate>
+      <form onSubmit={onGenerateIcp} className="lb-form-grid" style={{ marginTop: "16px" }} noValidate>
         <label className="lb-field">
           <span className="lb-label">Website URL</span>
           <input
@@ -96,7 +215,7 @@ export function WizardStep1Form() {
             placeholder="https://www.example.com"
             value={websiteUrl}
             onChange={(event) => setWebsiteUrl(event.target.value)}
-            disabled={!websiteEnabled || isSubmitting}
+            disabled={!websiteEnabled || isGenerating || isSavingIcp}
             aria-describedby="wizard-step1-url-help"
           />
           <span id="wizard-step1-url-help" className="lb-subtitle">
@@ -112,7 +231,7 @@ export function WizardStep1Form() {
             placeholder="Paste a concise product description..."
             value={productDescription}
             onChange={(event) => setProductDescription(event.target.value)}
-            disabled={!productDescriptionEnabled || isSubmitting}
+            disabled={!productDescriptionEnabled || isGenerating || isSavingIcp}
             aria-describedby="wizard-step1-description-help"
           />
           <span id="wizard-step1-description-help" className="lb-subtitle">
@@ -120,10 +239,148 @@ export function WizardStep1Form() {
           </span>
         </label>
 
-        <button className="lb-button lb-button-primary" type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Validating..." : "Continue to Step 2"}
+        <label className="lb-field">
+          <span className="lb-label">ICP profile name (optional)</span>
+          <input
+            className="lb-input"
+            type="text"
+            value={profileName}
+            onChange={(event) => setProfileName(event.target.value)}
+            placeholder="Website ICP Draft"
+            maxLength={120}
+            disabled={isGenerating || isSavingIcp}
+          />
+        </label>
+
+        <button className="lb-button lb-button-primary" type="submit" disabled={isGenerating || isSavingIcp}>
+          {isGenerating ? "Generating..." : generatedIcpProfileId ? "Regenerate ICP draft" : "Generate ICP draft"}
         </button>
       </form>
+
+      {generatedIcpProfileId && icpEditorState ? (
+        <section className="lb-panel" style={{ marginTop: "24px", padding: "16px" }}>
+          <div style={{ display: "grid", gap: "8px", marginBottom: "12px" }}>
+            <h3 className="lb-title" style={{ fontSize: "18px", lineHeight: "28px" }}>
+              Step 2: ICP Editor
+            </h3>
+            <p className="lb-subtitle">
+              Edit generated ICP fields, then save to persist changes in your workspace.
+            </p>
+            <code style={{ fontFamily: "var(--font-ui-mono)", color: "var(--ui-fg-muted)" }}>
+              Profile id: {generatedIcpProfileId}
+            </code>
+          </div>
+
+          <form onSubmit={onSaveIcpEdits} className="lb-form-grid">
+            <label className="lb-field">
+              <span className="lb-label">Target industries (one per line)</span>
+              <textarea
+                className="lb-input"
+                style={{ minHeight: "120px", resize: "vertical" }}
+                value={icpEditorState.targetIndustries}
+                onChange={(event) =>
+                  setIcpEditorState((current) =>
+                    current ? { ...current, targetIndustries: event.target.value } : current,
+                  )
+                }
+                disabled={isSavingIcp || isGenerating}
+              />
+            </label>
+
+            <label className="lb-field">
+              <span className="lb-label">Company size bands (one per line)</span>
+              <textarea
+                className="lb-input"
+                style={{ minHeight: "100px", resize: "vertical" }}
+                value={icpEditorState.companySizeBands}
+                onChange={(event) =>
+                  setIcpEditorState((current) =>
+                    current ? { ...current, companySizeBands: event.target.value } : current,
+                  )
+                }
+                disabled={isSavingIcp || isGenerating}
+              />
+            </label>
+
+            <label className="lb-field">
+              <span className="lb-label">Buyer roles (one per line)</span>
+              <textarea
+                className="lb-input"
+                style={{ minHeight: "100px", resize: "vertical" }}
+                value={icpEditorState.buyerRoles}
+                onChange={(event) =>
+                  setIcpEditorState((current) =>
+                    current ? { ...current, buyerRoles: event.target.value } : current,
+                  )
+                }
+                disabled={isSavingIcp || isGenerating}
+              />
+            </label>
+
+            <label className="lb-field">
+              <span className="lb-label">Pains (one per line)</span>
+              <textarea
+                className="lb-input"
+                style={{ minHeight: "120px", resize: "vertical" }}
+                value={icpEditorState.pains}
+                onChange={(event) =>
+                  setIcpEditorState((current) => (current ? { ...current, pains: event.target.value } : current))
+                }
+                disabled={isSavingIcp || isGenerating}
+              />
+            </label>
+
+            <label className="lb-field">
+              <span className="lb-label">Exclusions (one per line)</span>
+              <textarea
+                className="lb-input"
+                style={{ minHeight: "100px", resize: "vertical" }}
+                value={icpEditorState.exclusions}
+                onChange={(event) =>
+                  setIcpEditorState((current) =>
+                    current ? { ...current, exclusions: event.target.value } : current,
+                  )
+                }
+                disabled={isSavingIcp || isGenerating}
+              />
+            </label>
+
+            <label className="lb-field">
+              <span className="lb-label">Value prop angles (one per line)</span>
+              <textarea
+                className="lb-input"
+                style={{ minHeight: "120px", resize: "vertical" }}
+                value={icpEditorState.valuePropAngles}
+                onChange={(event) =>
+                  setIcpEditorState((current) =>
+                    current ? { ...current, valuePropAngles: event.target.value } : current,
+                  )
+                }
+                disabled={isSavingIcp || isGenerating}
+              />
+            </label>
+
+            <label className="lb-field">
+              <span className="lb-label">Source summary</span>
+              <textarea
+                className="lb-input"
+                style={{ minHeight: "100px", resize: "vertical" }}
+                value={icpEditorState.sourceSummary}
+                onChange={(event) =>
+                  setIcpEditorState((current) =>
+                    current ? { ...current, sourceSummary: event.target.value } : current,
+                  )
+                }
+                disabled={isSavingIcp || isGenerating}
+              />
+            </label>
+
+            <button className="lb-button lb-button-primary" type="submit" disabled={isSavingIcp || isGenerating}>
+              {isSavingIcp ? "Saving..." : "Save ICP edits"}
+            </button>
+          </form>
+        </section>
+      ) : null}
 
       {statusMessage ? (
         <p className="lb-alert lb-alert-success" role="status" style={{ marginTop: "12px" }}>

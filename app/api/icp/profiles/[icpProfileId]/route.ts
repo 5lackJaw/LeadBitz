@@ -7,11 +7,16 @@ import {
   getPrimaryWorkspaceForUserEmail,
 } from "@/lib/auth/get-primary-workspace";
 import {
-  IcpGenerationNotFoundError,
-  IcpGenerationValidationError,
-  generateIcpProfileForWorkspace,
-} from "@/lib/icp/generate-icp-profile";
-import { validateWizardStep1Input, WizardStep1ValidationError } from "@/lib/campaigns/wizard-step1";
+  IcpProfileUpdateNotFoundError,
+  IcpProfileUpdateValidationError,
+  updateIcpProfileForWorkspace,
+} from "@/lib/icp/update-icp-profile";
+
+type RouteContext = {
+  params: Promise<{
+    icpProfileId: string;
+  }>;
+};
 
 async function resolveSessionWorkspace(userEmail: string) {
   try {
@@ -29,7 +34,7 @@ async function resolveSessionWorkspace(userEmail: string) {
   }
 }
 
-export async function POST(request: Request) {
+export async function PATCH(request: Request, context: RouteContext) {
   const session = await getServerSession(authOptions);
 
   if (!session?.user?.email) {
@@ -40,6 +45,8 @@ export async function POST(request: Request) {
   if (workspaceResult instanceof NextResponse) {
     return workspaceResult;
   }
+
+  const { icpProfileId } = await context.params;
 
   let parsedBody: unknown;
   try {
@@ -53,48 +60,33 @@ export async function POST(request: Request) {
   }
 
   const payload = parsedBody as Partial<{
-    websiteUrl: string;
-    productDescription: string;
-    campaignId: string;
     profileName: string;
+    icp: unknown;
   }>;
 
   try {
-    const validatedStep1Input = validateWizardStep1Input({
-      websiteUrl: payload.websiteUrl,
-      productDescription: payload.productDescription,
-    });
-
-    const sourceValue = validatedStep1Input.websiteUrl ?? validatedStep1Input.productDescription ?? "";
-
-    const generated = await generateIcpProfileForWorkspace({
+    const updated = await updateIcpProfileForWorkspace({
       workspaceId: workspaceResult.workspaceId,
-      sourceType: validatedStep1Input.sourceType,
-      sourceValue,
-      campaignId: payload.campaignId,
+      icpProfileId,
       profileName: payload.profileName,
+      icp: payload.icp,
     });
 
-    return NextResponse.json(
-      {
-        icpProfileId: generated.icpProfileId,
-        profileName: generated.profileName,
-        icp: generated.icp,
-        sourceType: validatedStep1Input.sourceType,
-        sourceValue,
-        campaignId: generated.campaignId,
-      },
-      { status: 201 },
-    );
+    return NextResponse.json({
+      icpProfileId: updated.id,
+      profileName: updated.name,
+      icp: updated.icp,
+      updatedAt: updated.updatedAt.toISOString(),
+    });
   } catch (error) {
-    if (error instanceof WizardStep1ValidationError || error instanceof IcpGenerationValidationError) {
+    if (error instanceof IcpProfileUpdateValidationError) {
       return NextResponse.json({ error: error.message }, { status: 400 });
     }
 
-    if (error instanceof IcpGenerationNotFoundError) {
+    if (error instanceof IcpProfileUpdateNotFoundError) {
       return NextResponse.json({ error: error.message }, { status: 404 });
     }
 
-    return NextResponse.json({ error: "Failed to generate ICP profile." }, { status: 500 });
+    return NextResponse.json({ error: "Failed to persist ICP edits." }, { status: 500 });
   }
 }

@@ -104,7 +104,7 @@ export async function generateIcpProfileForWorkspace(input: {
   campaignId?: string | null;
   profileName?: string | null;
   generateIcpDraft?: IcpDraftGenerator;
-}): Promise<{ icpProfileId: string; icp: IcpDraft; campaignId: string | null }> {
+}): Promise<{ icpProfileId: string; profileName: string; icp: IcpDraft; campaignId: string | null }> {
   const workspaceId = validateRequiredText(input.workspaceId, "Workspace id");
   const sourceValue = validateRequiredText(input.sourceValue, "Source value");
   const profileName = resolveProfileName(input.sourceType, input.profileName);
@@ -163,6 +163,7 @@ export async function generateIcpProfileForWorkspace(input: {
 
   return {
     icpProfileId: icp.id,
+    profileName,
     icp: icp.icp as IcpDraft,
     campaignId,
   };
