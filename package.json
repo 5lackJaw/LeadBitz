@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "verify": "npm run lint && npm run test:integration && npm run build",
-    "test:integration": "tsx --test tests/integration/ensure-user-workspace.test.ts tests/integration/workspace-authorization.test.ts",
+    "test:integration": "tsx --test tests/integration/ensure-user-workspace.test.ts tests/integration/workspace-authorization.test.ts tests/integration/google-connect-flow.test.ts",
     "postinstall": "prisma generate",
     "prisma:generate": "prisma generate",
     "db:migrate:dev": "prisma migrate dev",
