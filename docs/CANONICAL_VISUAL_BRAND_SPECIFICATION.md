@@ -124,18 +124,18 @@ All tokens below are **authoritative**. Hex values are canonical.
   - Forbidden: do not use on dark surfaces.
 
 #### Brand accents (action + trust)
-- `--color-accent-primary: #10B981;`
+- `--color-accent-primary: #df6d10;`
   - Purpose: primary action / trust signal.
   - Usage: primary buttons, active nav indicator, key toggles, progress confirmations.
   - Accessibility: text on accent fill must pass WCAG AA; default is `--color-text-inverse`.
   - Forbidden: do not use for success state *unless the UI element is also an action* (success uses semantic token).
 
-- `--color-accent-hover: #059669;`
+- `--color-accent-hover: #963f05;`
   - Purpose: hover/active accent variant.
   - Usage: hover state for primary buttons, active item hover.
   - Forbidden: do not use as standalone accent (must be tied to interaction state).
 
-- `--color-accent-soft: rgba(16,185,129,0.16);`
+- `--color-accent-soft: rgba(185, 98, 16, 0.16);`
   - Purpose: low-intensity accent background.
   - Usage: selected rows, subtle highlights, active pill backgrounds.
   - Forbidden: do not use behind long text blocks; use for short labels/selection only.

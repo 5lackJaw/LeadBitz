@@ -42,9 +42,9 @@ Non-negotiable UI principles:
 --color-border-strong: rgba(255,255,255,0.14);
 
 /* Brand Accent (actions only) */
---color-accent-primary: #10B981;
---color-accent-hover: #059669;
---color-accent-soft: rgba(16,185,129,0.16);
+--color-accent-primary: #df6d10;
+--color-accent-hover: #963f05;
+--color-accent-soft: rgba(185, 98, 16, 0.16);
 
 /* Semantics (strictly semantic) */
 --color-success: #22C55E;
