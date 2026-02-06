@@ -110,6 +110,26 @@ Deliverability-first cold outreach operations app:
   - same-workspace access succeeds
   - cross-workspace access is blocked with `FORBIDDEN`
 
+### Phase 2 closeout (2026-02-06)
+- Phase 2 scope status: complete (auth bridge + workspace access-control foundations).
+- Delivered implementation in Phase 2:
+  - NextAuth credentials login/logout flow with `/login` and `/api/auth/[...nextauth]`.
+  - First-login user/workspace auto-provisioning (`ensureUserWorkspace`).
+  - Reusable workspace authorization helper (`requireWorkspaceAccess`) with explicit error codes.
+- Decisions confirmed for downstream phases:
+  - NextAuth credentials remains a temporary bridge until Neon Auth-backed session integration is implemented.
+  - Workspace ownership (`workspace.ownerId`) is the current source of truth for access checks.
+- Operational gotchas for implementers:
+  - Auth callback provisioning requires a reachable `DATABASE_URL`; login fails if DB connectivity is unavailable.
+  - Route handlers using `requireWorkspaceAccess` should map helper errors deterministically:
+    - `UNAUTHENTICATED` -> `401`
+    - `NOT_FOUND` -> `404`
+    - `FORBIDDEN` -> `403`
+- Validation evidence captured for Phase 2 completion:
+  - `npm run lint`
+  - `npm run test:integration`
+  - `npm run build`
+
 ## Local setup
 1. Install dependencies: `npm ci`
 2. Set env vars (names below). For local development you can copy `.env.example` to `.env` and adjust values.
@@ -285,6 +305,7 @@ Deliverability-first cold outreach operations app:
 - 2026-02-06: Confirmed auth/signup strategy: Neon Auth as IdP, Google primary login, email/password secondary login, and subscription-trial billing entry model.
 - 2026-02-06: Added first-login workspace auto-provisioning in NextAuth `signIn` flow with integration test coverage for one-time workspace creation.
 - 2026-02-06: Added workspace-scoped authorization helper with explicit error codes and integration coverage for cross-workspace access denial.
+- 2026-02-06: Closed Phase 2 documentation with consolidated phase summary, decisions, and operational gotchas.
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).
