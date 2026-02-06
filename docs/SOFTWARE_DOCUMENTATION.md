@@ -83,6 +83,8 @@ Deliverability-first cold outreach operations app:
 - `DATABASE_URL`
 - `NEXTAUTH_URL`
 - `NEXTAUTH_SECRET`
+- `AUTH_DEMO_EMAIL`
+- `AUTH_DEMO_PASSWORD`
 - `GOOGLE_CLIENT_ID`
 - `GOOGLE_CLIENT_SECRET`
 - `MICROSOFT_CLIENT_ID`
@@ -102,8 +104,10 @@ Deliverability-first cold outreach operations app:
 ## Routes/endpoints summary
 (Keep updated as built.)
 - `/` (landing scaffold)
+- `/login` (NextAuth credentials sign-in page)
 - `/app` (app shell scaffold route)
 - `/app/onboarding`, `/app/campaigns`, `/app/replies`, `/app/settings/*`
+- `/api/auth/[...nextauth]` (NextAuth auth handler)
 - `/api/icp/generate`, `/api/messages/draft`
 - `/api/campaigns/*`, `/api/campaigns/:id/launch`
 - `/api/cron/tick`, `/api/cron/sync-inbox`
@@ -190,6 +194,7 @@ Deliverability-first cold outreach operations app:
 ## Operational gotchas
 - Prisma migrations require a reachable PostgreSQL server.
 - Prisma migrate commands read `.env` by default. Keep `.env` aligned with `.env.development.local` (or explicitly set `DATABASE_URL` in shell) before running migration commands.
+- NextAuth credentials login depends on `AUTH_DEMO_EMAIL`, `AUTH_DEMO_PASSWORD`, and `NEXTAUTH_SECRET`; sign-in will fail if any are missing.
 - If Docker Desktop is unavailable locally, use `npx prisma dev -d` to start Prisma's local Postgres and source the printed `DATABASE_URL`.
 - If you run `vercel env pull`, prefer pulling into `.env.development.local` (or `.env.local`) and keep it uncommitted (secrets).
 - `postinstall` script runs `prisma generate` automatically on `npm install` / `npm ci`. This is required for Vercel builds; do not remove it.
