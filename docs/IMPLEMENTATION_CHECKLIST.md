@@ -68,9 +68,10 @@
   - Note (2026-02-06): Added Phase 1 closeout section, Phase 1 decisions, and migration/environment gotchas to `docs/SOFTWARE_DOCUMENTATION.md`, including Prisma `.env` behavior and UI-spec source-of-truth reference. Files touched: `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`, `docs/UI_SPEC.md`.
 
 ## Phase 2 — Auth + workspace scoping
-- [ ] Plan/confirm Phase 2 scope
+- [x] Plan/confirm Phase 2 scope
   - Acceptance: route protections defined
   - Tests: n/a
+  - Note (2026-02-06): Confirmed Phase 2 boundaries in `docs/SOFTWARE_DOCUMENTATION.md`, including explicit public vs auth-required app routes and protected API scopes for workspace-scoped authorization implementation. Files touched: `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`, `AGENTS.md`.
 - [ ] Add NextAuth for app login
   - Acceptance: sign-in/out works
   - Tests: e2e smoke
