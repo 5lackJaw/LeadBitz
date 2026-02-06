@@ -280,6 +280,27 @@ Deliverability-first cold outreach operations app:
 - Testing:
   - Added integration test `tests/integration/icp-editor.test.ts` to verify edit persistence and cross-workspace update blocking.
 
+### Phase 4 closeout (2026-02-06)
+- Phase 4 scope status: complete (campaign CRUD/list + wizard Step 1 + ICP generation + ICP editor persistence).
+- Delivered implementation in Phase 4:
+  - Workspace-scoped campaign create/list/rename (`/api/campaigns`, `/api/campaigns/:campaignId`) and `/app/campaigns` management UI.
+  - Wizard route `/app/campaigns/new` with Step 1 `websiteUrl` xor `productDescription` validation and clear mutually-exclusive input behavior.
+  - ICP generation endpoint `POST /api/icp/generate` with workspace-scoped `icp_profiles` persistence and optional campaign linkage.
+  - ICP editor persistence endpoint `PATCH /api/icp/profiles/:icpProfileId` with workspace ownership checks and visible save confirmation in UI.
+- Decisions confirmed for downstream phases:
+  - ICP generation remains deterministic/mock-backed in current implementation; OpenAI-powered generation quality improvements are deferred to later AI tasks.
+  - Step 1 source contract is strict XOR at API boundary; UI assists by auto-clearing alternate source field to keep payload valid.
+  - ICP edits are explicit-save only (no autosave), matching operator-controlled workflow requirements.
+- Operational gotchas for implementers:
+  - A successful "ICP edits saved" message confirms DB persistence, but there is no separate list/detail view yet to re-open previously saved profiles in this phase.
+  - Do not treat placeholder/mock ICP content as website-scraping completion; source-specific extraction depth is out of Phase 4 scope.
+  - Step 1 validation still enforces `http/https` URLs only and rejects empty/both-provided source input.
+- Validation evidence captured for Phase 4 completion:
+  - `npm run lint`
+  - `npm run test:unit`
+  - `npm run test:integration`
+  - `npm run build`
+
 ### Phase 0b workflow hardening follow-up (2026-02-06)
 - Added baseline developer workflow automation focused on consistency and speed:
   - `AGENTS.md` path/writing clarifications to reduce instruction ambiguity.
@@ -503,6 +524,7 @@ Deliverability-first cold outreach operations app:
 - 2026-02-06: Implemented wizard Step 1 input route (`/app/campaigns/new`) and API validation endpoint (`/api/campaigns/wizard/step1`) enforcing website URL xor product description.
 - 2026-02-06: Implemented `POST /api/icp/generate` with workspace-scoped `icp_profiles` persistence and integration coverage using mocked AI generation.
 - 2026-02-06: Added Step 2 ICP editor UI on `/app/campaigns/new` and persisted editing API `PATCH /api/icp/profiles/:icpProfileId` with integration coverage.
+- 2026-02-06: Closed Phase 4 documentation with consolidated phase summary, carry-forward decisions, and operational gotchas.
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).
