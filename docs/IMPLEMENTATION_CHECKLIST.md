@@ -71,9 +71,10 @@
 - [ ] Plan/confirm Phase 2 scope
   - Acceptance: route protections defined
   - Tests: n/a
-- [ ] Add NextAuth for app login
+- [x] Add NextAuth for app login
   - Acceptance: sign-in/out works
   - Tests: e2e smoke
+  - Note (2026-02-06): Added NextAuth credentials login route (`/api/auth/[...nextauth]`), login UI (`/login`), app route protection (`proxy.ts` matcher for `/app/*`), and sign-out action from `/app`. Added required env placeholders in `.env.example`. Files touched: `auth.ts`, `app/api/auth/[...nextauth]/route.ts`, `app/login/page.tsx`, `app/app/page.tsx`, `app/app/sign-out-button.tsx`, `proxy.ts`, `.env.example`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 - [ ] Auto-provision workspace on first login
   - Acceptance: workspace created once
   - Tests: integration
