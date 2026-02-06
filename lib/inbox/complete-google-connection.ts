@@ -1,6 +1,7 @@
 import { InboxConnectionStatus, InboxProvider } from "@prisma/client";
 
 import { prisma } from "../prisma";
+import { encryptToken } from "./token-encryption";
 
 const GOOGLE_TOKEN_ENDPOINT = "https://oauth2.googleapis.com/token";
 const GOOGLE_USERINFO_ENDPOINT = "https://www.googleapis.com/oauth2/v3/userinfo";
@@ -17,6 +18,7 @@ type CompleteGoogleConnectionInput = {
 
 type TokenResponse = {
   access_token?: string;
+  refresh_token?: string;
 };
 
 type UserInfoResponse = {
@@ -62,10 +64,14 @@ export async function completeGoogleConnection(input: CompleteGoogleConnectionIn
 
   const tokenPayload = (await tokenResponse.json()) as TokenResponse;
   const accessToken = tokenPayload.access_token?.trim() ?? "";
+  const refreshToken = tokenPayload.refresh_token?.trim() ?? "";
 
   if (!accessToken) {
     throw new Error("Google token exchange did not return an access token.");
   }
+
+  const encryptedAccessToken = encryptToken(accessToken);
+  const encryptedRefreshToken = refreshToken ? encryptToken(refreshToken) : null;
 
   const userInfoResponse = await fetchImpl(GOOGLE_USERINFO_ENDPOINT, {
     headers: {
@@ -109,6 +115,8 @@ export async function completeGoogleConnection(input: CompleteGoogleConnectionIn
       where: { id: existingByProvider.id },
       data: {
         email: normalizedEmail,
+        accessTokenEncrypted: encryptedAccessToken,
+        ...(encryptedRefreshToken ? { refreshTokenEncrypted: encryptedRefreshToken } : {}),
         status: InboxConnectionStatus.ACTIVE,
       },
     });
@@ -125,6 +133,8 @@ export async function completeGoogleConnection(input: CompleteGoogleConnectionIn
     update: {
       provider: InboxProvider.GMAIL,
       providerAccountId,
+      accessTokenEncrypted: encryptedAccessToken,
+      ...(encryptedRefreshToken ? { refreshTokenEncrypted: encryptedRefreshToken } : {}),
       status: InboxConnectionStatus.ACTIVE,
     },
     create: {
@@ -132,6 +142,8 @@ export async function completeGoogleConnection(input: CompleteGoogleConnectionIn
       provider: InboxProvider.GMAIL,
       providerAccountId,
       email: normalizedEmail,
+      accessTokenEncrypted: encryptedAccessToken,
+      refreshTokenEncrypted: encryptedRefreshToken,
       status: InboxConnectionStatus.ACTIVE,
     },
   });

@@ -108,9 +108,10 @@
   - Acceptance: inbox shows connected
   - Tests: e2e with mocks
   - Note (2026-02-06): Implemented Google OAuth connect + callback routes (`/api/inboxes/google/connect`, `/api/inboxes/google/callback`), added `/app/settings/inboxes` UI to show Gmail connection status, and persisted `inbox_connections` as connected after OAuth exchange. Added integration test with mocked Google token/userinfo responses to validate connection creation and cross-workspace provider-account conflict blocking. Files touched: `app/api/inboxes/google/connect/route.ts`, `app/api/inboxes/google/callback/route.ts`, `app/app/settings/inboxes/page.tsx`, `app/app/page.tsx`, `lib/inbox/google-oauth.ts`, `lib/inbox/complete-google-connection.ts`, `lib/auth/get-primary-workspace.ts`, `tests/integration/google-connect-flow.test.ts`, `package.json`, `.env.example`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/ARCHITECTURE.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
-- [ ] Store encrypted tokens + refresh on demand
+- [x] Store encrypted tokens + refresh on demand
   - Acceptance: refresh updates DB
   - Tests: unit+integration
+  - Note (2026-02-06): Added AES-256-GCM token encryption/decryption helper, stored encrypted access/refresh tokens during Google OAuth callback completion, and implemented on-demand token refresh helper that updates encrypted token fields in `inbox_connections`. Added unit test coverage for token encryption format/roundtrip and integration coverage for refresh update behavior. Files touched: `lib/inbox/token-encryption.ts`, `lib/inbox/complete-google-connection.ts`, `lib/inbox/google-token-refresh.ts`, `tests/unit/token-encryption.test.ts`, `tests/integration/google-connect-flow.test.ts`, `tests/integration/google-token-refresh.test.ts`, `tests/integration/test-env.ts`, `package.json`, `.env.example`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 - [ ] Inbox settings (caps/windows/ramp) UI + API
   - Acceptance: persisted settings
   - Tests: e2e
