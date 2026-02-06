@@ -120,9 +120,10 @@
   - Note (2026-02-06): Added explicit "Phase 3 closeout" documentation with completion summary (Google OAuth connect, encrypted token storage/refresh, inbox settings API/UI), carry-forward decisions, migration/runtime gotchas, and validation command evidence. Also corrected stale Phase 3 note so token persistence status matches implementation. Files touched: `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 
 ## Phase 4 — Campaign wizard (draft + ICP)
-- [ ] Plan/confirm wizard routes/steps
+- [x] Plan/confirm wizard routes/steps
   - Acceptance: matches UX_SPEC.md
   - Tests: n/a
+  - Note (2026-02-06): Confirmed Phase 4 wizard route/step boundaries in `docs/SOFTWARE_DOCUMENTATION.md` for `/app/campaigns/new`, including Step 1 xor-input validation contract and explicit scope limits (Step 1 + ICP draft/edit only). Files touched: `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 - [ ] Campaign CRUD + list page
   - Acceptance: create/list/rename works
   - Tests: integration+e2e
