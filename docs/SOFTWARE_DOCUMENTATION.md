@@ -225,6 +225,20 @@ Deliverability-first cold outreach operations app:
 - Acceptance mapping:
   - Phase 4 checklist item "Plan/confirm wizard routes/steps" is satisfied when these routes/step boundaries are documented and subsequent Phase 4 tasks follow this contract.
 
+### Phase 4 progress: campaign CRUD + list page (2026-02-06)
+- Implemented workspace-scoped campaign CRUD foundation for Phase 4 list management.
+- Delivered backend surfaces:
+  - `GET /api/campaigns` returns campaigns for the authenticated user's primary workspace.
+  - `POST /api/campaigns` creates a draft campaign with validated name input.
+  - `PATCH /api/campaigns/:campaignId` renames an existing campaign in-workspace.
+- Delivered UI surfaces:
+  - Added `/app/campaigns` page with campaign list table, create form, and inline rename controls.
+  - Updated app shell navigation to include campaigns route.
+- Validation rules:
+  - `campaign.name` required, trimmed, max length 120.
+  - Cross-workspace rename is blocked and returned as not found.
+- Added integration coverage for create/list/rename and workspace-scope enforcement in `tests/integration/campaign-crud.test.ts`.
+
 ### Phase 0b workflow hardening follow-up (2026-02-06)
 - Added baseline developer workflow automation focused on consistency and speed:
   - `AGENTS.md` path/writing clarifications to reduce instruction ambiguity.
@@ -277,11 +291,12 @@ Deliverability-first cold outreach operations app:
 - `/app` (app shell scaffold route)
 - `/app/onboarding`, `/app/campaigns`, `/app/replies`, `/app/settings/*`
 - `/api/auth/[...nextauth]` (NextAuth auth handler)
+- `/api/campaigns` (campaign list + create for primary workspace)
+- `/api/campaigns/:campaignId` (campaign rename)
 - `/api/inboxes/google/connect` (Google OAuth start)
 - `/api/inboxes/google/callback` (Google OAuth callback)
 - `/api/inboxes/:inboxConnectionId/settings` (inbox cap/window/ramp update)
 - `/api/icp/generate`, `/api/messages/draft`
-- `/api/campaigns/*`, `/api/campaigns/:id/launch`
 - `/api/cron/tick`, `/api/cron/sync-inbox`
 - `/api/replies`, `/api/conversations/*`
 - `/api/billing/*` (planned checkout + subscription status/webhook handlers)
@@ -314,7 +329,7 @@ Deliverability-first cold outreach operations app:
   - `npm run test:unit`
 - Integration:
   - `npm run db:migrate:status` (with a reachable Postgres `DATABASE_URL`)
-  - `npm run test:integration` (validates workspace auto-provision + workspace authorization helper + mocked Google connect + token refresh + inbox settings persistence behavior)
+  - `npm run test:integration` (validates workspace auto-provision + workspace authorization helper + mocked Google connect + token refresh + inbox settings persistence + campaign create/list/rename behavior)
 - E2E (Playwright):
 
 ## Deployment notes
@@ -394,6 +409,9 @@ Deliverability-first cold outreach operations app:
 - Google OAuth callback URI must exactly match `${NEXTAUTH_URL}/api/inboxes/google/callback` in Google Cloud OAuth credentials per environment.
 - `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` must be present in local and Preview environments before testing inbox connect flow.
 - `TOKEN_ENCRYPTION_KEY` is required for Google token encryption/decryption and refresh; a missing/invalid key will break callback persistence and token refresh operations.
+- Campaign names are validated server-side and client-side:
+  - required after trim
+  - max 120 characters
 - Inbox settings API validation bounds:
   - `dailySendCap`: `1..500`
   - `sendWindowStartHour`: `0..23`
@@ -433,6 +451,7 @@ Deliverability-first cold outreach operations app:
 - 2026-02-06: Implemented encrypted OAuth token persistence and on-demand refresh helpers with unit + integration coverage.
 - 2026-02-06: Added persisted inbox sending settings (caps/windows/ramp) with update API and settings UI.
 - 2026-02-06: Closed Phase 3 documentation with consolidated phase summary, carry-forward decisions, and operational gotchas.
+- 2026-02-06: Implemented campaign CRUD foundation (`/api/campaigns`, `/api/campaigns/:campaignId`) and `/app/campaigns` list UI with create/rename flows.
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).

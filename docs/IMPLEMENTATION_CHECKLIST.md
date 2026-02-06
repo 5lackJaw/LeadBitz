@@ -124,9 +124,10 @@
   - Acceptance: matches UX_SPEC.md
   - Tests: n/a
   - Note (2026-02-06): Confirmed Phase 4 wizard route/step boundaries in `docs/SOFTWARE_DOCUMENTATION.md` for `/app/campaigns/new`, including Step 1 xor-input validation contract and explicit scope limits (Step 1 + ICP draft/edit only). Files touched: `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
-- [ ] Campaign CRUD + list page
+- [x] Campaign CRUD + list page
   - Acceptance: create/list/rename works
   - Tests: integration+e2e
+  - Note (2026-02-06): Added workspace-scoped campaign CRUD service + API routes (`GET/POST /api/campaigns`, `PATCH /api/campaigns/:campaignId`) and implemented `/app/campaigns` list UI with create + inline rename controls using the CVBS/UI spec token system. Added integration coverage in `tests/integration/campaign-crud.test.ts`. Files touched: `lib/campaigns/campaign-crud.ts`, `app/api/campaigns/route.ts`, `app/api/campaigns/[campaignId]/route.ts`, `app/app/campaigns/page.tsx`, `app/app/campaigns/campaigns-client.tsx`, `app/globals.css`, `app/login/page.tsx`, `app/app/page.tsx`, `app/app/settings/inboxes/*`, `tests/integration/campaign-crud.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 - [ ] Wizard Step 1 inputs + validation
   - Acceptance: URL xor text enforced
   - Tests: e2e
