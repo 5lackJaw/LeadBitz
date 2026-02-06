@@ -140,6 +140,7 @@
   - Acceptance: edits persist
   - Tests: e2e
   - Note (2026-02-06): Added Step 2 ICP editor UI on `/app/campaigns/new`, wired Step 1 generation to `POST /api/icp/generate`, and implemented persisted save via `PATCH /api/icp/profiles/:icpProfileId`. Added workspace-scoped edit persistence service + integration coverage in `tests/integration/icp-editor.test.ts`. Files touched: `app/app/campaigns/new/wizard-step1-form.tsx`, `app/api/icp/profiles/[icpProfileId]/route.ts`, `lib/icp/update-icp-profile.ts`, `lib/icp/generate-icp-profile.ts`, `app/api/icp/generate/route.ts`, `tests/integration/icp-editor.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+  - Follow-up note (2026-02-06): Adjusted Step 1 UX so typing into website/product-description auto-clears the alternate source, and added explicit Step 2 "last saved" feedback in the editor after `PATCH` success. Files touched: `app/app/campaigns/new/wizard-step1-form.tsx`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 - [ ] Update SOFTWARE_DOCUMENTATION.md (phase summary + decisions + gotchas)
 
 ## Phase 5 — Leads import + suppression + provenance

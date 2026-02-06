@@ -249,7 +249,7 @@ Deliverability-first cold outreach operations app:
   - Providing both values is rejected.
   - `websiteUrl` must be a valid `http://` or `https://` URL.
 - Added client form behavior for Step 1:
-  - Input mode is mutually exclusive in UI (URL and description fields cannot both be actively edited at once).
+  - Input mode is mutually exclusive in UI. Typing into one source input auto-clears the other.
   - Submission validates client-side first, then server-side through the API endpoint.
   - Success message confirms Step 1 completion and indicates Step 2 (ICP generation) is next.
 - Added unit test coverage for the validation helper in `tests/unit/wizard-step1-validation.test.ts`.
@@ -271,7 +271,7 @@ Deliverability-first cold outreach operations app:
 - Added Step 2 ICP editor UI to `/app/campaigns/new`:
   - Step 1 now generates draft ICP via `POST /api/icp/generate`.
   - Step 2 renders editable ICP fields and profile name after generation.
-  - Save action persists edits through `PATCH /api/icp/profiles/:icpProfileId`.
+  - Save action persists edits through `PATCH /api/icp/profiles/:icpProfileId` and shows explicit save confirmation with a last-saved timestamp in the editor.
 - Added persistence service:
   - `lib/icp/update-icp-profile.ts` with validation for editable ICP structure and workspace ownership checks.
 - Added API endpoint:

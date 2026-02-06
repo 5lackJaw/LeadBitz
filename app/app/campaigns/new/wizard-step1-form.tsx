@@ -61,11 +61,9 @@ export function WizardStep1Form() {
   const [isSavingIcp, setIsSavingIcp] = useState(false);
   const [generatedIcpProfileId, setGeneratedIcpProfileId] = useState<string | null>(null);
   const [icpEditorState, setIcpEditorState] = useState<IcpEditorState | null>(null);
+  const [lastSavedAtLabel, setLastSavedAtLabel] = useState<string | null>(null);
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-
-  const websiteEnabled = !productDescription.trim();
-  const productDescriptionEnabled = !websiteUrl.trim();
 
   const activeInputMode = useMemo(() => {
     if (websiteUrl.trim()) {
@@ -78,6 +76,22 @@ export function WizardStep1Form() {
 
     return "None selected";
   }, [productDescription, websiteUrl]);
+
+  function onWebsiteUrlChange(nextValue: string) {
+    setWebsiteUrl(nextValue);
+
+    if (nextValue.trim().length > 0 && productDescription.trim().length > 0) {
+      setProductDescription("");
+    }
+  }
+
+  function onProductDescriptionChange(nextValue: string) {
+    setProductDescription(nextValue);
+
+    if (nextValue.trim().length > 0 && websiteUrl.trim().length > 0) {
+      setWebsiteUrl("");
+    }
+  }
 
   async function onGenerateIcp(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -118,6 +132,7 @@ export function WizardStep1Form() {
         valuePropAngles: listToTextarea(data.icp.valuePropAngles),
         sourceSummary: data.icp.sourceSummary,
       });
+      setLastSavedAtLabel(null);
 
       setStatusMessage(
         `Step 1 validated using ${data.sourceType === "WEBSITE_URL" ? "website URL" : "product description"}. Step 2 ICP draft is ready to edit.`,
@@ -185,7 +200,9 @@ export function WizardStep1Form() {
         setProfileName(data.profileName);
       }
 
-      setStatusMessage("ICP edits saved.");
+      const savedAtLabel = data.updatedAt ? new Date(data.updatedAt).toLocaleString() : null;
+      setLastSavedAtLabel(savedAtLabel);
+      setStatusMessage(savedAtLabel ? `ICP edits saved at ${savedAtLabel}.` : "ICP edits saved.");
     } catch (error) {
       setErrorMessage(error instanceof Error ? error.message : "Failed to persist ICP edits.");
     } finally {
@@ -214,8 +231,8 @@ export function WizardStep1Form() {
             inputMode="url"
             placeholder="https://www.example.com"
             value={websiteUrl}
-            onChange={(event) => setWebsiteUrl(event.target.value)}
-            disabled={!websiteEnabled || isGenerating || isSavingIcp}
+            onChange={(event) => onWebsiteUrlChange(event.target.value)}
+            disabled={isGenerating || isSavingIcp}
             aria-describedby="wizard-step1-url-help"
           />
           <span id="wizard-step1-url-help" className="lb-subtitle">
@@ -230,8 +247,8 @@ export function WizardStep1Form() {
             style={{ minHeight: "160px", resize: "vertical" }}
             placeholder="Paste a concise product description..."
             value={productDescription}
-            onChange={(event) => setProductDescription(event.target.value)}
-            disabled={!productDescriptionEnabled || isGenerating || isSavingIcp}
+            onChange={(event) => onProductDescriptionChange(event.target.value)}
+            disabled={isGenerating || isSavingIcp}
             aria-describedby="wizard-step1-description-help"
           />
           <span id="wizard-step1-description-help" className="lb-subtitle">
@@ -255,6 +272,8 @@ export function WizardStep1Form() {
         <button className="lb-button lb-button-primary" type="submit" disabled={isGenerating || isSavingIcp}>
           {isGenerating ? "Generating..." : generatedIcpProfileId ? "Regenerate ICP draft" : "Generate ICP draft"}
         </button>
+
+        <p className="lb-subtitle">Typing into one source field will clear the other to keep Step 1 valid.</p>
       </form>
 
       {generatedIcpProfileId && icpEditorState ? (
@@ -266,6 +285,7 @@ export function WizardStep1Form() {
             <p className="lb-subtitle">
               Edit generated ICP fields, then save to persist changes in your workspace.
             </p>
+            {lastSavedAtLabel ? <p className="lb-subtitle">Last saved: {lastSavedAtLabel}</p> : null}
             <code style={{ fontFamily: "var(--font-ui-mono)", color: "var(--ui-fg-muted)" }}>
               Profile id: {generatedIcpProfileId}
             </code>
