@@ -50,9 +50,10 @@
   - Acceptance: schema matches ARCHITECTURE.md
   - Tests: integration
   - Note (2026-02-06): Added core Prisma schema models/enums and created migration `20260206025124_create_core_tables` for `users`, `workspaces`, `inbox_connections`, `campaigns`, and `icp_profiles`. Verified with `prisma migrate status` against the Vercel/Neon dev database. Files touched: `prisma/schema.prisma`, `prisma/migrations/20260206025124_create_core_tables/migration.sql`, `prisma/migrations/migration_lock.toml`, `docs/IMPLEMENTATION_CHECKLIST.md`.
-- [ ] Create migrations for leads/campaign_leads/suppressions
+- [x] Create migrations for leads/campaign_leads/suppressions
   - Acceptance: dedupe constraints present
   - Tests: integration
+  - Note (2026-02-06): Added `Lead`, `CampaignLead`, and `Suppression` Prisma models with dedupe constraints (`@@unique([workspaceId, email])` on leads/suppressions and `@@unique([campaignId, leadId])` on campaign_leads). Created migration `20260206043217_create_leads_and_suppressions` and verified `prisma migrate status` reports schema up to date on the Neon dev database. Files touched: `prisma/schema.prisma`, `prisma/migrations/20260206043217_create_leads_and_suppressions/migration.sql`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 - [ ] Create migrations for sequences/templates/send_jobs/conversations/messages/audit/provenance
   - Acceptance: idempotency unique key on send_jobs
   - Tests: integration
