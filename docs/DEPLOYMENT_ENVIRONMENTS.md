@@ -3,6 +3,7 @@ Purpose: Standardize a safe preview-vs-production workflow (Vercel-first; adapt 
 
 ## A) Git + Vercel workflow (Option A) – adapt if another host is specified in ARCHITECTURE.md
 - Production branch is `main` (or `master`).
+- Production domain (real domain): https://www.leadbitz.com
 - Non-production branches auto-deploy to Preview URLs.
 - RULE: never develop directly on the production branch. Use `feature/*` branches + PRs.
 - RULE: only merges to the production branch deploy to the real domain (Production).

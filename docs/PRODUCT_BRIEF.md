@@ -1,4 +1,6 @@
-# Cold Outreach Automation Platform — Product Brief
+# LeadBitz — Product Brief
+
+Website: https://www.leadbitz.com
 
 ## One-line summary
 A deliverability-first outbound operations app that turns a company website/product description into an operator-controlled outreach campaign: ICP → bring/import leads → AI-assisted messaging → safe sending → reply workflow.
