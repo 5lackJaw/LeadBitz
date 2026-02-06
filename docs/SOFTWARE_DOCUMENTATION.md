@@ -205,6 +205,26 @@ Deliverability-first cold outreach operations app:
   - `npm run db:migrate:status`
   - `npm run verify`
 
+### Phase 4 scope confirmation (2026-02-06)
+- Confirmed Phase 4 is limited to campaign wizard draft flow + ICP generation/editing foundations.
+- In scope for Phase 4:
+  - Campaign list + create/rename surfaces.
+  - Wizard route and step contract for `/app/campaigns/new`.
+  - Step 1 input validation (`websiteUrl` xor `productDescription`).
+  - ICP generation endpoint + persistence to `icp_profiles`.
+  - ICP editor persistence in the wizard flow.
+- Wizard route/step contract for implementation:
+  - Route: `/app/campaigns/new`
+  - Step 1: Inputs (`websiteUrl` xor `productDescription`, required one path only)
+  - Step 2: ICP draft generation + edit
+  - Step 3+: deferred to later phases (leads/sequence/review are out of Phase 4 scope)
+- Out of scope for Phase 4:
+  - Launch pipeline, send job scheduling, and provider send/reply logic (Phase 7+).
+  - Leads import/suppression/provenance implementation (Phase 5).
+  - Sequence template linting and AI message drafting endpoint behavior beyond stub contracts (Phase 6).
+- Acceptance mapping:
+  - Phase 4 checklist item "Plan/confirm wizard routes/steps" is satisfied when these routes/step boundaries are documented and subsequent Phase 4 tasks follow this contract.
+
 ### Phase 0b workflow hardening follow-up (2026-02-06)
 - Added baseline developer workflow automation focused on consistency and speed:
   - `AGENTS.md` path/writing clarifications to reduce instruction ambiguity.
