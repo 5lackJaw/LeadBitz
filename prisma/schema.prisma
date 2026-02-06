@@ -54,6 +54,10 @@ model InboxConnection {
   provider              InboxProvider
   providerAccountId     String                @map("provider_account_id")
   email                 String
+  dailySendCap          Int                   @default(30) @map("daily_send_cap")
+  sendWindowStartHour   Int                   @default(9) @map("send_window_start_hour")
+  sendWindowEndHour     Int                   @default(17) @map("send_window_end_hour")
+  rampUpPerDay          Int                   @default(5) @map("ramp_up_per_day")
   accessTokenEncrypted  String?               @map("access_token_encrypted")
   refreshTokenEncrypted String?               @map("refresh_token_encrypted")
   status                InboxConnectionStatus @default(ACTIVE)

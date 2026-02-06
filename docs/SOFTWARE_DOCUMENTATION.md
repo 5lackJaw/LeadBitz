@@ -172,6 +172,21 @@ Deliverability-first cold outreach operations app:
   - Unit test verifies encryption/decryption roundtrip and payload-format validation.
   - Integration test verifies refresh updates encrypted token fields in DB.
 
+### Phase 3 progress: inbox settings (caps/windows/ramp) UI + API (2026-02-06)
+- Added persisted inbox sending settings fields on `inbox_connections`:
+  - `daily_send_cap` (default `30`)
+  - `send_window_start_hour` (default `9`)
+  - `send_window_end_hour` (default `17`)
+  - `ramp_up_per_day` (default `5`)
+- Added API endpoint:
+  - `PATCH /api/inboxes/:inboxConnectionId/settings`
+  - Validates session + workspace ownership and enforces bounded numeric settings.
+- Added settings UI at `/app/settings/inboxes` for connected Gmail inboxes:
+  - Editable cap/window/ramp form.
+  - Saves via API and confirms persisted update.
+- Validation:
+  - Integration test verifies settings persistence and validation failure behavior.
+
 ### Phase 0b workflow hardening follow-up (2026-02-06)
 - Added baseline developer workflow automation focused on consistency and speed:
   - `AGENTS.md` path/writing clarifications to reduce instruction ambiguity.
@@ -226,6 +241,7 @@ Deliverability-first cold outreach operations app:
 - `/api/auth/[...nextauth]` (NextAuth auth handler)
 - `/api/inboxes/google/connect` (Google OAuth start)
 - `/api/inboxes/google/callback` (Google OAuth callback)
+- `/api/inboxes/:inboxConnectionId/settings` (inbox cap/window/ramp update)
 - `/api/icp/generate`, `/api/messages/draft`
 - `/api/campaigns/*`, `/api/campaigns/:id/launch`
 - `/api/cron/tick`, `/api/cron/sync-inbox`
@@ -260,7 +276,7 @@ Deliverability-first cold outreach operations app:
   - `npm run test:unit`
 - Integration:
   - `npm run db:migrate:status` (with a reachable Postgres `DATABASE_URL`)
-  - `npm run test:integration` (validates workspace auto-provision + workspace authorization helper + mocked Google connect + token refresh behavior)
+  - `npm run test:integration` (validates workspace auto-provision + workspace authorization helper + mocked Google connect + token refresh + inbox settings persistence behavior)
 - E2E (Playwright):
 
 ## Deployment notes
@@ -340,6 +356,11 @@ Deliverability-first cold outreach operations app:
 - Google OAuth callback URI must exactly match `${NEXTAUTH_URL}/api/inboxes/google/callback` in Google Cloud OAuth credentials per environment.
 - `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` must be present in local and Preview environments before testing inbox connect flow.
 - `TOKEN_ENCRYPTION_KEY` is required for Google token encryption/decryption and refresh; a missing/invalid key will break callback persistence and token refresh operations.
+- Inbox settings API validation bounds:
+  - `dailySendCap`: `1..500`
+  - `sendWindowStartHour`: `0..23`
+  - `sendWindowEndHour`: `1..24` and must be greater than `sendWindowStartHour`
+  - `rampUpPerDay`: `1..100`
 - If Docker Desktop is unavailable locally, use `npx prisma dev -d` to start Prisma's local Postgres and source the printed `DATABASE_URL`.
 - If you run `vercel env pull`, prefer pulling into `.env.development.local` (or `.env.local`) and keep it uncommitted (secrets).
 - `postinstall` script runs `prisma generate` automatically on `npm install` / `npm ci`. This is required for Vercel builds; do not remove it.
@@ -372,6 +393,7 @@ Deliverability-first cold outreach operations app:
 - 2026-02-06: Added workflow automation baseline (`AGENTS` clarity updates, PR template, `npm run verify`, and `release` PR CI verification workflow).
 - 2026-02-06: Implemented Phase 3 Google OAuth connect flow for `inbox_connections` with inbox settings UI and mocked integration coverage.
 - 2026-02-06: Implemented encrypted OAuth token persistence and on-demand refresh helpers with unit + integration coverage.
+- 2026-02-06: Added persisted inbox sending settings (caps/windows/ramp) with update API and settings UI.
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).
