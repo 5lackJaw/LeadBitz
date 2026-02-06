@@ -2,7 +2,7 @@
 
 ## Rules of Engagement
 - Read all of the files inside /docs before you start building.
-- Before any design-related work (UI components, layouts, styling, theming, visual changes), read `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`. It is the ultimate source of truth for all visual and brand decisions. No design implementations or changes may deviate from it.
+- Before any design-related work (UI components, layouts, styling, theming, visual changes), read `docs/CANONICAL_VISUAL_BRAND_SPECIFICATION.md`. It is the ultimate source of truth for all visual and brand decisions. No design implementations or changes may deviate from it.
 - For any UI/UX work (screens, flows, interactions, copy, information architecture), adhere to `docs/UX_SPEC.md` and `docs/UI_SPEC.md`. For any visual/brand work (tokens, styling, theming, component look/feel), adhere to `docs/CANONICAL_VISUAL_BRAND_SPECIFICATION.md`.
 - Implement the next logical unchecked task from IMPLEMENTATION_CHECKLIST.md per PR.
 - Do not invent requirements. If a task is ambiguous, resolve it by updating docs first (as part of that single task) or add a small clarification note to SOFTWARE_DOCUMENTATION.md.
@@ -10,7 +10,8 @@
 - Prefer boring, proven patterns over cleverness. Follow the chosen stack's idiomatic conventions.
 - Security defaults: never log secrets/PII; validate inputs; least privilege; treat external input as hostile.
 - If you need to change scope, add a new unchecked checkbox to IMPLEMENTATION_CHECKLIST.md instead of expanding the current task.
-- After implementing something, sun the appropriate tests. If user-testing is prudent, instruct the user to do.
+- After implementing something, run the appropriate tests.
+- If user testing is prudent, explicitly instruct the user to perform it.
 
 ## Software Documentation Maintenance
 - SOFTWARE_DOCUMENTATION.md is the living source of truth.

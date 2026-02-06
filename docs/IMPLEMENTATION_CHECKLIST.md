@@ -37,6 +37,14 @@
 
 ---
 
+## Phase 0b — Workflow hardening follow-up
+- [x] Add PR hygiene + verification automation baseline
+  - Acceptance: `AGENTS.md` wording/path issues corrected; PR template exists; `npm run verify` runs lint+integration+build; PR CI runs verify on `release` pull requests
+  - Tests: `npm run verify`; GitHub Actions workflow file lint-by-execution on PR
+  - Note (2026-02-06): Updated `AGENTS.md` for path and wording clarity, added `.github/pull_request_template.md`, added `verify` script in `package.json`, added `.github/workflows/pr-verify.yml` for pull-request verification on `release`, and applied `release` branch protection requiring `verify` status before merge. Files touched: `AGENTS.md`, `.github/pull_request_template.md`, `package.json`, `.github/workflows/pr-verify.yml`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+
+---
+
 ## Phase 1 — Skeleton + DB
 - [x] Plan/confirm Phase 1 scope
   - Acceptance: tasks match docs
