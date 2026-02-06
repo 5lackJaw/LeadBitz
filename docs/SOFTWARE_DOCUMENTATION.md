@@ -158,6 +158,20 @@ Deliverability-first cold outreach operations app:
 - Validation:
   - Integration test with mocked Google token + userinfo endpoints verifies connection creation and cross-workspace provider-account conflict blocking.
 
+### Phase 3 progress: encrypted token storage + refresh-on-demand (2026-02-06)
+- Implemented token encryption helper in `lib/inbox/token-encryption.ts`:
+  - AES-256-GCM, envelope format `v1:<iv_b64>:<tag_b64>:<ciphertext_b64>`.
+  - Key source: `TOKEN_ENCRYPTION_KEY`.
+- Updated Google OAuth completion flow (`completeGoogleConnection`) to persist encrypted provider tokens:
+  - `inbox_connections.access_token_encrypted`
+  - `inbox_connections.refresh_token_encrypted`
+- Added on-demand refresh helper in `lib/inbox/google-token-refresh.ts`:
+  - `refreshGoogleAccessToken` exchanges refresh token and updates encrypted DB fields.
+  - `getGoogleAccessToken` returns decrypted cached token or refreshes on demand (`forceRefresh` supported).
+- Validation:
+  - Unit test verifies encryption/decryption roundtrip and payload-format validation.
+  - Integration test verifies refresh updates encrypted token fields in DB.
+
 ### Phase 0b workflow hardening follow-up (2026-02-06)
 - Added baseline developer workflow automation focused on consistency and speed:
   - `AGENTS.md` path/writing clarifications to reduce instruction ambiguity.
@@ -243,9 +257,10 @@ Deliverability-first cold outreach operations app:
 - Build/type check: `npm run build`
 - Full verification: `npm run verify`
 - Unit:
+  - `npm run test:unit`
 - Integration:
   - `npm run db:migrate:status` (with a reachable Postgres `DATABASE_URL`)
-  - `npm run test:integration` (validates workspace auto-provision + workspace authorization helper + mocked Google connect flow behavior)
+  - `npm run test:integration` (validates workspace auto-provision + workspace authorization helper + mocked Google connect + token refresh behavior)
 - E2E (Playwright):
 
 ## Deployment notes
@@ -324,6 +339,7 @@ Deliverability-first cold outreach operations app:
 - Neon Auth trusted domains accept origins only (scheme + host [+ port]); do not enter path segments such as `/app` or `/dashboard`.
 - Google OAuth callback URI must exactly match `${NEXTAUTH_URL}/api/inboxes/google/callback` in Google Cloud OAuth credentials per environment.
 - `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` must be present in local and Preview environments before testing inbox connect flow.
+- `TOKEN_ENCRYPTION_KEY` is required for Google token encryption/decryption and refresh; a missing/invalid key will break callback persistence and token refresh operations.
 - If Docker Desktop is unavailable locally, use `npx prisma dev -d` to start Prisma's local Postgres and source the printed `DATABASE_URL`.
 - If you run `vercel env pull`, prefer pulling into `.env.development.local` (or `.env.local`) and keep it uncommitted (secrets).
 - `postinstall` script runs `prisma generate` automatically on `npm install` / `npm ci`. This is required for Vercel builds; do not remove it.
@@ -355,6 +371,7 @@ Deliverability-first cold outreach operations app:
 - 2026-02-06: Confirmed Phase 3 token encryption approach (AES-256-GCM, versioned envelope format, env-scoped key policy).
 - 2026-02-06: Added workflow automation baseline (`AGENTS` clarity updates, PR template, `npm run verify`, and `release` PR CI verification workflow).
 - 2026-02-06: Implemented Phase 3 Google OAuth connect flow for `inbox_connections` with inbox settings UI and mocked integration coverage.
+- 2026-02-06: Implemented encrypted OAuth token persistence and on-demand refresh helpers with unit + integration coverage.
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).

@@ -5,6 +5,7 @@ import { InboxProvider, InboxConnectionStatus } from "@prisma/client";
 
 import { ensureUserWorkspace } from "../../lib/auth/ensure-user-workspace";
 import { completeGoogleConnection } from "../../lib/inbox/complete-google-connection";
+import { decryptToken } from "../../lib/inbox/token-encryption";
 import { prisma } from "../../lib/prisma";
 import { canRunIntegrationDbTests, ensureIntegrationEnv } from "./test-env";
 
@@ -36,10 +37,16 @@ if (!canRun) {
 
         if (urlString.includes("/token")) {
           assert.equal(init?.method, "POST");
-          return new Response(JSON.stringify({ access_token: "google-access-token" }), {
-            status: 200,
-            headers: { "content-type": "application/json" },
-          });
+          return new Response(
+            JSON.stringify({
+              access_token: "google-access-token",
+              refresh_token: "google-refresh-token",
+            }),
+            {
+              status: 200,
+              headers: { "content-type": "application/json" },
+            },
+          );
         }
 
         if (urlString.includes("/userinfo")) {
@@ -79,6 +86,13 @@ if (!canRun) {
       assert.equal(createdConnection.email, "google.operator@example.com");
       assert.equal(createdConnection.providerAccountId, "google-sub-123");
       assert.equal(createdConnection.status, InboxConnectionStatus.ACTIVE);
+      assert.ok(createdConnection.accessTokenEncrypted);
+      assert.ok(createdConnection.refreshTokenEncrypted);
+      assert.equal(decryptToken(createdConnection.accessTokenEncrypted ?? ""), "google-access-token");
+      assert.equal(
+        decryptToken(createdConnection.refreshTokenEncrypted ?? ""),
+        "google-refresh-token",
+      );
       assert.equal(mockFetchCallCount, 2);
 
       await assert.rejects(
