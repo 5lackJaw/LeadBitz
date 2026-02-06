@@ -144,6 +144,16 @@ Deliverability-first cold outreach operations app:
   - Single active key per environment.
   - If key rotation occurs, existing connections must be re-authorized (deferred re-encryption tooling can be added in a later checklist task if needed).
 
+### Phase 0b workflow hardening follow-up (2026-02-06)
+- Added baseline developer workflow automation focused on consistency and speed:
+  - `AGENTS.md` path/writing clarifications to reduce instruction ambiguity.
+  - PR template at `.github/pull_request_template.md` to standardize checklist item text, PASS/FAIL acceptance, and test evidence.
+  - New `npm run verify` command that runs lint + integration tests + build in one command.
+  - GitHub Actions workflow `.github/workflows/pr-verify.yml` that runs `npm run verify` for pull requests targeting `release`.
+  - Branch protection enabled on `release` requiring status check `verify` before merge.
+- Expected outcome:
+  - Faster PR authoring, less review back-and-forth, and consistent verification before merge.
+
 ## Local setup
 1. Install dependencies: `npm ci`
 2. Set env vars (names below). For local development you can copy `.env.example` to `.env` and adjust values.
@@ -215,6 +225,7 @@ Deliverability-first cold outreach operations app:
 ## Testing commands
 - Lint: `npm run lint`
 - Build/type check: `npm run build`
+- Full verification: `npm run verify`
 - Unit:
 - Integration:
   - `npm run db:migrate:status` (with a reachable Postgres `DATABASE_URL`)
@@ -302,6 +313,9 @@ Deliverability-first cold outreach operations app:
 - In a single-maintainer setup, GitHub disallows self-approval. With required approvals set to `1` on `main`, production merges are intentionally blocked until go-live policy is lifted.
 - The `gh` CLI was installed locally for GitHub automation. It is **not** a project dependency (do not add it to `package.json`).
 - Current UI design guidance source of truth is `docs/UI_SPEC.md` alongside `docs/CANONICAL_VISUAL_BRAND_SPECIFICATION.md`.
+- `npm run verify` is now the canonical pre-push check. Use it for every feature branch before opening/updating a PR.
+- Pull requests into `release` execute `.github/workflows/pr-verify.yml`; keep branch changes compatible with `npm ci` + `npm run verify` on Linux CI.
+- `release` is branch-protected with required status check `verify`; merges are blocked until the CI verify job succeeds.
 
 ## Changelog
 - YYYY-MM-DD: Initial scaffold created.
@@ -321,6 +335,7 @@ Deliverability-first cold outreach operations app:
 - 2026-02-06: Added workspace-scoped authorization helper with explicit error codes and integration coverage for cross-workspace access denial.
 - 2026-02-06: Closed Phase 2 documentation with consolidated phase summary, decisions, and operational gotchas.
 - 2026-02-06: Confirmed Phase 3 token encryption approach (AES-256-GCM, versioned envelope format, env-scoped key policy).
+- 2026-02-06: Added workflow automation baseline (`AGENTS` clarity updates, PR template, `npm run verify`, and `release` PR CI verification workflow).
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).
