@@ -115,10 +115,10 @@ Deliverability-first cold outreach operations app:
 - Updated `docs/DEPLOYMENT_ENVIRONMENTS.md` with section B1 ("Finding and classifying database URLs") explaining where to find DB URLs and how to classify live vs preview.
 
 ### GitHub governance (2026-02-06)
-- **Default branch**: Changed GitHub repo default branch from `feature/phase1-scope-confirmation` to `main` (aligns with Vercel Production Branch policy and `DEPLOYMENT_ENVIRONMENTS.md` rules).
+- **Default branch**: Changed GitHub repo default branch from `feature/phase1-scope-confirmation` to `main`.
 - **Branch protection on `main`**:
   - Required: pull request workflow (direct pushes blocked).
-  - Required approvals: **0** (set to 0 after merge blocker because owner cannot approve own PR in a single-maintainer repo).
+  - Required approvals: initially set to **0** to permit Phase 0 merges in a single-maintainer setup.
   - Dismiss stale reviews on new pushes.
   - Enforce restrictions for admins (admins also need PRs).
   - Force pushes to `main`: disabled.
@@ -126,6 +126,14 @@ Deliverability-first cold outreach operations app:
   - Linear history: not enabled (GitHub API returned 404 for personal-account repos; can be configured manually via GitHub UI > Settings > Branches if desired).
   - Conversation resolution required: not enabled (same 404 limitation).
 - All changes applied via GitHub CLI (`gh`) after installing it locally.
+
+### Pre-MVP production freeze policy (2026-02-06)
+- GitHub default branch is now `release` for ongoing MVP integration work.
+- Vercel Production Branch remains `main` (verified via project metadata/API).
+- `main` branch protection now requires **1 approval**, which intentionally blocks merges in this single-maintainer repo until explicit MVP go-live sign-off.
+- Expected workflow during MVP build:
+  - `feature/*` -> `release` for all active development and Preview testing.
+  - `release` -> `main` only when ready to promote a vetted MVP release to Production.
 
 ### Phase 0 closeout (2026-02-06)
 - Merged PR #1 (`feature/vercel-deploy-fixes` -> `main`) to land deploy hardening changes (`postinstall` Prisma generation and deployment governance docs) into `main`.
@@ -141,8 +149,8 @@ Deliverability-first cold outreach operations app:
 - If Docker Desktop is unavailable locally, use `npx prisma dev -d` to start Prisma's local Postgres and source the printed `DATABASE_URL`.
 - If you run `vercel env pull`, prefer pulling into `.env.development.local` (or `.env.local`) and keep it uncommitted (secrets).
 - `postinstall` script runs `prisma generate` automatically on `npm install` / `npm ci`. This is required for Vercel builds; do not remove it.
-- Branch protection enforces admins — even the repo owner must open a PR to merge into `main`.
-- In a single-maintainer setup, GitHub disallows self-approval. If required approvals is set to `1`, merges will block. Keep required approvals at `0` unless a second reviewer is available.
+- Branch protection enforces admins; even the repo owner must open a PR to merge into `main`.
+- In a single-maintainer setup, GitHub disallows self-approval. With required approvals set to `1` on `main`, production merges are intentionally blocked until go-live policy is lifted.
 - The `gh` CLI was installed locally for GitHub automation. It is **not** a project dependency (do not add it to `package.json`).
 
 ## Changelog
@@ -156,6 +164,7 @@ Deliverability-first cold outreach operations app:
 - 2026-02-06: Updated `DEPLOYMENT_ENVIRONMENTS.md` with B1 section for finding and classifying database URLs.
 - 2026-02-06: Added `.env*.local` to `.gitignore` for Vercel-pulled secrets.
 - 2026-02-06: Merged `feature/vercel-deploy-fixes` into `main`; production deploy verified `Ready`; production branch verified as `main`.
+- 2026-02-06: Adopted pre-MVP release flow: switched GitHub default branch to `release`, kept Vercel Production on `main`, and set `main` approvals to `1` to block live promotions until MVP sign-off.
 
 ## Known issues / limitations
-- (empty)
+- Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).

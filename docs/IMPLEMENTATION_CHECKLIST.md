@@ -30,6 +30,10 @@
   - Acceptance: Vercel project settings show Production Branch as `main`
   - Tests: n/a
   - Note (2026-02-06): Verified production deploy alias includes `leadbitz-git-main-...`, confirming production traffic is sourced from `main`. Files touched: `docs/IMPLEMENTATION_CHECKLIST.md`, `docs/SOFTWARE_DOCUMENTATION.md`.
+- [x] Enforce pre-MVP production freeze policy (`release` integration branch + `main` merge gate)
+  - Acceptance: GitHub default branch = `release`; `main` still mapped to Vercel Production; `main` requires 1 approval so single-maintainer merges are blocked until MVP sign-off
+  - Tests: `gh repo view --json defaultBranchRef`; `gh api repos/5lackJaw/LeadBitz/branches/main/protection`; Vercel project link metadata check
+  - Note (2026-02-06): Set GitHub default branch to `release`, re-enabled `main` required approvals = 1, and documented pre-MVP workflow to ship/testing via Preview only. Vercel Production Branch remains `main`. Files touched: `docs/IMPLEMENTATION_CHECKLIST.md`, `docs/DEPLOYMENT_ENVIRONMENTS.md`, `docs/SOFTWARE_DOCUMENTATION.md`.
 
 ---
 
