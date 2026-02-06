@@ -132,9 +132,10 @@
   - Acceptance: URL xor text enforced
   - Tests: e2e
   - Note (2026-02-06): Added `/app/campaigns/new` Step 1 form and `POST /api/campaigns/wizard/step1` validation endpoint enforcing `websiteUrl` xor `productDescription` with URL format checks (`http/https` only). Added unit validation coverage in `tests/unit/wizard-step1-validation.test.ts` and wired campaigns list CTA to wizard route. Files touched: `app/app/campaigns/new/page.tsx`, `app/app/campaigns/new/wizard-step1-form.tsx`, `app/api/campaigns/wizard/step1/route.ts`, `lib/campaigns/wizard-step1.ts`, `app/app/campaigns/campaigns-client.tsx`, `tests/unit/wizard-step1-validation.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
-- [ ] ICP generate endpoint (AI mocked in tests)
+- [x] ICP generate endpoint (AI mocked in tests)
   - Acceptance: saves icp_profile row
   - Tests: integration
+  - Note (2026-02-06): Added `POST /api/icp/generate` with Step 1 xor-input validation, workspace-scoped `icp_profiles` persistence, optional campaign linkage (`campaigns.icp_profile_id`), and structured response payload. Added integration test coverage with mocked AI generator in `tests/integration/icp-generate.test.ts` to verify persisted ICP rows and workspace ownership checks. Files touched: `app/api/icp/generate/route.ts`, `lib/icp/generate-icp-profile.ts`, `tests/integration/icp-generate.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 - [ ] ICP editor UI
   - Acceptance: edits persist
   - Tests: e2e
