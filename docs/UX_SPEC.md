@@ -5,6 +5,8 @@ Product: LeadBitz
 Website: https://www.leadbitz.com
 
 ## Information architecture (routes/sections)
+- `/` Marketing/entry page
+- `/login` Sign in/up entry
 - `/app` App shell (auth required)
 - `/app/onboarding` Connect inbox + workspace defaults
 - `/app/campaigns` Campaign list
@@ -19,13 +21,41 @@ Website: https://www.leadbitz.com
 ## Permissions model
 - MVP roles: `Owner` only.
 
+## Auth + signup UX decisions
+- Primary sign-in option: Google OAuth.
+- Secondary sign-in option: email/password.
+- Login/signup should be one shared entry flow at `/login` with minimal fields and clear provider choices.
+- Do not require extra profile steps before authentication completes.
+- After first successful auth, user is routed into onboarding and workspace provisioning flow.
+
+## Billing + trial UX decisions
+- Trial starts through subscription checkout with payment method captured up front.
+- Flow target:
+  1. Authenticate (Google or email/password)
+  2. Confirm plan/trial terms
+  3. Complete checkout
+  4. Land in `/app/onboarding`
+- Do not implement a synthetic `$0` one-off purchase flow.
+- Billing state messaging must be explicit:
+  - trialing, active, payment required, canceled.
+
 ## Core user journeys
-1) Connect inbox → set caps/windows.
-2) Create campaign wizard → ICP → leads → sequence → review → launch.
-3) Operate campaign → monitor, pause/resume, handle warnings.
-4) Handle replies → categorize, respond, stop sequence on reply.
+1) Sign in/up -> start trial checkout -> enter app onboarding.
+2) Connect inbox -> set caps/windows.
+3) Create campaign wizard -> ICP -> leads -> sequence -> review -> launch.
+4) Operate campaign -> monitor, pause/resume, handle warnings.
+5) Handle replies -> categorize, respond, stop sequence on reply.
 
 ## Per-screen requirements (high level)
+### Login
+- Show Google OAuth as primary CTA.
+- Show email/password as secondary option.
+- Error states are specific and actionable (invalid credentials, expired session, auth provider unavailable).
+
+### Trial start/paywall gate
+- Explain trial duration, renewal date behavior, and cancellation terms before checkout.
+- Block access to protected app routes if trial/subscription is missing or invalid.
+
 ### Onboarding
 - Connect Gmail/M365; show connected/error states; require required scopes.
 
