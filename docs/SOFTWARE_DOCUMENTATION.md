@@ -154,7 +154,7 @@ Deliverability-first cold outreach operations app:
 - Current behavior:
   - Connect flow performs OAuth state + PKCE challenge generation.
   - Callback validates state and workspace ownership, exchanges code for access token, fetches Google user identity, and persists `inbox_connections` row as connected.
-  - Token persistence remains deferred to the next Phase 3 task (`Store encrypted tokens + refresh on demand`).
+  - OAuth access/refresh tokens are encrypted at rest during callback completion.
 - Validation:
   - Integration test with mocked Google token + userinfo endpoints verifies connection creation and cross-workspace provider-account conflict blocking.
 
@@ -186,6 +186,24 @@ Deliverability-first cold outreach operations app:
   - Saves via API and confirms persisted update.
 - Validation:
   - Integration test verifies settings persistence and validation failure behavior.
+
+### Phase 3 closeout (2026-02-06)
+- Phase 3 scope status: complete (Gmail connect + token handling + inbox send-constraint settings).
+- Delivered implementation in Phase 3:
+  - Google OAuth connect/callback routes and inbox connection status UI.
+  - Encrypted access/refresh token storage and on-demand refresh helpers.
+  - Persisted inbox cap/window/ramp settings with API + UI form.
+- Decisions confirmed for downstream phases:
+  - Token encryption format remains versioned (`v1`) for forward-compatible key/format evolution.
+  - Workspace ownership enforcement (`requireWorkspaceAccess`) is required before inbox settings mutation.
+  - Inbox send settings are persisted on `inbox_connections` and are now the source of truth for sender scheduling constraints.
+- Operational gotchas for implementers:
+  - Prisma generate on Windows can fail if `next dev` is running and locking Prisma query engine files; stop dev server before regenerate/migrate.
+  - Google connect and refresh flows require `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, and `TOKEN_ENCRYPTION_KEY` in each environment.
+  - Migration `20260206142046_add_inbox_connection_sending_settings` must be applied before using inbox settings API/UI.
+- Validation evidence captured for Phase 3 completion:
+  - `npm run db:migrate:status`
+  - `npm run verify`
 
 ### Phase 0b workflow hardening follow-up (2026-02-06)
 - Added baseline developer workflow automation focused on consistency and speed:
@@ -394,6 +412,7 @@ Deliverability-first cold outreach operations app:
 - 2026-02-06: Implemented Phase 3 Google OAuth connect flow for `inbox_connections` with inbox settings UI and mocked integration coverage.
 - 2026-02-06: Implemented encrypted OAuth token persistence and on-demand refresh helpers with unit + integration coverage.
 - 2026-02-06: Added persisted inbox sending settings (caps/windows/ramp) with update API and settings UI.
+- 2026-02-06: Closed Phase 3 documentation with consolidated phase summary, carry-forward decisions, and operational gotchas.
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).
