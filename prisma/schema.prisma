@@ -36,6 +36,8 @@ model Workspace {
   campaigns        Campaign[]
   inboxConnections InboxConnection[]
   icpProfiles      IcpProfile[]
+  leads            Lead[]
+  suppressions     Suppression[]
 
   @@index([ownerId])
   @@map("workspaces")
@@ -88,12 +90,65 @@ model Campaign {
   updatedAt    DateTime       @updatedAt @map("updated_at")
   launchedAt   DateTime?      @map("launched_at")
 
-  workspace  Workspace   @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
-  icpProfile IcpProfile? @relation(fields: [icpProfileId], references: [id], onDelete: SetNull)
+  workspace  Workspace      @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  icpProfile IcpProfile?    @relation(fields: [icpProfileId], references: [id], onDelete: SetNull)
+  leads      CampaignLead[]
 
   @@index([workspaceId])
   @@index([icpProfileId])
   @@map("campaigns")
+}
+
+model Lead {
+  id            String   @id @default(cuid())
+  workspaceId   String   @map("workspace_id")
+  firstName     String?  @map("first_name")
+  lastName      String?  @map("last_name")
+  email         String
+  companyName   String?  @map("company_name")
+  companyDomain String?  @map("company_domain")
+  title         String?
+  metadata      Json?
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  workspace Workspace      @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  campaigns CampaignLead[]
+
+  @@unique([workspaceId, email])
+  @@index([workspaceId])
+  @@index([companyDomain])
+  @@map("leads")
+}
+
+model CampaignLead {
+  id         String   @id @default(cuid())
+  campaignId String   @map("campaign_id")
+  leadId     String   @map("lead_id")
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  campaign Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  lead     Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+
+  @@unique([campaignId, leadId])
+  @@index([leadId])
+  @@map("campaign_leads")
+}
+
+model Suppression {
+  id          String   @id @default(cuid())
+  workspaceId String   @map("workspace_id")
+  email       String
+  reason      String
+  source      String?
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@unique([workspaceId, email])
+  @@index([workspaceId])
+  @@map("suppressions")
 }
 
 enum InboxProvider {
