@@ -1,5 +1,9 @@
 # UX Spec (Behavioral)
 
+Product: LeadBitz
+
+Website: https://www.leadbitz.com
+
 ## Information architecture (routes/sections)
 - `/app` App shell (auth required)
 - `/app/onboarding` Connect inbox + workspace defaults

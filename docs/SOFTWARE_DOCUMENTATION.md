@@ -1,6 +1,10 @@
 # Software Documentation (Living)
 
 ## Overview
+Product: LeadBitz
+
+Website: https://www.leadbitz.com
+
 Deliverability-first cold outreach operations app:
 - ICP generation (URL/text) + editor
 - Lead import + provenance
@@ -126,6 +130,7 @@ Deliverability-first cold outreach operations app:
 ### Phase 0 closeout (2026-02-06)
 - Merged PR #1 (`feature/vercel-deploy-fixes` -> `main`) to land deploy hardening changes (`postinstall` Prisma generation and deployment governance docs) into `main`.
 - Verified Vercel production deployment succeeded after merge:
+  - Intended production domain: https://www.leadbitz.com
   - Deployment: `https://leadbitz-24pgp7tzi-5lackjaws-projects.vercel.app`
   - Status: `Ready`
 - Verified Vercel production branch source is `main`:

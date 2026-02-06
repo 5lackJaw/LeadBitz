@@ -59,3 +59,4 @@
 
 ## Deployment
 - Vercel-first; env vars per environment; cron configured in Vercel.
+- Intended production domain: https://www.leadbitz.com
