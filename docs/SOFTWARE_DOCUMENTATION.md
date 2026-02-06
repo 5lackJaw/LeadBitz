@@ -71,6 +71,24 @@ Deliverability-first cold outreach operations app:
 - Acceptance mapping:
   - Phase 2 checklist item "Plan/confirm Phase 2 scope" is satisfied when these route protections and boundaries are documented and subsequent tasks implement against this contract.
 
+### Phase 2 auth strategy confirmation (2026-02-06)
+- Identity provider decision: Neon Auth.
+- Login method priority:
+  - Primary: Google OAuth.
+  - Secondary: email/password.
+- Domain strategy decision:
+  - Keep MVP app routes under the primary domain path (`/app/*`) instead of introducing an `app.` subdomain now.
+  - Neon Auth trusted domains should list allowed origins (no path segments), including production domains, release preview alias, and localhost for development only.
+- Email provider decision:
+  - Shared provider acceptable for dev/preview.
+  - Configure custom production sender/domain before go-live.
+- Billing/trial decision:
+  - Trial starts through subscription checkout with card collected up front.
+  - Automatic conversion to paid tier after trial window unless canceled.
+  - Do not model trial start as a synthetic `$0` one-off purchase.
+- Implementation boundary:
+  - Current NextAuth credentials flow is temporary; planned implementation should move to Neon Auth-backed sign-in/session model.
+
 ## Local setup
 1. Install dependencies: `npm ci`
 2. Set env vars (names below). For local development you can copy `.env.example` to `.env` and adjust values.
@@ -85,6 +103,8 @@ Deliverability-first cold outreach operations app:
 - `NEXTAUTH_SECRET`
 - `AUTH_DEMO_EMAIL`
 - `AUTH_DEMO_PASSWORD`
+- `NEON_AUTH_URL`
+- `NEON_AUTH_JWKS_URL`
 - `GOOGLE_CLIENT_ID`
 - `GOOGLE_CLIENT_SECRET`
 - `MICROSOFT_CLIENT_ID`
@@ -93,6 +113,9 @@ Deliverability-first cold outreach operations app:
 - `OPENAI_API_KEY`
 - `UPSTASH_REDIS_REST_URL`
 - `UPSTASH_REDIS_REST_TOKEN`
+- `STRIPE_SECRET_KEY`
+- `STRIPE_WEBHOOK_SECRET`
+- `STRIPE_PRICE_ID_*`
 
 ## Architecture snapshot
 - Next.js UI + API routes
@@ -112,6 +135,7 @@ Deliverability-first cold outreach operations app:
 - `/api/campaigns/*`, `/api/campaigns/:id/launch`
 - `/api/cron/tick`, `/api/cron/sync-inbox`
 - `/api/replies`, `/api/conversations/*`
+- `/api/billing/*` (planned checkout + subscription status/webhook handlers)
 
 ## Data model summary
 (Keep updated after migrations.)
@@ -127,9 +151,11 @@ Deliverability-first cold outreach operations app:
 - audit_events
 
 ## Integrations + webhooks
+- Neon Auth (Google OAuth + email/password)
 - Google OAuth + Gmail API
 - Microsoft OAuth + Graph API
 - OpenAI API
+- Stripe Billing + webhooks
 
 ## Testing commands
 - Lint: `npm run lint`
@@ -149,6 +175,20 @@ Deliverability-first cold outreach operations app:
 - Connected the Neon database to Vercel **Development** and **Preview** environments (kept **Production** separate per `docs/DEPLOYMENT_ENVIRONMENTS.md`).
 - Neon/Vercel integration created environment variables with a `DATABASE_` prefix, including `DATABASE_URL` for Prisma.
 - **Production DB**: not provisioned yet. When closer to go-live, create a separate Neon project (or branch) and add its `DATABASE_URL` to Vercel Production env vars only.
+
+### Neon Auth configuration decisions (2026-02-06)
+- Neon Auth endpoints captured for integration planning:
+  - Auth URL: configured in Neon project auth settings.
+  - JWKS URL: configured in Neon project auth settings.
+- Trusted domains list should include only origins and must cover:
+  - `https://leadbitz.com`
+  - `https://www.leadbitz.com`
+  - `https://leadbitz-git-release-5lackjaws-projects.vercel.app`
+  - localhost origins for development.
+- Keep "Allow localhost" enabled for development only; disable before production go-live if no longer needed.
+- Email provider policy:
+  - Shared sender acceptable in non-production.
+  - Production requires custom sender/domain setup for reliability and trust.
 
 ### Vercel CLI linking (2026-02-06)
 - Linked the local workspace to the Vercel project using `vercel link`.
@@ -195,6 +235,8 @@ Deliverability-first cold outreach operations app:
 - Prisma migrations require a reachable PostgreSQL server.
 - Prisma migrate commands read `.env` by default. Keep `.env` aligned with `.env.development.local` (or explicitly set `DATABASE_URL` in shell) before running migration commands.
 - NextAuth credentials login depends on `AUTH_DEMO_EMAIL`, `AUTH_DEMO_PASSWORD`, and `NEXTAUTH_SECRET`; sign-in will fail if any are missing.
+- Preview and local auth credentials can differ. Vercel Preview uses environment variables stored in Vercel, not `.env.preview.local` on your machine.
+- Neon Auth trusted domains accept origins only (scheme + host [+ port]); do not enter path segments such as `/app` or `/dashboard`.
 - If Docker Desktop is unavailable locally, use `npx prisma dev -d` to start Prisma's local Postgres and source the printed `DATABASE_URL`.
 - If you run `vercel env pull`, prefer pulling into `.env.development.local` (or `.env.local`) and keep it uncommitted (secrets).
 - `postinstall` script runs `prisma generate` automatically on `npm install` / `npm ci`. This is required for Vercel builds; do not remove it.
@@ -216,6 +258,8 @@ Deliverability-first cold outreach operations app:
 - 2026-02-06: Merged `feature/vercel-deploy-fixes` into `main`; production deploy verified `Ready`; production branch verified as `main`.
 - 2026-02-06: Adopted pre-MVP release flow: switched GitHub default branch to `release`, kept Vercel Production on `main`, and set `main` approvals to `1` to block live promotions until MVP sign-off.
 - 2026-02-06: Completed Phase 1 DB migration set and documented Phase 1 closeout decisions/gotchas.
+- 2026-02-06: Confirmed auth/signup strategy: Neon Auth as IdP, Google primary login, email/password secondary login, and subscription-trial billing entry model.
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).
+- Temporary auth bridge still uses NextAuth credentials flow; Neon Auth-backed session integration is planned in subsequent Phase 2/3 tasks.

@@ -72,6 +72,10 @@
   - Acceptance: route protections defined
   - Tests: n/a
   - Note (2026-02-06): Confirmed Phase 2 boundaries in `docs/SOFTWARE_DOCUMENTATION.md`, including explicit public vs auth-required app routes and protected API scopes for workspace-scoped authorization implementation. Files touched: `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`, `AGENTS.md`.
+- [x] Plan/confirm auth provider + signup/billing strategy (Neon Auth + Google primary)
+  - Acceptance: architecture/UX/auth configuration decisions documented, including trusted-domain policy and trial billing entry path
+  - Tests: n/a (documentation task)
+  - Note (2026-02-06): Documented Neon Auth strategy (Google primary, email/password secondary), trusted-domain guidance, email provider policy, and paid-trial billing flow in `docs/ARCHITECTURE.md`, `docs/UX_SPEC.md`, and `docs/SOFTWARE_DOCUMENTATION.md`. Added implementation follow-up notes and env naming updates to avoid ambiguity in upcoming auth tasks. Files touched: `docs/ARCHITECTURE.md`, `docs/UX_SPEC.md`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 - [x] Add NextAuth for app login
   - Acceptance: sign-in/out works
   - Tests: e2e smoke
