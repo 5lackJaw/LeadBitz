@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test:integration": "tsx --test tests/integration/ensure-user-workspace.test.ts",
+    "test:integration": "tsx --test tests/integration/ensure-user-workspace.test.ts tests/integration/workspace-authorization.test.ts",
     "postinstall": "prisma generate",
     "prisma:generate": "prisma generate",
     "db:migrate:dev": "prisma migrate dev",

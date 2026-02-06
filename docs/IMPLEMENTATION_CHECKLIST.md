@@ -84,9 +84,10 @@
   - Acceptance: workspace created once
   - Tests: integration
   - Note (2026-02-06): Added `ensureUserWorkspace` provisioning helper and invoked it in NextAuth `signIn` callback so first successful login upserts user + creates one default workspace, while subsequent logins reuse the existing workspace. Added integration coverage for idempotent provisioning behavior. Files touched: `auth.ts`, `lib/auth/ensure-user-workspace.ts`, `tests/integration/ensure-user-workspace.test.ts`, `package.json`, `package-lock.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
-- [ ] Add workspace-scoped authorization helper
+- [x] Add workspace-scoped authorization helper
   - Acceptance: cross-workspace access blocked
   - Tests: integration
+  - Note (2026-02-06): Added `requireWorkspaceAccess` helper with explicit error codes (`UNAUTHENTICATED`, `NOT_FOUND`, `FORBIDDEN`) to enforce workspace ownership checks by session email + workspace id. Added integration coverage proving same-workspace access succeeds and cross-workspace access is rejected. Files touched: `lib/auth/require-workspace-access.ts`, `tests/integration/workspace-authorization.test.ts`, `tests/integration/test-env.ts`, `tests/integration/ensure-user-workspace.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 - [ ] Update SOFTWARE_DOCUMENTATION.md (phase summary + decisions + gotchas)
 
 ## Phase 3 — Gmail connect

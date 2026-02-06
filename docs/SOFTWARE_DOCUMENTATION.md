@@ -98,6 +98,18 @@ Deliverability-first cold outreach operations app:
 - Provisioning behavior lives in `lib/auth/ensure-user-workspace.ts` and is called from NextAuth `signIn` callback in `auth.ts`.
 - Integration test coverage was added to verify idempotency (created once, reused on subsequent login).
 
+### Phase 2 progress: workspace-scoped authorization helper (2026-02-06)
+- Added reusable helper `requireWorkspaceAccess` in `lib/auth/require-workspace-access.ts`.
+- Helper contract:
+  - Input: `workspaceId` + authenticated `userEmail`.
+  - Output: authorized workspace metadata for downstream route handlers.
+  - Errors: explicit `WorkspaceAuthorizationError` codes (`UNAUTHENTICATED`, `NOT_FOUND`, `FORBIDDEN`).
+- Authorization rule enforced:
+  - Access is allowed only when the requested workspace belongs to the authenticated user (`workspace.ownerId === user.id`).
+- Integration coverage added to confirm:
+  - same-workspace access succeeds
+  - cross-workspace access is blocked with `FORBIDDEN`
+
 ## Local setup
 1. Install dependencies: `npm ci`
 2. Set env vars (names below). For local development you can copy `.env.example` to `.env` and adjust values.
@@ -172,7 +184,7 @@ Deliverability-first cold outreach operations app:
 - Unit:
 - Integration:
   - `npm run db:migrate:status` (with a reachable Postgres `DATABASE_URL`)
-  - `npm run test:integration` (validates workspace auto-provision behavior)
+  - `npm run test:integration` (validates workspace auto-provision + workspace authorization helper behavior)
 - E2E (Playwright):
 
 ## Deployment notes
@@ -272,6 +284,7 @@ Deliverability-first cold outreach operations app:
 - 2026-02-06: Completed Phase 1 DB migration set and documented Phase 1 closeout decisions/gotchas.
 - 2026-02-06: Confirmed auth/signup strategy: Neon Auth as IdP, Google primary login, email/password secondary login, and subscription-trial billing entry model.
 - 2026-02-06: Added first-login workspace auto-provisioning in NextAuth `signIn` flow with integration test coverage for one-time workspace creation.
+- 2026-02-06: Added workspace-scoped authorization helper with explicit error codes and integration coverage for cross-workspace access denial.
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).
