@@ -130,6 +130,20 @@ Deliverability-first cold outreach operations app:
   - `npm run test:integration`
   - `npm run build`
 
+### Phase 3 planning: token encryption approach (2026-02-06)
+- Confirmed token-at-rest encryption approach for provider OAuth credentials.
+- Encryption decision:
+  - Algorithm: AES-256-GCM (authenticated encryption).
+  - Key source: `TOKEN_ENCRYPTION_KEY` (32-byte secret, environment-scoped).
+  - Token envelope format: `v1:<iv_b64>:<tag_b64>:<ciphertext_b64>`.
+- Storage + runtime rules:
+  - Persist only encrypted token payloads in `inbox_connections.access_token_encrypted` and `inbox_connections.refresh_token_encrypted`.
+  - Decrypt only on server when invoking provider APIs or refresh flows.
+  - Never log plaintext access/refresh tokens or decrypted payloads.
+- Rotation policy for MVP:
+  - Single active key per environment.
+  - If key rotation occurs, existing connections must be re-authorized (deferred re-encryption tooling can be added in a later checklist task if needed).
+
 ## Local setup
 1. Install dependencies: `npm ci`
 2. Set env vars (names below). For local development you can copy `.env.example` to `.env` and adjust values.
@@ -306,6 +320,7 @@ Deliverability-first cold outreach operations app:
 - 2026-02-06: Added first-login workspace auto-provisioning in NextAuth `signIn` flow with integration test coverage for one-time workspace creation.
 - 2026-02-06: Added workspace-scoped authorization helper with explicit error codes and integration coverage for cross-workspace access denial.
 - 2026-02-06: Closed Phase 2 documentation with consolidated phase summary, decisions, and operational gotchas.
+- 2026-02-06: Confirmed Phase 3 token encryption approach (AES-256-GCM, versioned envelope format, env-scoped key policy).
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).
