@@ -144,28 +144,60 @@
 - [x] Update SOFTWARE_DOCUMENTATION.md (phase summary + decisions + gotchas)
   - Note (2026-02-06): Added explicit "Phase 4 closeout" section to `docs/SOFTWARE_DOCUMENTATION.md` with completion summary, carry-forward decisions (strict Step 1 XOR contract + explicit-save ICP editor behavior), operational gotchas, and validation evidence (`lint`, `unit`, `integration`, `build`). Files touched: `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 
-## Phase 5 — Leads import + suppression + provenance
-- [ ] Plan/confirm dedupe + suppression rules
-  - Acceptance: documented
+## Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification
+- [ ] Plan/confirm Phase 5 provider selection + fields + quotas
+  - Acceptance: provider chosen and documented; supported filters listed
   - Tests: n/a
-- [ ] CSV import API + mapping
-  - Acceptance: row-level errors returned
+- [ ] Add DB tables for source_connectors, source_runs, candidates, email_verifications
+  - Acceptance: migration applies; indexes on campaign_id, source_run_id, email
   - Tests: integration
-- [ ] Paste/manual add lead API
-  - Acceptance: validates + dedupes
+- [ ] Implement source connector CRUD API (create/update/enable/disable)
+  - Acceptance: can create connector; disable blocks runs
+  - Tests: integration
+- [ ] Implement discovery run creation endpoint (creates source_run)
+  - Acceptance: validates connector enabled; stores query_json; status queued
+  - Tests: integration
+- [ ] Implement provider client wrapper (rate limiting, retries, pagination, typed responses)
+  - Acceptance: handles transient errors; respects provider limits
+  - Tests: unit (retry/backoff), integration (mock provider)
+- [ ] Implement discovery run worker (fetch → normalize → store candidates)
+  - Acceptance: creates candidates with confidence + provenance; run stats recorded
+  - Tests: integration (mock provider)
+- [ ] Implement email verification client + batch verify worker
+  - Acceptance: writes email_verifications; updates candidates verification_status
+  - Tests: integration (mock verifier)
+- [ ] Implement suppression + dedupe application during candidate creation
+  - Acceptance: suppressed/duplicate candidates marked and excluded from “approvable”
+  - Tests: integration
+- [ ] Implement candidates list API (filters, pagination)
+  - Acceptance: filters work (verification, confidence, role, source_run)
+  - Tests: integration
+- [ ] Implement candidates review UI (/candidates) with approve/reject flows
+  - Acceptance: bulk approve moves to Leads; reject persists
+  - Tests: e2e
+- [ ] Implement approve endpoint (Candidates → Leads) with enforcement rules
+  - Acceptance: cannot approve invalid emails; verified-only default; explicit allowUnverified requires confirmation
+  - Tests: integration
+- [ ] Update SOFTWARE_DOCUMENTATION.md (phase summary + decisions + gotchas)
+
+
+## Phase 6 — Lead import fallback (CSV/paste/manual) + provenance (optional but recommended)
+- [ ] Plan/confirm Phase 6 fallback import scope + mapping UX
+  - Acceptance: fallback explicitly positioned; does not replace discovery
+  - Tests: n/a
+- [ ] Implement CSV import API with dedupe + suppression + provenance source csv_import
+  - Acceptance: row-level errors; provenance recorded
+  - Tests: integration
+- [ ] Implement paste/manual add API with dedupe + suppression
+  - Acceptance: validates email; prevents duplicates
   - Tests: unit+integration
-- [ ] Suppression checks on import/add
-  - Acceptance: rejects suppressed with reason
-  - Tests: integration
-- [ ] Source registry + provenance writes for imports
-  - Acceptance: provenance visible on lead detail
-  - Tests: integration
-- [ ] Leads table UI + bulk suppress
-  - Acceptance: status updates correctly
+- [ ] Implement UI import tools inside campaign leads page
+  - Acceptance: import works; dedupe outcomes visible
   - Tests: e2e
 - [ ] Update SOFTWARE_DOCUMENTATION.md (phase summary + decisions + gotchas)
 
-## Phase 6 — Sequence + templates + lint + AI draft
+
+## Phase 7 — Sequence + templates + lint + AI draft
 - [ ] Plan/confirm stop rules + placeholder enforcement
   - Acceptance: unsubscribe placeholder required
   - Tests: n/a
@@ -183,7 +215,7 @@
   - Tests: integration
 - [ ] Update SOFTWARE_DOCUMENTATION.md (phase summary + decisions + gotchas)
 
-## Phase 7 — Launch + job scheduling
+## Phase 8 — Launch + job scheduling
 - [ ] Plan/confirm launch validators
   - Acceptance: blockers/warnings defined
   - Tests: n/a
@@ -198,7 +230,7 @@
   - Tests: integration
 - [ ] Update SOFTWARE_DOCUMENTATION.md (phase summary + decisions + gotchas)
 
-## Phase 8 — Cron sender + Gmail send
+## Phase 9 — Cron sender + Gmail send
 - [ ] Plan/confirm scheduling algorithm (caps/ramp/windows)
   - Acceptance: deterministic logic
   - Tests: unit plan
@@ -213,7 +245,7 @@
   - Tests: unit+integration
 - [ ] Update SOFTWARE_DOCUMENTATION.md (phase summary + decisions + gotchas)
 
-## Phase 9 — Inbox polling + replies inbox
+## Phase 10 — Inbox polling + replies inbox
 - [ ] Plan/confirm polling + thread matching
   - Acceptance: rules documented
   - Tests: n/a
@@ -234,7 +266,7 @@
   - Tests: integration
 - [ ] Update SOFTWARE_DOCUMENTATION.md (phase summary + decisions + gotchas)
 
-## Phase 10 — Compliance hardening
+## Phase 11 — Compliance hardening
 - [ ] Plan/confirm compliance UX
   - Acceptance: launch attestation required
   - Tests: n/a

@@ -7,7 +7,9 @@ Website: https://www.leadbitz.com
 
 Deliverability-first cold outreach operations app:
 - ICP generation (URL/text) + editor
-- Lead import + provenance
+- Automated lead discovery via licensed provider connector
+- Candidate review + approval gate (Candidates → Leads)
+- Email verification + suppression safety
 - AI-assisted email drafting (human approval)
 - Safe sending via connected inbox
 - Replies inbox + categorization
@@ -348,37 +350,49 @@ Deliverability-first cold outreach operations app:
 
 ## Routes/endpoints summary
 (Keep updated as built.)
-- `/` (landing scaffold)
-- `/login` (NextAuth credentials sign-in page)
-- `/app` (app shell scaffold route)
-- `/app/onboarding`, `/app/campaigns`, `/app/replies`, `/app/settings/*`
-- `/app/campaigns/new` (wizard Step 1 input form)
-- `/api/auth/[...nextauth]` (NextAuth auth handler)
-- `/api/campaigns` (campaign list + create for primary workspace)
-- `/api/campaigns/:campaignId` (campaign rename)
-- `/api/campaigns/wizard/step1` (Step 1 URL xor text validation)
-- `/api/icp/generate` (persist generated ICP profile for wizard Step 2)
-- `/api/icp/profiles/:icpProfileId` (persist ICP editor changes)
-- `/api/inboxes/google/connect` (Google OAuth start)
-- `/api/inboxes/google/callback` (Google OAuth callback)
-- `/api/inboxes/:inboxConnectionId/settings` (inbox cap/window/ramp update)
-- `/api/messages/draft`
-- `/api/cron/tick`, `/api/cron/sync-inbox`
-- `/api/replies`, `/api/conversations/*`
-- `/api/billing/*` (planned checkout + subscription status/webhook handlers)
+
+UI:
+- `/app/onboarding`
+- `/app/campaigns`, `/app/campaigns/new`, `/app/campaigns/:id`
+- `/app/campaigns/:id/discovery`
+- `/app/campaigns/:id/candidates`
+- `/app/campaigns/:id/leads`
+- `/app/replies`
+- `/app/settings/sources`
+- `/app/settings/verification`
+
+API (high level):
+- Sources/connectors: `/api/sources/*`
+- Discovery runs: `/api/campaigns/:id/discovery/run`, `/api/campaigns/:id/discovery/runs`
+- Candidates: `/api/campaigns/:id/candidates`, `/api/campaigns/:id/candidates/approve`, `/api/campaigns/:id/candidates/reject`
+- Verification: `/api/verification/batch`
+- ICP + drafting: `/api/icp/generate`, `/api/messages/draft`
+- Sending + sync: `/api/cron/tick`, `/api/cron/sync-inbox`
+- Replies: `/api/replies`, `/api/conversations/*`
 
 ## Data model summary
 (Keep updated after migrations.)
+
+Core:
 - users, workspaces
 - inbox_connections
 - campaigns, icp_profiles
-- leads, campaign_leads
 - sequences, sequence_steps, message_templates
 - send_jobs
 - conversations, messages
 - suppressions
-- lead_sources, lead_field_provenance
 - audit_events
+- provenance: lead_field_provenance (and related source metadata)
+
+Lead discovery:
+- source_connectors
+- source_runs
+- candidates
+- email_verifications
+
+Approved outreach:
+- leads
+- campaign_leads
 
 ## Integrations + webhooks
 - Neon Auth (Google OAuth + email/password)
