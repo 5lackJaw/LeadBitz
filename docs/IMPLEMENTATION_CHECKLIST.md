@@ -104,9 +104,10 @@
   - Acceptance: documented decision
   - Tests: n/a
   - Note (2026-02-06): Documented Phase 3 token encryption approach with AES-256-GCM, versioned encrypted-token envelope format, `TOKEN_ENCRYPTION_KEY` usage, decryption boundaries, and MVP key-rotation policy in `docs/ARCHITECTURE.md` and `docs/SOFTWARE_DOCUMENTATION.md`. Files touched: `docs/ARCHITECTURE.md`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
-- [ ] Implement Google OAuth connect flow for inbox_connections
+- [x] Implement Google OAuth connect flow for inbox_connections
   - Acceptance: inbox shows connected
   - Tests: e2e with mocks
+  - Note (2026-02-06): Implemented Google OAuth connect + callback routes (`/api/inboxes/google/connect`, `/api/inboxes/google/callback`), added `/app/settings/inboxes` UI to show Gmail connection status, and persisted `inbox_connections` as connected after OAuth exchange. Added integration test with mocked Google token/userinfo responses to validate connection creation and cross-workspace provider-account conflict blocking. Files touched: `app/api/inboxes/google/connect/route.ts`, `app/api/inboxes/google/callback/route.ts`, `app/app/settings/inboxes/page.tsx`, `app/app/page.tsx`, `lib/inbox/google-oauth.ts`, `lib/inbox/complete-google-connection.ts`, `lib/auth/get-primary-workspace.ts`, `tests/integration/google-connect-flow.test.ts`, `package.json`, `.env.example`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/ARCHITECTURE.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 - [ ] Store encrypted tokens + refresh on demand
   - Acceptance: refresh updates DB
   - Tests: unit+integration

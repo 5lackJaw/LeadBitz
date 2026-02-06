@@ -144,6 +144,20 @@ Deliverability-first cold outreach operations app:
   - Single active key per environment.
   - If key rotation occurs, existing connections must be re-authorized (deferred re-encryption tooling can be added in a later checklist task if needed).
 
+### Phase 3 progress: Google OAuth inbox connect flow (2026-02-06)
+- Implemented Google connect entry + callback routes:
+  - `GET /api/inboxes/google/connect`
+  - `GET /api/inboxes/google/callback`
+- Added inbox connection settings page:
+  - `GET /app/settings/inboxes`
+  - Displays current Gmail connection status for the signed-in user's primary workspace.
+- Current behavior:
+  - Connect flow performs OAuth state + PKCE challenge generation.
+  - Callback validates state and workspace ownership, exchanges code for access token, fetches Google user identity, and persists `inbox_connections` row as connected.
+  - Token persistence remains deferred to the next Phase 3 task (`Store encrypted tokens + refresh on demand`).
+- Validation:
+  - Integration test with mocked Google token + userinfo endpoints verifies connection creation and cross-workspace provider-account conflict blocking.
+
 ### Phase 0b workflow hardening follow-up (2026-02-06)
 - Added baseline developer workflow automation focused on consistency and speed:
   - `AGENTS.md` path/writing clarifications to reduce instruction ambiguity.
@@ -196,6 +210,8 @@ Deliverability-first cold outreach operations app:
 - `/app` (app shell scaffold route)
 - `/app/onboarding`, `/app/campaigns`, `/app/replies`, `/app/settings/*`
 - `/api/auth/[...nextauth]` (NextAuth auth handler)
+- `/api/inboxes/google/connect` (Google OAuth start)
+- `/api/inboxes/google/callback` (Google OAuth callback)
 - `/api/icp/generate`, `/api/messages/draft`
 - `/api/campaigns/*`, `/api/campaigns/:id/launch`
 - `/api/cron/tick`, `/api/cron/sync-inbox`
@@ -229,7 +245,7 @@ Deliverability-first cold outreach operations app:
 - Unit:
 - Integration:
   - `npm run db:migrate:status` (with a reachable Postgres `DATABASE_URL`)
-  - `npm run test:integration` (validates workspace auto-provision + workspace authorization helper behavior)
+  - `npm run test:integration` (validates workspace auto-provision + workspace authorization helper + mocked Google connect flow behavior)
 - E2E (Playwright):
 
 ## Deployment notes
@@ -306,6 +322,8 @@ Deliverability-first cold outreach operations app:
 - NextAuth sign-in now also requires a reachable `DATABASE_URL` because user/workspace provisioning executes during `signIn`.
 - Preview and local auth credentials can differ. Vercel Preview uses environment variables stored in Vercel, not `.env.preview.local` on your machine.
 - Neon Auth trusted domains accept origins only (scheme + host [+ port]); do not enter path segments such as `/app` or `/dashboard`.
+- Google OAuth callback URI must exactly match `${NEXTAUTH_URL}/api/inboxes/google/callback` in Google Cloud OAuth credentials per environment.
+- `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` must be present in local and Preview environments before testing inbox connect flow.
 - If Docker Desktop is unavailable locally, use `npx prisma dev -d` to start Prisma's local Postgres and source the printed `DATABASE_URL`.
 - If you run `vercel env pull`, prefer pulling into `.env.development.local` (or `.env.local`) and keep it uncommitted (secrets).
 - `postinstall` script runs `prisma generate` automatically on `npm install` / `npm ci`. This is required for Vercel builds; do not remove it.
@@ -336,6 +354,7 @@ Deliverability-first cold outreach operations app:
 - 2026-02-06: Closed Phase 2 documentation with consolidated phase summary, decisions, and operational gotchas.
 - 2026-02-06: Confirmed Phase 3 token encryption approach (AES-256-GCM, versioned envelope format, env-scoped key policy).
 - 2026-02-06: Added workflow automation baseline (`AGENTS` clarity updates, PR template, `npm run verify`, and `release` PR CI verification workflow).
+- 2026-02-06: Implemented Phase 3 Google OAuth connect flow for `inbox_connections` with inbox settings UI and mocked integration coverage.
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).

@@ -39,6 +39,7 @@
 - Replies: list/get/categorize/send
 - Cron: `POST /api/cron/tick`, `POST /api/cron/sync-inbox`
 - Auth: `/login`, `/api/auth/*` (temporary bridge), Neon Auth endpoints for sign-in/sign-up/session validation
+- Inbox connect: `GET /app/settings/inboxes`, `GET /api/inboxes/google/connect`, `GET /api/inboxes/google/callback`
 - Billing (planned): checkout session creation + webhook handlers for trial/subscription state sync
 
 ## Auth and identity
@@ -81,6 +82,10 @@
   - Scope: `inbox_connections.access_token_encrypted` and `inbox_connections.refresh_token_encrypted` store only encrypted values.
   - Decryption policy: decrypt only inside server-side provider calls; never log raw tokens or decrypted payloads.
 - Least-privilege scopes for providers.
+- OAuth callback hardening:
+  - Short-lived OAuth state cookie.
+  - State verification on callback before token exchange.
+  - Workspace ownership check before persisting `inbox_connections`.
 - Rate limits on AI endpoints.
 - Audit logging for critical events.
 - Enforced unsubscribe + suppression + caps.
