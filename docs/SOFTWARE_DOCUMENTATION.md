@@ -94,8 +94,10 @@ Deliverability-first cold outreach operations app:
 ### Vercel project + Neon DB (2026-02-06)
 - Created a Vercel project for this repo.
 - Provisioned a free-tier Neon Postgres database via Vercel Storage/Marketplace.
+  - **Why Neon**: free tier with generous limits; native Vercel integration; supports Preview-vs-Production separation via environment scoping; no paid Supabase subscription required.
 - Connected the Neon database to Vercel **Development** and **Preview** environments (kept **Production** separate per `docs/DEPLOYMENT_ENVIRONMENTS.md`).
 - Neon/Vercel integration created environment variables with a `DATABASE_` prefix, including `DATABASE_URL` for Prisma.
+- **Production DB**: not provisioned yet. When closer to go-live, create a separate Neon project (or branch) and add its `DATABASE_URL` to Vercel Production env vars only.
 
 ### Vercel CLI linking (2026-02-06)
 - Linked the local workspace to the Vercel project using `vercel link`.
@@ -103,10 +105,30 @@ Deliverability-first cold outreach operations app:
   - `.env.local` contains secrets and must not be committed.
   - `.vercel/` is created by the CLI and is ignored.
 
+### Deployment hardening (2026-02-06)
+- Added `"postinstall": "prisma generate"` script to `package.json` so Prisma Client is generated automatically during `npm install` on Vercel (prevents missing-client build failures).
+- Added `.env*.local` pattern to `.gitignore` to prevent Vercel-pulled secrets from being committed.
+- Updated `docs/DEPLOYMENT_ENVIRONMENTS.md` with section B1 ("Finding and classifying database URLs") explaining where to find DB URLs and how to classify live vs preview.
+
+### GitHub governance (2026-02-06)
+- **Default branch**: Changed GitHub repo default branch from `feature/phase1-scope-confirmation` to `main` (aligns with Vercel Production Branch policy and `DEPLOYMENT_ENVIRONMENTS.md` rules).
+- **Branch protection on `main`**:
+  - Required: 1 PR review approval before merge.
+  - Dismiss stale reviews on new pushes.
+  - Enforce restrictions for admins (admins also need PRs).
+  - Force pushes to `main`: disabled.
+  - Branch deletion of `main`: disabled.
+  - Linear history: not enabled (GitHub API returned 404 for personal-account repos; can be configured manually via GitHub UI > Settings > Branches if desired).
+  - Conversation resolution required: not enabled (same 404 limitation).
+- All changes applied via GitHub CLI (`gh`) after installing it locally.
+
 ## Operational gotchas
 - Prisma migrations require a reachable PostgreSQL server.
 - If Docker Desktop is unavailable locally, use `npx prisma dev -d` to start Prisma's local Postgres and source the printed `DATABASE_URL`.
 - If you run `vercel env pull`, prefer pulling into `.env.development.local` (or `.env.local`) and keep it uncommitted (secrets).
+- `postinstall` script runs `prisma generate` automatically on `npm install` / `npm ci`. This is required for Vercel builds; do not remove it.
+- Branch protection enforces admins — even the repo owner must open a PR to merge into `main`.
+- The `gh` CLI was installed locally for GitHub automation. It is **not** a project dependency (do not add it to `package.json`).
 
 ## Changelog
 - YYYY-MM-DD: Initial scaffold created.
@@ -115,6 +137,9 @@ Deliverability-first cold outreach operations app:
 - 2026-02-05: Added Prisma + PostgreSQL connection setup, migration scripts, and a shared Prisma client helper.
 - 2026-02-06: Set up Vercel project and provisioned a Neon Postgres database for Development/Preview; linked local workspace via Vercel CLI and pulled env vars into a local-only env file.
 - 2026-02-06: Deployment workflow hardening: ensured `main` exists on origin for production-branch policy; added a deployment fix to generate Prisma client on install (tracked via PR branch).
+- 2026-02-06: GitHub governance: changed default branch to `main`; applied branch protection (PR reviews, dismiss stale, enforce admins, no force-push/deletion).
+- 2026-02-06: Updated `DEPLOYMENT_ENVIRONMENTS.md` with B1 section for finding and classifying database URLs.
+- 2026-02-06: Added `.env*.local` to `.gitignore` for Vercel-pulled secrets.
 
 ## Known issues / limitations
 - (empty)

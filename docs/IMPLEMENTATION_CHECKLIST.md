@@ -5,6 +5,32 @@
 
 ---
 
+## Phase 0 — Deployment infrastructure + repo governance
+- [x] Set up Vercel project + Neon Postgres database (Dev/Preview)
+  - Acceptance: Vercel project linked; Neon DB provisioned; `DATABASE_URL` available in Dev/Preview env vars
+  - Tests: n/a
+  - Note (2026-02-06): Vercel project created; Neon Postgres provisioned via Vercel Storage/Marketplace (free tier); connected to Development + Preview environments only. Production DB deferred until go-live.
+- [x] Link local workspace via Vercel CLI + pull env vars
+  - Acceptance: `vercel link` succeeds; `.env.local` created with secrets; `.env*.local` in `.gitignore`
+  - Tests: n/a
+  - Note (2026-02-06): Ran `vercel link` and `vercel env pull`; `.env.local` created locally; `.env*.local` added to `.gitignore`; `.vercel/` already ignored.
+- [x] Add `postinstall: prisma generate` for deploy reliability
+  - Acceptance: `npm install` triggers Prisma client generation
+  - Tests: n/a
+  - Note (2026-02-06): Added to `package.json` scripts on `feature/vercel-deploy-fixes` branch.
+- [x] Set GitHub default branch to `main` + enable branch protection
+  - Acceptance: GitHub default branch = `main`; PRs required; force-push disabled
+  - Tests: n/a
+  - Note (2026-02-06): Changed default branch from `feature/phase1-scope-confirmation` to `main` via `gh` CLI. Branch protection applied: 1 required review, dismiss stale reviews, enforce admins, no force-push/deletion. Linear history and conversation resolution not enabled (API limitation on personal repos).
+- [ ] Merge `feature/vercel-deploy-fixes` PR into `main`
+  - Acceptance: PR merged; `main` contains `postinstall` script + docs updates; Vercel Production deploy succeeds
+  - Tests: Vercel build passes
+- [ ] Verify Vercel Production Branch = `main` in project settings
+  - Acceptance: Vercel project settings show Production Branch as `main`
+  - Tests: n/a
+
+---
+
 ## Phase 1 — Skeleton + DB
 - [x] Plan/confirm Phase 1 scope
   - Acceptance: tasks match docs
