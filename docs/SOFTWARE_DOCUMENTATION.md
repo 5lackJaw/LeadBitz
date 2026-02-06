@@ -254,6 +254,19 @@ Deliverability-first cold outreach operations app:
   - Success message confirms Step 1 completion and indicates Step 2 (ICP generation) is next.
 - Added unit test coverage for the validation helper in `tests/unit/wizard-step1-validation.test.ts`.
 
+### Phase 4 progress: ICP generate endpoint (2026-02-06)
+- Added authenticated endpoint:
+  - `POST /api/icp/generate`
+- Endpoint behavior:
+  - Validates Step 1 source input contract (`websiteUrl` xor `productDescription`).
+  - Generates an ICP draft payload and persists an `icp_profiles` row.
+  - Optionally links the generated ICP profile to a campaign (`campaigns.icp_profile_id`) when `campaignId` is provided and workspace-scoped ownership is valid.
+  - Returns `{ icpProfileId, icp, sourceType, sourceValue, campaignId }`.
+- Added service layer:
+  - `lib/icp/generate-icp-profile.ts` with explicit validation/not-found error classes and injectable AI draft generator.
+- Testing:
+  - Added integration coverage in `tests/integration/icp-generate.test.ts` using a mocked AI generator function to verify profile persistence and campaign-link behavior.
+
 ### Phase 0b workflow hardening follow-up (2026-02-06)
 - Added baseline developer workflow automation focused on consistency and speed:
   - `AGENTS.md` path/writing clarifications to reduce instruction ambiguity.
@@ -310,10 +323,11 @@ Deliverability-first cold outreach operations app:
 - `/api/campaigns` (campaign list + create for primary workspace)
 - `/api/campaigns/:campaignId` (campaign rename)
 - `/api/campaigns/wizard/step1` (Step 1 URL xor text validation)
+- `/api/icp/generate` (persist generated ICP profile for wizard Step 2)
 - `/api/inboxes/google/connect` (Google OAuth start)
 - `/api/inboxes/google/callback` (Google OAuth callback)
 - `/api/inboxes/:inboxConnectionId/settings` (inbox cap/window/ramp update)
-- `/api/icp/generate`, `/api/messages/draft`
+- `/api/messages/draft`
 - `/api/cron/tick`, `/api/cron/sync-inbox`
 - `/api/replies`, `/api/conversations/*`
 - `/api/billing/*` (planned checkout + subscription status/webhook handlers)
@@ -346,7 +360,7 @@ Deliverability-first cold outreach operations app:
   - `npm run test:unit` (token encryption + wizard Step 1 validation)
 - Integration:
   - `npm run db:migrate:status` (with a reachable Postgres `DATABASE_URL`)
-  - `npm run test:integration` (validates workspace auto-provision + workspace authorization helper + mocked Google connect + token refresh + inbox settings persistence + campaign create/list/rename behavior)
+  - `npm run test:integration` (validates workspace auto-provision + workspace authorization helper + mocked Google connect + token refresh + inbox settings persistence + campaign create/list/rename + ICP generation persistence behavior)
 - E2E (Playwright):
 
 ## Deployment notes
@@ -430,6 +444,7 @@ Deliverability-first cold outreach operations app:
   - required after trim
   - max 120 characters
 - Wizard Step 1 source input requires `websiteUrl` xor `productDescription`; empty or both-provided payloads are rejected by API validation.
+- `POST /api/icp/generate` currently uses an injectable draft generator abstraction; tests must mock the generator and verify DB persistence, while full OpenAI-backed generation remains a later implementation step.
 - Inbox settings API validation bounds:
   - `dailySendCap`: `1..500`
   - `sendWindowStartHour`: `0..23`
@@ -471,6 +486,7 @@ Deliverability-first cold outreach operations app:
 - 2026-02-06: Closed Phase 3 documentation with consolidated phase summary, carry-forward decisions, and operational gotchas.
 - 2026-02-06: Implemented campaign CRUD foundation (`/api/campaigns`, `/api/campaigns/:campaignId`) and `/app/campaigns` list UI with create/rename flows.
 - 2026-02-06: Implemented wizard Step 1 input route (`/app/campaigns/new`) and API validation endpoint (`/api/campaigns/wizard/step1`) enforcing website URL xor product description.
+- 2026-02-06: Implemented `POST /api/icp/generate` with workspace-scoped `icp_profiles` persistence and integration coverage using mocked AI generation.
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).
