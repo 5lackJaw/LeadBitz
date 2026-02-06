@@ -13,10 +13,13 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       authorize(credentials) {
-        const email = credentials?.email?.trim();
-        const password = credentials?.password;
-        const expectedEmail = process.env.AUTH_DEMO_EMAIL;
-        const expectedPassword = process.env.AUTH_DEMO_PASSWORD;
+        const normalize = (value?: string | null) =>
+          value?.trim().replace(/^['"]|['"]$/g, "") ?? "";
+
+        const email = normalize(credentials?.email).toLowerCase();
+        const password = normalize(credentials?.password);
+        const expectedEmail = normalize(process.env.AUTH_DEMO_EMAIL).toLowerCase();
+        const expectedPassword = normalize(process.env.AUTH_DEMO_PASSWORD);
 
         if (!email || !password || !expectedEmail || !expectedPassword) {
           return null;
