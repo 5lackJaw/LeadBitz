@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "test:integration": "tsx --test tests/integration/ensure-user-workspace.test.ts",
     "postinstall": "prisma generate",
     "prisma:generate": "prisma generate",
     "db:migrate:dev": "prisma migrate dev",
@@ -27,6 +28,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "prisma": "^6.18.0",
+    "tsx": "^4.20.6",
     "typescript": "^5"
   }
 }
