@@ -116,7 +116,8 @@
   - Acceptance: persisted settings
   - Tests: e2e
   - Note (2026-02-06): Added persisted inbox settings fields on `inbox_connections` (`daily_send_cap`, `send_window_start_hour`, `send_window_end_hour`, `ramp_up_per_day`), implemented `PATCH /api/inboxes/:inboxConnectionId/settings` with workspace-ownership and input validation, and added `/app/settings/inboxes` form for saving settings. Added integration coverage for persistence and validation failures. Files touched: `prisma/schema.prisma`, `prisma/migrations/20260206142046_add_inbox_connection_sending_settings/migration.sql`, `lib/inbox/inbox-settings.ts`, `app/api/inboxes/[inboxConnectionId]/settings/route.ts`, `app/app/settings/inboxes/inbox-settings-form.tsx`, `app/app/settings/inboxes/page.tsx`, `tests/integration/inbox-settings.test.ts`, `package.json`, `docs/ARCHITECTURE.md`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
-- [ ] Update SOFTWARE_DOCUMENTATION.md (phase summary + decisions + gotchas)
+- [x] Update SOFTWARE_DOCUMENTATION.md (phase summary + decisions + gotchas)
+  - Note (2026-02-06): Added explicit "Phase 3 closeout" documentation with completion summary (Google OAuth connect, encrypted token storage/refresh, inbox settings API/UI), carry-forward decisions, migration/runtime gotchas, and validation command evidence. Also corrected stale Phase 3 note so token persistence status matches implementation. Files touched: `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 
 ## Phase 4 — Campaign wizard (draft + ICP)
 - [ ] Plan/confirm wizard routes/steps
