@@ -112,9 +112,10 @@
   - Acceptance: refresh updates DB
   - Tests: unit+integration
   - Note (2026-02-06): Added AES-256-GCM token encryption/decryption helper, stored encrypted access/refresh tokens during Google OAuth callback completion, and implemented on-demand token refresh helper that updates encrypted token fields in `inbox_connections`. Added unit test coverage for token encryption format/roundtrip and integration coverage for refresh update behavior. Files touched: `lib/inbox/token-encryption.ts`, `lib/inbox/complete-google-connection.ts`, `lib/inbox/google-token-refresh.ts`, `tests/unit/token-encryption.test.ts`, `tests/integration/google-connect-flow.test.ts`, `tests/integration/google-token-refresh.test.ts`, `tests/integration/test-env.ts`, `package.json`, `.env.example`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
-- [ ] Inbox settings (caps/windows/ramp) UI + API
+- [x] Inbox settings (caps/windows/ramp) UI + API
   - Acceptance: persisted settings
   - Tests: e2e
+  - Note (2026-02-06): Added persisted inbox settings fields on `inbox_connections` (`daily_send_cap`, `send_window_start_hour`, `send_window_end_hour`, `ramp_up_per_day`), implemented `PATCH /api/inboxes/:inboxConnectionId/settings` with workspace-ownership and input validation, and added `/app/settings/inboxes` form for saving settings. Added integration coverage for persistence and validation failures. Files touched: `prisma/schema.prisma`, `prisma/migrations/20260206142046_add_inbox_connection_sending_settings/migration.sql`, `lib/inbox/inbox-settings.ts`, `app/api/inboxes/[inboxConnectionId]/settings/route.ts`, `app/app/settings/inboxes/inbox-settings-form.tsx`, `app/app/settings/inboxes/page.tsx`, `tests/integration/inbox-settings.test.ts`, `package.json`, `docs/ARCHITECTURE.md`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 - [ ] Update SOFTWARE_DOCUMENTATION.md (phase summary + decisions + gotchas)
 
 ## Phase 4 — Campaign wizard (draft + ICP)

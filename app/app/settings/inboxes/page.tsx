@@ -7,6 +7,8 @@ import { authOptions } from "@/auth";
 import { getPrimaryWorkspaceForUserEmail } from "@/lib/auth/get-primary-workspace";
 import { prisma } from "@/lib/prisma";
 
+import { InboxSettingsForm } from "./inbox-settings-form";
+
 type InboxesPageProps = {
   searchParams?: Promise<Record<string, string | string[] | undefined>>;
 };
@@ -66,9 +68,18 @@ export default async function InboxesSettingsPage({ searchParams }: InboxesPageP
       <section style={{ marginTop: "1.5rem" }}>
         <h2>Google Inbox</h2>
         {gmailConnection ? (
-          <p>
-            Status: Connected as <strong>{gmailConnection.email}</strong>
-          </p>
+          <>
+            <p>
+              Status: Connected as <strong>{gmailConnection.email}</strong>
+            </p>
+            <InboxSettingsForm
+              inboxConnectionId={gmailConnection.id}
+              dailySendCap={gmailConnection.dailySendCap}
+              sendWindowStartHour={gmailConnection.sendWindowStartHour}
+              sendWindowEndHour={gmailConnection.sendWindowEndHour}
+              rampUpPerDay={gmailConnection.rampUpPerDay}
+            />
+          </>
         ) : (
           <p>Status: Not connected</p>
         )}

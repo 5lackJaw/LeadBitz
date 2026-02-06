@@ -40,6 +40,7 @@
 - Cron: `POST /api/cron/tick`, `POST /api/cron/sync-inbox`
 - Auth: `/login`, `/api/auth/*` (temporary bridge), Neon Auth endpoints for sign-in/sign-up/session validation
 - Inbox connect: `GET /app/settings/inboxes`, `GET /api/inboxes/google/connect`, `GET /api/inboxes/google/callback`
+- Inbox settings: `PATCH /api/inboxes/:inboxConnectionId/settings` (caps/windows/ramp)
 - Billing (planned): checkout session creation + webhook handlers for trial/subscription state sync
 
 ## Auth and identity
