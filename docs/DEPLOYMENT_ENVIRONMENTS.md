@@ -20,6 +20,20 @@ Purpose: Standardize a safe preview-vs-production workflow (Vercel-first; adapt 
   - Observability DSNs (staging)
   - Rate limit thresholds (often lower in Preview)
 
+### B1) Finding and classifying database URLs (Supabase/Postgres)
+- **Where to look**:
+  - Supabase: Project → Settings → Database → Connection string.
+  - Vercel: Project → Settings → Environment Variables (Preview vs Production).
+  - Local: `.env.local` (or `.env`) in the repo.
+- **How to classify**:
+  - If a URL is used by Vercel **Production**, treat it as **live**.
+  - If a URL is used by Vercel **Preview** or local `.env.local`, treat it as **staging/dev**.
+- **Recommended setup**:
+  - Keep **separate Supabase projects** for Preview/Dev and Production.
+  - If only one project exists today, use it for **Dev/Preview only** until you’re ready to launch.
+  - Create the **Production** project when you’re close to go-live, then copy its URL into **Production** env vars only.
+
+
 ## C) Testing policy for previews
 - Use staging DB + test credentials only.
 - Prefer protection on sensitive previews (team-only, auth gate, or password protection).
