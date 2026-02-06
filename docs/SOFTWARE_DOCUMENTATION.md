@@ -28,6 +28,30 @@ Deliverability-first cold outreach operations app:
 - Acceptance mapping:
   - Phase 1 checklist tasks match the product and architecture docs without adding requirements.
 
+### Phase 1 closeout (2026-02-06)
+- Phase 1 implementation completed for scaffold + database foundations.
+- Delivered database migrations in three passes:
+  - `20260206025124_create_core_tables`
+  - `20260206043217_create_leads_and_suppressions`
+  - `20260206050107` (sequences/templates/send jobs/conversations/messages/audit/provenance)
+- Verified `send_jobs.idempotency_key` unique constraint in generated SQL (`send_jobs_idempotency_key_key`).
+- Validation completed after merge to `release`:
+  - `npm run db:migrate:status` (schema up to date on Neon dev DB)
+  - `npm run lint`
+  - `npm run build`
+
+### Phase 1 decisions (2026-02-06)
+- Chosen migration sequencing:
+  - Core entities first, then leads/suppressions, then scheduling/messaging/provenance tables.
+  - Reason: keeps each migration atomic and reviewable while reducing rollback ambiguity.
+- Workspace-scoped dedupe constraints were enforced at DB level:
+  - leads: `@@unique([workspaceId, email])`
+  - suppressions: `@@unique([workspaceId, email])`
+  - campaign_leads: `@@unique([campaignId, leadId])`
+- Pre-MVP release workflow remains in effect:
+  - Development merges into `release`.
+  - `main` remains production-gated until MVP sign-off.
+
 ## Local setup
 1. Install dependencies: `npm ci`
 2. Set env vars (names below). For local development you can copy `.env.example` to `.env` and adjust values.
@@ -146,12 +170,14 @@ Deliverability-first cold outreach operations app:
 
 ## Operational gotchas
 - Prisma migrations require a reachable PostgreSQL server.
+- Prisma migrate commands read `.env` by default. Keep `.env` aligned with `.env.development.local` (or explicitly set `DATABASE_URL` in shell) before running migration commands.
 - If Docker Desktop is unavailable locally, use `npx prisma dev -d` to start Prisma's local Postgres and source the printed `DATABASE_URL`.
 - If you run `vercel env pull`, prefer pulling into `.env.development.local` (or `.env.local`) and keep it uncommitted (secrets).
 - `postinstall` script runs `prisma generate` automatically on `npm install` / `npm ci`. This is required for Vercel builds; do not remove it.
 - Branch protection enforces admins; even the repo owner must open a PR to merge into `main`.
 - In a single-maintainer setup, GitHub disallows self-approval. With required approvals set to `1` on `main`, production merges are intentionally blocked until go-live policy is lifted.
 - The `gh` CLI was installed locally for GitHub automation. It is **not** a project dependency (do not add it to `package.json`).
+- Current UI design guidance source of truth is `docs/UI_SPEC.md` alongside `docs/CANONICAL_VISUAL_BRAND_SPECIFICATION.md`.
 
 ## Changelog
 - YYYY-MM-DD: Initial scaffold created.
@@ -165,6 +191,7 @@ Deliverability-first cold outreach operations app:
 - 2026-02-06: Added `.env*.local` to `.gitignore` for Vercel-pulled secrets.
 - 2026-02-06: Merged `feature/vercel-deploy-fixes` into `main`; production deploy verified `Ready`; production branch verified as `main`.
 - 2026-02-06: Adopted pre-MVP release flow: switched GitHub default branch to `release`, kept Vercel Production on `main`, and set `main` approvals to `1` to block live promotions until MVP sign-off.
+- 2026-02-06: Completed Phase 1 DB migration set and documented Phase 1 closeout decisions/gotchas.
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).

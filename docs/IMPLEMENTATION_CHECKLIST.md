@@ -62,7 +62,10 @@
   - Acceptance: idempotency unique key on send_jobs
   - Tests: integration
   - Note (2026-02-06): Added Prisma models/enums for `sequences`, `sequence_steps`, `message_templates`, `send_jobs`, `conversations`, `messages`, `audit_events`, `lead_sources`, and `lead_field_provenance`; created migration `20260206050107` and verified `send_jobs_idempotency_key_key` unique index exists in SQL. Verified with `prisma migrate status` against Neon dev database. Files touched: `prisma/schema.prisma`, `prisma/migrations/20260206050107/migration.sql`, `docs/IMPLEMENTATION_CHECKLIST.md`.
-- [ ] Update SOFTWARE_DOCUMENTATION.md (phase summary + decisions + gotchas)
+- [x] Update SOFTWARE_DOCUMENTATION.md (phase summary + decisions + gotchas)
+  - Acceptance: Phase 1 summary, implementation decisions, and operational gotchas recorded
+  - Tests: n/a (documentation task)
+  - Note (2026-02-06): Added Phase 1 closeout section, Phase 1 decisions, and migration/environment gotchas to `docs/SOFTWARE_DOCUMENTATION.md`, including Prisma `.env` behavior and UI-spec source-of-truth reference. Files touched: `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`, `docs/UI_SPEC.md`.
 
 ## Phase 2 — Auth + workspace scoping
 - [ ] Plan/confirm Phase 2 scope
