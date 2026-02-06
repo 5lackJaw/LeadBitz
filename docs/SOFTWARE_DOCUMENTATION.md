@@ -89,6 +89,15 @@ Deliverability-first cold outreach operations app:
 - Implementation boundary:
   - Current NextAuth credentials flow is temporary; planned implementation should move to Neon Auth-backed sign-in/session model.
 
+### Phase 2 progress: workspace auto-provision on login (2026-02-06)
+- Implemented first-login workspace provisioning in the current NextAuth bridge flow.
+- On successful sign-in:
+  - User is upserted in `users` by normalized email.
+  - If no workspace exists for that owner, one default workspace is created.
+  - If a workspace already exists, no additional workspace is created.
+- Provisioning behavior lives in `lib/auth/ensure-user-workspace.ts` and is called from NextAuth `signIn` callback in `auth.ts`.
+- Integration test coverage was added to verify idempotency (created once, reused on subsequent login).
+
 ## Local setup
 1. Install dependencies: `npm ci`
 2. Set env vars (names below). For local development you can copy `.env.example` to `.env` and adjust values.
@@ -161,7 +170,9 @@ Deliverability-first cold outreach operations app:
 - Lint: `npm run lint`
 - Build/type check: `npm run build`
 - Unit:
-- Integration: `npm run db:migrate:status` (with a reachable Postgres `DATABASE_URL`)
+- Integration:
+  - `npm run db:migrate:status` (with a reachable Postgres `DATABASE_URL`)
+  - `npm run test:integration` (validates workspace auto-provision behavior)
 - E2E (Playwright):
 
 ## Deployment notes
@@ -235,6 +246,7 @@ Deliverability-first cold outreach operations app:
 - Prisma migrations require a reachable PostgreSQL server.
 - Prisma migrate commands read `.env` by default. Keep `.env` aligned with `.env.development.local` (or explicitly set `DATABASE_URL` in shell) before running migration commands.
 - NextAuth credentials login depends on `AUTH_DEMO_EMAIL`, `AUTH_DEMO_PASSWORD`, and `NEXTAUTH_SECRET`; sign-in will fail if any are missing.
+- NextAuth sign-in now also requires a reachable `DATABASE_URL` because user/workspace provisioning executes during `signIn`.
 - Preview and local auth credentials can differ. Vercel Preview uses environment variables stored in Vercel, not `.env.preview.local` on your machine.
 - Neon Auth trusted domains accept origins only (scheme + host [+ port]); do not enter path segments such as `/app` or `/dashboard`.
 - If Docker Desktop is unavailable locally, use `npx prisma dev -d` to start Prisma's local Postgres and source the printed `DATABASE_URL`.
@@ -259,6 +271,7 @@ Deliverability-first cold outreach operations app:
 - 2026-02-06: Adopted pre-MVP release flow: switched GitHub default branch to `release`, kept Vercel Production on `main`, and set `main` approvals to `1` to block live promotions until MVP sign-off.
 - 2026-02-06: Completed Phase 1 DB migration set and documented Phase 1 closeout decisions/gotchas.
 - 2026-02-06: Confirmed auth/signup strategy: Neon Auth as IdP, Google primary login, email/password secondary login, and subscription-trial billing entry model.
+- 2026-02-06: Added first-login workspace auto-provisioning in NextAuth `signIn` flow with integration test coverage for one-time workspace creation.
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).
