@@ -113,7 +113,8 @@ Deliverability-first cold outreach operations app:
 ### GitHub governance (2026-02-06)
 - **Default branch**: Changed GitHub repo default branch from `feature/phase1-scope-confirmation` to `main` (aligns with Vercel Production Branch policy and `DEPLOYMENT_ENVIRONMENTS.md` rules).
 - **Branch protection on `main`**:
-  - Required: 1 PR review approval before merge.
+  - Required: pull request workflow (direct pushes blocked).
+  - Required approvals: **0** (set to 0 after merge blocker because owner cannot approve own PR in a single-maintainer repo).
   - Dismiss stale reviews on new pushes.
   - Enforce restrictions for admins (admins also need PRs).
   - Force pushes to `main`: disabled.
@@ -122,12 +123,21 @@ Deliverability-first cold outreach operations app:
   - Conversation resolution required: not enabled (same 404 limitation).
 - All changes applied via GitHub CLI (`gh`) after installing it locally.
 
+### Phase 0 closeout (2026-02-06)
+- Merged PR #1 (`feature/vercel-deploy-fixes` -> `main`) to land deploy hardening changes (`postinstall` Prisma generation and deployment governance docs) into `main`.
+- Verified Vercel production deployment succeeded after merge:
+  - Deployment: `https://leadbitz-24pgp7tzi-5lackjaws-projects.vercel.app`
+  - Status: `Ready`
+- Verified Vercel production branch source is `main`:
+  - Production alias includes `https://leadbitz-git-main-5lackjaws-projects.vercel.app`.
+
 ## Operational gotchas
 - Prisma migrations require a reachable PostgreSQL server.
 - If Docker Desktop is unavailable locally, use `npx prisma dev -d` to start Prisma's local Postgres and source the printed `DATABASE_URL`.
 - If you run `vercel env pull`, prefer pulling into `.env.development.local` (or `.env.local`) and keep it uncommitted (secrets).
 - `postinstall` script runs `prisma generate` automatically on `npm install` / `npm ci`. This is required for Vercel builds; do not remove it.
 - Branch protection enforces admins — even the repo owner must open a PR to merge into `main`.
+- In a single-maintainer setup, GitHub disallows self-approval. If required approvals is set to `1`, merges will block. Keep required approvals at `0` unless a second reviewer is available.
 - The `gh` CLI was installed locally for GitHub automation. It is **not** a project dependency (do not add it to `package.json`).
 
 ## Changelog
@@ -140,6 +150,7 @@ Deliverability-first cold outreach operations app:
 - 2026-02-06: GitHub governance: changed default branch to `main`; applied branch protection (PR reviews, dismiss stale, enforce admins, no force-push/deletion).
 - 2026-02-06: Updated `DEPLOYMENT_ENVIRONMENTS.md` with B1 section for finding and classifying database URLs.
 - 2026-02-06: Added `.env*.local` to `.gitignore` for Vercel-pulled secrets.
+- 2026-02-06: Merged `feature/vercel-deploy-fixes` into `main`; production deploy verified `Ready`; production branch verified as `main`.
 
 ## Known issues / limitations
 - (empty)

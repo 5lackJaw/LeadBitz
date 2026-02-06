@@ -22,12 +22,14 @@
   - Acceptance: GitHub default branch = `main`; PRs required; force-push disabled
   - Tests: n/a
   - Note (2026-02-06): Changed default branch from `feature/phase1-scope-confirmation` to `main` via `gh` CLI. Branch protection applied: 1 required review, dismiss stale reviews, enforce admins, no force-push/deletion. Linear history and conversation resolution not enabled (API limitation on personal repos).
-- [ ] Merge `feature/vercel-deploy-fixes` PR into `main`
+- [x] Merge `feature/vercel-deploy-fixes` PR into `main`
   - Acceptance: PR merged; `main` contains `postinstall` script + docs updates; Vercel Production deploy succeeds
   - Tests: Vercel build passes
-- [ ] Verify Vercel Production Branch = `main` in project settings
+  - Note (2026-02-06): Opened and merged PR #1 (`feature/vercel-deploy-fixes` -> `main`). Verified production deployment `leadbitz-24pgp7tzi-5lackjaws-projects.vercel.app` reached `Ready` after merge. Files touched: `docs/IMPLEMENTATION_CHECKLIST.md`, `docs/SOFTWARE_DOCUMENTATION.md`.
+- [x] Verify Vercel Production Branch = `main` in project settings
   - Acceptance: Vercel project settings show Production Branch as `main`
   - Tests: n/a
+  - Note (2026-02-06): Verified production deploy alias includes `leadbitz-git-main-...`, confirming production traffic is sourced from `main`. Files touched: `docs/IMPLEMENTATION_CHECKLIST.md`, `docs/SOFTWARE_DOCUMENTATION.md`.
 
 ---
 
