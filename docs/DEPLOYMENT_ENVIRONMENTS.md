@@ -1,11 +1,17 @@
 # DEPLOYMENT_ENVIRONMENTS.md
 Purpose: Standardize a safe preview-vs-production workflow (Vercel-first; adapt when hosting constraints differ).
 
-## A) Git + Vercel workflow (Option A) – adapt if another host is specified in ARCHITECTURE.md
+## A) Git + Vercel workflow (Option A) - adapt if another host is specified in ARCHITECTURE.md
 - Production branch is `main` (or `master`).
 - Non-production branches auto-deploy to Preview URLs.
 - RULE: never develop directly on the production branch. Use `feature/*` branches + PRs.
 - RULE: only merges to the production branch deploy to the real domain (Production).
+
+### A1) Current pre-MVP branch policy (effective 2026-02-06)
+- GitHub default branch is `release` for ongoing integration work.
+- Vercel Production Branch remains `main`.
+- Until MVP sign-off, open feature PRs into `release` only.
+- Keep `main` protected as a release gate (required approval = 1 in this single-maintainer repo), which intentionally blocks production merges.
 
 ## B) Environment variable policy
 - Maintain separate values for Production, Preview, and local.
@@ -22,17 +28,16 @@ Purpose: Standardize a safe preview-vs-production workflow (Vercel-first; adapt 
 
 ### B1) Finding and classifying database URLs (Supabase/Postgres)
 - **Where to look**:
-  - Supabase: Project → Settings → Database → Connection string.
-  - Vercel: Project → Settings → Environment Variables (Preview vs Production).
+  - Supabase: Project -> Settings -> Database -> Connection string.
+  - Vercel: Project -> Settings -> Environment Variables (Preview vs Production).
   - Local: `.env.local` (or `.env`) in the repo.
 - **How to classify**:
   - If a URL is used by Vercel **Production**, treat it as **live**.
   - If a URL is used by Vercel **Preview** or local `.env.local`, treat it as **staging/dev**.
 - **Recommended setup**:
   - Keep **separate Supabase projects** for Preview/Dev and Production.
-  - If only one project exists today, use it for **Dev/Preview only** until you’re ready to launch.
-  - Create the **Production** project when you’re close to go-live, then copy its URL into **Production** env vars only.
-
+  - If only one project exists today, use it for **Dev/Preview only** until you are ready to launch.
+  - Create the **Production** project when you are close to go-live, then copy its URL into **Production** env vars only.
 
 ## C) Testing policy for previews
 - Use staging DB + test credentials only.
@@ -42,9 +47,9 @@ Purpose: Standardize a safe preview-vs-production workflow (Vercel-first; adapt 
   - resettable/ephemeral staging DB where feasible
   - deterministic seed script for fixtures
 
-## D) “Worded commands” for Codex (operational)
-Start feature safely (create branch from production branch):
-- `git checkout main && git pull`
+## D) "Worded commands" for Codex (operational)
+Start feature safely (create branch from integration branch):
+- `git checkout release && git pull`
 - `git checkout -b feature/<short-task-slug>`
 
 Push branch to trigger Preview deployment:
@@ -53,16 +58,20 @@ Push branch to trigger Preview deployment:
 - `git push -u origin feature/<short-task-slug>`
 
 Open PR and locate Preview URL:
-- Open PR in GitHub from `feature/<...>` → `main`
+- Open PR in GitHub from `feature/<...>` -> `release`
 - In Vercel/GitHub checks, locate the Preview deployment URL and validate the task there.
 
-Merge PR to deploy to Production:
+Merge PR for ongoing MVP work (Preview-only):
 - Ensure checks pass
-- Merge PR into `main`
-- Confirm Production deployment completed and smoke test the real domain
+- Merge PR into `release`
+- Confirm Preview deployment completed and smoke test the Preview URL
+
+Promote to Production (post-MVP only):
+- Open PR from `release` -> `main`
+- After explicit sign-off, merge PR and confirm Production deployment on the real domain
 
 Discard branch (delete local + remote):
-- `git checkout main`
+- `git checkout release`
 - `git branch -d feature/<short-task-slug>`
 - `git push origin --delete feature/<short-task-slug>`
 
