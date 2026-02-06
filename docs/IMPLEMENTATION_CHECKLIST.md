@@ -145,9 +145,10 @@
   - Note (2026-02-06): Added explicit "Phase 4 closeout" section to `docs/SOFTWARE_DOCUMENTATION.md` with completion summary, carry-forward decisions (strict Step 1 XOR contract + explicit-save ICP editor behavior), operational gotchas, and validation evidence (`lint`, `unit`, `integration`, `build`). Files touched: `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 
 ## Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification
-- [ ] Plan/confirm Phase 5 provider selection + fields + quotas
+- [x] Plan/confirm Phase 5 provider selection + fields + quotas
   - Acceptance: provider chosen and documented; supported filters listed
   - Tests: n/a
+  - Note (2026-02-06): Selected People Data Labs (`provider_key: pdl`) as the single MVP licensed discovery connector and documented supported filter contract, required normalized fields, and quota/cost guardrails (per-run cap, daily workspace cap, partial/failure behavior) in `docs/SOFTWARE_DOCUMENTATION.md`. Files touched: `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 - [ ] Add DB tables for source_connectors, source_runs, candidates, email_verifications
   - Acceptance: migration applies; indexes on campaign_id, source_run_id, email
   - Tests: integration

@@ -303,6 +303,39 @@ Deliverability-first cold outreach operations app:
   - `npm run test:integration`
   - `npm run build`
 
+### Phase 5 planning: provider selection + fields + quotas (2026-02-06)
+- Checklist task completed: plan/confirm licensed provider, supported filters, and quota guardrails for discovery.
+- Provider selection (MVP default):
+  - Chosen provider: `People Data Labs` (`provider_key = pdl`).
+  - Scope decision: implement one end-to-end connector only in Phase 5 (search/discovery + pagination + retries + rate-limit handling).
+  - Rationale: strong person/company identifiers for dedupe (`person_provider_id`, `company_provider_id`), rich B2B filters, and clear API boundaries for typed wrapper implementation.
+- Supported discovery filters for MVP (must be available through connector contract):
+  - `industry`
+  - `companySize`
+  - `jobTitle`
+  - `seniority`
+  - `department`
+  - `geoCountry`
+  - `geoRegion`
+  - `geoCity`
+  - `requiredFields` (email required for sendable candidates)
+  - `resultLimit`
+- Required candidate/provider fields for normalization:
+  - Person: first name, last name, title, seniority, department, email, provider person id.
+  - Company: name, domain, website, provider company id.
+  - Metadata: source timestamp, confidence score, verification status, provenance source key.
+- Quota and cost guardrails (MVP defaults):
+  - Per discovery run max candidates fetched: `1000`.
+  - Per workspace daily discovery cap: `5000` fetched candidates (hard stop).
+  - Connector call budget: enforce provider documented rate limits in wrapper + exponential backoff on transient errors.
+  - Terminal run behavior:
+    - provider quota exhausted -> mark run `failed` with explicit quota error code.
+    - rate-limited partial fetch -> mark run `partial` with stats snapshot.
+- Carry-forward implementation rules:
+  - Discovery output lands in `candidates` only; no auto-promotion into `leads`.
+  - Approval endpoint remains the only path from candidate to sendable lead.
+  - Verified-email default remains enforced at approval/sending boundaries, with explicit per-campaign override.
+
 ### Phase 0b workflow hardening follow-up (2026-02-06)
 - Added baseline developer workflow automation focused on consistency and speed:
   - `AGENTS.md` path/writing clarifications to reduce instruction ambiguity.
