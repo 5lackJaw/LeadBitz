@@ -303,6 +303,38 @@ Deliverability-first cold outreach operations app:
   - `npm run test:integration`
   - `npm run build`
 
+### Phase 4 follow-up: campaign control surfaces + wizard resume scaffolding (2026-02-06)
+- Added campaign overview route and placeholder flow routes:
+  - `GET /app/campaigns/:id`
+  - `GET /app/campaigns/:id/discovery`
+  - `GET /app/campaigns/:id/candidates`
+  - `GET /app/campaigns/:id/sequence`
+- Overview behavior now includes:
+  - ICP summary visibility from linked `icp_profile`.
+  - Connected inbox selector and current connected inbox display.
+  - Next-step CTAs: Discovery -> Candidates -> Sequence -> Review/Launch (launch remains placeholder).
+  - Status lifecycle placeholder chips (`DRAFT`, `ACTIVE`, `PAUSED`, `COMPLETED`).
+  - Campaign-level control surfaces for `messagingRules` and `discoveryRules`.
+- Added wizard resume and campaign linkage behavior:
+  - Campaign list now provides `Resume wizard` action per row.
+  - Wizard accepts `campaignId` query param and restores persisted `wizardState` when present.
+  - Wizard generation/save now persists `wizardState` to campaign and includes `campaignId` in `POST /api/icp/generate`, linking ICP generation to that campaign.
+- Added settings sources registry UI stub:
+  - `GET /app/settings/sources`
+  - Non-functional governance placeholder for enabled/disabled state, usage note, and last status.
+- Data model updates for campaign control surfaces:
+  - `campaigns.inbox_connection_id` (nullable FK -> `inbox_connections.id`)
+  - `campaigns.messaging_rules` (nullable text)
+  - `campaigns.discovery_rules` (nullable text)
+  - `campaigns.wizard_state` (nullable JSON)
+  - Migration: `20260206202000_add_campaign_control_surfaces`
+- API updates:
+  - `GET /api/campaigns/:campaignId` now returns campaign overview payload.
+  - `PATCH /api/campaigns/:campaignId` now supports updates for name, inbox selection, campaign rules, and wizard state.
+  - `GET /api/campaigns` and `POST /api/campaigns` payloads now include campaign control-surface fields.
+- Validation evidence for this follow-up:
+  - `npm run verify`
+
 ### Phase 5 planning: provider selection + fields + quotas (2026-02-06)
 - Checklist task completed: plan/confirm licensed provider, supported filters, and quota guardrails for discovery.
 - Provider selection (MVP default):
@@ -427,6 +459,12 @@ Approved outreach:
 - leads
 - campaign_leads
 
+Campaign control-surface additions:
+- `campaigns.inbox_connection_id`
+- `campaigns.messaging_rules`
+- `campaigns.discovery_rules`
+- `campaigns.wizard_state`
+
 ## Integrations + webhooks
 - Neon Auth (Google OAuth + email/password)
 - Google OAuth + Gmail API
@@ -528,6 +566,7 @@ Approved outreach:
 - Wizard Step 1 source input requires `websiteUrl` xor `productDescription`; empty or both-provided payloads are rejected by API validation.
 - `POST /api/icp/generate` currently uses an injectable draft generator abstraction; tests must mock the generator and verify DB persistence, while full OpenAI-backed generation remains a later implementation step.
 - ICP editor persistence requires non-empty list values per editable ICP field; empty lists are rejected by `PATCH /api/icp/profiles/:icpProfileId`.
+- Campaign-linked wizard resume requires `campaignId` query param (`/app/campaigns/new?campaignId=<id>`); without a campaign id, wizard state persistence is intentionally skipped.
 - Inbox settings API validation bounds:
   - `dailySendCap`: `1..500`
   - `sendWindowStartHour`: `0..23`
@@ -572,6 +611,7 @@ Approved outreach:
 - 2026-02-06: Implemented `POST /api/icp/generate` with workspace-scoped `icp_profiles` persistence and integration coverage using mocked AI generation.
 - 2026-02-06: Added Step 2 ICP editor UI on `/app/campaigns/new` and persisted editing API `PATCH /api/icp/profiles/:icpProfileId` with integration coverage.
 - 2026-02-06: Closed Phase 4 documentation with consolidated phase summary, carry-forward decisions, and operational gotchas.
+- 2026-02-06: Added campaign overview and campaign-level control surfaces (`messaging_rules`, `discovery_rules`, `wizard_state`, optional inbox linkage), plus wizard resume scaffolding and sources registry settings stub.
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).

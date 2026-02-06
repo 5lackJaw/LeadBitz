@@ -39,8 +39,14 @@ export default async function CampaignsPage() {
         <CampaignsClient
           initialCampaigns={campaigns.map((campaign) => ({
             id: campaign.id,
+            inboxConnectionId: campaign.inboxConnectionId,
             name: campaign.name,
             status: campaign.status,
+            messagingRules: campaign.messagingRules,
+            discoveryRules: campaign.discoveryRules,
+            wizardState: campaign.wizardState,
+            icpProfileId: campaign.icpProfileId,
+            icpProfileName: campaign.icpProfileName,
             createdAt: campaign.createdAt.toISOString(),
             updatedAt: campaign.updatedAt.toISOString(),
           }))}

@@ -37,6 +37,9 @@ export default async function AppShellPage() {
             <Link className="lb-link lb-link-accent" href="/app/settings/inboxes">
               Inbox settings
             </Link>
+            <Link className="lb-link lb-link-accent" href="/app/settings/sources">
+              Sources registry
+            </Link>
           </div>
         </div>
       </section>

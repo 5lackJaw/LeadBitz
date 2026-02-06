@@ -42,6 +42,19 @@ type IcpEditorState = {
   sourceSummary: string;
 };
 
+type WizardInitialState = {
+  websiteUrl?: string;
+  productDescription?: string;
+  profileName?: string;
+  generatedIcpProfileId?: string | null;
+  icpEditorState?: IcpEditorState | null;
+};
+
+type WizardStep1FormProps = {
+  campaignId?: string | null;
+  initialState?: WizardInitialState;
+};
+
 function listToTextarea(values: string[]): string {
   return values.join("\n");
 }
@@ -53,14 +66,18 @@ function textareaToList(value: string): string[] {
     .filter((item) => item.length > 0);
 }
 
-export function WizardStep1Form() {
-  const [websiteUrl, setWebsiteUrl] = useState("");
-  const [productDescription, setProductDescription] = useState("");
-  const [profileName, setProfileName] = useState("");
+export function WizardStep1Form({ campaignId, initialState }: WizardStep1FormProps) {
+  const [websiteUrl, setWebsiteUrl] = useState(initialState?.websiteUrl ?? "");
+  const [productDescription, setProductDescription] = useState(initialState?.productDescription ?? "");
+  const [profileName, setProfileName] = useState(initialState?.profileName ?? "");
   const [isGenerating, setIsGenerating] = useState(false);
   const [isSavingIcp, setIsSavingIcp] = useState(false);
-  const [generatedIcpProfileId, setGeneratedIcpProfileId] = useState<string | null>(null);
-  const [icpEditorState, setIcpEditorState] = useState<IcpEditorState | null>(null);
+  const [generatedIcpProfileId, setGeneratedIcpProfileId] = useState<string | null>(
+    initialState?.generatedIcpProfileId ?? null,
+  );
+  const [icpEditorState, setIcpEditorState] = useState<IcpEditorState | null>(
+    initialState?.icpEditorState ?? null,
+  );
   const [lastSavedAtLabel, setLastSavedAtLabel] = useState<string | null>(null);
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -76,6 +93,32 @@ export function WizardStep1Form() {
 
     return "None selected";
   }, [productDescription, websiteUrl]);
+
+  async function persistWizardState(nextState: {
+    websiteUrl: string;
+    productDescription: string;
+    profileName: string;
+    generatedIcpProfileId: string | null;
+    icpEditorState: IcpEditorState | null;
+  }) {
+    if (!campaignId) {
+      return;
+    }
+
+    const response = await fetch(`/api/campaigns/${campaignId}`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        wizardState: nextState,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to persist wizard state.");
+    }
+  }
 
   function onWebsiteUrlChange(nextValue: string) {
     setWebsiteUrl(nextValue);
@@ -111,6 +154,7 @@ export function WizardStep1Form() {
           websiteUrl,
           productDescription,
           profileName,
+          campaignId,
         }),
       });
 
@@ -121,9 +165,7 @@ export function WizardStep1Form() {
       }
 
       const resolvedProfileName = data.profileName ?? profileName.trim();
-      setGeneratedIcpProfileId(data.icpProfileId);
-      setProfileName(resolvedProfileName);
-      setIcpEditorState({
+      const nextEditorState: IcpEditorState = {
         targetIndustries: listToTextarea(data.icp.targetIndustries),
         companySizeBands: listToTextarea(data.icp.companySizeBands),
         buyerRoles: listToTextarea(data.icp.buyerRoles),
@@ -131,8 +173,20 @@ export function WizardStep1Form() {
         exclusions: listToTextarea(data.icp.exclusions),
         valuePropAngles: listToTextarea(data.icp.valuePropAngles),
         sourceSummary: data.icp.sourceSummary,
-      });
+      };
+
+      setGeneratedIcpProfileId(data.icpProfileId);
+      setProfileName(resolvedProfileName);
+      setIcpEditorState(nextEditorState);
       setLastSavedAtLabel(null);
+
+      await persistWizardState({
+        websiteUrl,
+        productDescription,
+        profileName: resolvedProfileName,
+        generatedIcpProfileId: data.icpProfileId,
+        icpEditorState: nextEditorState,
+      });
 
       setStatusMessage(
         `Step 1 validated using ${data.sourceType === "WEBSITE_URL" ? "website URL" : "product description"}. Step 2 ICP draft is ready to edit.`,
@@ -186,7 +240,7 @@ export function WizardStep1Form() {
         throw new Error(data.error ?? "Failed to persist ICP edits.");
       }
 
-      setIcpEditorState({
+      const nextEditorState: IcpEditorState = {
         targetIndustries: listToTextarea(data.icp.targetIndustries),
         companySizeBands: listToTextarea(data.icp.companySizeBands),
         buyerRoles: listToTextarea(data.icp.buyerRoles),
@@ -194,11 +248,22 @@ export function WizardStep1Form() {
         exclusions: listToTextarea(data.icp.exclusions),
         valuePropAngles: listToTextarea(data.icp.valuePropAngles),
         sourceSummary: data.icp.sourceSummary,
-      });
+      };
 
+      setIcpEditorState(nextEditorState);
+
+      const nextProfileName = data.profileName ?? profileName;
       if (data.profileName) {
         setProfileName(data.profileName);
       }
+
+      await persistWizardState({
+        websiteUrl,
+        productDescription,
+        profileName: nextProfileName,
+        generatedIcpProfileId,
+        icpEditorState: nextEditorState,
+      });
 
       const savedAtLabel = data.updatedAt ? new Date(data.updatedAt).toLocaleString() : null;
       setLastSavedAtLabel(savedAtLabel);
@@ -220,6 +285,7 @@ export function WizardStep1Form() {
           Provide exactly one input source. You can use a website URL or a pasted product description.
         </p>
         <p className="lb-subtitle">Current mode: {activeInputMode}</p>
+        {campaignId ? <p className="lb-subtitle">Campaign-linked wizard state is enabled.</p> : null}
       </div>
 
       <form onSubmit={onGenerateIcp} className="lb-form-grid" style={{ marginTop: "16px" }} noValidate>

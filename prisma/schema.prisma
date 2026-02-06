@@ -65,6 +65,7 @@ model InboxConnection {
   updatedAt             DateTime              @updatedAt @map("updated_at")
 
   workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  campaigns Campaign[]
 
   @@unique([provider, providerAccountId])
   @@unique([workspaceId, email])
@@ -93,14 +94,19 @@ model Campaign {
   id           String         @id @default(cuid())
   workspaceId  String         @map("workspace_id")
   icpProfileId String?        @map("icp_profile_id")
+  inboxConnectionId String?   @map("inbox_connection_id")
   name         String
   status       CampaignStatus @default(DRAFT)
+  messagingRules String?      @map("messaging_rules")
+  discoveryRules String?      @map("discovery_rules")
+  wizardState Json?           @map("wizard_state")
   createdAt    DateTime       @default(now()) @map("created_at")
   updatedAt    DateTime       @updatedAt @map("updated_at")
   launchedAt   DateTime?      @map("launched_at")
 
   workspace     Workspace      @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
   icpProfile    IcpProfile?    @relation(fields: [icpProfileId], references: [id], onDelete: SetNull)
+  inboxConnection InboxConnection? @relation(fields: [inboxConnectionId], references: [id], onDelete: SetNull)
   leads         CampaignLead[]
   sequences     Sequence[]
   sendJobs      SendJob[]
@@ -109,6 +115,7 @@ model Campaign {
 
   @@index([workspaceId])
   @@index([icpProfileId])
+  @@index([inboxConnectionId])
   @@map("campaigns")
 }
 

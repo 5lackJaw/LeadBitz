@@ -6,8 +6,10 @@ import {
   CampaignNotFoundError,
   CampaignValidationError,
   createCampaignForWorkspace,
+  getCampaignOverviewForWorkspace,
   listCampaignsForWorkspace,
   renameCampaignForWorkspace,
+  updateCampaignForWorkspace,
 } from "../../lib/campaigns/campaign-crud";
 import { prisma } from "../../lib/prisma";
 import { canRunIntegrationDbTests, ensureIntegrationEnv } from "./test-env";
@@ -56,6 +58,8 @@ if (!canRun) {
       assert.equal(campaigns.length, 1);
       assert.equal(campaigns[0]?.id, createdCampaign.id);
       assert.equal(campaigns[0]?.name, "Q2 founder campaign");
+      assert.equal(campaigns[0]?.messagingRules, null);
+      assert.equal(campaigns[0]?.discoveryRules, null);
 
       const renamedCampaign = await renameCampaignForWorkspace({
         workspaceId: ownerWorkspace.workspaceId,
@@ -64,6 +68,33 @@ if (!canRun) {
       });
 
       assert.equal(renamedCampaign.name, "Q2 founder campaign v2");
+
+      const updatedCampaign = await updateCampaignForWorkspace({
+        workspaceId: ownerWorkspace.workspaceId,
+        campaignId: createdCampaign.id,
+        messagingRules: "Keep copy concise.",
+        discoveryRules: "Exclude agencies.",
+        wizardState: {
+          websiteUrl: "https://www.example.com",
+          profileName: "Website ICP Draft",
+        },
+      });
+
+      assert.equal(updatedCampaign.messagingRules, "Keep copy concise.");
+      assert.equal(updatedCampaign.discoveryRules, "Exclude agencies.");
+      assert.deepEqual(updatedCampaign.wizardState, {
+        websiteUrl: "https://www.example.com",
+        profileName: "Website ICP Draft",
+      });
+
+      const campaignOverview = await getCampaignOverviewForWorkspace({
+        workspaceId: ownerWorkspace.workspaceId,
+        campaignId: createdCampaign.id,
+      });
+
+      assert.equal(campaignOverview.id, createdCampaign.id);
+      assert.equal(campaignOverview.messagingRules, "Keep copy concise.");
+      assert.equal(campaignOverview.discoveryRules, "Exclude agencies.");
 
       await assert.rejects(
         () =>
