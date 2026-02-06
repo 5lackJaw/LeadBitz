@@ -75,6 +75,11 @@
 - Workspace-scoped authorization on every query.
 - Validate identity tokens against Neon Auth JWKS when Neon-backed session flow is enabled.
 - Encrypt OAuth tokens at rest.
+  - Decision: symmetric authenticated encryption using AES-256-GCM.
+  - Key source: `TOKEN_ENCRYPTION_KEY` environment variable (32-byte secret; unique per environment).
+  - Storage format (versioned): `v1:<iv_b64>:<tag_b64>:<ciphertext_b64>`.
+  - Scope: `inbox_connections.access_token_encrypted` and `inbox_connections.refresh_token_encrypted` store only encrypted values.
+  - Decryption policy: decrypt only inside server-side provider calls; never log raw tokens or decrypted payloads.
 - Least-privilege scopes for providers.
 - Rate limits on AI endpoints.
 - Audit logging for critical events.

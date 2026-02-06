@@ -92,9 +92,10 @@
   - Note (2026-02-06): Added explicit "Phase 2 closeout" documentation with completion summary, carry-forward decisions (temporary NextAuth bridge + ownership access model), route-handler error mapping guidance for workspace authorization helper, and validation command evidence. Files touched: `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 
 ## Phase 3 — Gmail connect
-- [ ] Plan/confirm token encryption approach
+- [x] Plan/confirm token encryption approach
   - Acceptance: documented decision
   - Tests: n/a
+  - Note (2026-02-06): Documented Phase 3 token encryption approach with AES-256-GCM, versioned encrypted-token envelope format, `TOKEN_ENCRYPTION_KEY` usage, decryption boundaries, and MVP key-rotation policy in `docs/ARCHITECTURE.md` and `docs/SOFTWARE_DOCUMENTATION.md`. Files touched: `docs/ARCHITECTURE.md`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 - [ ] Implement Google OAuth connect flow for inbox_connections
   - Acceptance: inbox shows connected
   - Tests: e2e with mocks
