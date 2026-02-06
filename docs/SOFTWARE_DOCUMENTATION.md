@@ -239,6 +239,21 @@ Deliverability-first cold outreach operations app:
   - Cross-workspace rename is blocked and returned as not found.
 - Added integration coverage for create/list/rename and workspace-scope enforcement in `tests/integration/campaign-crud.test.ts`.
 
+### Phase 4 progress: wizard Step 1 inputs + validation (2026-02-06)
+- Added wizard Step 1 route:
+  - `GET /app/campaigns/new`
+- Added validation endpoint:
+  - `POST /api/campaigns/wizard/step1`
+- Validation contract implemented:
+  - Exactly one of `websiteUrl` or `productDescription` is required.
+  - Providing both values is rejected.
+  - `websiteUrl` must be a valid `http://` or `https://` URL.
+- Added client form behavior for Step 1:
+  - Input mode is mutually exclusive in UI (URL and description fields cannot both be actively edited at once).
+  - Submission validates client-side first, then server-side through the API endpoint.
+  - Success message confirms Step 1 completion and indicates Step 2 (ICP generation) is next.
+- Added unit test coverage for the validation helper in `tests/unit/wizard-step1-validation.test.ts`.
+
 ### Phase 0b workflow hardening follow-up (2026-02-06)
 - Added baseline developer workflow automation focused on consistency and speed:
   - `AGENTS.md` path/writing clarifications to reduce instruction ambiguity.
@@ -290,9 +305,11 @@ Deliverability-first cold outreach operations app:
 - `/login` (NextAuth credentials sign-in page)
 - `/app` (app shell scaffold route)
 - `/app/onboarding`, `/app/campaigns`, `/app/replies`, `/app/settings/*`
+- `/app/campaigns/new` (wizard Step 1 input form)
 - `/api/auth/[...nextauth]` (NextAuth auth handler)
 - `/api/campaigns` (campaign list + create for primary workspace)
 - `/api/campaigns/:campaignId` (campaign rename)
+- `/api/campaigns/wizard/step1` (Step 1 URL xor text validation)
 - `/api/inboxes/google/connect` (Google OAuth start)
 - `/api/inboxes/google/callback` (Google OAuth callback)
 - `/api/inboxes/:inboxConnectionId/settings` (inbox cap/window/ramp update)
@@ -326,7 +343,7 @@ Deliverability-first cold outreach operations app:
 - Build/type check: `npm run build`
 - Full verification: `npm run verify`
 - Unit:
-  - `npm run test:unit`
+  - `npm run test:unit` (token encryption + wizard Step 1 validation)
 - Integration:
   - `npm run db:migrate:status` (with a reachable Postgres `DATABASE_URL`)
   - `npm run test:integration` (validates workspace auto-provision + workspace authorization helper + mocked Google connect + token refresh + inbox settings persistence + campaign create/list/rename behavior)
@@ -412,6 +429,7 @@ Deliverability-first cold outreach operations app:
 - Campaign names are validated server-side and client-side:
   - required after trim
   - max 120 characters
+- Wizard Step 1 source input requires `websiteUrl` xor `productDescription`; empty or both-provided payloads are rejected by API validation.
 - Inbox settings API validation bounds:
   - `dailySendCap`: `1..500`
   - `sendWindowStartHour`: `0..23`
@@ -452,6 +470,7 @@ Deliverability-first cold outreach operations app:
 - 2026-02-06: Added persisted inbox sending settings (caps/windows/ramp) with update API and settings UI.
 - 2026-02-06: Closed Phase 3 documentation with consolidated phase summary, carry-forward decisions, and operational gotchas.
 - 2026-02-06: Implemented campaign CRUD foundation (`/api/campaigns`, `/api/campaigns/:campaignId`) and `/app/campaigns` list UI with create/rename flows.
+- 2026-02-06: Implemented wizard Step 1 input route (`/app/campaigns/new`) and API validation endpoint (`/api/campaigns/wizard/step1`) enforcing website URL xor product description.
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).

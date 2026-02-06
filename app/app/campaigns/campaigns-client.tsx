@@ -2,6 +2,7 @@
 
 import { CampaignStatus } from "@prisma/client";
 import { FormEvent, useMemo, useState } from "react";
+import Link from "next/link";
 
 type CampaignViewModel = {
   id: string;
@@ -152,9 +153,14 @@ export function CampaignsClient({ initialCampaigns }: CampaignsClientProps) {
             <h1 className="lb-title">Campaigns</h1>
             <p className="lb-subtitle">Create and manage draft campaigns for your workspace.</p>
           </div>
-          <span className="lb-status lb-status-info" aria-label="Campaign count">
-            {campaignCountLabel}
-          </span>
+          <div className="lb-row" style={{ justifyContent: "flex-end", gap: "12px" }}>
+            <span className="lb-status lb-status-info" aria-label="Campaign count">
+              {campaignCountLabel}
+            </span>
+            <Link className="lb-button lb-button-secondary" href="/app/campaigns/new">
+              Open wizard
+            </Link>
+          </div>
         </div>
         <form
           onSubmit={onCreateCampaign}
