@@ -52,6 +52,25 @@ Deliverability-first cold outreach operations app:
   - Development merges into `release`.
   - `main` remains production-gated until MVP sign-off.
 
+### Phase 2 scope confirmation (2026-02-06)
+- Confirmed Phase 2 is limited to authentication and workspace access-control foundations.
+- In scope for Phase 2:
+  - Add NextAuth login/logout flow.
+  - Auto-provision one workspace for first-time users.
+  - Add reusable workspace-scoped authorization helper for API/data access.
+  - Define route/API protection boundaries used by later phases.
+- Out of scope for Phase 2:
+  - Gmail/M365 inbox OAuth connection and token encryption implementation (Phase 3).
+  - Campaign wizard/business workflow behavior (Phase 4+).
+  - Sending/reply processing and cron job behavior (Phase 7+).
+- Route protection map for implementation:
+  - Public routes: `/` and auth entry routes only.
+  - Auth-required app routes: `/app`, `/app/onboarding`, `/app/campaigns`, `/app/replies`, `/app/settings/*`.
+  - Protected API routes (session + workspace checks): `/api/campaigns/*`, `/api/replies*`, `/api/conversations/*`, `/api/cron/*` (cron also requires shared secret once added).
+  - AI helper endpoints: `/api/icp/generate`, `/api/messages/draft` require authenticated session and workspace context.
+- Acceptance mapping:
+  - Phase 2 checklist item "Plan/confirm Phase 2 scope" is satisfied when these route protections and boundaries are documented and subsequent tasks implement against this contract.
+
 ## Local setup
 1. Install dependencies: `npm ci`
 2. Set env vars (names below). For local development you can copy `.env.example` to `.env` and adjust values.
