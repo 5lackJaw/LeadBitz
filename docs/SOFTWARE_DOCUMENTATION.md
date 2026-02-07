@@ -394,6 +394,30 @@ Deliverability-first cold outreach operations app:
     - in-place active manual update path
     - fallback new-manual-version creation path when active source is template.
 
+### Phase 4 progress: ICP scoring endpoint + quality-score persistence (2026-02-07)
+- Added authenticated endpoint:
+  - `POST /api/icp/score`
+- Endpoint behavior:
+  - Requires `campaignId` and `icpVersionId` request fields.
+  - Resolves session workspace ownership from authenticated user email.
+  - Rejects scoring requests when version/campaign/workspace ownership does not match.
+  - Normalizes stored `icp_versions.icp_json` and applies deterministic rubric scoring.
+  - Persists one `icp_quality_scores` record per scoring run with:
+    - `score_int`
+    - `tier`
+    - `missing_fields_json`
+    - `explanations_json`
+    - `questions_json`
+    - `model_meta_json` (`deterministic_rubric_v1` + thresholds)
+  - Returns explainable payload with score/tier/breakdown/missing fields/explanations/questions.
+- Added service layer:
+  - `lib/icp/score-icp-version.ts` with explicit validation/not-found error classes.
+- Testing:
+  - Added integration coverage in `tests/integration/icp-score.test.ts` for:
+    - successful scoring + persistence
+    - sparse ICP scoring (insufficient tier path)
+    - cross-workspace access blocking
+
 ### Phase 5 planning: provider selection + fields + quotas (2026-02-06)
 - Checklist task completed: plan/confirm licensed provider, supported filters, and quota guardrails for discovery.
 - Provider selection (MVP default):
@@ -679,6 +703,7 @@ Campaign control-surface additions:
   - max 120 characters
 - Wizard Step 1 source input requires `websiteUrl` xor `productDescription`; empty or both-provided payloads are rejected by API validation.
 - `POST /api/icp/generate` currently uses an injectable draft generator abstraction; tests must mock the generator and verify DB persistence, while full OpenAI-backed generation remains a later implementation step.
+- `POST /api/icp/score` requires both `campaignId` and `icpVersionId`; the version must belong to the authenticated workspace and specified campaign or the API returns `404`.
 - ICP editor persistence requires non-empty list values per editable ICP field; empty lists are rejected by `PATCH /api/icp/profiles/:icpProfileId`.
 - Campaign-linked wizard resume requires `campaignId` query param (`/app/campaigns/new?campaignId=<id>`); without a campaign id, wizard state persistence is intentionally skipped.
 - Resume-wizard links disable route prefetch and wizard-state persistence now triggers `router.refresh()` to reduce stale app-router cache when reopening wizard after edits.
@@ -735,6 +760,7 @@ Campaign control-surface additions:
 - 2026-02-07: Added wizard resume cache-staleness mitigation (`prefetch={false}` on resume links + `router.refresh()` after wizard-state persistence).
 - 2026-02-07: Strengthened deployment governance docs with authoritative branch-to-environment mapping, fork PR restrictions, required pre-merge command checks, and a full production go-live/rollback runbook.
 - 2026-02-07: Added production hold-page behavior and launch toggle (`LIVE_APP_ENABLED`) so live can stay on a minimal placeholder while preview continues full-feature development.
+- 2026-02-07: Implemented `POST /api/icp/score` with deterministic rubric scoring persistence in `icp_quality_scores` and integration coverage for ownership and explainable payload behavior.
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).
