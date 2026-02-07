@@ -551,6 +551,24 @@ Deliverability-first cold outreach operations app:
   - Approval endpoint remains the only path from candidate to sendable lead.
   - Verified-email default remains enforced at approval/sending boundaries, with explicit per-campaign override.
 
+### Phase 5 progress: discovery schema foundations (2026-02-07)
+- Completed Phase 5 database foundation task for discovery entities.
+- Added schema models and enums:
+  - `source_connectors`
+  - `source_runs`
+  - `candidates`
+  - `email_verifications`
+- Added migration:
+  - `prisma/migrations/20260207162122_add_source_discovery_tables/migration.sql`
+- Required index coverage confirmed:
+  - `candidates_campaign_id_idx`
+  - `candidates_source_run_id_idx`
+  - `candidates_email_idx`
+- Added integration coverage:
+  - `tests/integration/source-discovery-schema.test.ts` validates table existence and required candidate indexes against Postgres metadata.
+- Execution note:
+  - Migration was generated against local Prisma dev Postgres to avoid checksum/reset conflicts on shared preview databases.
+
 ### Phase 0b workflow hardening follow-up (2026-02-06)
 - Added baseline developer workflow automation focused on consistency and speed:
   - `AGENTS.md` path/writing clarifications to reduce instruction ambiguity.
@@ -872,6 +890,7 @@ Campaign control-surface additions:
 - 2026-02-07: Added Scenario A/B modal gating flow in Step 2 wizard, including disambiguation-question retry path and continue-anyway state persistence.
 - 2026-02-07: Implemented Specialist ICP Interview flow with campaign route `/app/campaigns/:id/icp/improve`, session APIs (`/api/icp/interview/start|answer|complete`), wizard CTA wiring, and lifecycle integration coverage.
 - 2026-02-07: Added campaign ICP Center route (`/app/campaigns/:id/icp`) with version listing, latest-score display, re-score action, and active-version switching via `PATCH /api/campaigns/:id/icp/active`.
+- 2026-02-07: Added Phase 5 discovery schema foundation migration (`20260207162122_add_source_discovery_tables`) with `source_connectors`, `source_runs`, `candidates`, and `email_verifications`, plus integration schema/index verification.
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).

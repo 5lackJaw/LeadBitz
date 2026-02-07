@@ -41,6 +41,10 @@ model Workspace {
   icpQualityScores                IcpQualityScore[]
   productArchetypeClassifications ProductArchetypeClassification[]
   icpInterviewSessions            IcpInterviewSession[]
+  sourceConnectors                SourceConnector[]
+  sourceRuns                      SourceRun[]
+  candidates                      Candidate[]
+  emailVerifications              EmailVerification[]
   leads                           Lead[]
   suppressions                    Suppression[]
   messageTemplates                MessageTemplate[]
@@ -218,11 +222,115 @@ model Campaign {
   icpQualityScores                IcpQualityScore[]
   productArchetypeClassifications ProductArchetypeClassification[]
   icpInterviewSessions            IcpInterviewSession[]
+  sourceRuns                      SourceRun[]
+  candidates                      Candidate[]
 
   @@index([workspaceId])
   @@index([icpProfileId])
   @@index([inboxConnectionId])
   @@map("campaigns")
+}
+
+model SourceConnector {
+  id               String              @id @default(cuid())
+  workspaceId      String              @map("workspace_id")
+  type             SourceConnectorType
+  providerKey      String              @map("provider_key")
+  enabled          Boolean             @default(true)
+  configJson       Json?               @map("config_json")
+  allowedUsageNote String?             @map("allowed_usage_note")
+  lastHealthcheckAt DateTime?          @map("last_healthcheck_at")
+  lastErrorCode    String?             @map("last_error_code")
+  lastErrorMessage String?             @map("last_error_message")
+  createdAt        DateTime            @default(now()) @map("created_at")
+  updatedAt        DateTime            @updatedAt @map("updated_at")
+
+  workspace Workspace   @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  sourceRuns SourceRun[]
+
+  @@index([workspaceId])
+  @@index([workspaceId, enabled])
+  @@map("source_connectors")
+}
+
+model SourceRun {
+  id          String          @id @default(cuid())
+  workspaceId String          @map("workspace_id")
+  campaignId  String          @map("campaign_id")
+  connectorId String          @map("connector_id")
+  runLabel    String?         @map("run_label")
+  icpProfileId String?        @map("icp_profile_id")
+  queryJson   Json?           @map("query_json")
+  status      SourceRunStatus
+  statsJson   Json?           @map("stats_json")
+  startedAt   DateTime?       @map("started_at")
+  finishedAt  DateTime?       @map("finished_at")
+  createdAt   DateTime        @default(now()) @map("created_at")
+  updatedAt   DateTime        @updatedAt @map("updated_at")
+
+  workspace Workspace       @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  campaign  Campaign        @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  connector SourceConnector @relation(fields: [connectorId], references: [id], onDelete: Cascade)
+  candidates Candidate[]
+
+  @@index([workspaceId])
+  @@index([campaignId])
+  @@index([connectorId])
+  @@index([status])
+  @@map("source_runs")
+}
+
+model Candidate {
+  id                String                      @id @default(cuid())
+  workspaceId       String                      @map("workspace_id")
+  campaignId        String                      @map("campaign_id")
+  sourceRunId       String                      @map("source_run_id")
+  personProviderId  String?                     @map("person_provider_id")
+  companyProviderId String?                     @map("company_provider_id")
+  email             String
+  firstName         String?                     @map("first_name")
+  lastName          String?                     @map("last_name")
+  title             String?
+  seniority         String?
+  department        String?
+  companyName       String?                     @map("company_name")
+  companyDomain     String?                     @map("company_domain")
+  companyWebsite    String?                     @map("company_website")
+  locationJson      Json?                       @map("location_json")
+  confidenceScore   Decimal?                    @db.Decimal(3, 2) @map("confidence_score")
+  verificationStatus CandidateVerificationStatus @default(UNKNOWN) @map("verification_status")
+  status            CandidateStatus             @default(NEW)
+  createdAt         DateTime                    @default(now()) @map("created_at")
+  updatedAt         DateTime                    @updatedAt @map("updated_at")
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  campaign  Campaign  @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  sourceRun SourceRun @relation(fields: [sourceRunId], references: [id], onDelete: Cascade)
+
+  @@index([workspaceId])
+  @@index([campaignId])
+  @@index([sourceRunId])
+  @@index([email])
+  @@index([verificationStatus])
+  @@map("candidates")
+}
+
+model EmailVerification {
+  id          String                      @id @default(cuid())
+  workspaceId String                      @map("workspace_id")
+  email       String
+  providerKey String                      @map("provider_key")
+  status      CandidateVerificationStatus
+  detailsJson Json?                       @map("details_json")
+  checkedAt   DateTime                    @map("checked_at")
+  createdAt   DateTime                    @default(now()) @map("created_at")
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@index([workspaceId])
+  @@index([email])
+  @@index([workspaceId, email])
+  @@map("email_verifications")
 }
 
 model Lead {
@@ -526,4 +634,31 @@ enum IcpInterviewSessionStatus {
   IN_PROGRESS
   COMPLETED
   ABANDONED
+}
+
+enum SourceConnectorType {
+  LICENSED_PROVIDER
+  CRM
+}
+
+enum SourceRunStatus {
+  QUEUED
+  RUNNING
+  COMPLETED
+  FAILED
+  PARTIAL
+}
+
+enum CandidateVerificationStatus {
+  VERIFIED
+  RISKY
+  INVALID
+  UNKNOWN
+}
+
+enum CandidateStatus {
+  NEW
+  APPROVED
+  REJECTED
+  SUPPRESSED
 }
