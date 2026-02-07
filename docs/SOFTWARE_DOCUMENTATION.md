@@ -476,6 +476,24 @@ Deliverability-first cold outreach operations app:
 - Testing:
   - Added integration coverage in `tests/integration/icp-center.test.ts` for list output, latest-score presence, active-version switching, and cross-workspace rejection.
 
+### Phase 4 extension closeout: ICP quality surfaces (2026-02-07)
+- Phase 4 extension scope status: complete for quality-gating and ICP-operability surfaces documented in product/UX/architecture specs.
+- Delivered extension surfaces:
+  - Deterministic quality scoring (`/api/icp/score`) with persisted explainable outputs.
+  - Scenario A/B gating in wizard Step 2 for insufficient-quality ICPs.
+  - Archetype classification endpoint (`/api/icp/classify-archetype`) and persisted decisions.
+  - Specialist interview route + lifecycle APIs (`/app/campaigns/:id/icp/improve`, `/api/icp/interview/*`).
+  - ICP Center route + active version selection + re-score actions (`/app/campaigns/:id/icp`, `PATCH /api/campaigns/:id/icp/active`).
+- Carry-forward decisions:
+  - Campaign ICP operates with a single active version at any point in time (`icp_versions.is_active`).
+  - Quality checks are advisory for `USABLE`, and gated flow for `INSUFFICIENT`, with explicit continue-anyway path.
+  - Template-related routes/contracts remain documented as extension surfaces; template library population and apply-template UX are pending follow-on checklist items.
+- Validation evidence for extension completion:
+  - `npm run lint`
+  - `npm run test:unit`
+  - `npm run test:integration`
+  - `npm run build`
+
 ### Phase 5 planning: provider selection + fields + quotas (2026-02-06)
 - Checklist task completed: plan/confirm licensed provider, supported filters, and quota guardrails for discovery.
 - Provider selection (MVP default):

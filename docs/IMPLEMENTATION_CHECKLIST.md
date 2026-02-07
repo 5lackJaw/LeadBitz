@@ -193,10 +193,11 @@
   - Tests: e2e smoke
   - Note (2026-02-07): Added campaign-scoped ICP Center route at `/app/campaigns/[campaignId]/icp` with versions table, latest score/tier display, active-version indicator, `Set active` action, and `Re-score` action wired to `/api/icp/score`. Added active-version API `PATCH /api/campaigns/[campaignId]/icp/active` and ICP center service layer for version listing/ownership-safe activation. Added integration coverage in `tests/integration/icp-center.test.ts`. Files touched: `app/app/campaigns/[campaignId]/icp/page.tsx`, `app/app/campaigns/[campaignId]/icp/icp-center-client.tsx`, `app/api/campaigns/[campaignId]/icp/active/route.ts`, `lib/icp/icp-center.ts`, `app/app/campaigns/[campaignId]/campaign-overview-client.tsx`, `tests/integration/icp-center.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 
-- [ ] **Update SOFTWARE_DOCUMENTATION.md (phase summary + decisions + gotchas)**
+- [x] **Update SOFTWARE_DOCUMENTATION.md (phase summary + decisions + gotchas)**
   - Acceptance: Phase 4 extension + ICP surfaces documented (quality gate, scenario flows, templates, interview, routes, data model, APIs)
   - Tests: n/a (documentation task)
   - Notes: Record implementation decisions, gotchas, and any follow-up actions.
+  - Note (2026-02-07): Added explicit Phase 4 extension closeout section in `docs/SOFTWARE_DOCUMENTATION.md` consolidating delivered ICP quality surfaces (scoring, Scenario A/B, archetype classification, Specialist interview, ICP Center), carry-forward decisions, and validation evidence. Also confirmed route/API/data-model references are represented in summary sections and operational gotchas. Files touched: `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 
 ## Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification
 - [x] Plan/confirm Phase 5 provider selection + fields + quotas
