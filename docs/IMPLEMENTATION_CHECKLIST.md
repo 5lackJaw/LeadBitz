@@ -164,9 +164,10 @@
   - Notes: Do not break current wizard persistence; wire to new tables behind feature flag if needed.
   - Note (2026-02-07): Added campaign-scoped ICP version persistence in generation/edit services: `POST /api/icp/generate` now creates an active `icp_versions` row (`WEBSITE` for website input, `MANUAL` for product-description input), and profile edits update the active website/manual version in place or create a new active manual version when the active source is non-editable (e.g., template/specialist). Added integration assertions in `tests/integration/icp-generate.test.ts` and `tests/integration/icp-editor.test.ts` for creation, active-version updates, and fallback new-version creation behavior. Files touched: `lib/icp/generate-icp-profile.ts`, `lib/icp/update-icp-profile.ts`, `app/api/icp/generate/route.ts`, `tests/integration/icp-generate.test.ts`, `tests/integration/icp-editor.test.ts`, `docs/IMPLEMENTATION_CHECKLIST.md`, `docs/SOFTWARE_DOCUMENTATION.md`.
 
-- [ ] **Implement `/api/icp/score` endpoint + persistence of `icp_quality_scores`**
+- [x] **Implement `/api/icp/score` endpoint + persistence of `icp_quality_scores`**
   - Acceptance: scoring runs for a given icpVersionId and saves results; returns explainable payload
   - Tests: integration
+  - Note (2026-02-07): Added `POST /api/icp/score` endpoint and `scoreIcpVersionForWorkspace` service to validate workspace/campaign/version ownership, normalize ICP JSON, run deterministic rubric scoring, and persist explainable results to `icp_quality_scores` (`missingFields`, `explanations`, `questions`, scorer metadata). Added integration coverage in `tests/integration/icp-score.test.ts` and wired it into `npm run test:integration`. Files touched: `app/api/icp/score/route.ts`, `lib/icp/score-icp-version.ts`, `tests/integration/icp-score.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 
 - [ ] **Add ICP Quality Panel in wizard Step 2**
   - Acceptance: shows score, tier, missing fields, “Improve ICP” CTA; supports “Continue anyway” paths
