@@ -58,7 +58,11 @@ export default async function CampaignOverviewPage({ params }: CampaignOverviewP
             <Link href="/app/campaigns" className="lb-link">
               Back to campaigns
             </Link>
-            <Link href={`/app/campaigns/new?campaignId=${campaign.id}`} className="lb-link lb-link-accent">
+            <Link
+              href={`/app/campaigns/new?campaignId=${campaign.id}`}
+              className="lb-link lb-link-accent"
+              prefetch={false}
+            >
               Resume wizard
             </Link>
           </div>

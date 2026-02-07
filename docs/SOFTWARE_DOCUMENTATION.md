@@ -640,6 +640,7 @@ Campaign control-surface additions:
 - `POST /api/icp/generate` currently uses an injectable draft generator abstraction; tests must mock the generator and verify DB persistence, while full OpenAI-backed generation remains a later implementation step.
 - ICP editor persistence requires non-empty list values per editable ICP field; empty lists are rejected by `PATCH /api/icp/profiles/:icpProfileId`.
 - Campaign-linked wizard resume requires `campaignId` query param (`/app/campaigns/new?campaignId=<id>`); without a campaign id, wizard state persistence is intentionally skipped.
+- Resume-wizard links disable route prefetch and wizard-state persistence now triggers `router.refresh()` to reduce stale app-router cache when reopening wizard after edits.
 - Inbox settings API validation bounds:
   - `dailySendCap`: `1..500`
   - `sendWindowStartHour`: `0..23`
@@ -689,6 +690,7 @@ Campaign control-surface additions:
 - 2026-02-07: Added additive ICP quality/versioning schema + migration (`20260207045941_add_icp_quality_tables`) for `icp_versions`, `icp_quality_scores`, `product_archetype_classifications`, `icp_templates`, and `icp_interview_sessions`.
 - 2026-02-07: Added deterministic ICP quality rubric constants + tier thresholds and unit coverage for score/tier/missing-field behavior.
 - 2026-02-07: Added campaign-linked ICP versioning behavior for generation/edit flows, including active-version update vs new-manual-version fallback rules and integration assertions.
+- 2026-02-07: Added wizard resume cache-staleness mitigation (`prefetch={false}` on resume links + `router.refresh()` after wizard-state persistence).
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).

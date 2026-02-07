@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 
 import { validateWizardStep1Input, WizardStep1ValidationError } from "@/lib/campaigns/wizard-step1";
 
@@ -67,6 +68,7 @@ function textareaToList(value: string): string[] {
 }
 
 export function WizardStep1Form({ campaignId, initialState }: WizardStep1FormProps) {
+  const router = useRouter();
   const [websiteUrl, setWebsiteUrl] = useState(initialState?.websiteUrl ?? "");
   const [productDescription, setProductDescription] = useState(initialState?.productDescription ?? "");
   const [profileName, setProfileName] = useState(initialState?.profileName ?? "");
@@ -118,6 +120,9 @@ export function WizardStep1Form({ campaignId, initialState }: WizardStep1FormPro
     if (!response.ok) {
       throw new Error("Failed to persist wizard state.");
     }
+
+    // Keep App Router cache in sync so resume links reflect latest wizard data.
+    router.refresh();
   }
 
   function onWebsiteUrlChange(nextValue: string) {
