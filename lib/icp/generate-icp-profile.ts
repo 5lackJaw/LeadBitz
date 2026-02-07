@@ -1,4 +1,4 @@
-import { IcpSourceType } from "@prisma/client";
+import { IcpSourceType, IcpVersionSource } from "@prisma/client";
 
 import { prisma } from "../prisma";
 
@@ -69,6 +69,22 @@ function mapSourceTypeToPrismaEnum(sourceType: IcpGenerationSourceType): IcpSour
   return IcpSourceType.PRODUCT_DESCRIPTION;
 }
 
+function resolveVersionSource(sourceType: IcpGenerationSourceType): IcpVersionSource {
+  if (sourceType === "WEBSITE_URL") {
+    return IcpVersionSource.WEBSITE;
+  }
+
+  return IcpVersionSource.MANUAL;
+}
+
+function resolveVersionTitle(sourceType: IcpGenerationSourceType): string {
+  if (sourceType === "WEBSITE_URL") {
+    return "Website Draft";
+  }
+
+  return "Manual Draft";
+}
+
 function defaultIcpDraftGenerator(input: {
   sourceType: IcpGenerationSourceType;
   sourceValue: string;
@@ -104,7 +120,13 @@ export async function generateIcpProfileForWorkspace(input: {
   campaignId?: string | null;
   profileName?: string | null;
   generateIcpDraft?: IcpDraftGenerator;
-}): Promise<{ icpProfileId: string; profileName: string; icp: IcpDraft; campaignId: string | null }> {
+}): Promise<{
+  icpProfileId: string;
+  profileName: string;
+  icp: IcpDraft;
+  campaignId: string | null;
+  icpVersionId: string | null;
+}> {
   const workspaceId = validateRequiredText(input.workspaceId, "Workspace id");
   const sourceValue = validateRequiredText(input.sourceValue, "Source value");
   const profileName = resolveProfileName(input.sourceType, input.profileName);
@@ -141,11 +163,10 @@ export async function generateIcpProfileForWorkspace(input: {
         sourceValue,
         icp: icpDraft,
       },
-      select: {
-        id: true,
-        icp: true,
-      },
+      select: { id: true, icp: true },
     });
+
+    let createdVersionId: string | null = null;
 
     if (campaignId) {
       await tx.campaign.update({
@@ -156,9 +177,39 @@ export async function generateIcpProfileForWorkspace(input: {
           icpProfileId: createdProfile.id,
         },
       });
+
+      await tx.icpVersion.updateMany({
+        where: {
+          campaignId,
+          isActive: true,
+        },
+        data: {
+          isActive: false,
+        },
+      });
+
+      const createdVersion = await tx.icpVersion.create({
+        data: {
+          workspaceId,
+          campaignId,
+          source: resolveVersionSource(input.sourceType),
+          title: resolveVersionTitle(input.sourceType),
+          icpJson: icpDraft,
+          isActive: true,
+        },
+        select: {
+          id: true,
+        },
+      });
+
+      createdVersionId = createdVersion.id;
     }
 
-    return createdProfile;
+    return {
+      id: createdProfile.id,
+      icp: createdProfile.icp,
+      icpVersionId: createdVersionId,
+    };
   });
 
   return {
@@ -166,5 +217,6 @@ export async function generateIcpProfileForWorkspace(input: {
     profileName,
     icp: icp.icp as IcpDraft,
     campaignId,
+    icpVersionId: icp.icpVersionId,
   };
 }

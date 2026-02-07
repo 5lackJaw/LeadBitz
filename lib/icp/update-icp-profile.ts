@@ -1,3 +1,5 @@
+import { IcpVersionSource } from "@prisma/client";
+
 import { prisma } from "../prisma";
 import { IcpDraft } from "./generate-icp-profile";
 
@@ -106,20 +108,89 @@ export async function updateIcpProfileForWorkspace(input: {
     throw new IcpProfileUpdateNotFoundError("ICP profile not found.");
   }
 
-  return prisma.icpProfile.update({
-    where: {
-      id: icpProfileId,
-    },
-    data: {
-      ...(profileName ? { name: profileName } : {}),
-      icp,
-    },
-    select: {
-      id: true,
-      workspaceId: true,
-      name: true,
-      icp: true,
-      updatedAt: true,
-    },
+  return prisma.$transaction(async (tx) => {
+    const updatedProfile = await tx.icpProfile.update({
+      where: {
+        id: icpProfileId,
+      },
+      data: {
+        ...(profileName ? { name: profileName } : {}),
+        icp,
+      },
+      select: {
+        id: true,
+        workspaceId: true,
+        name: true,
+        icp: true,
+        updatedAt: true,
+      },
+    });
+
+    const linkedCampaigns = await tx.campaign.findMany({
+      where: {
+        workspaceId,
+        icpProfileId,
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    for (const campaign of linkedCampaigns) {
+      const activeVersion = await tx.icpVersion.findFirst({
+        where: {
+          workspaceId,
+          campaignId: campaign.id,
+          isActive: true,
+        },
+        orderBy: {
+          updatedAt: "desc",
+        },
+        select: {
+          id: true,
+          source: true,
+          title: true,
+        },
+      });
+
+      if (
+        activeVersion &&
+        (activeVersion.source === IcpVersionSource.WEBSITE || activeVersion.source === IcpVersionSource.MANUAL)
+      ) {
+        await tx.icpVersion.update({
+          where: {
+            id: activeVersion.id,
+          },
+          data: {
+            source: IcpVersionSource.MANUAL,
+            title: profileName ?? activeVersion.title,
+            icpJson: icp,
+          },
+        });
+      } else {
+        await tx.icpVersion.updateMany({
+          where: {
+            campaignId: campaign.id,
+            isActive: true,
+          },
+          data: {
+            isActive: false,
+          },
+        });
+
+        await tx.icpVersion.create({
+          data: {
+            workspaceId,
+            campaignId: campaign.id,
+            source: IcpVersionSource.MANUAL,
+            title: profileName ?? "Manual Draft",
+            icpJson: icp,
+            isActive: true,
+          },
+        });
+      }
+    }
+
+    return updatedProfile;
   });
 }

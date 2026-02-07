@@ -83,6 +83,7 @@ export async function POST(request: Request) {
         sourceType: validatedStep1Input.sourceType,
         sourceValue,
         campaignId: generated.campaignId,
+        icpVersionId: generated.icpVersionId,
       },
       { status: 201 },
     );

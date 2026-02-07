@@ -64,6 +64,7 @@ if (!canRun) {
 
       assert.equal(mockCalls, 1);
       assert.equal(generated.campaignId, campaign.id);
+      assert.ok(generated.icpVersionId);
       assert.deepEqual(generated.icp, mockedIcp);
 
       const savedProfile = await prisma.icpProfile.findUnique({
@@ -100,6 +101,30 @@ if (!canRun) {
       });
 
       assert.equal(updatedCampaign?.icpProfileId, generated.icpProfileId);
+
+      const activeVersion = await prisma.icpVersion.findFirst({
+        where: {
+          campaignId: campaign.id,
+          isActive: true,
+        },
+        select: {
+          id: true,
+          workspaceId: true,
+          source: true,
+          title: true,
+          icpJson: true,
+        },
+      });
+
+      assert.ok(activeVersion);
+      if (!activeVersion) {
+        throw new Error("Expected active ICP version for campaign.");
+      }
+      assert.equal(activeVersion.id, generated.icpVersionId);
+      assert.equal(activeVersion.workspaceId, ownerWorkspace.workspaceId);
+      assert.equal(activeVersion.source, "WEBSITE");
+      assert.equal(activeVersion.title, "Website Draft");
+      assert.deepEqual(activeVersion.icpJson, mockedIcp);
 
       await assert.rejects(
         () =>

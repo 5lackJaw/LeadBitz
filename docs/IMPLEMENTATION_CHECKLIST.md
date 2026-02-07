@@ -158,10 +158,11 @@
   - Notes: No model call needed for rubric math; model only produces structured ICP and missing-field detection if required.
   - Note (2026-02-07): Added deterministic ICP quality rubric constants and scoring utility with explicit tier thresholds and 100-point weighting in `lib/icp/icp-quality-rubric.ts`; added unit tests covering complete/partial/sparse payload scoring, tier boundary mapping, and rubric total validation in `tests/unit/icp-quality-rubric.test.ts`. Files touched: `lib/icp/icp-quality-rubric.ts`, `tests/unit/icp-quality-rubric.test.ts`, `package.json`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 
-- [ ] **Add ICP Versioning (website/manual) for campaigns**
+- [x] **Add ICP Versioning (website/manual) for campaigns**
   - Acceptance: generating ICP creates an `icp_versions` row; edits create new version or update same version per defined rule
   - Tests: integration
   - Notes: Do not break current wizard persistence; wire to new tables behind feature flag if needed.
+  - Note (2026-02-07): Added campaign-scoped ICP version persistence in generation/edit services: `POST /api/icp/generate` now creates an active `icp_versions` row (`WEBSITE` for website input, `MANUAL` for product-description input), and profile edits update the active website/manual version in place or create a new active manual version when the active source is non-editable (e.g., template/specialist). Added integration assertions in `tests/integration/icp-generate.test.ts` and `tests/integration/icp-editor.test.ts` for creation, active-version updates, and fallback new-version creation behavior. Files touched: `lib/icp/generate-icp-profile.ts`, `lib/icp/update-icp-profile.ts`, `app/api/icp/generate/route.ts`, `tests/integration/icp-generate.test.ts`, `tests/integration/icp-editor.test.ts`, `docs/IMPLEMENTATION_CHECKLIST.md`, `docs/SOFTWARE_DOCUMENTATION.md`.
 
 - [ ] **Implement `/api/icp/score` endpoint + persistence of `icp_quality_scores`**
   - Acceptance: scoring runs for a given icpVersionId and saves results; returns explainable payload

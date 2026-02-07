@@ -53,6 +53,26 @@ if (!canRun) {
         }),
       });
 
+      const initialActiveVersion = await prisma.icpVersion.findFirst({
+        where: {
+          campaignId: campaign.id,
+          isActive: true,
+        },
+        select: {
+          id: true,
+          source: true,
+          title: true,
+          icpJson: true,
+        },
+      });
+
+      assert.ok(initialActiveVersion);
+      if (!initialActiveVersion) {
+        throw new Error("Expected initial ICP version for campaign.");
+      }
+      assert.equal(initialActiveVersion.source, "MANUAL");
+      assert.equal(initialActiveVersion.title, "Manual Draft");
+
       const updated = await updateIcpProfileForWorkspace({
         workspaceId: ownerWorkspace.workspaceId,
         icpProfileId: generated.icpProfileId,
@@ -78,6 +98,89 @@ if (!canRun) {
         valuePropAngles: ["Operator safety", "Faster launch workflow"],
         sourceSummary: "Updated summary",
       });
+
+      const updatedActiveVersion = await prisma.icpVersion.findFirst({
+        where: {
+          campaignId: campaign.id,
+          isActive: true,
+        },
+        select: {
+          id: true,
+          source: true,
+          title: true,
+          icpJson: true,
+        },
+      });
+
+      assert.ok(updatedActiveVersion);
+      if (!updatedActiveVersion) {
+        throw new Error("Expected updated active ICP version.");
+      }
+      assert.equal(updatedActiveVersion.id, initialActiveVersion.id);
+      assert.equal(updatedActiveVersion.source, "MANUAL");
+      assert.equal(updatedActiveVersion.title, "Updated ICP");
+      assert.deepEqual(updatedActiveVersion.icpJson, updated.icp);
+
+      await prisma.icpVersion.updateMany({
+        where: {
+          campaignId: campaign.id,
+          isActive: true,
+        },
+        data: {
+          isActive: false,
+        },
+      });
+
+      const templateVersion = await prisma.icpVersion.create({
+        data: {
+          workspaceId: ownerWorkspace.workspaceId,
+          campaignId: campaign.id,
+          source: "TEMPLATE",
+          title: "Template v1",
+          icpJson: {
+            templateApplied: true,
+          },
+          isActive: true,
+        },
+      });
+
+      const secondUpdate = await updateIcpProfileForWorkspace({
+        workspaceId: ownerWorkspace.workspaceId,
+        icpProfileId: generated.icpProfileId,
+        profileName: "Manual Edit v2",
+        icp: {
+          targetIndustries: ["B2B SaaS", "Services"],
+          companySizeBands: ["51-200", "201-500"],
+          buyerRoles: ["VP Sales", "Revenue Ops"],
+          pains: ["Reply quality", "Pipeline gaps", "Team bandwidth"],
+          exclusions: ["Consumer-only brands"],
+          valuePropAngles: ["Deliverability-first outbound", "Operator control"],
+          sourceSummary: "Second update summary",
+        },
+      });
+
+      const activeAfterTemplate = await prisma.icpVersion.findFirst({
+        where: {
+          campaignId: campaign.id,
+          isActive: true,
+        },
+        select: {
+          id: true,
+          source: true,
+          title: true,
+          icpJson: true,
+        },
+      });
+
+      assert.ok(activeAfterTemplate);
+      if (!activeAfterTemplate) {
+        throw new Error("Expected active manual version after template fallback.");
+      }
+      assert.notEqual(activeAfterTemplate.id, templateVersion.id);
+      assert.notEqual(activeAfterTemplate.id, updatedActiveVersion.id);
+      assert.equal(activeAfterTemplate.source, "MANUAL");
+      assert.equal(activeAfterTemplate.title, "Manual Edit v2");
+      assert.deepEqual(activeAfterTemplate.icpJson, secondUpdate.icp);
 
       await assert.rejects(
         () =>
