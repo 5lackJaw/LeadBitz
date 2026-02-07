@@ -174,9 +174,10 @@
   - Tests: e2e (happy path + insufficient path)
   - Note (2026-02-07): Added an ICP Quality Panel to Step 2 in `app/app/campaigns/new/wizard-step1-form.tsx` with rubric scoring integration (`POST /api/icp/score`), score/tier display, missing-fields/questions visibility, `Improve ICP` CTA, and `Continue anyway to Step 3` behavior that adapts to `USABLE`/`INSUFFICIENT` tiers. Quality scoring is automatically triggered after generation and after saves when `campaignId` + `icpVersionId` are available, and can be manually re-run. Files touched: `app/app/campaigns/new/wizard-step1-form.tsx`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 
-- [ ] **Implement archetype classification endpoint `/api/icp/classify-archetype`**
+- [x] **Implement archetype classification endpoint `/api/icp/classify-archetype`**
   - Acceptance: returns archetypeKey/confidence/evidence; persisted to `product_archetype_classifications`
   - Tests: integration (mock AI)
+  - Note (2026-02-07): Added `POST /api/icp/classify-archetype` and `classifyProductArchetypeForWorkspace` service with workspace/campaign/version ownership checks, classifier hook for mocked AI behavior, and persistence to `product_archetype_classifications` (including undecided fallback key `UNIDENTIFIED`). Added integration coverage in `tests/integration/icp-classify-archetype.test.ts` and wired it into `npm run test:integration`. Files touched: `app/api/icp/classify-archetype/route.ts`, `lib/icp/classify-product-archetype.ts`, `tests/integration/icp-classify-archetype.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 
 - [ ] **Add Scenario A/B modal flows in wizard**
   - Acceptance: <50 score triggers modal; A if archetype identified above threshold, else B; includes required buttons and persistence behavior
