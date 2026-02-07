@@ -57,6 +57,23 @@ Deliverability-first cold outreach operations app:
   - Development merges into `release`.
   - `main` remains production-gated until MVP sign-off.
 
+### Phase 1 extension progress: ICP quality schema tables (2026-02-07)
+- Added additive Prisma schema coverage for ICP quality/versioning surfaces:
+  - `icp_versions`
+  - `icp_quality_scores`
+  - `product_archetype_classifications`
+  - `icp_templates`
+  - `icp_interview_sessions`
+- Added supporting enums for deterministic state typing:
+  - `IcpVersionSource`
+  - `IcpQualityTier`
+  - `IcpInterviewSessionStatus`
+- Existing `icp_profiles` table remains unchanged and continues to back current wizard persistence.
+- Migration added:
+  - `prisma/migrations/20260207045941_add_icp_quality_tables/migration.sql`
+- Validation evidence:
+  - `npx prisma migrate dev --name add_icp_quality_tables` executed against local Prisma Postgres (`prisma dev`) from a clean migration history.
+
 ### Phase 2 scope confirmation (2026-02-06)
 - Confirmed Phase 2 is limited to authentication and workspace access-control foundations.
 - In scope for Phase 2:
@@ -600,6 +617,7 @@ Campaign control-surface additions:
 - `npm run verify` is now the canonical pre-push check. Use it for every feature branch before opening/updating a PR.
 - Pull requests into `release` execute `.github/workflows/pr-verify.yml`; keep branch changes compatible with `npm ci` + `npm run verify` on Linux CI.
 - `release` is branch-protected with required status check `verify`; merges are blocked until the CI verify job succeeds.
+- If shared remote development DB migration checksums drift (for example after history changes on already-applied migrations), avoid resetting shared data; generate/validate new migrations against local `prisma dev` Postgres instead, then apply via normal deploy workflow.
 
 ## Changelog
 - YYYY-MM-DD: Initial scaffold created.
@@ -630,6 +648,7 @@ Campaign control-surface additions:
 - 2026-02-06: Added Step 2 ICP editor UI on `/app/campaigns/new` and persisted editing API `PATCH /api/icp/profiles/:icpProfileId` with integration coverage.
 - 2026-02-06: Closed Phase 4 documentation with consolidated phase summary, carry-forward decisions, and operational gotchas.
 - 2026-02-06: Added campaign overview and campaign-level control surfaces (`messaging_rules`, `discovery_rules`, `wizard_state`, optional inbox linkage), plus wizard resume scaffolding and sources registry settings stub.
+- 2026-02-07: Added additive ICP quality/versioning schema + migration (`20260207045941_add_icp_quality_tables`) for `icp_versions`, `icp_quality_scores`, `product_archetype_classifications`, `icp_templates`, and `icp_interview_sessions`.
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).

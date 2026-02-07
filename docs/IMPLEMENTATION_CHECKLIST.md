@@ -74,10 +74,11 @@
   - Acceptance: Phase 1 summary, implementation decisions, and operational gotchas recorded
   - Tests: n/a (documentation task)
   - Note (2026-02-06): Added Phase 1 closeout section, Phase 1 decisions, and migration/environment gotchas to `docs/SOFTWARE_DOCUMENTATION.md`, including Prisma `.env` behavior and UI-spec source-of-truth reference. Files touched: `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`, `docs/UI_SPEC.md`.
-- [ ] **Add schema + migration for ICP versions + quality scoring + archetype + templates + interview sessions**
+- [x] **Add schema + migration for ICP versions + quality scoring + archetype + templates + interview sessions**
   - Acceptance: tables exist (`icp_versions`, `icp_quality_scores`, `product_archetype_classifications`, `icp_templates`, `icp_interview_sessions`)
   - Tests: integration (migration applies)
   - Notes: Keep existing `icp_profiles` intact; treat new tables as additive. Consider backfill path later.
+  - Note (2026-02-07): Added additive Prisma models/enums for `icp_versions`, `icp_quality_scores`, `product_archetype_classifications`, `icp_templates`, and `icp_interview_sessions` while keeping `icp_profiles` unchanged; generated migration `20260207045941_add_icp_quality_tables` with foreign keys and indexes, and validated migration apply on local Prisma Postgres (`prisma dev`). Files touched: `prisma/schema.prisma`, `prisma/migrations/20260207045941_add_icp_quality_tables/migration.sql`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 
 ## Phase 2 — Auth + workspace scoping
 - [x] Plan/confirm Phase 2 scope
