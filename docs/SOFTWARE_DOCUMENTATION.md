@@ -376,6 +376,24 @@ Deliverability-first cold outreach operations app:
   - sparse payload (`11/INSUFFICIENT`)
   - threshold-boundary tier mapping and rubric total-point validation.
 
+### Phase 4 progress: ICP versioning for campaign generation/edit flows (2026-02-07)
+- Added campaign-scoped ICP version persistence to existing wizard services without changing current `icp_profiles` persistence contract.
+- `generateIcpProfileForWorkspace` now, when `campaignId` is present:
+  - deactivates prior active version(s) for the campaign
+  - creates a new active `icp_versions` row
+  - maps generation input source:
+    - website URL -> `IcpVersionSource.WEBSITE` (`title: "Website Draft"`)
+    - product description -> `IcpVersionSource.MANUAL` (`title: "Manual Draft"`)
+- `updateIcpProfileForWorkspace` now synchronizes linked campaign versions on ICP edit:
+  - if active version source is `WEBSITE` or `MANUAL`: update the same active row in place and normalize source to `MANUAL`
+  - if active source is non-editable (`TEMPLATE`/`SPECIALIST`) or missing: create a new active manual version and deactivate prior active rows
+- `POST /api/icp/generate` response now includes `icpVersionId` for campaign-linked generation calls.
+- Integration coverage updates:
+  - `tests/integration/icp-generate.test.ts` asserts active version creation + source/title/json linkage.
+  - `tests/integration/icp-editor.test.ts` asserts:
+    - in-place active manual update path
+    - fallback new-manual-version creation path when active source is template.
+
 ### Phase 5 planning: provider selection + fields + quotas (2026-02-06)
 - Checklist task completed: plan/confirm licensed provider, supported filters, and quota guardrails for discovery.
 - Provider selection (MVP default):
@@ -670,6 +688,7 @@ Campaign control-surface additions:
 - 2026-02-06: Added campaign overview and campaign-level control surfaces (`messaging_rules`, `discovery_rules`, `wizard_state`, optional inbox linkage), plus wizard resume scaffolding and sources registry settings stub.
 - 2026-02-07: Added additive ICP quality/versioning schema + migration (`20260207045941_add_icp_quality_tables`) for `icp_versions`, `icp_quality_scores`, `product_archetype_classifications`, `icp_templates`, and `icp_interview_sessions`.
 - 2026-02-07: Added deterministic ICP quality rubric constants + tier thresholds and unit coverage for score/tier/missing-field behavior.
+- 2026-02-07: Added campaign-linked ICP versioning behavior for generation/edit flows, including active-version update vs new-manual-version fallback rules and integration assertions.
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).
