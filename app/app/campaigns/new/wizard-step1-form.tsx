@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useMemo, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { validateWizardStep1Input, WizardStep1ValidationError } from "@/lib/campaigns/wizard-step1";
@@ -17,6 +18,7 @@ type IcpDraftPayload = {
 
 type IcpGenerationResponse = {
   icpProfileId?: string;
+  icpVersionId?: string | null;
   profileName?: string;
   icp?: IcpDraftPayload;
   sourceType?: "WEBSITE_URL" | "PRODUCT_DESCRIPTION";
@@ -47,6 +49,7 @@ type WizardInitialState = {
   websiteUrl?: string;
   productDescription?: string;
   profileName?: string;
+  icpVersionId?: string | null;
   generatedIcpProfileId?: string | null;
   icpEditorState?: IcpEditorState | null;
 };
@@ -54,6 +57,24 @@ type WizardInitialState = {
 type WizardStep1FormProps = {
   campaignId?: string | null;
   initialState?: WizardInitialState;
+};
+
+type IcpQualityTier = "HIGH" | "USABLE" | "INSUFFICIENT";
+
+type IcpScoreResponse = {
+  icpQualityScoreId?: string;
+  score?: number;
+  tier?: IcpQualityTier;
+  missingFields?: Array<{
+    field: string;
+    label: string;
+    minimumRequirement: number;
+    actualValueCount: number;
+  }>;
+  explanations?: string[];
+  questions?: string[];
+  computedAt?: string;
+  error?: string;
 };
 
 function listToTextarea(values: string[]): string {
@@ -77,9 +98,12 @@ export function WizardStep1Form({ campaignId, initialState }: WizardStep1FormPro
   const [generatedIcpProfileId, setGeneratedIcpProfileId] = useState<string | null>(
     initialState?.generatedIcpProfileId ?? null,
   );
+  const [icpVersionId, setIcpVersionId] = useState<string | null>(initialState?.icpVersionId ?? null);
   const [icpEditorState, setIcpEditorState] = useState<IcpEditorState | null>(
     initialState?.icpEditorState ?? null,
   );
+  const [isScoringIcp, setIsScoringIcp] = useState(false);
+  const [icpScore, setIcpScore] = useState<IcpScoreResponse | null>(null);
   const [lastSavedAtLabel, setLastSavedAtLabel] = useState<string | null>(null);
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -100,6 +124,7 @@ export function WizardStep1Form({ campaignId, initialState }: WizardStep1FormPro
     websiteUrl: string;
     productDescription: string;
     profileName: string;
+    icpVersionId: string | null;
     generatedIcpProfileId: string | null;
     icpEditorState: IcpEditorState | null;
   }) {
@@ -123,6 +148,35 @@ export function WizardStep1Form({ campaignId, initialState }: WizardStep1FormPro
 
     // Keep App Router cache in sync so resume links reflect latest wizard data.
     router.refresh();
+  }
+
+  async function runIcpScore(input: { campaignId: string; icpVersionId: string }) {
+    setIsScoringIcp(true);
+
+    try {
+      const response = await fetch("/api/icp/score", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(input),
+      });
+
+      const data = (await response.json()) as IcpScoreResponse;
+
+      if (!response.ok || typeof data.score !== "number" || !data.tier) {
+        throw new Error(data.error ?? "Failed to score ICP.");
+      }
+
+      setIcpScore(data);
+      return data;
+    } catch (error) {
+      setIcpScore(null);
+      setErrorMessage(error instanceof Error ? error.message : "Failed to score ICP.");
+      return null;
+    } finally {
+      setIsScoringIcp(false);
+    }
   }
 
   function onWebsiteUrlChange(nextValue: string) {
@@ -181,21 +235,37 @@ export function WizardStep1Form({ campaignId, initialState }: WizardStep1FormPro
       };
 
       setGeneratedIcpProfileId(data.icpProfileId);
+      setIcpVersionId(data.icpVersionId ?? null);
       setProfileName(resolvedProfileName);
       setIcpEditorState(nextEditorState);
+      setIcpScore(null);
       setLastSavedAtLabel(null);
 
       await persistWizardState({
         websiteUrl,
         productDescription,
         profileName: resolvedProfileName,
+        icpVersionId: data.icpVersionId ?? null,
         generatedIcpProfileId: data.icpProfileId,
         icpEditorState: nextEditorState,
       });
 
-      setStatusMessage(
-        `Step 1 validated using ${data.sourceType === "WEBSITE_URL" ? "website URL" : "product description"}. Step 2 ICP draft is ready to edit.`,
-      );
+      if (campaignId && data.icpVersionId) {
+        const score = await runIcpScore({
+          campaignId,
+          icpVersionId: data.icpVersionId,
+        });
+
+        if (score) {
+          setStatusMessage(
+            `Step 1 validated. Step 2 draft scored ${score.score}/100 (${score.tier}).`,
+          );
+        } else {
+          setStatusMessage("Step 1 validated. Step 2 ICP draft is ready to edit.");
+        }
+      } else {
+        setStatusMessage("Step 1 validated. Step 2 ICP draft is ready to edit.");
+      }
     } catch (error) {
       if (error instanceof WizardStep1ValidationError) {
         setErrorMessage(error.message);
@@ -266,19 +336,40 @@ export function WizardStep1Form({ campaignId, initialState }: WizardStep1FormPro
         websiteUrl,
         productDescription,
         profileName: nextProfileName,
+        icpVersionId,
         generatedIcpProfileId,
         icpEditorState: nextEditorState,
       });
 
       const savedAtLabel = data.updatedAt ? new Date(data.updatedAt).toLocaleString() : null;
       setLastSavedAtLabel(savedAtLabel);
-      setStatusMessage(savedAtLabel ? `ICP edits saved at ${savedAtLabel}.` : "ICP edits saved.");
+
+      if (campaignId && icpVersionId) {
+        const score = await runIcpScore({
+          campaignId,
+          icpVersionId,
+        });
+        if (score) {
+          setStatusMessage(
+            savedAtLabel
+              ? `ICP edits saved at ${savedAtLabel}. Current quality score: ${score.score}/100 (${score.tier}).`
+              : `ICP edits saved. Current quality score: ${score.score}/100 (${score.tier}).`,
+          );
+        } else {
+          setStatusMessage(savedAtLabel ? `ICP edits saved at ${savedAtLabel}.` : "ICP edits saved.");
+        }
+      } else {
+        setStatusMessage(savedAtLabel ? `ICP edits saved at ${savedAtLabel}.` : "ICP edits saved.");
+      }
     } catch (error) {
       setErrorMessage(error instanceof Error ? error.message : "Failed to persist ICP edits.");
     } finally {
       setIsSavingIcp(false);
     }
   }
+
+  const shouldWarnOnContinue = icpScore?.tier === "INSUFFICIENT" || icpScore?.tier === "USABLE";
+  const continueHref = campaignId ? `/app/campaigns/${campaignId}/discovery` : null;
 
   return (
     <section className="lb-panel">
@@ -357,9 +448,21 @@ export function WizardStep1Form({ campaignId, initialState }: WizardStep1FormPro
               Edit generated ICP fields, then save to persist changes in your workspace.
             </p>
             {lastSavedAtLabel ? <p className="lb-subtitle">Last saved: {lastSavedAtLabel}</p> : null}
+            {campaignId && icpVersionId ? (
+              <p className="lb-subtitle">Quality scoring enabled for this campaign-linked ICP version.</p>
+            ) : (
+              <p className="lb-subtitle">
+                Quality scoring becomes available when this wizard is opened with a campaign id.
+              </p>
+            )}
             <code style={{ fontFamily: "var(--font-ui-mono)", color: "var(--ui-fg-muted)" }}>
               Profile id: {generatedIcpProfileId}
             </code>
+            {icpVersionId ? (
+              <code style={{ fontFamily: "var(--font-ui-mono)", color: "var(--ui-fg-muted)" }}>
+                Version id: {icpVersionId}
+              </code>
+            ) : null}
           </div>
 
           <form onSubmit={onSaveIcpEdits} className="lb-form-grid">
@@ -470,6 +573,100 @@ export function WizardStep1Form({ campaignId, initialState }: WizardStep1FormPro
               {isSavingIcp ? "Saving..." : "Save ICP edits"}
             </button>
           </form>
+
+          <section className="lb-panel" style={{ marginTop: "16px", padding: "16px" }}>
+            <div style={{ display: "grid", gap: "8px" }}>
+              <h4 className="lb-title" style={{ fontSize: "16px", lineHeight: "24px" }}>
+                ICP Quality Panel
+              </h4>
+              <p className="lb-subtitle">
+                Score, tier, and missing-field guidance for this ICP version.
+              </p>
+            </div>
+
+            <div style={{ marginTop: "12px", display: "flex", gap: "12px", flexWrap: "wrap" }}>
+              <button
+                type="button"
+                className="lb-button lb-button-secondary"
+                disabled={!campaignId || !icpVersionId || isScoringIcp || isSavingIcp || isGenerating}
+                onClick={async () => {
+                  setErrorMessage(null);
+                  setStatusMessage(null);
+
+                  if (!campaignId || !icpVersionId) {
+                    setErrorMessage("Campaign-linked ICP version is required for scoring.");
+                    return;
+                  }
+
+                  const score = await runIcpScore({ campaignId, icpVersionId });
+                  if (score) {
+                    setStatusMessage(`ICP scored ${score.score}/100 (${score.tier}).`);
+                  }
+                }}
+              >
+                {isScoringIcp ? "Scoring..." : "Re-score ICP"}
+              </button>
+
+              {campaignId ? (
+                <Link href={`/app/campaigns/${campaignId}/icp/improve`} className="lb-button lb-button-secondary">
+                  Improve ICP
+                </Link>
+              ) : (
+                <button type="button" className="lb-button lb-button-secondary" disabled>
+                  Improve ICP
+                </button>
+              )}
+
+              {continueHref ? (
+                <Link href={continueHref} className="lb-button lb-button-primary">
+                  {shouldWarnOnContinue ? "Continue anyway to Step 3" : "Continue to Step 3"}
+                </Link>
+              ) : (
+                <button type="button" className="lb-button lb-button-primary" disabled>
+                  Continue to Step 3
+                </button>
+              )}
+            </div>
+
+            {icpScore ? (
+              <div style={{ marginTop: "12px", display: "grid", gap: "10px" }}>
+                <p className="lb-subtitle">
+                  Score: <strong>{icpScore.score ?? "-"}/100</strong> | Tier:{" "}
+                  <strong>{icpScore.tier ?? "UNKNOWN"}</strong>
+                </p>
+
+                {icpScore.missingFields && icpScore.missingFields.length > 0 ? (
+                  <div className="lb-alert lb-alert-info" role="status">
+                    Missing fields:
+                    {" " + icpScore.missingFields.map((item) => item.label).join(", ")}
+                  </div>
+                ) : (
+                  <div className="lb-alert lb-alert-success" role="status">
+                    No missing fields flagged by the current rubric.
+                  </div>
+                )}
+
+                {icpScore.questions && icpScore.questions.length > 0 ? (
+                  <ul className="lb-subtitle" style={{ margin: 0, paddingLeft: "20px" }}>
+                    {icpScore.questions.map((question, index) => (
+                      <li key={`${question}-${index}`}>{question}</li>
+                    ))}
+                  </ul>
+                ) : null}
+              </div>
+            ) : (
+              <p className="lb-subtitle" style={{ marginTop: "12px" }}>
+                Run scoring to view quality tier, missing fields, and improvement prompts.
+              </p>
+            )}
+
+            {shouldWarnOnContinue ? (
+              <p className="lb-alert lb-alert-info" role="status" style={{ marginTop: "12px" }}>
+                This ICP is below high-quality threshold. Continue is allowed, but improve before launch is
+                recommended.
+              </p>
+            ) : null}
+          </section>
         </section>
       ) : null}
 

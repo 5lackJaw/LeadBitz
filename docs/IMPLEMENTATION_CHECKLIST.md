@@ -169,9 +169,10 @@
   - Tests: integration
   - Note (2026-02-07): Added `POST /api/icp/score` endpoint and `scoreIcpVersionForWorkspace` service to validate workspace/campaign/version ownership, normalize ICP JSON, run deterministic rubric scoring, and persist explainable results to `icp_quality_scores` (`missingFields`, `explanations`, `questions`, scorer metadata). Added integration coverage in `tests/integration/icp-score.test.ts` and wired it into `npm run test:integration`. Files touched: `app/api/icp/score/route.ts`, `lib/icp/score-icp-version.ts`, `tests/integration/icp-score.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 
-- [ ] **Add ICP Quality Panel in wizard Step 2**
+- [x] **Add ICP Quality Panel in wizard Step 2**
   - Acceptance: shows score, tier, missing fields, “Improve ICP” CTA; supports “Continue anyway” paths
   - Tests: e2e (happy path + insufficient path)
+  - Note (2026-02-07): Added an ICP Quality Panel to Step 2 in `app/app/campaigns/new/wizard-step1-form.tsx` with rubric scoring integration (`POST /api/icp/score`), score/tier display, missing-fields/questions visibility, `Improve ICP` CTA, and `Continue anyway to Step 3` behavior that adapts to `USABLE`/`INSUFFICIENT` tiers. Quality scoring is automatically triggered after generation and after saves when `campaignId` + `icpVersionId` are available, and can be manually re-run. Files touched: `app/app/campaigns/new/wizard-step1-form.tsx`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 
 - [ ] **Implement archetype classification endpoint `/api/icp/classify-archetype`**
   - Acceptance: returns archetypeKey/confidence/evidence; persisted to `product_archetype_classifications`
