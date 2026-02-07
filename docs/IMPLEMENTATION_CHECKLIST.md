@@ -184,9 +184,10 @@
   - Tests: e2e
   - Note (2026-02-07): Added Scenario A/B quality-gate modal flow logic to `app/app/campaigns/new/wizard-step1-form.tsx`: insufficient-score (`tier=INSUFFICIENT`) now triggers archetype classification, opens Scenario A when archetype confidence meets threshold, otherwise Scenario B with disambiguation-question submission loop. Included required buttons (`Apply template`, `Improve with Specialist AI`, `Continue anyway` / `Answer questions`) and persistence behavior by recording wizard state on continue/disambiguation actions. Files touched: `app/app/campaigns/new/wizard-step1-form.tsx`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 
-- [ ] **Implement Specialist ICP Interview wizard route `/app/campaigns/:id/icp/improve`**
+- [x] **Implement Specialist ICP Interview wizard route `/app/campaigns/:id/icp/improve`**
   - Acceptance: start session → answer questions → completes and creates a new ICP version; shows diff summary
   - Tests: e2e (mock AI)
+  - Note (2026-02-07): Implemented Specialist Interview session service + APIs (`/api/icp/interview/start`, `/api/icp/interview/answer`, `/api/icp/interview/complete`) and campaign route UI at `/app/campaigns/[campaignId]/icp/improve` with session start/answer/complete flow and visible ICP diff summary. Wired Scenario A/B "Improve with Specialist AI" actions in wizard Step 2 to navigate into the new route. Added lifecycle integration coverage in `tests/integration/icp-specialist-interview.test.ts`. Files touched: `lib/icp/specialist-interview.ts`, `app/api/icp/interview/*`, `app/app/campaigns/[campaignId]/icp/improve/*`, `app/app/campaigns/new/wizard-step1-form.tsx`, `tests/integration/icp-specialist-interview.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 
 - [x] **Add ICP Center route `/app/campaigns/:id/icp` (versions + select active)**
   - Acceptance: list versions, show scores, set active version; “Re-score” action works

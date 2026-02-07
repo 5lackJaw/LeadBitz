@@ -827,9 +827,11 @@ export function WizardStep1Form({ campaignId, initialState }: WizardStep1FormPro
                   type="button"
                   className="lb-button lb-button-secondary"
                   onClick={() => {
-                    setStatusMessage(
-                      "Specialist ICP interview flow is queued in the next checklist task.",
-                    );
+                    if (!campaignId) {
+                      setErrorMessage("Campaign-linked ICP is required for Specialist Interview.");
+                      return;
+                    }
+                    router.push(`/app/campaigns/${campaignId}/icp/improve`);
                   }}
                 >
                   Improve with Specialist AI
@@ -864,9 +866,11 @@ export function WizardStep1Form({ campaignId, initialState }: WizardStep1FormPro
                   type="button"
                   className="lb-button lb-button-secondary"
                   onClick={() => {
-                    setStatusMessage(
-                      "Specialist ICP interview flow is queued in the next checklist task.",
-                    );
+                    if (!campaignId) {
+                      setErrorMessage("Campaign-linked ICP is required for Specialist Interview.");
+                      return;
+                    }
+                    router.push(`/app/campaigns/${campaignId}/icp/improve`);
                   }}
                 >
                   Improve with Specialist AI
