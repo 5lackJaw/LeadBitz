@@ -33,16 +33,20 @@ model Workspace {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  owner            User              @relation("WorkspaceOwner", fields: [ownerId], references: [id], onDelete: Restrict)
-  campaigns        Campaign[]
-  inboxConnections InboxConnection[]
-  icpProfiles      IcpProfile[]
-  leads            Lead[]
-  suppressions     Suppression[]
-  messageTemplates MessageTemplate[]
-  conversations    Conversation[]
-  auditEvents      AuditEvent[]
-  leadSources      LeadSource[]
+  owner                           User                             @relation("WorkspaceOwner", fields: [ownerId], references: [id], onDelete: Restrict)
+  campaigns                       Campaign[]
+  inboxConnections                InboxConnection[]
+  icpProfiles                     IcpProfile[]
+  icpVersions                     IcpVersion[]
+  icpQualityScores                IcpQualityScore[]
+  productArchetypeClassifications ProductArchetypeClassification[]
+  icpInterviewSessions            IcpInterviewSession[]
+  leads                           Lead[]
+  suppressions                    Suppression[]
+  messageTemplates                MessageTemplate[]
+  conversations                   Conversation[]
+  auditEvents                     AuditEvent[]
+  leadSources                     LeadSource[]
 
   @@index([ownerId])
   @@map("workspaces")
@@ -64,7 +68,7 @@ model InboxConnection {
   createdAt             DateTime              @default(now()) @map("created_at")
   updatedAt             DateTime              @updatedAt @map("updated_at")
 
-  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  workspace Workspace  @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
   campaigns Campaign[]
 
   @@unique([provider, providerAccountId])
@@ -90,28 +94,130 @@ model IcpProfile {
   @@map("icp_profiles")
 }
 
-model Campaign {
-  id           String         @id @default(cuid())
-  workspaceId  String         @map("workspace_id")
-  icpProfileId String?        @map("icp_profile_id")
-  inboxConnectionId String?   @map("inbox_connection_id")
-  name         String
-  status       CampaignStatus @default(DRAFT)
-  messagingRules String?      @map("messaging_rules")
-  discoveryRules String?      @map("discovery_rules")
-  wizardState Json?           @map("wizard_state")
-  createdAt    DateTime       @default(now()) @map("created_at")
-  updatedAt    DateTime       @updatedAt @map("updated_at")
-  launchedAt   DateTime?      @map("launched_at")
+model IcpVersion {
+  id          String           @id @default(cuid())
+  workspaceId String           @map("workspace_id")
+  campaignId  String           @map("campaign_id")
+  source      IcpVersionSource
+  title       String
+  icpJson     Json             @map("icp_json")
+  isActive    Boolean          @default(false) @map("is_active")
+  createdAt   DateTime         @default(now()) @map("created_at")
+  updatedAt   DateTime         @updatedAt @map("updated_at")
 
-  workspace     Workspace      @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
-  icpProfile    IcpProfile?    @relation(fields: [icpProfileId], references: [id], onDelete: SetNull)
-  inboxConnection InboxConnection? @relation(fields: [inboxConnectionId], references: [id], onDelete: SetNull)
-  leads         CampaignLead[]
-  sequences     Sequence[]
-  sendJobs      SendJob[]
-  conversations Conversation[]
-  auditEvents   AuditEvent[]
+  workspace     Workspace         @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  campaign      Campaign          @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  qualityScores IcpQualityScore[]
+
+  @@index([workspaceId])
+  @@index([campaignId])
+  @@index([campaignId, isActive])
+  @@map("icp_versions")
+}
+
+model IcpQualityScore {
+  id                String         @id @default(cuid())
+  workspaceId       String         @map("workspace_id")
+  campaignId        String         @map("campaign_id")
+  icpVersionId      String         @map("icp_version_id")
+  scoreInt          Int            @map("score_int")
+  tier              IcpQualityTier
+  missingFieldsJson Json?          @map("missing_fields_json")
+  explanationsJson  Json?          @map("explanations_json")
+  questionsJson     Json?          @map("questions_json")
+  modelMetaJson     Json?          @map("model_meta_json")
+  computedAt        DateTime       @default(now()) @map("computed_at")
+
+  workspace  Workspace  @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  campaign   Campaign   @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  icpVersion IcpVersion @relation(fields: [icpVersionId], references: [id], onDelete: Cascade)
+
+  @@index([workspaceId])
+  @@index([campaignId])
+  @@index([icpVersionId])
+  @@map("icp_quality_scores")
+}
+
+model ProductArchetypeClassification {
+  id           String   @id @default(cuid())
+  workspaceId  String   @map("workspace_id")
+  campaignId   String   @map("campaign_id")
+  archetypeKey String   @map("archetype_key")
+  confidence   Float
+  evidenceJson Json     @map("evidence_json")
+  decidedAt    DateTime @default(now()) @map("decided_at")
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  campaign  Campaign  @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+
+  @@index([workspaceId])
+  @@index([campaignId])
+  @@index([campaignId, decidedAt])
+  @@map("product_archetype_classifications")
+}
+
+model IcpTemplate {
+  id                     String   @id @default(cuid())
+  archetypeKey           String   @map("archetype_key")
+  templateVersion        String   @map("template_version")
+  requiredQuestionsJson  Json     @map("required_questions_json")
+  defaultIcpSkeletonJson Json     @map("default_icp_skeleton_json")
+  rubricWeightsJson      Json     @map("rubric_weights_json")
+  enabled                Boolean  @default(true)
+  createdAt              DateTime @default(now()) @map("created_at")
+  updatedAt              DateTime @updatedAt @map("updated_at")
+
+  @@unique([archetypeKey, templateVersion])
+  @@index([enabled])
+  @@map("icp_templates")
+}
+
+model IcpInterviewSession {
+  id            String                    @id @default(cuid())
+  workspaceId   String                    @map("workspace_id")
+  campaignId    String                    @map("campaign_id")
+  status        IcpInterviewSessionStatus @default(DRAFT)
+  questionsJson Json?                     @map("questions_json")
+  answersJson   Json?                     @map("answers_json")
+  outputIcpJson Json?                     @map("output_icp_json")
+  startedAt     DateTime                  @default(now()) @map("started_at")
+  completedAt   DateTime?                 @map("completed_at")
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  campaign  Campaign  @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+
+  @@index([workspaceId])
+  @@index([campaignId])
+  @@index([status])
+  @@map("icp_interview_sessions")
+}
+
+model Campaign {
+  id                String         @id @default(cuid())
+  workspaceId       String         @map("workspace_id")
+  icpProfileId      String?        @map("icp_profile_id")
+  inboxConnectionId String?        @map("inbox_connection_id")
+  name              String
+  status            CampaignStatus @default(DRAFT)
+  messagingRules    String?        @map("messaging_rules")
+  discoveryRules    String?        @map("discovery_rules")
+  wizardState       Json?          @map("wizard_state")
+  createdAt         DateTime       @default(now()) @map("created_at")
+  updatedAt         DateTime       @updatedAt @map("updated_at")
+  launchedAt        DateTime?      @map("launched_at")
+
+  workspace                       Workspace                        @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  icpProfile                      IcpProfile?                      @relation(fields: [icpProfileId], references: [id], onDelete: SetNull)
+  inboxConnection                 InboxConnection?                 @relation(fields: [inboxConnectionId], references: [id], onDelete: SetNull)
+  leads                           CampaignLead[]
+  sequences                       Sequence[]
+  sendJobs                        SendJob[]
+  conversations                   Conversation[]
+  auditEvents                     AuditEvent[]
+  icpVersions                     IcpVersion[]
+  icpQualityScores                IcpQualityScore[]
+  productArchetypeClassifications ProductArchetypeClassification[]
+  icpInterviewSessions            IcpInterviewSession[]
 
   @@index([workspaceId])
   @@index([icpProfileId])
@@ -400,4 +506,24 @@ enum IcpSourceType {
   MANUAL
 
   @@map("icp_source_type")
+}
+
+enum IcpVersionSource {
+  WEBSITE
+  TEMPLATE
+  SPECIALIST
+  MANUAL
+}
+
+enum IcpQualityTier {
+  HIGH
+  USABLE
+  INSUFFICIENT
+}
+
+enum IcpInterviewSessionStatus {
+  DRAFT
+  IN_PROGRESS
+  COMPLETED
+  ABANDONED
 }
