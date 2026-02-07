@@ -179,9 +179,10 @@
   - Tests: integration (mock AI)
   - Note (2026-02-07): Added `POST /api/icp/classify-archetype` and `classifyProductArchetypeForWorkspace` service with workspace/campaign/version ownership checks, classifier hook for mocked AI behavior, and persistence to `product_archetype_classifications` (including undecided fallback key `UNIDENTIFIED`). Added integration coverage in `tests/integration/icp-classify-archetype.test.ts` and wired it into `npm run test:integration`. Files touched: `app/api/icp/classify-archetype/route.ts`, `lib/icp/classify-product-archetype.ts`, `tests/integration/icp-classify-archetype.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 
-- [ ] **Add Scenario A/B modal flows in wizard**
+- [x] **Add Scenario A/B modal flows in wizard**
   - Acceptance: <50 score triggers modal; A if archetype identified above threshold, else B; includes required buttons and persistence behavior
   - Tests: e2e
+  - Note (2026-02-07): Added Scenario A/B quality-gate modal flow logic to `app/app/campaigns/new/wizard-step1-form.tsx`: insufficient-score (`tier=INSUFFICIENT`) now triggers archetype classification, opens Scenario A when archetype confidence meets threshold, otherwise Scenario B with disambiguation-question submission loop. Included required buttons (`Apply template`, `Improve with Specialist AI`, `Continue anyway` / `Answer questions`) and persistence behavior by recording wizard state on continue/disambiguation actions. Files touched: `app/app/campaigns/new/wizard-step1-form.tsx`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 
 - [ ] **Implement Specialist ICP Interview wizard route `/app/campaigns/:id/icp/improve`**
   - Acceptance: start session → answer questions → completes and creates a new ICP version; shows diff summary
