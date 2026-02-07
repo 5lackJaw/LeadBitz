@@ -618,6 +618,25 @@ Deliverability-first cold outreach operations app:
 - Testing contract for future provider-worker wiring:
   - wrapper supports injected `fetch`/`sleep`/`now` for deterministic unit and integration tests.
 
+### Phase 5 progress: discovery run worker (2026-02-07)
+- Added discovery run worker implementation in `lib/sources/discovery-run-worker.ts`:
+  - loads source run + connector metadata
+  - updates run lifecycle state (`RUNNING`, terminal `COMPLETED`/`FAILED`)
+  - fetches provider candidates through injectable client factory
+  - normalizes candidates into DB rows and persists to `candidates`
+  - records run stats in `source_runs.stats_json`
+- Current normalization behavior:
+  - lowercases candidate emails
+  - skips candidates missing email
+  - sets `verification_status=UNKNOWN` and `status=NEW`
+  - stores location into `location_json`
+- Current stats behavior:
+  - `fetched`
+  - `candidatesCreated`
+  - `skippedMissingEmail`
+- Added integration coverage:
+  - `tests/integration/discovery-run-worker.test.ts` validates end-to-end worker execution with mocked provider candidates and status/stat updates.
+
 ### Phase 0b workflow hardening follow-up (2026-02-06)
 - Added baseline developer workflow automation focused on consistency and speed:
   - `AGENTS.md` path/writing clarifications to reduce instruction ambiguity.
@@ -943,6 +962,7 @@ Campaign control-surface additions:
 - 2026-02-07: Added Phase 5 source connector CRUD APIs (`/api/sources`, `/api/sources/:id`) and workspace-scoped disabled-run enforcement guard with integration coverage.
 - 2026-02-07: Added Phase 5 discovery run creation endpoint (`POST /api/campaigns/:id/discovery/run`) with queued status persistence and connector-enabled validation.
 - 2026-02-07: Added Phase 5 PDL provider wrapper (`lib/sources/pdl-client.ts`) with transient retry/backoff, request pacing, typed parsing, and cursor pagination plus unit/mock-integration tests.
+- 2026-02-07: Added Phase 5 discovery run worker (`lib/sources/discovery-run-worker.ts`) to fetch/normalize/store candidates and persist source-run lifecycle stats with mocked integration coverage.
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).
