@@ -189,9 +189,10 @@
   - Tests: e2e (mock AI)
   - Note (2026-02-07): Implemented Specialist Interview session service + APIs (`/api/icp/interview/start`, `/api/icp/interview/answer`, `/api/icp/interview/complete`) and campaign route UI at `/app/campaigns/[campaignId]/icp/improve` with session start/answer/complete flow and visible ICP diff summary. Wired Scenario A/B "Improve with Specialist AI" actions in wizard Step 2 to navigate into the new route. Added lifecycle integration coverage in `tests/integration/icp-specialist-interview.test.ts`. Files touched: `lib/icp/specialist-interview.ts`, `app/api/icp/interview/*`, `app/app/campaigns/[campaignId]/icp/improve/*`, `app/app/campaigns/new/wizard-step1-form.tsx`, `tests/integration/icp-specialist-interview.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 
-- [ ] **Add ICP Center route `/app/campaigns/:id/icp` (versions + select active)**
+- [x] **Add ICP Center route `/app/campaigns/:id/icp` (versions + select active)**
   - Acceptance: list versions, show scores, set active version; “Re-score” action works
   - Tests: e2e smoke
+  - Note (2026-02-07): Added campaign-scoped ICP Center route at `/app/campaigns/[campaignId]/icp` with versions table, latest score/tier display, active-version indicator, `Set active` action, and `Re-score` action wired to `/api/icp/score`. Added active-version API `PATCH /api/campaigns/[campaignId]/icp/active` and ICP center service layer for version listing/ownership-safe activation. Added integration coverage in `tests/integration/icp-center.test.ts`. Files touched: `app/app/campaigns/[campaignId]/icp/page.tsx`, `app/app/campaigns/[campaignId]/icp/icp-center-client.tsx`, `app/api/campaigns/[campaignId]/icp/active/route.ts`, `lib/icp/icp-center.ts`, `app/app/campaigns/[campaignId]/campaign-overview-client.tsx`, `tests/integration/icp-center.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 
 - [ ] **Update SOFTWARE_DOCUMENTATION.md (phase summary + decisions + gotchas)**
   - Acceptance: Phase 4 extension + ICP surfaces documented (quality gate, scenario flows, templates, interview, routes, data model, APIs)
