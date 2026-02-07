@@ -16,6 +16,9 @@
 - If you need to change scope, add a new unchecked checkbox to IMPLEMENTATION_CHECKLIST.md instead of expanding the current task.
 - After implementing something, run the appropriate tests.
 - If user testing is prudent, explicitly instruct the user to perform it.
+- Deployment guardrail: default all feature work to PR base `release`; never target `main` unless the user explicitly requests production promotion in that same session.
+- Deployment guardrail: before opening/merging any PR, verify branch/base with `git branch --show-current`, `gh pr view --json baseRefName,headRefName,state`, and ensure base is `release` for MVP work.
+- Fork guardrail: if work is done from a fork, open PR from `fork:feature/*` into upstream `release` only; never from fork directly into upstream `main`.
 
 ## Software Documentation Maintenance
 - SOFTWARE_DOCUMENTATION.md is the living source of truth.

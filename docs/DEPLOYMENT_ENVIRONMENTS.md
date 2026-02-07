@@ -1,95 +1,164 @@
 # DEPLOYMENT_ENVIRONMENTS.md
-Purpose: Standardize a safe preview-vs-production workflow (Vercel-first; adapt when hosting constraints differ).
+Purpose: enforce safe branch-to-environment deployment behavior (Vercel + GitHub), including fork workflows, preview validation, and production go-live/rollback.
 
-## A) Git + Vercel workflow (Option A) - adapt if another host is specified in ARCHITECTURE.md
-- Production branch is `main` (or `master`).
-- Production domain (real domain): https://www.leadbitz.com
-- Non-production branches auto-deploy to Preview URLs.
-- RULE: never develop directly on the production branch. Use `feature/*` branches + PRs.
-- RULE: only merges to the production branch deploy to the real domain (Production).
+## A) Authoritative branch -> environment mapping
+- `feature/*`:
+  - Deploys to Vercel Preview only.
+  - Pull request base must be `release`.
+  - Must never target production.
+- `release`:
+  - Deploys to Vercel Preview only (integration/staging preview).
+  - Integration branch for MVP work.
+- `main`:
+  - Vercel Production branch.
+  - Any merge to `main` is a live production deployment.
 
-### A1) Current pre-MVP branch policy (effective 2026-02-06)
-- GitHub default branch is `release` for ongoing integration work.
-- Vercel Production Branch remains `main`.
-- Until MVP sign-off, open feature PRs into `release` only.
-- Keep `main` protected as a release gate (required approval = 1 in this single-maintainer repo), which intentionally blocks production merges.
+## B) Non-negotiable guardrails
+- Never develop directly on `main`.
+- Never open feature PRs to `main`.
+- Treat PR base `main` as production promotion only.
+- Do not merge to `main` unless explicit production sign-off is given in the current session.
+- Keep production credentials and database isolated from preview/development.
 
-## B) Environment variable policy
-- Maintain separate values for Production, Preview, and local.
-- Preview MUST NOT use production DB, live credentials, or real services.
-- Typical env vars to duplicate (with staging/test values in Preview):
-  - DATABASE_URL (and any direct/read-replica URLs)
-  - Auth callback/base URLs (e.g., NEXTAUTH_URL), OAuth client IDs/secrets
-  - Webhook secrets (test)
-  - Email/SMTP provider keys (test), from-domain/from-address (staging)
-  - Payments (test keys), webhook secrets, price IDs (test)
-  - Storage buckets (staging), signing keys
-  - Observability DSNs (staging)
-  - Rate limit thresholds (often lower in Preview)
+## C) Required PR validation commands (run before every merge)
+1. Confirm local branch:
+   - `git branch --show-current`
+2. Confirm PR routing:
+   - `gh pr view <PR_NUMBER> --json baseRefName,headRefName,state,url`
+3. Confirm checks:
+   - `gh pr checks <PR_NUMBER>`
+4. Confirm local verification:
+   - `npm run verify`
+5. Decision rule:
+   - For normal development, PR base must be `release`.
+   - If PR base is `main`, stop unless explicitly running a production promotion.
 
-### B1) Finding and classifying database URLs (Supabase/Postgres)
-- **Where to look**:
-  - Supabase: Project -> Settings -> Database -> Connection string.
-  - Vercel: Project -> Settings -> Environment Variables (Preview vs Production).
-  - Local: `.env.local` (or `.env`) in the repo.
-- **How to classify**:
-  - If a URL is used by Vercel **Production**, treat it as **live**.
-  - If a URL is used by Vercel **Preview** or local `.env.local`, treat it as **staging/dev**.
-- **Recommended setup**:
-  - Keep **separate Supabase projects** for Preview/Dev and Production.
-  - If only one project exists today, use it for **Dev/Preview only** until you are ready to launch.
-  - Create the **Production** project when you are close to go-live, then copy its URL into **Production** env vars only.
-
-## C) Testing policy for previews
-- Use staging DB + test credentials only.
-- Prefer protection on sensitive previews (team-only, auth gate, or password protection).
-- Data hygiene:
-  - test users only
-  - resettable/ephemeral staging DB where feasible
-  - deterministic seed script for fixtures
-
-## D) "Worded commands" for Codex (operational)
-Start feature safely (create branch from integration branch):
-- `git checkout release && git pull`
+## D) Standard workflow (same-repo)
+### D1) Start new feature safely
+- `git checkout release`
+- `git pull origin release`
 - `git checkout -b feature/<short-task-slug>`
 
-Push branch to trigger Preview deployment:
+### D2) Push for preview deployment
 - `git add -A`
 - `git commit -m "feat: <short description>"`
 - `git push -u origin feature/<short-task-slug>`
+- Open PR: `feature/<short-task-slug>` -> `release`
+- Validate the Vercel Preview URL from PR checks before merging.
 
-Open PR and locate Preview URL:
-- Open PR in GitHub from `feature/<...>` -> `release`
-- In Vercel/GitHub checks, locate the Preview deployment URL and validate the task there.
+### D3) Merge preview-tested work
+- Merge PR into `release` after checks pass.
+- Confirm `release` preview deployment succeeds.
+- Perform smoke tests on preview URL.
 
-Merge PR for ongoing MVP work (Preview-only):
-- Ensure checks pass
-- Merge PR into `release`
-- Confirm Preview deployment completed and smoke test the Preview URL
+### D4) Production promotion (post-MVP)
+- Open PR: `release` -> `main`.
+- Treat this PR as a release candidate, not a normal feature PR.
+- Merge only after go-live checklist passes (section H).
 
-Promote to Production (post-MVP only):
-- Open PR from `release` -> `main`
-- After explicit sign-off, merge PR and confirm Production deployment on the real domain
+## E) Fork workflow contract (required when using forks)
+### E1) One-time setup
+- `git remote add upstream https://github.com/<ORG_OR_USER>/<REPO>.git`
+- `git fetch upstream`
 
-Discard branch (delete local + remote):
+### E2) Sync fork before feature work
 - `git checkout release`
-- `git branch -d feature/<short-task-slug>`
-- `git push origin --delete feature/<short-task-slug>`
+- `git merge --ff-only upstream/release`
+- `git push origin release`
 
-Emergency rollback (revert last bad deploy):
-- Identify the bad merge commit on `main`
-- `git checkout main && git pull`
-- `git revert <merge-commit-sha>`
-- `git push`
-- Confirm Production is restored
+### E3) Feature branch from fork
+- `git checkout -b feature/<short-task-slug>`
+- `git push -u origin feature/<short-task-slug>`
+- Open PR: `fork:feature/<short-task-slug>` -> `upstream:release`
 
-## E) Minimal project setup steps
-- Connect GitHub repo to Vercel.
-- Confirm Production branch setting in Vercel (main/master).
-- Add environment variables for Preview and Production (distinct values).
-- Optional: GitHub branch protection rules
-  - require PRs
-  - require status checks (lint/typecheck/tests/build)
-  - restrict direct pushes to production branch
+### E4) Prohibited fork action
+- Never open `fork:*` -> `upstream:main` for MVP work.
 
-Note: When ARCHITECTURE.md specifies non-Vercel hosting (Railway, AWS, Fly.io, etc.), adapt preview/production separation, env var strategy, and deployment commands accordingly while preserving the same safety principles.
+## F) Environment variable separation policy
+- Keep local, Preview, and Production values separate.
+- Preview must never use production DB credentials, OAuth apps, billing keys, or webhook secrets.
+- Recommended environment classes:
+  - Local: `.env.local` (developer machine only)
+  - Preview: Vercel Preview env vars
+  - Production: Vercel Production env vars
+
+### F1) Database URL classification
+- If used by Vercel Production: classify as live production.
+- If used by Vercel Preview or local `.env.local`: classify as non-production.
+- Recommended: separate Neon project or branch for production database.
+
+## G) Preview validation policy
+- Use test credentials and non-production data only.
+- Validate only from deployed preview URL (not only localhost).
+- Minimum smoke checks for each merged PR:
+  - `/` loads
+  - auth flow succeeds
+  - `/app` loads for test operator
+  - changed feature path works
+  - no server errors in Vercel logs
+
+## H) Production go-live runbook
+### H1) One-time production readiness
+1. Provision production database separate from preview/dev.
+2. Configure Vercel Production env vars:
+   - `DATABASE_URL`
+   - `NEXTAUTH_URL`
+   - `NEXTAUTH_SECRET`
+   - `LIVE_APP_ENABLED=true` only when you intentionally open production app routes
+   - OAuth client IDs/secrets for production apps
+   - provider keys (mail, billing, ai, storage, etc.)
+3. Configure auth trusted domains/callback URLs for production domain.
+4. Confirm Vercel Production Branch is `main`.
+
+### H2) Per-release promotion checklist
+1. Freeze `release` for QA.
+2. Run:
+   - `npm ci`
+   - `npm run verify`
+3. Validate `release` preview smoke tests.
+4. Open PR `release` -> `main`.
+5. Verify PR scope is release-only and expected.
+6. Merge after explicit sign-off.
+7. Confirm Vercel production deployment reaches `Ready`.
+8. Run production smoke tests:
+   - landing page
+   - login callback
+   - `/app` for known test user
+   - critical API checks
+   - no server errors in logs
+
+### H3) Production migration policy
+- Preferred: run migration deploy in release/pipeline:
+  - `npm run db:migrate:deploy`
+- If run manually:
+  - use production `DATABASE_URL` only
+  - record migration id and timestamp in release notes
+
+## I) Emergency rollback
+1. Identify bad merge commit on `main`.
+2. `git checkout main`
+3. `git pull origin main`
+4. `git revert <merge_commit_sha>`
+5. `git push origin main`
+6. Confirm production redeploy and smoke-test again.
+
+## L) Production hold-page behavior
+- Default safe behavior:
+  - If `VERCEL_ENV=production` and `LIVE_APP_ENABLED` is not `true`, requests to `/app/*` and `/login` are redirected to `/`.
+  - `/` serves a minimal public placeholder page.
+- Launch behavior:
+  - Set `LIVE_APP_ENABLED=true` in Vercel Production env vars and redeploy to open app/login routes in production.
+
+## J) Prompt contract for AI/codex sessions
+- Preview-only prompt:
+  - "Work on a feature branch, open PR into `release`, and do not target `main`."
+- Production-promotion prompt:
+  - "Promote `release` to `main` only after go-live checklist; report PASS/FAIL for each checklist item."
+
+## K) Minimal host setup checks
+- GitHub repo connected to Vercel.
+- Vercel Production Branch set to `main`.
+- Branch protections enabled on `release` and `main`.
+- Preview/Production environment variables are distinct.
+
+Note: if hosting changes from Vercel, keep the same safety model: non-production integration branch, explicit production promotion branch, strict env separation, and rollback path.
