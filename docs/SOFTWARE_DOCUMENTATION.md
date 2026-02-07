@@ -457,6 +457,30 @@ Deliverability-first cold outreach operations app:
 - Persistence behavior:
   - Continue-anyway and disambiguation-submit flows now persist wizard state through existing campaign-linked wizard state persistence.
 
+### Phase 4 progress: Specialist ICP Interview route + APIs (2026-02-07)
+- Added campaign-scoped specialist interview route:
+  - `GET /app/campaigns/:id/icp/improve`
+- Route behavior:
+  - Resolves authenticated workspace + campaign ownership.
+  - Loads the campaign's active ICP version as the interview base context.
+  - Guides operators through: session start -> answer required prompts -> complete session.
+  - Shows resulting specialist ICP version id + concise diff summary after completion.
+- Added authenticated specialist interview APIs:
+  - `POST /api/icp/interview/start`
+  - `POST /api/icp/interview/answer`
+  - `POST /api/icp/interview/complete`
+- Service behavior (`lib/icp/specialist-interview.ts`):
+  - Enforces workspace/campaign/version ownership checks on start.
+  - Persists interview session state in `icp_interview_sessions`.
+  - Merges structured answers into an improved ICP payload.
+  - Creates a new active `icp_versions` row with source `SPECIALIST`.
+  - Deactivates prior active ICP version(s) for the campaign.
+  - Returns an explicit field-level diff summary for operator trust.
+- Wizard wiring update:
+  - Scenario A/B "Improve with Specialist AI" actions now route into `/app/campaigns/:id/icp/improve` instead of placeholder messaging.
+- Testing:
+  - Added integration lifecycle coverage in `tests/integration/icp-specialist-interview.test.ts` (start, partial answers, completion, active-version switch, ownership enforcement).
+
 ### Phase 5 planning: provider selection + fields + quotas (2026-02-06)
 - Checklist task completed: plan/confirm licensed provider, supported filters, and quota guardrails for discovery.
 - Provider selection (MVP default):
@@ -746,6 +770,7 @@ Campaign control-surface additions:
 - Step 2 Quality Panel scoring controls are disabled when the wizard is not campaign-linked or when no `icpVersionId` is available from generation.
 - `POST /api/icp/classify-archetype` persists undecided outcomes as `UNIDENTIFIED` in DB while returning `archetypeKey: null` to callers.
 - Scenario A/B gating appears only for campaign-linked wizard runs when scoring returns `INSUFFICIENT`; non-campaign runs keep quality panel guidance without modal gating.
+- Specialist interview completion (`POST /api/icp/interview/complete`) requires all required prompts answered for the active session; otherwise it returns a validation error and does not create a new ICP version.
 - ICP editor persistence requires non-empty list values per editable ICP field; empty lists are rejected by `PATCH /api/icp/profiles/:icpProfileId`.
 - Campaign-linked wizard resume requires `campaignId` query param (`/app/campaigns/new?campaignId=<id>`); without a campaign id, wizard state persistence is intentionally skipped.
 - Resume-wizard links disable route prefetch and wizard-state persistence now triggers `router.refresh()` to reduce stale app-router cache when reopening wizard after edits.
@@ -806,6 +831,7 @@ Campaign control-surface additions:
 - 2026-02-07: Added Step 2 ICP Quality Panel UX with score/tier/missing-field display, Improve CTA, and Continue-anyway path for non-high tiers.
 - 2026-02-07: Implemented `POST /api/icp/classify-archetype` with persisted archetype decisions and integration coverage using a mocked classifier hook.
 - 2026-02-07: Added Scenario A/B modal gating flow in Step 2 wizard, including disambiguation-question retry path and continue-anyway state persistence.
+- 2026-02-07: Implemented Specialist ICP Interview flow with campaign route `/app/campaigns/:id/icp/improve`, session APIs (`/api/icp/interview/start|answer|complete`), wizard CTA wiring, and lifecycle integration coverage.
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).
