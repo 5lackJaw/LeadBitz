@@ -135,6 +135,9 @@ export function CampaignOverviewClient({ campaign, inboxConnections }: CampaignO
             </p>
           </div>
           <div className="lb-row" style={{ justifyContent: "flex-end", gap: "10px" }}>
+            <Link className="lb-button lb-button-secondary" href={`/app/campaigns/${campaign.id}/icp`}>
+              ICP Center
+            </Link>
             <Link className="lb-button lb-button-secondary" href={`/app/campaigns/${campaign.id}/discovery`}>
               Discovery
             </Link>
