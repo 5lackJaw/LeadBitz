@@ -217,9 +217,10 @@
   - Acceptance: validates connector enabled; stores query_json; status queued
   - Tests: integration
   - Note (2026-02-07): Added `POST /api/campaigns/:id/discovery/run` backed by `createDiscoveryRunForWorkspace` service (`lib/sources/source-runs.ts`) with workspace ownership checks, connector-enabled enforcement, `query_json` persistence (`filters` + `limit`), and queued run status. Added integration coverage in `tests/integration/discovery-run-create.test.ts`. Files touched: `app/api/campaigns/[campaignId]/discovery/run/route.ts`, `lib/sources/source-runs.ts`, `tests/integration/discovery-run-create.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
-- [ ] Implement provider client wrapper (rate limiting, retries, pagination, typed responses)
+- [x] Implement provider client wrapper (rate limiting, retries, pagination, typed responses)
   - Acceptance: handles transient errors; respects provider limits
   - Tests: unit (retry/backoff), integration (mock provider)
+  - Note (2026-02-07): Added PDL provider wrapper `lib/sources/pdl-client.ts` with typed candidate response parsing, request pacing (`minRequestIntervalMs`), transient retry/backoff for `429/5xx`, and cursor-based pagination (`searchPage`, `fetchAllCandidates`). Added unit retry/backoff coverage in `tests/unit/pdl-client.test.ts` and mock-provider pagination integration coverage in `tests/integration/pdl-client-mock.test.ts`. Files touched: `lib/sources/pdl-client.ts`, `tests/unit/pdl-client.test.ts`, `tests/integration/pdl-client-mock.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 - [ ] Implement discovery run worker (fetch → normalize → store candidates)
   - Acceptance: creates candidates with confidence + provenance; run stats recorded
   - Tests: integration (mock provider)
