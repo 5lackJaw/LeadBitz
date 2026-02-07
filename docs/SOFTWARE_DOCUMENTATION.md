@@ -356,6 +356,26 @@ Deliverability-first cold outreach operations app:
   - `npm run verify`
 - Implementation note: Phase 4 extension: ICP quality gate + Scenario A/B + archetype templates + Specialist interview wizard were added as additive surfaces without removing existing wizard contracts.
 
+### Phase 4 progress: deterministic ICP quality rubric thresholds (2026-02-07)
+- Added rubric constants and deterministic scoring utility in `lib/icp/icp-quality-rubric.ts`.
+- Rubric behavior:
+  - Fixed weighted 100-point scale across ICP sections.
+  - Returns integer score `0..100`.
+  - Tier mapping is constant-driven:
+    - `HIGH`: score >= 75
+    - `USABLE`: score >= 50 and < 75
+    - `INSUFFICIENT`: score < 50
+- Output contract includes:
+  - `score`
+  - `tier`
+  - per-field rubric `breakdown`
+  - `missingFields` list for sections below minimum requirements
+- Unit coverage added in `tests/unit/icp-quality-rubric.test.ts` for:
+  - complete payload (`100/HIGH`)
+  - partial payload (`59/USABLE`)
+  - sparse payload (`11/INSUFFICIENT`)
+  - threshold-boundary tier mapping and rubric total-point validation.
+
 ### Phase 5 planning: provider selection + fields + quotas (2026-02-06)
 - Checklist task completed: plan/confirm licensed provider, supported filters, and quota guardrails for discovery.
 - Provider selection (MVP default):
@@ -649,6 +669,7 @@ Campaign control-surface additions:
 - 2026-02-06: Closed Phase 4 documentation with consolidated phase summary, carry-forward decisions, and operational gotchas.
 - 2026-02-06: Added campaign overview and campaign-level control surfaces (`messaging_rules`, `discovery_rules`, `wizard_state`, optional inbox linkage), plus wizard resume scaffolding and sources registry settings stub.
 - 2026-02-07: Added additive ICP quality/versioning schema + migration (`20260207045941_add_icp_quality_tables`) for `icp_versions`, `icp_quality_scores`, `product_archetype_classifications`, `icp_templates`, and `icp_interview_sessions`.
+- 2026-02-07: Added deterministic ICP quality rubric constants + tier thresholds and unit coverage for score/tier/missing-field behavior.
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).
