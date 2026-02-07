@@ -221,9 +221,10 @@
   - Acceptance: handles transient errors; respects provider limits
   - Tests: unit (retry/backoff), integration (mock provider)
   - Note (2026-02-07): Added PDL provider wrapper `lib/sources/pdl-client.ts` with typed candidate response parsing, request pacing (`minRequestIntervalMs`), transient retry/backoff for `429/5xx`, and cursor-based pagination (`searchPage`, `fetchAllCandidates`). Added unit retry/backoff coverage in `tests/unit/pdl-client.test.ts` and mock-provider pagination integration coverage in `tests/integration/pdl-client-mock.test.ts`. Files touched: `lib/sources/pdl-client.ts`, `tests/unit/pdl-client.test.ts`, `tests/integration/pdl-client-mock.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
-- [ ] Implement discovery run worker (fetch → normalize → store candidates)
+- [x] Implement discovery run worker (fetch → normalize → store candidates)
   - Acceptance: creates candidates with confidence + provenance; run stats recorded
   - Tests: integration (mock provider)
+  - Note (2026-02-07): Added discovery run worker `executeDiscoveryRun` in `lib/sources/discovery-run-worker.ts` to transition run status (`QUEUED` -> `RUNNING` -> `COMPLETED/FAILED`), fetch candidates via provider client abstraction, normalize and persist candidate rows, and record run stats in `source_runs.stats_json`. Added integration coverage in `tests/integration/discovery-run-worker.test.ts` with mocked provider responses. Files touched: `lib/sources/discovery-run-worker.ts`, `tests/integration/discovery-run-worker.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 - [ ] Implement email verification client + batch verify worker
   - Acceptance: writes email_verifications; updates candidates verification_status
   - Tests: integration (mock verifier)
