@@ -213,9 +213,10 @@
   - Acceptance: can create connector; disable blocks runs
   - Tests: integration
   - Note (2026-02-07): Added `GET/POST /api/sources` and `PATCH /api/sources/:id` routes backed by workspace-scoped source connector service functions. Added disabled-connector run guard (`assertSourceConnectorEnabledForWorkspace`) and integration coverage in `tests/integration/source-connectors-crud.test.ts` proving create/update/disable behavior and disabled-run blocking. Files touched: `app/api/sources/route.ts`, `app/api/sources/[sourceConnectorId]/route.ts`, `lib/sources/source-connectors.ts`, `tests/integration/source-connectors-crud.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
-- [ ] Implement discovery run creation endpoint (creates source_run)
+- [x] Implement discovery run creation endpoint (creates source_run)
   - Acceptance: validates connector enabled; stores query_json; status queued
   - Tests: integration
+  - Note (2026-02-07): Added `POST /api/campaigns/:id/discovery/run` backed by `createDiscoveryRunForWorkspace` service (`lib/sources/source-runs.ts`) with workspace ownership checks, connector-enabled enforcement, `query_json` persistence (`filters` + `limit`), and queued run status. Added integration coverage in `tests/integration/discovery-run-create.test.ts`. Files touched: `app/api/campaigns/[campaignId]/discovery/run/route.ts`, `lib/sources/source-runs.ts`, `tests/integration/discovery-run-create.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 - [ ] Implement provider client wrapper (rate limiting, retries, pagination, typed responses)
   - Acceptance: handles transient errors; respects provider limits
   - Tests: unit (retry/backoff), integration (mock provider)
