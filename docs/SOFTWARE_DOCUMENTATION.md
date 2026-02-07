@@ -418,6 +418,18 @@ Deliverability-first cold outreach operations app:
     - sparse ICP scoring (insufficient tier path)
     - cross-workspace access blocking
 
+### Phase 4 progress: Step 2 ICP Quality Panel UX wiring (2026-02-07)
+- Updated wizard Step 2 UI (`/app/campaigns/new`) to include an ICP Quality Panel in `wizard-step1-form.tsx`.
+- Panel behavior:
+  - Auto-scores on ICP generation when campaign-linked `icpVersionId` is returned.
+  - Re-scores after ICP save for campaign-linked flows.
+  - Supports manual `Re-score ICP` action.
+  - Displays score, tier, missing fields, and improvement questions.
+  - Shows `Improve ICP` CTA (campaign-linked route target) and `Continue anyway to Step 3` path, with warning treatment for `USABLE`/`INSUFFICIENT` tiers.
+- Campaign-link requirement:
+  - Scoring controls are active only when wizard runs in campaign resume mode (`campaignId`) with known `icpVersionId`.
+  - Non-campaign wizard runs show informational guidance that scoring requires campaign linkage.
+
 ### Phase 5 planning: provider selection + fields + quotas (2026-02-06)
 - Checklist task completed: plan/confirm licensed provider, supported filters, and quota guardrails for discovery.
 - Provider selection (MVP default):
@@ -704,6 +716,7 @@ Campaign control-surface additions:
 - Wizard Step 1 source input requires `websiteUrl` xor `productDescription`; empty or both-provided payloads are rejected by API validation.
 - `POST /api/icp/generate` currently uses an injectable draft generator abstraction; tests must mock the generator and verify DB persistence, while full OpenAI-backed generation remains a later implementation step.
 - `POST /api/icp/score` requires both `campaignId` and `icpVersionId`; the version must belong to the authenticated workspace and specified campaign or the API returns `404`.
+- Step 2 Quality Panel scoring controls are disabled when the wizard is not campaign-linked or when no `icpVersionId` is available from generation.
 - ICP editor persistence requires non-empty list values per editable ICP field; empty lists are rejected by `PATCH /api/icp/profiles/:icpProfileId`.
 - Campaign-linked wizard resume requires `campaignId` query param (`/app/campaigns/new?campaignId=<id>`); without a campaign id, wizard state persistence is intentionally skipped.
 - Resume-wizard links disable route prefetch and wizard-state persistence now triggers `router.refresh()` to reduce stale app-router cache when reopening wizard after edits.
@@ -761,6 +774,7 @@ Campaign control-surface additions:
 - 2026-02-07: Strengthened deployment governance docs with authoritative branch-to-environment mapping, fork PR restrictions, required pre-merge command checks, and a full production go-live/rollback runbook.
 - 2026-02-07: Added production hold-page behavior and launch toggle (`LIVE_APP_ENABLED`) so live can stay on a minimal placeholder while preview continues full-feature development.
 - 2026-02-07: Implemented `POST /api/icp/score` with deterministic rubric scoring persistence in `icp_quality_scores` and integration coverage for ownership and explainable payload behavior.
+- 2026-02-07: Added Step 2 ICP Quality Panel UX with score/tier/missing-field display, Improve CTA, and Continue-anyway path for non-high tiers.
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).
