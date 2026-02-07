@@ -104,6 +104,7 @@ Purpose: enforce safe branch-to-environment deployment behavior (Vercel + GitHub
    - `DATABASE_URL`
    - `NEXTAUTH_URL`
    - `NEXTAUTH_SECRET`
+   - `LIVE_APP_ENABLED=true` only when you intentionally open production app routes
    - OAuth client IDs/secrets for production apps
    - provider keys (mail, billing, ai, storage, etc.)
 3. Configure auth trusted domains/callback URLs for production domain.
@@ -140,6 +141,13 @@ Purpose: enforce safe branch-to-environment deployment behavior (Vercel + GitHub
 4. `git revert <merge_commit_sha>`
 5. `git push origin main`
 6. Confirm production redeploy and smoke-test again.
+
+## L) Production hold-page behavior
+- Default safe behavior:
+  - If `VERCEL_ENV=production` and `LIVE_APP_ENABLED` is not `true`, requests to `/app/*` and `/login` are redirected to `/`.
+  - `/` serves a minimal public placeholder page.
+- Launch behavior:
+  - Set `LIVE_APP_ENABLED=true` in Vercel Production env vars and redeploy to open app/login routes in production.
 
 ## J) Prompt contract for AI/codex sessions
 - Preview-only prompt:

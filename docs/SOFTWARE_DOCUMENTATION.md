@@ -595,6 +595,9 @@ Campaign control-surface additions:
   - Smoke tests pass (`/`, auth, `/app`, critical API checks, logs clean of server errors).
 - Rollback:
   - Revert bad merge on `main` and redeploy immediately if smoke tests fail.
+- Production hold toggle:
+  - Keep `LIVE_APP_ENABLED` unset/false in Production until launch to force `/app/*` and `/login` back to `/`.
+  - Set `LIVE_APP_ENABLED=true` only when app routes are approved for public production use.
 
 ### Vercel project + Neon DB (2026-02-06)
 - Created a Vercel project for this repo.
@@ -665,6 +668,8 @@ Campaign control-surface additions:
 - NextAuth credentials login depends on `AUTH_DEMO_EMAIL`, `AUTH_DEMO_PASSWORD`, and `NEXTAUTH_SECRET`; sign-in will fail if any are missing.
 - NextAuth sign-in now also requires a reachable `DATABASE_URL` because user/workspace provisioning executes during `signIn`.
 - Preview and local auth credentials can differ. Vercel Preview uses environment variables stored in Vercel, not `.env.preview.local` on your machine.
+- Production route lock is controlled by `LIVE_APP_ENABLED`:
+  - when not `true` in `VERCEL_ENV=production`, `/app/*` and `/login` are intentionally redirected to `/`.
 - Neon Auth trusted domains accept origins only (scheme + host [+ port]); do not enter path segments such as `/app` or `/dashboard`.
 - Google OAuth callback URI must exactly match `${NEXTAUTH_URL}/api/inboxes/google/callback` in Google Cloud OAuth credentials per environment.
 - `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` must be present in local and Preview environments before testing inbox connect flow.
@@ -729,6 +734,7 @@ Campaign control-surface additions:
 - 2026-02-07: Added campaign-linked ICP versioning behavior for generation/edit flows, including active-version update vs new-manual-version fallback rules and integration assertions.
 - 2026-02-07: Added wizard resume cache-staleness mitigation (`prefetch={false}` on resume links + `router.refresh()` after wizard-state persistence).
 - 2026-02-07: Strengthened deployment governance docs with authoritative branch-to-environment mapping, fork PR restrictions, required pre-merge command checks, and a full production go-live/rollback runbook.
+- 2026-02-07: Added production hold-page behavior and launch toggle (`LIVE_APP_ENABLED`) so live can stay on a minimal placeholder while preview continues full-feature development.
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).
