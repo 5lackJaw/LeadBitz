@@ -604,6 +604,20 @@ Deliverability-first cold outreach operations app:
 - Validation evidence:
   - `tests/integration/discovery-run-create.test.ts` verifies queued status, stored `query_json`, connector-enabled enforcement, and workspace scoping.
 
+### Phase 5 progress: provider client wrapper (PDL) (2026-02-07)
+- Added provider wrapper `lib/sources/pdl-client.ts` for People Data Labs with:
+  - typed candidate normalization (`PdlCandidate`, `PdlSearchPage`)
+  - cursor pagination (`searchPage`)
+  - aggregate fetch with limit (`fetchAllCandidates`)
+  - transient retry/backoff for `429`, `500`, `502`, `503`, `504`
+  - request pacing guard (`minRequestIntervalMs`) to respect provider limits
+- Added unit coverage:
+  - `tests/unit/pdl-client.test.ts` validates retry/backoff schedule and retry-budget failure behavior.
+- Added mock integration coverage:
+  - `tests/integration/pdl-client-mock.test.ts` validates multi-page provider pagination and final limit trimming with mocked provider responses.
+- Testing contract for future provider-worker wiring:
+  - wrapper supports injected `fetch`/`sleep`/`now` for deterministic unit and integration tests.
+
 ### Phase 0b workflow hardening follow-up (2026-02-06)
 - Added baseline developer workflow automation focused on consistency and speed:
   - `AGENTS.md` path/writing clarifications to reduce instruction ambiguity.
@@ -928,6 +942,7 @@ Campaign control-surface additions:
 - 2026-02-07: Added Phase 5 discovery schema foundation migration (`20260207162122_add_source_discovery_tables`) with `source_connectors`, `source_runs`, `candidates`, and `email_verifications`, plus integration schema/index verification.
 - 2026-02-07: Added Phase 5 source connector CRUD APIs (`/api/sources`, `/api/sources/:id`) and workspace-scoped disabled-run enforcement guard with integration coverage.
 - 2026-02-07: Added Phase 5 discovery run creation endpoint (`POST /api/campaigns/:id/discovery/run`) with queued status persistence and connector-enabled validation.
+- 2026-02-07: Added Phase 5 PDL provider wrapper (`lib/sources/pdl-client.ts`) with transient retry/backoff, request pacing, typed parsing, and cursor pagination plus unit/mock-integration tests.
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).
