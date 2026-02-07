@@ -17,15 +17,80 @@ Outbound operators struggle with (1) defining ICP consistently, (2) managing lea
 - Create workspace (single-tenant per user by default) and campaigns.
 - Campaign wizard: Website/product input → ICP draft → lead import → sequence → review → launch.
 
-2) **ICP generation + editing**
+2) **ICP generation + editing (quality-gated)**
 - Ingest website URL or pasted product description.
-- AI produces: target industries, company size bands, buyer roles, pains, exclusions, value prop angles.
-- User can edit and save as ICP profile(s).
+- AI produces a structured ICP draft:
+  - target industries, company size bands, geos
+  - buyer roles/titles + seniority + departments
+  - pains + triggers ("why now")
+  - exclusions / anti-ICP
+  - value props + proof points
+- User can edit and save ICP versions.
 
-3) **Leads: BYO + Integrations (no scraping promise)**
-- CSV upload, copy/paste, manual add; dedupe on email + domain.
-- Optional integrations (MVP: one integration path stubbed behind interface; implement later): CRM import (HubSpot/Salesforce) and/or licensed data provider API.
-- Lead enrichment is limited to fields the user provides or licensed integrations.
+2.1) **ICP Quality Gate (required)**
+- After initial ICP generation, the system computes an **ICP Quality Score (0–100)** using a deterministic rubric and returns:
+  - score, tier, missing fields, and top questions to improve
+  - “why” bullets (explainable scoring)
+- Quality tiers:
+  - **≥ 75**: “High-quality ICP” → proceed normally
+  - **50–74**: “Usable ICP” → warn + recommend improvement
+  - **< 50**: “Insufficient ICP” → trigger Scenario A/B flow
+
+2.2) **Scenario A — insufficient ICP but product archetype identified**
+- If the system identifies a **product archetype** (e.g., “Outbound Automation SaaS”, “Dev Tools”, “Vertical SaaS”) above confidence threshold:
+  - Show a gating message:
+    - “We couldn’t create a high-quality ICP from your website alone.”
+    - “We think you fit the **{archetype}** model.”
+- If an ICP template exists for the archetype:
+  - Offer: “Apply our {archetype} ICP template” (guided, structured)
+- If no template exists:
+  - Offer: “Request a template” (logs an internal event)
+  - Offer: “Improve ICP with Specialist AI” (structured interview)
+- Always include: “No, continue anyway” (saves website ICP as-is)
+
+2.3) **Scenario B — insufficient ICP and archetype not identified**
+- Ask a short set of disambiguation questions to identify archetype:
+  - e.g., target user type, pricing model, sales motion, implementation type, buyer role
+- If archetype becomes identified → Scenario A.
+- If still not identified → offer “Specialist AI interview” to create a high-quality ICP.
+- Always include: “No, continue anyway” (saves website ICP as-is)
+
+2.4) **ICP Templates (archetype library)**
+- The product includes a small archetype template library (start with 5–10 archetypes).
+- Each template defines:
+  - required questions
+  - default ICP skeleton
+  - rubric weighting adjustments
+  - constraints/exclusions common to that archetype
+
+2.5) **Specialist ICP Interview (structured, not open chat)**
+- A guided wizard that asks only the questions needed to raise the ICP score.
+- Output must conform to the same structured ICP schema.
+- Produces:
+  - “Improved ICP” version saved alongside the website ICP
+  - a concise diff summary: what changed + why (for operator trust)
+
+3) **Leads: Automated discovery + enrichment + verification (compliance-first)**
+- ICP-driven lead discovery pipeline that produces **candidate companies + contacts** automatically.
+- Lead sources are **licensed/authorized** connectors (no unauthorized scraping as a product feature).
+- The system maintains **field-level provenance** (source + timestamp + confidence) for every lead attribute.
+- Email sending requires either **verified** email status or an explicit campaign-level override.
+- Dedupe rules: by email (case-insensitive) + optional domain + optional provider person/company IDs.
+
+3.1) **Source connectors (MVP: implement 1 data provider end-to-end)**
+- One licensed B2B data provider connector as the default lead engine (see Open Decisions).
+- Optional: CRM import/sync connector (Phase 2 unless required).
+- Optional: company discovery via compliant search API (Phase 2; contacts still from licensed provider).
+
+3.2) **Candidate review + approval gate**
+- Discovery results land in a **Candidates** stage (not immediately sendable).
+- Users can filter, sample, and approve candidates into campaign leads.
+- Approval gate is mandatory to prevent unintended outreach and to support compliance posture.
+
+3.3) **Email verification + suppression safety**
+- Integrated email verification provider; store result + timestamp.
+- Auto-suppress: unsubscribes, hard bounces, complaints.
+- Enforced: global do-not-contact list and per-workspace anti-abuse sending caps.
 
 4) **Source governance layer**
 - “Source Registry” that records which source produced which fields for a lead: source name, constraints note, timestamps, confidence/freshness.
@@ -70,38 +135,64 @@ Outbound operators struggle with (1) defining ICP consistently, (2) managing lea
 - System enforces: unsubscribe link + suppression + throttling/ramp on every campaign.
 - Campaign sending is reliable: **≥ 99%** scheduled send jobs either sent or fail with actionable error + retry state.
 - Replies are captured and visible in app for connected inboxes; user can categorize and respond.
+- ICP Quality Gate works end-to-end: score + missing-field checklist + improvement path; users can reach “High-quality ICP” tier for typical SaaS websites (via templates or Specialist interview).
 
 ## Key entities (plain English)
 - **User**: authenticated operator.
-- **Workspace**: container for data, settings, connected inboxes.
-- **Campaign**: outreach effort tied to an ICP, lead set, and sequence.
-- **ICP Profile**: targeting rules + positioning notes used for AI drafting and filters.
-- **Lead**: person/contact record (email required for email channel).
-- **Company**: optional associated org record (domain, name, site).
+- **Workspace**: container for data, settings, connected inboxes, sources.
+- **Campaign**: outreach effort tied to an ICP, lead pipeline config, and sequence.
+- **ICP Profile**: targeting rules + positioning notes used for discovery and drafting.
+- **Source Connector**: a configured integration that can discover/enrich leads (licensed provider, CRM, etc.).
+- **Source Run**: an execution of discovery/enrichment against an ICP with parameters (limits, filters).
+- **Candidate**: a discovered company/contact **not yet approved for outreach**.
+- **Lead**: an approved contact record eligible for sequencing (email required for email channel).
+- **Company**: associated organization record (domain, name, site, enrichment fields).
+- **Email Verification**: verification result record (status, provider, checked_at).
 - **Sequence Step**: scheduled action (email step in MVP).
 - **Message Template**: editable subject/body with variables.
 - **Send Job**: queued unit of work to send a specific message to a lead.
 - **Conversation**: thread of inbound/outbound messages for a lead.
-- **Suppression**: do-not-contact entry (unsubscribed, bounced, complained).
-- **Source Registry Entry**: provenance metadata for lead fields.
+- **Suppression**: do-not-contact entry (unsubscribed, bounced, complained, manual).
+- **Provenance**: field-level source metadata (source, timestamp, confidence, allowed usage note).
+- **ICP Version**: a saved version of an ICP for a campaign (website draft, improved, template-applied).
+- **ICP Quality Score**: rubric score + tier + missing fields + explanations for a specific ICP version.
+- **Product Archetype**: classified model/category used to select an ICP template.
+- **ICP Template**: archetype-specific guided framework that produces a structured ICP.
+- **ICP Interview Session**: a structured Q&A session used to improve an ICP to meet the quality bar.
 
 ## Key workflows (step-by-step)
-### 1) Create campaign (wizard)
+
+### 1) Create campaign (wizard) — ICP → discovery → approve → sequence → launch
 1. Create campaign → input website URL or paste product description.
 2. AI generates ICP draft → user edits + confirms.
-3. Import leads (CSV / paste / manual) → map fields → dedupe → validation.
-4. Configure sequence (steps + timing) → AI draft templates → user edits.
-5. Deliverability checks run (required) → user resolves blockers.
-6. Review screen: sample renders, daily volume plan, compliance footer, unsubscribe.
-7. Launch → campaign schedules jobs into send queue.
+3. Configure **Lead Discovery**:
+   - choose source connector(s)
+   - define required fields (email required)
+   - set filters (geo/industry/size/title) and max results
+4. Run discovery → system produces **Candidates** with provenance + confidence.
+5. Review candidates:
+   - filter/sort, inspect samples, exclude risky segments
+   - require email verification status (or set override)
+6. Approve candidates into campaign leads.
+7. Configure sequence (steps + timing) → AI drafts templates → user edits.
+8. Deliverability checks run (required) → user resolves blockers.
+9. Review screen: sample renders, daily volume plan, compliance footer, unsubscribe.
+10. Launch → campaign schedules jobs into send queue.
 
-### 2) Safe sending loop
+### 2) Automated lead discovery pipeline (behind the scenes)
+1. Create a Source Run from ICP + filters + limits.
+2. Connector fetches company/contact candidates from licensed provider API.
+3. Normalize and upsert Company/Contact records; write field provenance.
+4. Verify emails (batch) → attach verification status + checked_at.
+5. Apply suppressions and dedupe → mark remaining as Candidates (ready for review).
+
+### 3) Safe sending loop
 1. Scheduler selects due send jobs (respecting caps, ramp, quiet hours).
 2. Send via Gmail/M365 API.
 3. Record outcome; update lead status; log event.
 4. On bounce/complaint → suppress lead and optionally pause campaign.
 
-### 3) Reply handling
+### 4) Reply handling
 1. Inbound message detected (provider sync).
 2. Thread matched to lead/campaign.
 3. User sees reply in “Replies” inbox.
@@ -109,17 +200,22 @@ Outbound operators struggle with (1) defining ICP consistently, (2) managing lea
 5. Lead stage updates and stops future steps as configured.
 
 ## Open decisions (only truly blocking) + recommended default
-1) **Connected inbox scope (MVP)**
-- Options: Gmail only vs Gmail+M365.
-- **Default:** Gmail + M365 (OAuth) since both are common; implement Gmail first, M365 next.
+1) **Default licensed lead data provider (MVP)**
+- Options: Apollo / People Data Labs / Clearbit / others.
+- **Default:** Choose ONE and implement fully end-to-end (search → enrich → rate limits → retries → pagination).
+- Consequence: determines API shapes, cost model, and which fields are reliably available.
 
-2) **Reply capture method**
-- Options: provider webhooks/push vs polling.
-- **Default:** Polling for MVP; add push later for scale.
+2) **Email verification provider**
+- Options: NeverBounce / ZeroBounce / Kickbox / others.
+- **Default:** Pick one; enforce “verified-only” sending by default with campaign override.
 
-3) **Tracking (opens/clicks)**
-- Options: none vs opens only vs opens+clicks.
-- **Default:** Click tracking only optional; **no open pixel by default**.
+3) **Candidate approval strictness**
+- Options: mandatory approval vs allow auto-approve.
+- **Default:** Mandatory approval in MVP; consider “auto-approve with rules” later.
+
+4) **Company discovery beyond the data provider**
+- Options: provider-only vs add compliant web search API.
+- **Default:** Provider-only for MVP to avoid ToS risk and reduce scope.
 
 ## Constraints
 - **Hosting:** Vercel-first (Next.js).
@@ -128,7 +224,8 @@ Outbound operators struggle with (1) defining ICP consistently, (2) managing lea
 - **Outbound email safety:** conservative caps, throttling, ramp schedules; no “growth-hack” exploits.
 
 ## Assumptions/defaults made
-- MVP does **not** promise scraping; lead sourcing is BYO + licensed integrations only.
-- Email is the only automated channel in MVP.
-- Operator-first: AI drafts; human approves; safety controls enforced.
-- Warm-up is optional and externalized as integration/guidance.
+- Lead discovery is implemented via **licensed/authorized** data sources (no unauthorized scraping as a core feature).
+- MVP includes exactly **one** licensed provider connector implemented end-to-end.
+- Contacts are not auto-contacted without a **human approval gate** (Candidates → Leads).
+- Email sending defaults to **verified emails only**; users can override per campaign with explicit warnings.
+- Email is the only automated channel in MVP; other channels can be “tasks” later.

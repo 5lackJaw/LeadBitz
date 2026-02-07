@@ -7,10 +7,15 @@ Website: https://www.leadbitz.com
 
 Deliverability-first cold outreach operations app:
 - ICP generation (URL/text) + editor
-- Lead import + provenance
+- Automated lead discovery via licensed provider connector
+- Candidate review + approval gate (Candidates → Leads)
+- Email verification + suppression safety
 - AI-assisted email drafting (human approval)
 - Safe sending via connected inbox
 - Replies inbox + categorization
+- ICP quality gating (score + tier + missing-field checklist)
+- Archetype templates + Specialist ICP Interview wizard
+- ICP versions center (campaign-scoped)
 
 ## Phase planning log
 ### Phase 1 scope confirmation (2026-02-05)
@@ -249,7 +254,7 @@ Deliverability-first cold outreach operations app:
   - Providing both values is rejected.
   - `websiteUrl` must be a valid `http://` or `https://` URL.
 - Added client form behavior for Step 1:
-  - Input mode is mutually exclusive in UI (URL and description fields cannot both be actively edited at once).
+  - Input mode is mutually exclusive in UI. Typing into one source input auto-clears the other.
   - Submission validates client-side first, then server-side through the API endpoint.
   - Success message confirms Step 1 completion and indicates Step 2 (ICP generation) is next.
 - Added unit test coverage for the validation helper in `tests/unit/wizard-step1-validation.test.ts`.
@@ -266,6 +271,106 @@ Deliverability-first cold outreach operations app:
   - `lib/icp/generate-icp-profile.ts` with explicit validation/not-found error classes and injectable AI draft generator.
 - Testing:
   - Added integration coverage in `tests/integration/icp-generate.test.ts` using a mocked AI generator function to verify profile persistence and campaign-link behavior.
+
+### Phase 4 progress: ICP editor UI (2026-02-06)
+- Added Step 2 ICP editor UI to `/app/campaigns/new`:
+  - Step 1 now generates draft ICP via `POST /api/icp/generate`.
+  - Step 2 renders editable ICP fields and profile name after generation.
+  - Save action persists edits through `PATCH /api/icp/profiles/:icpProfileId` and shows explicit save confirmation with a last-saved timestamp in the editor.
+- Added persistence service:
+  - `lib/icp/update-icp-profile.ts` with validation for editable ICP structure and workspace ownership checks.
+- Added API endpoint:
+  - `PATCH /api/icp/profiles/:icpProfileId`
+  - Enforces authenticated workspace scope and returns persisted profile payload.
+- Testing:
+  - Added integration test `tests/integration/icp-editor.test.ts` to verify edit persistence and cross-workspace update blocking.
+
+### Phase 4 closeout (2026-02-06)
+- Phase 4 scope status: complete (campaign CRUD/list + wizard Step 1 + ICP generation + ICP editor persistence).
+- Delivered implementation in Phase 4:
+  - Workspace-scoped campaign create/list/rename (`/api/campaigns`, `/api/campaigns/:campaignId`) and `/app/campaigns` management UI.
+  - Wizard route `/app/campaigns/new` with Step 1 `websiteUrl` xor `productDescription` validation and clear mutually-exclusive input behavior.
+  - ICP generation endpoint `POST /api/icp/generate` with workspace-scoped `icp_profiles` persistence and optional campaign linkage.
+  - ICP editor persistence endpoint `PATCH /api/icp/profiles/:icpProfileId` with workspace ownership checks and visible save confirmation in UI.
+- Decisions confirmed for downstream phases:
+  - ICP generation remains deterministic/mock-backed in current implementation; OpenAI-powered generation quality improvements are deferred to later AI tasks.
+  - Step 1 source contract is strict XOR at API boundary; UI assists by auto-clearing alternate source field to keep payload valid.
+  - ICP edits are explicit-save only (no autosave), matching operator-controlled workflow requirements.
+- Operational gotchas for implementers:
+  - A successful "ICP edits saved" message confirms DB persistence, but there is no separate list/detail view yet to re-open previously saved profiles in this phase.
+  - Do not treat placeholder/mock ICP content as website-scraping completion; source-specific extraction depth is out of Phase 4 scope.
+  - Step 1 validation still enforces `http/https` URLs only and rejects empty/both-provided source input.
+- Validation evidence captured for Phase 4 completion:
+  - `npm run lint`
+  - `npm run test:unit`
+  - `npm run test:integration`
+  - `npm run build`
+
+### Phase 4 follow-up: campaign control surfaces + wizard resume scaffolding (2026-02-06)
+- Added campaign overview route and placeholder flow routes:
+  - `GET /app/campaigns/:id`
+  - `GET /app/campaigns/:id/discovery`
+  - `GET /app/campaigns/:id/candidates`
+  - `GET /app/campaigns/:id/sequence`
+- Overview behavior now includes:
+  - ICP summary visibility from linked `icp_profile`.
+  - Connected inbox selector and current connected inbox display.
+  - Next-step CTAs: Discovery -> Candidates -> Sequence -> Review/Launch (launch remains placeholder).
+  - Status lifecycle placeholder chips (`DRAFT`, `ACTIVE`, `PAUSED`, `COMPLETED`).
+  - Campaign-level control surfaces for `messagingRules` and `discoveryRules`.
+- Added wizard resume and campaign linkage behavior:
+  - Campaign list now provides `Resume wizard` action per row.
+  - Wizard accepts `campaignId` query param and restores persisted `wizardState` when present.
+  - Wizard generation/save now persists `wizardState` to campaign and includes `campaignId` in `POST /api/icp/generate`, linking ICP generation to that campaign.
+- Added settings sources registry UI stub:
+  - `GET /app/settings/sources`
+  - Non-functional governance placeholder for enabled/disabled state, usage note, and last status.
+- Data model updates for campaign control surfaces:
+  - `campaigns.inbox_connection_id` (nullable FK -> `inbox_connections.id`)
+  - `campaigns.messaging_rules` (nullable text)
+  - `campaigns.discovery_rules` (nullable text)
+  - `campaigns.wizard_state` (nullable JSON)
+  - Migration: `20260206202000_add_campaign_control_surfaces`
+- API updates:
+  - `GET /api/campaigns/:campaignId` now returns campaign overview payload.
+  - `PATCH /api/campaigns/:campaignId` now supports updates for name, inbox selection, campaign rules, and wizard state.
+  - `GET /api/campaigns` and `POST /api/campaigns` payloads now include campaign control-surface fields.
+- Validation evidence for this follow-up:
+  - `npm run verify`
+- Implementation note: Phase 4 extension: ICP quality gate + Scenario A/B + archetype templates + Specialist interview wizard were added as additive surfaces without removing existing wizard contracts.
+
+### Phase 5 planning: provider selection + fields + quotas (2026-02-06)
+- Checklist task completed: plan/confirm licensed provider, supported filters, and quota guardrails for discovery.
+- Provider selection (MVP default):
+  - Chosen provider: `People Data Labs` (`provider_key = pdl`).
+  - Scope decision: implement one end-to-end connector only in Phase 5 (search/discovery + pagination + retries + rate-limit handling).
+  - Rationale: strong person/company identifiers for dedupe (`person_provider_id`, `company_provider_id`), rich B2B filters, and clear API boundaries for typed wrapper implementation.
+- Supported discovery filters for MVP (must be available through connector contract):
+  - `industry`
+  - `companySize`
+  - `jobTitle`
+  - `seniority`
+  - `department`
+  - `geoCountry`
+  - `geoRegion`
+  - `geoCity`
+  - `requiredFields` (email required for sendable candidates)
+  - `resultLimit`
+- Required candidate/provider fields for normalization:
+  - Person: first name, last name, title, seniority, department, email, provider person id.
+  - Company: name, domain, website, provider company id.
+  - Metadata: source timestamp, confidence score, verification status, provenance source key.
+- Quota and cost guardrails (MVP defaults):
+  - Per discovery run max candidates fetched: `1000`.
+  - Per workspace daily discovery cap: `5000` fetched candidates (hard stop).
+  - Connector call budget: enforce provider documented rate limits in wrapper + exponential backoff on transient errors.
+  - Terminal run behavior:
+    - provider quota exhausted -> mark run `failed` with explicit quota error code.
+    - rate-limited partial fetch -> mark run `partial` with stats snapshot.
+- Carry-forward implementation rules:
+  - Discovery output lands in `candidates` only; no auto-promotion into `leads`.
+  - Approval endpoint remains the only path from candidate to sendable lead.
+  - Verified-email default remains enforced at approval/sending boundaries, with explicit per-campaign override.
 
 ### Phase 0b workflow hardening follow-up (2026-02-06)
 - Added baseline developer workflow automation focused on consistency and speed:
@@ -314,36 +419,69 @@ Deliverability-first cold outreach operations app:
 
 ## Routes/endpoints summary
 (Keep updated as built.)
-- `/` (landing scaffold)
-- `/login` (NextAuth credentials sign-in page)
-- `/app` (app shell scaffold route)
-- `/app/onboarding`, `/app/campaigns`, `/app/replies`, `/app/settings/*`
-- `/app/campaigns/new` (wizard Step 1 input form)
-- `/api/auth/[...nextauth]` (NextAuth auth handler)
-- `/api/campaigns` (campaign list + create for primary workspace)
-- `/api/campaigns/:campaignId` (campaign rename)
-- `/api/campaigns/wizard/step1` (Step 1 URL xor text validation)
-- `/api/icp/generate` (persist generated ICP profile for wizard Step 2)
-- `/api/inboxes/google/connect` (Google OAuth start)
-- `/api/inboxes/google/callback` (Google OAuth callback)
-- `/api/inboxes/:inboxConnectionId/settings` (inbox cap/window/ramp update)
-- `/api/messages/draft`
-- `/api/cron/tick`, `/api/cron/sync-inbox`
-- `/api/replies`, `/api/conversations/*`
-- `/api/billing/*` (planned checkout + subscription status/webhook handlers)
+
+UI:
+- `/app/onboarding`
+- `/app/campaigns`, `/app/campaigns/new`, `/app/campaigns/:id`
+- `/app/campaigns/:id/discovery`
+- `/app/campaigns/:id/candidates`
+- `/app/campaigns/:id/leads`
+- `/app/campaigns/:id/sequence`
+- `/app/campaigns/:id/icp`
+- `/app/campaigns/:id/icp/improve`
+- `/app/settings/icp-templates`
+- `/app/replies`
+- `/app/settings/sources`
+- `/app/settings/verification`
+
+API (high level):
+- Sources/connectors: `/api/sources/*`
+- Discovery runs: `/api/campaigns/:id/discovery/run`, `/api/campaigns/:id/discovery/runs`
+- Candidates: `/api/campaigns/:id/candidates`, `/api/campaigns/:id/candidates/approve`, `/api/campaigns/:id/candidates/reject`
+- Verification: `/api/verification/batch`
+- ICP + drafting: `/api/icp/generate`, `/api/messages/draft`
+- `/api/icp/score`
+- `/api/icp/classify-archetype`
+- `/api/icp/templates`
+- `/api/icp/apply-template`
+- `/api/icp/interview/*`
+- Sending + sync: `/api/cron/tick`, `/api/cron/sync-inbox`
+- Replies: `/api/replies`, `/api/conversations/*`
 
 ## Data model summary
 (Keep updated after migrations.)
+
+Core:
 - users, workspaces
 - inbox_connections
 - campaigns, icp_profiles
-- leads, campaign_leads
 - sequences, sequence_steps, message_templates
 - send_jobs
 - conversations, messages
 - suppressions
-- lead_sources, lead_field_provenance
 - audit_events
+- provenance: lead_field_provenance (and related source metadata)
+
+Lead discovery:
+- source_connectors
+- source_runs
+- candidates
+- email_verifications
+- icp_versions
+- icp_quality_scores
+- product_archetype_classifications
+- icp_templates
+- icp_interview_sessions
+
+Approved outreach:
+- leads
+- campaign_leads
+
+Campaign control-surface additions:
+- `campaigns.inbox_connection_id`
+- `campaigns.messaging_rules`
+- `campaigns.discovery_rules`
+- `campaigns.wizard_state`
 
 ## Integrations + webhooks
 - Neon Auth (Google OAuth + email/password)
@@ -360,7 +498,7 @@ Deliverability-first cold outreach operations app:
   - `npm run test:unit` (token encryption + wizard Step 1 validation)
 - Integration:
   - `npm run db:migrate:status` (with a reachable Postgres `DATABASE_URL`)
-  - `npm run test:integration` (validates workspace auto-provision + workspace authorization helper + mocked Google connect + token refresh + inbox settings persistence + campaign create/list/rename + ICP generation persistence behavior)
+  - `npm run test:integration` (validates workspace auto-provision + workspace authorization helper + mocked Google connect + token refresh + inbox settings persistence + campaign create/list/rename + ICP generation + ICP editor persistence behavior)
 - E2E (Playwright):
 
 ## Deployment notes
@@ -445,6 +583,8 @@ Deliverability-first cold outreach operations app:
   - max 120 characters
 - Wizard Step 1 source input requires `websiteUrl` xor `productDescription`; empty or both-provided payloads are rejected by API validation.
 - `POST /api/icp/generate` currently uses an injectable draft generator abstraction; tests must mock the generator and verify DB persistence, while full OpenAI-backed generation remains a later implementation step.
+- ICP editor persistence requires non-empty list values per editable ICP field; empty lists are rejected by `PATCH /api/icp/profiles/:icpProfileId`.
+- Campaign-linked wizard resume requires `campaignId` query param (`/app/campaigns/new?campaignId=<id>`); without a campaign id, wizard state persistence is intentionally skipped.
 - Inbox settings API validation bounds:
   - `dailySendCap`: `1..500`
   - `sendWindowStartHour`: `0..23`
@@ -487,6 +627,9 @@ Deliverability-first cold outreach operations app:
 - 2026-02-06: Implemented campaign CRUD foundation (`/api/campaigns`, `/api/campaigns/:campaignId`) and `/app/campaigns` list UI with create/rename flows.
 - 2026-02-06: Implemented wizard Step 1 input route (`/app/campaigns/new`) and API validation endpoint (`/api/campaigns/wizard/step1`) enforcing website URL xor product description.
 - 2026-02-06: Implemented `POST /api/icp/generate` with workspace-scoped `icp_profiles` persistence and integration coverage using mocked AI generation.
+- 2026-02-06: Added Step 2 ICP editor UI on `/app/campaigns/new` and persisted editing API `PATCH /api/icp/profiles/:icpProfileId` with integration coverage.
+- 2026-02-06: Closed Phase 4 documentation with consolidated phase summary, carry-forward decisions, and operational gotchas.
+- 2026-02-06: Added campaign overview and campaign-level control surfaces (`messaging_rules`, `discovery_rules`, `wizard_state`, optional inbox linkage), plus wizard resume scaffolding and sources registry settings stub.
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).

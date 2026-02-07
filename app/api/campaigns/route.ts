@@ -14,23 +14,41 @@ import {
 
 type CampaignPayload = {
   id: string;
+  inboxConnectionId: string | null;
   name: string;
   status: string;
+  messagingRules: string | null;
+  discoveryRules: string | null;
+  wizardState: unknown;
+  icpProfileId: string | null;
+  icpProfileName: string | null;
   createdAt: string;
   updatedAt: string;
 };
 
 function toCampaignPayload(campaign: {
   id: string;
+  inboxConnectionId: string | null;
   name: string;
   status: string;
+  messagingRules: string | null;
+  discoveryRules: string | null;
+  wizardState: unknown;
+  icpProfileId: string | null;
+  icpProfileName: string | null;
   createdAt: Date;
   updatedAt: Date;
 }): CampaignPayload {
   return {
     id: campaign.id,
+    inboxConnectionId: campaign.inboxConnectionId ?? null,
     name: campaign.name,
     status: campaign.status,
+    messagingRules: campaign.messagingRules ?? null,
+    discoveryRules: campaign.discoveryRules ?? null,
+    wizardState: campaign.wizardState ?? null,
+    icpProfileId: campaign.icpProfileId ?? null,
+    icpProfileName: campaign.icpProfileName ?? null,
     createdAt: campaign.createdAt.toISOString(),
     updatedAt: campaign.updatedAt.toISOString(),
   };
@@ -94,12 +112,13 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Request body must be an object." }, { status: 400 });
   }
 
-  const payload = parsedBody as Partial<{ name: string }>;
+  const payload = parsedBody as Partial<{ name: string; inboxConnectionId: string | null }>;
 
   try {
     const campaign = await createCampaignForWorkspace({
       workspaceId: workspaceResult.workspaceId,
       name: payload.name ?? "",
+      inboxConnectionId: payload.inboxConnectionId,
     });
 
     return NextResponse.json(

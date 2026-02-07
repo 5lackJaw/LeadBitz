@@ -6,8 +6,14 @@ import Link from "next/link";
 
 type CampaignViewModel = {
   id: string;
+  inboxConnectionId: string | null;
   name: string;
   status: CampaignStatus;
+  messagingRules: string | null;
+  discoveryRules: string | null;
+  wizardState: unknown;
+  icpProfileId: string | null;
+  icpProfileName: string | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -242,9 +248,17 @@ export function CampaignsClient({ initialCampaigns }: CampaignsClientProps) {
                     </td>
                     <td>{dateTimeFormatter.format(new Date(campaign.updatedAt))}</td>
                     <td>
-                      <code style={{ fontFamily: "var(--font-ui-mono)", color: "var(--ui-fg-muted)" }}>
-                        {campaign.id.slice(0, 8)}
-                      </code>
+                      <div className="lb-row" style={{ justifyContent: "flex-start", gap: "8px" }}>
+                        <Link className="lb-link lb-link-accent" href={`/app/campaigns/${campaign.id}`}>
+                          Open
+                        </Link>
+                        <Link className="lb-link" href={`/app/campaigns/new?campaignId=${campaign.id}`}>
+                          Resume wizard
+                        </Link>
+                        <code style={{ fontFamily: "var(--font-ui-mono)", color: "var(--ui-fg-muted)" }}>
+                          {campaign.id.slice(0, 8)}
+                        </code>
+                      </div>
                     </td>
                   </tr>
                 );
