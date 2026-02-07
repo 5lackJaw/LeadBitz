@@ -2,13 +2,23 @@
 
 ## Rules of Engagement
 - Read all of the files inside /docs before you start building.
+- For all design-related work — including UI components, layouts, styling, theming, visual changes, screens, user flows, interactions, copy, and information architecture — you must follow: docs/UX_SPEC.md, docs/UI_SPEC.md
+
+- For all visual and brand-related work — including design tokens, styling systems, theming rules, and component visual appearance — you must follow: docs/CANONICAL_VISUAL_BRAND_SPECIFICATION.md
+
+- Any new frontend feature or UI implementation that requires styling or design must be built in full compliance with the specifications above.
+- Do not implement frontend functionality first and apply design or styling later.
 - Implement the next logical unchecked task from IMPLEMENTATION_CHECKLIST.md per PR.
 - Do not invent requirements. If a task is ambiguous, resolve it by updating docs first (as part of that single task) or add a small clarification note to SOFTWARE_DOCUMENTATION.md.
 - Keep changes minimal and scoped to the selected task. No drive-by refactors.
 - Prefer boring, proven patterns over cleverness. Follow the chosen stack's idiomatic conventions.
 - Security defaults: never log secrets/PII; validate inputs; least privilege; treat external input as hostile.
 - If you need to change scope, add a new unchecked checkbox to IMPLEMENTATION_CHECKLIST.md instead of expanding the current task.
-- Whenever testing the app, either locally or live in the development envronment is prudent, instruct the user to do so. Never assume testing is happening. Suggest how the user should test the app, and inquire whether the user would like instructions on how to do so.
+- After implementing something, run the appropriate tests.
+- If user testing is prudent, explicitly instruct the user to perform it.
+- Deployment guardrail: default all feature work to PR base `release`; never target `main` unless the user explicitly requests production promotion in that same session.
+- Deployment guardrail: before opening/merging any PR, verify branch/base with `git branch --show-current`, `gh pr view --json baseRefName,headRefName,state`, and ensure base is `release` for MVP work.
+- Fork guardrail: if work is done from a fork, open PR from `fork:feature/*` into upstream `release` only; never from fork directly into upstream `main`.
 
 ## Software Documentation Maintenance
 - SOFTWARE_DOCUMENTATION.md is the living source of truth.

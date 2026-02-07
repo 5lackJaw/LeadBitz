@@ -12,3 +12,518 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  ownedWorkspaces Workspace[]  @relation("WorkspaceOwner")
+  auditEvents     AuditEvent[]
+
+  @@map("users")
+}
+
+model Workspace {
+  id        String   @id @default(cuid())
+  name      String
+  ownerId   String   @map("owner_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  owner                           User                             @relation("WorkspaceOwner", fields: [ownerId], references: [id], onDelete: Restrict)
+  campaigns                       Campaign[]
+  inboxConnections                InboxConnection[]
+  icpProfiles                     IcpProfile[]
+  icpVersions                     IcpVersion[]
+  icpQualityScores                IcpQualityScore[]
+  productArchetypeClassifications ProductArchetypeClassification[]
+  icpInterviewSessions            IcpInterviewSession[]
+  leads                           Lead[]
+  suppressions                    Suppression[]
+  messageTemplates                MessageTemplate[]
+  conversations                   Conversation[]
+  auditEvents                     AuditEvent[]
+  leadSources                     LeadSource[]
+
+  @@index([ownerId])
+  @@map("workspaces")
+}
+
+model InboxConnection {
+  id                    String                @id @default(cuid())
+  workspaceId           String                @map("workspace_id")
+  provider              InboxProvider
+  providerAccountId     String                @map("provider_account_id")
+  email                 String
+  dailySendCap          Int                   @default(30) @map("daily_send_cap")
+  sendWindowStartHour   Int                   @default(9) @map("send_window_start_hour")
+  sendWindowEndHour     Int                   @default(17) @map("send_window_end_hour")
+  rampUpPerDay          Int                   @default(5) @map("ramp_up_per_day")
+  accessTokenEncrypted  String?               @map("access_token_encrypted")
+  refreshTokenEncrypted String?               @map("refresh_token_encrypted")
+  status                InboxConnectionStatus @default(ACTIVE)
+  createdAt             DateTime              @default(now()) @map("created_at")
+  updatedAt             DateTime              @updatedAt @map("updated_at")
+
+  workspace Workspace  @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  campaigns Campaign[]
+
+  @@unique([provider, providerAccountId])
+  @@unique([workspaceId, email])
+  @@index([workspaceId])
+  @@map("inbox_connections")
+}
+
+model IcpProfile {
+  id          String        @id @default(cuid())
+  workspaceId String        @map("workspace_id")
+  name        String
+  sourceType  IcpSourceType @map("source_type")
+  sourceValue String?       @map("source_value")
+  icp         Json
+  createdAt   DateTime      @default(now()) @map("created_at")
+  updatedAt   DateTime      @updatedAt @map("updated_at")
+
+  workspace Workspace  @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  campaigns Campaign[]
+
+  @@index([workspaceId])
+  @@map("icp_profiles")
+}
+
+model IcpVersion {
+  id          String           @id @default(cuid())
+  workspaceId String           @map("workspace_id")
+  campaignId  String           @map("campaign_id")
+  source      IcpVersionSource
+  title       String
+  icpJson     Json             @map("icp_json")
+  isActive    Boolean          @default(false) @map("is_active")
+  createdAt   DateTime         @default(now()) @map("created_at")
+  updatedAt   DateTime         @updatedAt @map("updated_at")
+
+  workspace     Workspace         @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  campaign      Campaign          @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  qualityScores IcpQualityScore[]
+
+  @@index([workspaceId])
+  @@index([campaignId])
+  @@index([campaignId, isActive])
+  @@map("icp_versions")
+}
+
+model IcpQualityScore {
+  id                String         @id @default(cuid())
+  workspaceId       String         @map("workspace_id")
+  campaignId        String         @map("campaign_id")
+  icpVersionId      String         @map("icp_version_id")
+  scoreInt          Int            @map("score_int")
+  tier              IcpQualityTier
+  missingFieldsJson Json?          @map("missing_fields_json")
+  explanationsJson  Json?          @map("explanations_json")
+  questionsJson     Json?          @map("questions_json")
+  modelMetaJson     Json?          @map("model_meta_json")
+  computedAt        DateTime       @default(now()) @map("computed_at")
+
+  workspace  Workspace  @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  campaign   Campaign   @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  icpVersion IcpVersion @relation(fields: [icpVersionId], references: [id], onDelete: Cascade)
+
+  @@index([workspaceId])
+  @@index([campaignId])
+  @@index([icpVersionId])
+  @@map("icp_quality_scores")
+}
+
+model ProductArchetypeClassification {
+  id           String   @id @default(cuid())
+  workspaceId  String   @map("workspace_id")
+  campaignId   String   @map("campaign_id")
+  archetypeKey String   @map("archetype_key")
+  confidence   Float
+  evidenceJson Json     @map("evidence_json")
+  decidedAt    DateTime @default(now()) @map("decided_at")
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  campaign  Campaign  @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+
+  @@index([workspaceId])
+  @@index([campaignId])
+  @@index([campaignId, decidedAt])
+  @@map("product_archetype_classifications")
+}
+
+model IcpTemplate {
+  id                     String   @id @default(cuid())
+  archetypeKey           String   @map("archetype_key")
+  templateVersion        String   @map("template_version")
+  requiredQuestionsJson  Json     @map("required_questions_json")
+  defaultIcpSkeletonJson Json     @map("default_icp_skeleton_json")
+  rubricWeightsJson      Json     @map("rubric_weights_json")
+  enabled                Boolean  @default(true)
+  createdAt              DateTime @default(now()) @map("created_at")
+  updatedAt              DateTime @updatedAt @map("updated_at")
+
+  @@unique([archetypeKey, templateVersion])
+  @@index([enabled])
+  @@map("icp_templates")
+}
+
+model IcpInterviewSession {
+  id            String                    @id @default(cuid())
+  workspaceId   String                    @map("workspace_id")
+  campaignId    String                    @map("campaign_id")
+  status        IcpInterviewSessionStatus @default(DRAFT)
+  questionsJson Json?                     @map("questions_json")
+  answersJson   Json?                     @map("answers_json")
+  outputIcpJson Json?                     @map("output_icp_json")
+  startedAt     DateTime                  @default(now()) @map("started_at")
+  completedAt   DateTime?                 @map("completed_at")
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  campaign  Campaign  @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+
+  @@index([workspaceId])
+  @@index([campaignId])
+  @@index([status])
+  @@map("icp_interview_sessions")
+}
+
+model Campaign {
+  id                String         @id @default(cuid())
+  workspaceId       String         @map("workspace_id")
+  icpProfileId      String?        @map("icp_profile_id")
+  inboxConnectionId String?        @map("inbox_connection_id")
+  name              String
+  status            CampaignStatus @default(DRAFT)
+  messagingRules    String?        @map("messaging_rules")
+  discoveryRules    String?        @map("discovery_rules")
+  wizardState       Json?          @map("wizard_state")
+  createdAt         DateTime       @default(now()) @map("created_at")
+  updatedAt         DateTime       @updatedAt @map("updated_at")
+  launchedAt        DateTime?      @map("launched_at")
+
+  workspace                       Workspace                        @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  icpProfile                      IcpProfile?                      @relation(fields: [icpProfileId], references: [id], onDelete: SetNull)
+  inboxConnection                 InboxConnection?                 @relation(fields: [inboxConnectionId], references: [id], onDelete: SetNull)
+  leads                           CampaignLead[]
+  sequences                       Sequence[]
+  sendJobs                        SendJob[]
+  conversations                   Conversation[]
+  auditEvents                     AuditEvent[]
+  icpVersions                     IcpVersion[]
+  icpQualityScores                IcpQualityScore[]
+  productArchetypeClassifications ProductArchetypeClassification[]
+  icpInterviewSessions            IcpInterviewSession[]
+
+  @@index([workspaceId])
+  @@index([icpProfileId])
+  @@index([inboxConnectionId])
+  @@map("campaigns")
+}
+
+model Lead {
+  id            String   @id @default(cuid())
+  workspaceId   String   @map("workspace_id")
+  firstName     String?  @map("first_name")
+  lastName      String?  @map("last_name")
+  email         String
+  companyName   String?  @map("company_name")
+  companyDomain String?  @map("company_domain")
+  title         String?
+  metadata      Json?
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  workspace     Workspace             @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  campaigns     CampaignLead[]
+  sendJobs      SendJob[]
+  conversations Conversation[]
+  provenance    LeadFieldProvenance[]
+
+  @@unique([workspaceId, email])
+  @@index([workspaceId])
+  @@index([companyDomain])
+  @@map("leads")
+}
+
+model CampaignLead {
+  id         String   @id @default(cuid())
+  campaignId String   @map("campaign_id")
+  leadId     String   @map("lead_id")
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  campaign Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  lead     Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+
+  @@unique([campaignId, leadId])
+  @@index([leadId])
+  @@map("campaign_leads")
+}
+
+model Suppression {
+  id          String   @id @default(cuid())
+  workspaceId String   @map("workspace_id")
+  email       String
+  reason      String
+  source      String?
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@unique([workspaceId, email])
+  @@index([workspaceId])
+  @@map("suppressions")
+}
+
+model Sequence {
+  id          String   @id @default(cuid())
+  campaignId  String   @map("campaign_id")
+  name        String
+  stopOnReply Boolean  @default(true) @map("stop_on_reply")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  campaign Campaign       @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  steps    SequenceStep[]
+
+  @@index([campaignId])
+  @@map("sequences")
+}
+
+model SequenceStep {
+  id           String      @id @default(cuid())
+  sequenceId   String      @map("sequence_id")
+  stepOrder    Int         @map("step_order")
+  delayMinutes Int         @default(0) @map("delay_minutes")
+  channel      StepChannel @default(EMAIL)
+  createdAt    DateTime    @default(now()) @map("created_at")
+  updatedAt    DateTime    @updatedAt @map("updated_at")
+
+  sequence  Sequence          @relation(fields: [sequenceId], references: [id], onDelete: Cascade)
+  templates MessageTemplate[]
+  sendJobs  SendJob[]
+
+  @@unique([sequenceId, stepOrder])
+  @@index([sequenceId])
+  @@map("sequence_steps")
+}
+
+model MessageTemplate {
+  id             String   @id @default(cuid())
+  workspaceId    String   @map("workspace_id")
+  sequenceStepId String?  @map("sequence_step_id")
+  name           String
+  subject        String
+  body           String
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  workspace    Workspace     @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  sequenceStep SequenceStep? @relation(fields: [sequenceStepId], references: [id], onDelete: SetNull)
+  sendJobs     SendJob[]
+
+  @@index([workspaceId])
+  @@index([sequenceStepId])
+  @@map("message_templates")
+}
+
+model SendJob {
+  id                String        @id @default(cuid())
+  campaignId        String        @map("campaign_id")
+  leadId            String        @map("lead_id")
+  sequenceStepId    String?       @map("sequence_step_id")
+  messageTemplateId String?       @map("message_template_id")
+  status            SendJobStatus @default(QUEUED)
+  scheduledFor      DateTime      @map("scheduled_for")
+  sentAt            DateTime?     @map("sent_at")
+  providerMessageId String?       @map("provider_message_id")
+  idempotencyKey    String        @map("idempotency_key")
+  attemptCount      Int           @default(0) @map("attempt_count")
+  errorCode         String?       @map("error_code")
+  errorMessage      String?       @map("error_message")
+  createdAt         DateTime      @default(now()) @map("created_at")
+  updatedAt         DateTime      @updatedAt @map("updated_at")
+
+  campaign        Campaign         @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  lead            Lead             @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  sequenceStep    SequenceStep?    @relation(fields: [sequenceStepId], references: [id], onDelete: SetNull)
+  messageTemplate MessageTemplate? @relation(fields: [messageTemplateId], references: [id], onDelete: SetNull)
+
+  @@unique([idempotencyKey])
+  @@index([campaignId])
+  @@index([leadId])
+  @@index([sequenceStepId])
+  @@index([status, scheduledFor])
+  @@map("send_jobs")
+}
+
+model Conversation {
+  id               String   @id @default(cuid())
+  workspaceId      String   @map("workspace_id")
+  leadId           String   @map("lead_id")
+  campaignId       String?  @map("campaign_id")
+  providerThreadId String?  @map("provider_thread_id")
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  lead      Lead      @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  campaign  Campaign? @relation(fields: [campaignId], references: [id], onDelete: SetNull)
+  messages  Message[]
+
+  @@unique([leadId, providerThreadId])
+  @@index([workspaceId])
+  @@index([leadId])
+  @@index([campaignId])
+  @@map("conversations")
+}
+
+model Message {
+  id                String           @id @default(cuid())
+  conversationId    String           @map("conversation_id")
+  direction         MessageDirection
+  providerMessageId String?          @map("provider_message_id")
+  subject           String?
+  body              String
+  sentAt            DateTime?        @map("sent_at")
+  receivedAt        DateTime?        @map("received_at")
+  createdAt         DateTime         @default(now()) @map("created_at")
+  updatedAt         DateTime         @updatedAt @map("updated_at")
+
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  @@index([conversationId])
+  @@index([providerMessageId])
+  @@map("messages")
+}
+
+model AuditEvent {
+  id          String   @id @default(cuid())
+  workspaceId String   @map("workspace_id")
+  userId      String?  @map("user_id")
+  campaignId  String?  @map("campaign_id")
+  eventType   String   @map("event_type")
+  metadata    Json?
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  user      User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+  campaign  Campaign? @relation(fields: [campaignId], references: [id], onDelete: SetNull)
+
+  @@index([workspaceId, createdAt])
+  @@index([campaignId])
+  @@index([userId])
+  @@map("audit_events")
+}
+
+model LeadSource {
+  id              String   @id @default(cuid())
+  workspaceId     String   @map("workspace_id")
+  name            String
+  constraintsNote String?  @map("constraints_note")
+  isEnabled       Boolean  @default(true) @map("is_enabled")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  workspace  Workspace             @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  provenance LeadFieldProvenance[]
+
+  @@unique([workspaceId, name])
+  @@index([workspaceId])
+  @@map("lead_sources")
+}
+
+model LeadFieldProvenance {
+  id           String    @id @default(cuid())
+  leadId       String    @map("lead_id")
+  leadSourceId String    @map("lead_source_id")
+  fieldName    String    @map("field_name")
+  fieldValue   String?   @map("field_value")
+  confidence   Float?
+  freshnessAt  DateTime? @map("freshness_at")
+  capturedAt   DateTime  @default(now()) @map("captured_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+
+  lead       Lead       @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  leadSource LeadSource @relation(fields: [leadSourceId], references: [id], onDelete: Cascade)
+
+  @@index([leadId])
+  @@index([leadSourceId])
+  @@index([fieldName])
+  @@map("lead_field_provenance")
+}
+
+enum InboxProvider {
+  GMAIL
+  M365
+
+  @@map("inbox_provider")
+}
+
+enum InboxConnectionStatus {
+  ACTIVE
+  DISCONNECTED
+  ERROR
+
+  @@map("inbox_connection_status")
+}
+
+enum CampaignStatus {
+  DRAFT
+  ACTIVE
+  PAUSED
+  COMPLETED
+  ARCHIVED
+
+  @@map("campaign_status")
+}
+
+enum StepChannel {
+  EMAIL
+}
+
+enum SendJobStatus {
+  QUEUED
+  PROCESSING
+  SENT
+  FAILED
+  CANCELED
+}
+
+enum MessageDirection {
+  INBOUND
+  OUTBOUND
+}
+
+enum IcpSourceType {
+  WEBSITE_URL
+  PRODUCT_DESCRIPTION
+  MANUAL
+
+  @@map("icp_source_type")
+}
+
+enum IcpVersionSource {
+  WEBSITE
+  TEMPLATE
+  SPECIALIST
+  MANUAL
+}
+
+enum IcpQualityTier {
+  HIGH
+  USABLE
+  INSUFFICIENT
+}
+
+enum IcpInterviewSessionStatus {
+  DRAFT
+  IN_PROGRESS
+  COMPLETED
+  ABANDONED
+}

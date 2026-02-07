@@ -7,6 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "verify": "npm run lint && npm run test:unit && npm run test:integration && npm run build",
+    "test:unit": "tsx --test tests/unit/token-encryption.test.ts tests/unit/wizard-step1-validation.test.ts tests/unit/icp-quality-rubric.test.ts",
+    "test:integration": "tsx --test tests/integration/ensure-user-workspace.test.ts tests/integration/workspace-authorization.test.ts tests/integration/google-connect-flow.test.ts tests/integration/google-token-refresh.test.ts tests/integration/inbox-settings.test.ts tests/integration/campaign-crud.test.ts tests/integration/icp-generate.test.ts tests/integration/icp-editor.test.ts",
     "postinstall": "prisma generate",
     "prisma:generate": "prisma generate",
     "db:migrate:dev": "prisma migrate dev",
@@ -16,6 +19,7 @@
   "dependencies": {
     "@prisma/client": "^6.18.0",
     "next": "16.1.6",
+    "next-auth": "^4.24.13",
     "react": "19.2.3",
     "react-dom": "19.2.3"
   },
@@ -26,6 +30,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "prisma": "^6.18.0",
+    "tsx": "^4.20.6",
     "typescript": "^5"
   }
 }
