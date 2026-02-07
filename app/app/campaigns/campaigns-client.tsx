@@ -252,7 +252,7 @@ export function CampaignsClient({ initialCampaigns }: CampaignsClientProps) {
                         <Link className="lb-link lb-link-accent" href={`/app/campaigns/${campaign.id}`}>
                           Open
                         </Link>
-                        <Link className="lb-link" href={`/app/campaigns/new?campaignId=${campaign.id}`}>
+                        <Link className="lb-link" href={`/app/campaigns/new?campaignId=${campaign.id}`} prefetch={false}>
                           Resume wizard
                         </Link>
                         <code style={{ fontFamily: "var(--font-ui-mono)", color: "var(--ui-fg-muted)" }}>
