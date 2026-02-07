@@ -74,6 +74,10 @@
   - Acceptance: Phase 1 summary, implementation decisions, and operational gotchas recorded
   - Tests: n/a (documentation task)
   - Note (2026-02-06): Added Phase 1 closeout section, Phase 1 decisions, and migration/environment gotchas to `docs/SOFTWARE_DOCUMENTATION.md`, including Prisma `.env` behavior and UI-spec source-of-truth reference. Files touched: `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`, `docs/UI_SPEC.md`.
+- [ ] **Add schema + migration for ICP versions + quality scoring + archetype + templates + interview sessions**
+  - Acceptance: tables exist (`icp_versions`, `icp_quality_scores`, `product_archetype_classifications`, `icp_templates`, `icp_interview_sessions`)
+  - Tests: integration (migration applies)
+  - Notes: Keep existing `icp_profiles` intact; treat new tables as additive. Consider backfill path later.
 
 ## Phase 2 — Auth + workspace scoping
 - [x] Plan/confirm Phase 2 scope
@@ -147,6 +151,44 @@
   - Acceptance: `/app/campaigns/:id` shows ICP summary + inbox + next-step CTAs + status lifecycle placeholder; campaign row supports Resume Wizard; wizard state persists by campaign; `/app/settings/sources` stub exists.
   - Tests: integration+build
   - Note (2026-02-06): Added campaign control-surface fields (`messaging_rules`, `discovery_rules`, `wizard_state`, optional `inbox_connection_id`) with migration `20260206202000_add_campaign_control_surfaces`; expanded campaign API/service contracts to support overview + updates; added `/app/campaigns/[campaignId]` overview UI and discovery/candidates/sequence placeholder routes; added `Resume wizard` flow from campaign row and campaign-linked wizard state persistence on `/app/campaigns/new?campaignId=...`; added sources registry stub at `/app/settings/sources`; expanded campaign CRUD integration coverage for rules/wizard state updates. Files touched: `prisma/schema.prisma`, `prisma/migrations/20260206202000_add_campaign_control_surfaces/migration.sql`, `lib/campaigns/campaign-crud.ts`, `app/api/campaigns/route.ts`, `app/api/campaigns/[campaignId]/route.ts`, `app/app/campaigns/page.tsx`, `app/app/campaigns/campaigns-client.tsx`, `app/app/campaigns/new/page.tsx`, `app/app/campaigns/new/wizard-step1-form.tsx`, `app/app/campaigns/[campaignId]/page.tsx`, `app/app/campaigns/[campaignId]/campaign-overview-client.tsx`, `app/app/campaigns/[campaignId]/discovery/page.tsx`, `app/app/campaigns/[campaignId]/candidates/page.tsx`, `app/app/campaigns/[campaignId]/sequence/page.tsx`, `app/app/settings/sources/page.tsx`, `app/app/page.tsx`, `tests/integration/campaign-crud.test.ts`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- [ ] **Define ICP rubric + tier thresholds (deterministic)**
+  - Acceptance: rubric documented in code as constants; returns score 0–100 + tier mapping
+  - Tests: unit
+  - Notes: No model call needed for rubric math; model only produces structured ICP and missing-field detection if required.
+
+- [ ] **Add ICP Versioning (website/manual) for campaigns**
+  - Acceptance: generating ICP creates an `icp_versions` row; edits create new version or update same version per defined rule
+  - Tests: integration
+  - Notes: Do not break current wizard persistence; wire to new tables behind feature flag if needed.
+
+- [ ] **Implement `/api/icp/score` endpoint + persistence of `icp_quality_scores`**
+  - Acceptance: scoring runs for a given icpVersionId and saves results; returns explainable payload
+  - Tests: integration
+
+- [ ] **Add ICP Quality Panel in wizard Step 2**
+  - Acceptance: shows score, tier, missing fields, “Improve ICP” CTA; supports “Continue anyway” paths
+  - Tests: e2e (happy path + insufficient path)
+
+- [ ] **Implement archetype classification endpoint `/api/icp/classify-archetype`**
+  - Acceptance: returns archetypeKey/confidence/evidence; persisted to `product_archetype_classifications`
+  - Tests: integration (mock AI)
+
+- [ ] **Add Scenario A/B modal flows in wizard**
+  - Acceptance: <50 score triggers modal; A if archetype identified above threshold, else B; includes required buttons and persistence behavior
+  - Tests: e2e
+
+- [ ] **Implement Specialist ICP Interview wizard route `/app/campaigns/:id/icp/improve`**
+  - Acceptance: start session → answer questions → completes and creates a new ICP version; shows diff summary
+  - Tests: e2e (mock AI)
+
+- [ ] **Add ICP Center route `/app/campaigns/:id/icp` (versions + select active)**
+  - Acceptance: list versions, show scores, set active version; “Re-score” action works
+  - Tests: e2e smoke
+
+- [ ] **Update SOFTWARE_DOCUMENTATION.md (phase summary + decisions + gotchas)**
+  - Acceptance: Phase 4 extension + ICP surfaces documented (quality gate, scenario flows, templates, interview, routes, data model, APIs)
+  - Tests: n/a (documentation task)
+  - Notes: Record implementation decisions, gotchas, and any follow-up actions.
 
 ## Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification
 - [x] Plan/confirm Phase 5 provider selection + fields + quotas

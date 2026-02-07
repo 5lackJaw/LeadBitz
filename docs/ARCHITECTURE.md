@@ -71,6 +71,49 @@
 - details_json
 - checked_at
 
+### icp_versions
+- id, workspace_id, campaign_id
+- source (`website`|`template`|`specialist`|`manual`)
+- title (e.g., “Website Draft”, “Template v1”, “Specialist v1”)
+- icp_json (structured ICP payload)
+- is_active (bool; the version currently used for discovery/messaging)
+- created_at, updated_at
+
+### icp_quality_scores
+- id, workspace_id, campaign_id, icp_version_id
+- score_int (0–100)
+- tier (`high`|`usable`|`insufficient`)
+- missing_fields_json
+- explanations_json (why bullets / scoring breakdown)
+- questions_json (top questions to improve)
+- model_meta_json (optional: model/version used)
+- computed_at
+
+### product_archetype_classifications
+- id, workspace_id, campaign_id
+- archetype_key (enum or string)
+- confidence (0–1)
+- evidence_json (bullets)
+- decided_at
+
+### icp_templates
+- id
+- archetype_key
+- template_version
+- required_questions_json
+- default_icp_skeleton_json
+- rubric_weights_json
+- enabled (bool)
+- created_at, updated_at
+
+### icp_interview_sessions
+- id, workspace_id, campaign_id
+- status (`draft`|`in_progress`|`completed`|`abandoned`)
+- questions_json (asked)
+- answers_json
+- output_icp_json (final structured ICP)
+- started_at, completed_at
+
 (Keep existing leads/campaign_leads; “leads” should represent approved contacts.)
 
 ## API/contracts (main)
@@ -107,6 +150,35 @@
 ### ICP + drafting
 - `POST /api/icp/generate` → `{ icpProfileId, icp }`
 - `POST /api/messages/draft` → `{ subject, body, rationaleBullets? }`
+
+### ICP quality + archetype + templates
+- `POST /api/icp/score`
+  - req: `{ campaignId, icpVersionId }`
+  - res: `{ score, tier, missingFields, explanations, questions, computedAt }`
+
+- `POST /api/icp/classify-archetype`
+  - req: `{ campaignId, productProfile?: {...}, icpVersionId?: string }`
+  - res: `{ archetypeKey|null, confidence, evidence }`
+
+- `GET /api/icp/templates`
+  - res: `{ templates: [{ archetypeKey, templateVersion, enabled }] }`
+
+- `POST /api/icp/apply-template`
+  - req: `{ campaignId, archetypeKey, answers?: {...} }`
+  - res: `{ icpVersionId }`
+
+### Specialist interview
+- `POST /api/icp/interview/start`
+  - req: `{ campaignId, icpVersionId }`
+  - res: `{ sessionId, firstQuestions: [...] }`
+
+- `POST /api/icp/interview/answer`
+  - req: `{ sessionId, answers: {...} }`
+  - res: `{ nextQuestions: [...], done: boolean }`
+
+- `POST /api/icp/interview/complete`
+  - req: `{ sessionId }`
+  - res: `{ icpVersionId, diffSummary }`
 
 ### Campaigns
 - create/update/launch/pause/resume
@@ -198,6 +270,11 @@
 - Rate limit discovery endpoints to prevent abuse and runaway cost.
 - Add cost guardrails: per-workspace daily discovery limits and hard stop on provider quota errors.
 - Provenance is mandatory for provider-derived fields; store allowed usage notes per connector.
+- ICP interview content may include sensitive business info; treat as confidential:
+  - do not log full prompt/answers
+  - redact in structured logs
+- Rate limit `/api/icp/*` endpoints to control cost and abuse.
+- Store only structured outputs needed for product function (avoid raw website scrape dumps unless required).
 
 ## Observability
 - JSON structured logs with request_id/workspace_id/campaign_id/job_id.

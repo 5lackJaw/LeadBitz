@@ -14,6 +14,9 @@ Website: https://www.leadbitz.com
 - `/app/campaigns/:id/candidates` Candidates review (filter/sort/approve)
 - `/app/campaigns/:id/leads` Approved leads table (filter, suppression)
 - `/app/campaigns/:id/sequence` Sequence builder + templates
+- `/app/campaigns/:id/icp` ICP versions + quality score + actions
+- `/app/campaigns/:id/icp/improve` Specialist ICP Interview wizard
+- `/app/settings/icp-templates` (optional admin-only in MVP; can be hidden behind feature flag)
 - `/app/replies` Unified replies inbox
 - `/app/leads/:leadId` Lead detail (profile, provenance, timeline)
 - `/app/settings` Workspace settings
@@ -91,9 +94,35 @@ Website: https://www.leadbitz.com
 - Validation: require exactly one of URL or description.
 - AI failure: retry + “continue manually” (user can enter ICP without AI).
 
-**Step 2: ICP**
+**Step 2: ICP (quality-gated)**
 - Display AI draft sections; user can edit and save.
-- Required for proceeding: at least one target role/title + one target industry (or explicit “General B2B”).
+- After generation (or on demand), show **ICP Quality Panel**:
+  - score (0–100), tier badge, missing fields checklist, “top questions” list
+  - “Continue” is always available, but behavior differs by tier:
+    - ≥ 75: Continue normally
+    - 50–74: show warning + “Improve ICP” CTA
+    - < 50: block progression by default and show Scenario A/B modal (override allowed)
+- Actions:
+  - “Improve ICP” → routes to Specialist Interview wizard (structured)
+  - “Apply Template” → if archetype identified and template exists
+  - “Continue anyway” → saves the current ICP version and proceeds
+
+**Scenario A modal (archetype identified)**
+- Copy requirements:
+  - Must show why the ICP is insufficient (missing fields list)
+  - Must show identified archetype + confidence (human-readable)
+- Buttons:
+  - “Apply {archetype} template”
+  - “Improve with Specialist AI”
+  - “Continue anyway”
+
+**Scenario B modal (archetype not identified)**
+- Must ask a minimal disambiguation set (5–8 questions max) before offering template:
+  - e.g., business model, pricing, target user, sales motion, implementation type, typical buyer title
+- Buttons:
+  - “Answer questions”
+  - “Improve with Specialist AI”
+  - “Continue anyway”
 
 **Step 3: Lead Discovery (NEW)**
 - User selects:
@@ -140,6 +169,24 @@ Website: https://www.leadbitz.com
 ### Campaign overview
 - Metrics: queued/sent/failed/replies/bounces/unsubs.
 - Controls: pause/resume; edit future steps only.
+
+### ICP center (campaign-scoped)
+Route: `/app/campaigns/:id/icp`
+- Shows ICP versions list:
+  - Website draft
+  - Template-applied (if any)
+  - Specialist-improved (if any)
+- Each version shows:
+  - quality score + tier
+  - missing fields checklist
+  - “Use this ICP for discovery/messaging” selector (default = latest)
+- Actions:
+  - “Re-score” (if edited)
+  - “Apply template” (if archetype identified)
+  - “Improve with Specialist AI”
+- Edge cases:
+  - If AI scoring fails: show last known score + allow proceed
+  - If user edits ICP: mark score stale until re-score runs
 
 ### E) Approved Leads table (updated)
 - Shows only **approved** leads.

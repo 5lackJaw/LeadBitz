@@ -17,10 +17,58 @@ Outbound operators struggle with (1) defining ICP consistently, (2) managing lea
 - Create workspace (single-tenant per user by default) and campaigns.
 - Campaign wizard: Website/product input → ICP draft → lead import → sequence → review → launch.
 
-2) **ICP generation + editing**
+2) **ICP generation + editing (quality-gated)**
 - Ingest website URL or pasted product description.
-- AI produces: target industries, company size bands, buyer roles, pains, exclusions, value prop angles.
-- User can edit and save as ICP profile(s).
+- AI produces a structured ICP draft:
+  - target industries, company size bands, geos
+  - buyer roles/titles + seniority + departments
+  - pains + triggers ("why now")
+  - exclusions / anti-ICP
+  - value props + proof points
+- User can edit and save ICP versions.
+
+2.1) **ICP Quality Gate (required)**
+- After initial ICP generation, the system computes an **ICP Quality Score (0–100)** using a deterministic rubric and returns:
+  - score, tier, missing fields, and top questions to improve
+  - “why” bullets (explainable scoring)
+- Quality tiers:
+  - **≥ 75**: “High-quality ICP” → proceed normally
+  - **50–74**: “Usable ICP” → warn + recommend improvement
+  - **< 50**: “Insufficient ICP” → trigger Scenario A/B flow
+
+2.2) **Scenario A — insufficient ICP but product archetype identified**
+- If the system identifies a **product archetype** (e.g., “Outbound Automation SaaS”, “Dev Tools”, “Vertical SaaS”) above confidence threshold:
+  - Show a gating message:
+    - “We couldn’t create a high-quality ICP from your website alone.”
+    - “We think you fit the **{archetype}** model.”
+- If an ICP template exists for the archetype:
+  - Offer: “Apply our {archetype} ICP template” (guided, structured)
+- If no template exists:
+  - Offer: “Request a template” (logs an internal event)
+  - Offer: “Improve ICP with Specialist AI” (structured interview)
+- Always include: “No, continue anyway” (saves website ICP as-is)
+
+2.3) **Scenario B — insufficient ICP and archetype not identified**
+- Ask a short set of disambiguation questions to identify archetype:
+  - e.g., target user type, pricing model, sales motion, implementation type, buyer role
+- If archetype becomes identified → Scenario A.
+- If still not identified → offer “Specialist AI interview” to create a high-quality ICP.
+- Always include: “No, continue anyway” (saves website ICP as-is)
+
+2.4) **ICP Templates (archetype library)**
+- The product includes a small archetype template library (start with 5–10 archetypes).
+- Each template defines:
+  - required questions
+  - default ICP skeleton
+  - rubric weighting adjustments
+  - constraints/exclusions common to that archetype
+
+2.5) **Specialist ICP Interview (structured, not open chat)**
+- A guided wizard that asks only the questions needed to raise the ICP score.
+- Output must conform to the same structured ICP schema.
+- Produces:
+  - “Improved ICP” version saved alongside the website ICP
+  - a concise diff summary: what changed + why (for operator trust)
 
 3) **Leads: Automated discovery + enrichment + verification (compliance-first)**
 - ICP-driven lead discovery pipeline that produces **candidate companies + contacts** automatically.
@@ -87,6 +135,7 @@ Outbound operators struggle with (1) defining ICP consistently, (2) managing lea
 - System enforces: unsubscribe link + suppression + throttling/ramp on every campaign.
 - Campaign sending is reliable: **≥ 99%** scheduled send jobs either sent or fail with actionable error + retry state.
 - Replies are captured and visible in app for connected inboxes; user can categorize and respond.
+- ICP Quality Gate works end-to-end: score + missing-field checklist + improvement path; users can reach “High-quality ICP” tier for typical SaaS websites (via templates or Specialist interview).
 
 ## Key entities (plain English)
 - **User**: authenticated operator.
@@ -105,6 +154,11 @@ Outbound operators struggle with (1) defining ICP consistently, (2) managing lea
 - **Conversation**: thread of inbound/outbound messages for a lead.
 - **Suppression**: do-not-contact entry (unsubscribed, bounced, complained, manual).
 - **Provenance**: field-level source metadata (source, timestamp, confidence, allowed usage note).
+- **ICP Version**: a saved version of an ICP for a campaign (website draft, improved, template-applied).
+- **ICP Quality Score**: rubric score + tier + missing fields + explanations for a specific ICP version.
+- **Product Archetype**: classified model/category used to select an ICP template.
+- **ICP Template**: archetype-specific guided framework that produces a structured ICP.
+- **ICP Interview Session**: a structured Q&A session used to improve an ICP to meet the quality bar.
 
 ## Key workflows (step-by-step)
 

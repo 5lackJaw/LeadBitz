@@ -13,6 +13,9 @@ Deliverability-first cold outreach operations app:
 - AI-assisted email drafting (human approval)
 - Safe sending via connected inbox
 - Replies inbox + categorization
+- ICP quality gating (score + tier + missing-field checklist)
+- Archetype templates + Specialist ICP Interview wizard
+- ICP versions center (campaign-scoped)
 
 ## Phase planning log
 ### Phase 1 scope confirmation (2026-02-05)
@@ -334,6 +337,7 @@ Deliverability-first cold outreach operations app:
   - `GET /api/campaigns` and `POST /api/campaigns` payloads now include campaign control-surface fields.
 - Validation evidence for this follow-up:
   - `npm run verify`
+- Implementation note: Phase 4 extension: ICP quality gate + Scenario A/B + archetype templates + Specialist interview wizard were added as additive surfaces without removing existing wizard contracts.
 
 ### Phase 5 planning: provider selection + fields + quotas (2026-02-06)
 - Checklist task completed: plan/confirm licensed provider, supported filters, and quota guardrails for discovery.
@@ -422,6 +426,10 @@ UI:
 - `/app/campaigns/:id/discovery`
 - `/app/campaigns/:id/candidates`
 - `/app/campaigns/:id/leads`
+- `/app/campaigns/:id/sequence`
+- `/app/campaigns/:id/icp`
+- `/app/campaigns/:id/icp/improve`
+- `/app/settings/icp-templates`
 - `/app/replies`
 - `/app/settings/sources`
 - `/app/settings/verification`
@@ -432,6 +440,11 @@ API (high level):
 - Candidates: `/api/campaigns/:id/candidates`, `/api/campaigns/:id/candidates/approve`, `/api/campaigns/:id/candidates/reject`
 - Verification: `/api/verification/batch`
 - ICP + drafting: `/api/icp/generate`, `/api/messages/draft`
+- `/api/icp/score`
+- `/api/icp/classify-archetype`
+- `/api/icp/templates`
+- `/api/icp/apply-template`
+- `/api/icp/interview/*`
 - Sending + sync: `/api/cron/tick`, `/api/cron/sync-inbox`
 - Replies: `/api/replies`, `/api/conversations/*`
 
@@ -454,6 +467,11 @@ Lead discovery:
 - source_runs
 - candidates
 - email_verifications
+- icp_versions
+- icp_quality_scores
+- product_archetype_classifications
+- icp_templates
+- icp_interview_sessions
 
 Approved outreach:
 - leads
