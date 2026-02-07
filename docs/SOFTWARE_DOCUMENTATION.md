@@ -430,6 +430,21 @@ Deliverability-first cold outreach operations app:
   - Scoring controls are active only when wizard runs in campaign resume mode (`campaignId`) with known `icpVersionId`.
   - Non-campaign wizard runs show informational guidance that scoring requires campaign linkage.
 
+### Phase 4 progress: archetype classification endpoint + persistence (2026-02-07)
+- Added authenticated endpoint:
+  - `POST /api/icp/classify-archetype`
+- Endpoint behavior:
+  - Requires `campaignId`.
+  - Accepts optional `icpVersionId` and optional `productProfile` payload.
+  - Enforces workspace ownership for campaign and optional ICP version.
+  - Classifies archetype via service-level classifier hook (default deterministic fallback when no AI classifier is injected).
+  - Persists every classification run to `product_archetype_classifications`.
+  - Stores fallback key `UNIDENTIFIED` when no confident archetype is identified, while returning `archetypeKey: null` in API response.
+- Added service layer:
+  - `lib/icp/classify-product-archetype.ts` with explicit validation/not-found error classes and classifier injection contract.
+- Testing:
+  - Added integration coverage in `tests/integration/icp-classify-archetype.test.ts` with mocked classifier behavior and cross-workspace rejection checks.
+
 ### Phase 5 planning: provider selection + fields + quotas (2026-02-06)
 - Checklist task completed: plan/confirm licensed provider, supported filters, and quota guardrails for discovery.
 - Provider selection (MVP default):
@@ -717,6 +732,7 @@ Campaign control-surface additions:
 - `POST /api/icp/generate` currently uses an injectable draft generator abstraction; tests must mock the generator and verify DB persistence, while full OpenAI-backed generation remains a later implementation step.
 - `POST /api/icp/score` requires both `campaignId` and `icpVersionId`; the version must belong to the authenticated workspace and specified campaign or the API returns `404`.
 - Step 2 Quality Panel scoring controls are disabled when the wizard is not campaign-linked or when no `icpVersionId` is available from generation.
+- `POST /api/icp/classify-archetype` persists undecided outcomes as `UNIDENTIFIED` in DB while returning `archetypeKey: null` to callers.
 - ICP editor persistence requires non-empty list values per editable ICP field; empty lists are rejected by `PATCH /api/icp/profiles/:icpProfileId`.
 - Campaign-linked wizard resume requires `campaignId` query param (`/app/campaigns/new?campaignId=<id>`); without a campaign id, wizard state persistence is intentionally skipped.
 - Resume-wizard links disable route prefetch and wizard-state persistence now triggers `router.refresh()` to reduce stale app-router cache when reopening wizard after edits.
@@ -775,6 +791,7 @@ Campaign control-surface additions:
 - 2026-02-07: Added production hold-page behavior and launch toggle (`LIVE_APP_ENABLED`) so live can stay on a minimal placeholder while preview continues full-feature development.
 - 2026-02-07: Implemented `POST /api/icp/score` with deterministic rubric scoring persistence in `icp_quality_scores` and integration coverage for ownership and explainable payload behavior.
 - 2026-02-07: Added Step 2 ICP Quality Panel UX with score/tier/missing-field display, Improve CTA, and Continue-anyway path for non-high tiers.
+- 2026-02-07: Implemented `POST /api/icp/classify-archetype` with persisted archetype decisions and integration coverage using a mocked classifier hook.
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).
