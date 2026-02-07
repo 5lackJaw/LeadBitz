@@ -588,6 +588,22 @@ Deliverability-first cold outreach operations app:
 - Validation evidence:
   - `tests/integration/source-connectors-crud.test.ts` covers create/list/update and disabled-run blocking behavior.
 
+### Phase 5 progress: discovery run creation endpoint (2026-02-07)
+- Implemented discovery run creation API route:
+  - `POST /api/campaigns/:id/discovery/run`
+- Added discovery run service in `lib/sources/source-runs.ts`:
+  - validates campaign in workspace
+  - validates connector in workspace and enabled status
+  - validates optional `icpProfileId` ownership
+  - validates/normalizes `filters`, `limit`, `runLabel`
+  - persists `query_json` (`filters` + `limit`) and sets run `status=QUEUED`
+- Error mapping behavior:
+  - disabled connector -> `409`
+  - missing campaign/connector/icp profile in workspace -> `404`
+  - invalid payload -> `400`
+- Validation evidence:
+  - `tests/integration/discovery-run-create.test.ts` verifies queued status, stored `query_json`, connector-enabled enforcement, and workspace scoping.
+
 ### Phase 0b workflow hardening follow-up (2026-02-06)
 - Added baseline developer workflow automation focused on consistency and speed:
   - `AGENTS.md` path/writing clarifications to reduce instruction ambiguity.
@@ -911,6 +927,7 @@ Campaign control-surface additions:
 - 2026-02-07: Added campaign ICP Center route (`/app/campaigns/:id/icp`) with version listing, latest-score display, re-score action, and active-version switching via `PATCH /api/campaigns/:id/icp/active`.
 - 2026-02-07: Added Phase 5 discovery schema foundation migration (`20260207162122_add_source_discovery_tables`) with `source_connectors`, `source_runs`, `candidates`, and `email_verifications`, plus integration schema/index verification.
 - 2026-02-07: Added Phase 5 source connector CRUD APIs (`/api/sources`, `/api/sources/:id`) and workspace-scoped disabled-run enforcement guard with integration coverage.
+- 2026-02-07: Added Phase 5 discovery run creation endpoint (`POST /api/campaigns/:id/discovery/run`) with queued status persistence and connector-enabled validation.
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).
