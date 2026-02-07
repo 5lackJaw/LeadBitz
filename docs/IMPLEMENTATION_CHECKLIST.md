@@ -209,9 +209,10 @@
   - Acceptance: migration applies; indexes on campaign_id, source_run_id, email
   - Tests: integration
   - Note (2026-02-07): Added Prisma models/enums for `source_connectors`, `source_runs`, `candidates`, and `email_verifications` with required indexes (`candidates_campaign_id_idx`, `candidates_source_run_id_idx`, `candidates_email_idx`) and generated migration `20260207162122_add_source_discovery_tables`. Added integration coverage in `tests/integration/source-discovery-schema.test.ts` to verify table + index presence. Files touched: `prisma/schema.prisma`, `prisma/migrations/20260207162122_add_source_discovery_tables/migration.sql`, `tests/integration/source-discovery-schema.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
-- [ ] Implement source connector CRUD API (create/update/enable/disable)
+- [x] Implement source connector CRUD API (create/update/enable/disable)
   - Acceptance: can create connector; disable blocks runs
   - Tests: integration
+  - Note (2026-02-07): Added `GET/POST /api/sources` and `PATCH /api/sources/:id` routes backed by workspace-scoped source connector service functions. Added disabled-connector run guard (`assertSourceConnectorEnabledForWorkspace`) and integration coverage in `tests/integration/source-connectors-crud.test.ts` proving create/update/disable behavior and disabled-run blocking. Files touched: `app/api/sources/route.ts`, `app/api/sources/[sourceConnectorId]/route.ts`, `lib/sources/source-connectors.ts`, `tests/integration/source-connectors-crud.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 - [ ] Implement discovery run creation endpoint (creates source_run)
   - Acceptance: validates connector enabled; stores query_json; status queued
   - Tests: integration
