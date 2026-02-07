@@ -445,6 +445,18 @@ Deliverability-first cold outreach operations app:
 - Testing:
   - Added integration coverage in `tests/integration/icp-classify-archetype.test.ts` with mocked classifier behavior and cross-workspace rejection checks.
 
+### Phase 4 progress: Scenario A/B modal quality-gate flow (2026-02-07)
+- Updated Step 2 wizard UI to trigger Scenario A/B gating when ICP quality score tier is `INSUFFICIENT`.
+- Flow behavior:
+  - After scoring, wizard calls `/api/icp/classify-archetype` for campaign-linked ICP versions.
+  - Scenario A opens when archetype is identified above confidence threshold.
+  - Scenario B opens when archetype is unresolved/low-confidence and offers disambiguation-question input to retry classification.
+- Required actions now present in UI:
+  - Scenario A: `Apply template`, `Improve with Specialist AI`, `Continue anyway`.
+  - Scenario B: `Answer questions`, `Improve with Specialist AI`, `Continue anyway`.
+- Persistence behavior:
+  - Continue-anyway and disambiguation-submit flows now persist wizard state through existing campaign-linked wizard state persistence.
+
 ### Phase 5 planning: provider selection + fields + quotas (2026-02-06)
 - Checklist task completed: plan/confirm licensed provider, supported filters, and quota guardrails for discovery.
 - Provider selection (MVP default):
@@ -733,6 +745,7 @@ Campaign control-surface additions:
 - `POST /api/icp/score` requires both `campaignId` and `icpVersionId`; the version must belong to the authenticated workspace and specified campaign or the API returns `404`.
 - Step 2 Quality Panel scoring controls are disabled when the wizard is not campaign-linked or when no `icpVersionId` is available from generation.
 - `POST /api/icp/classify-archetype` persists undecided outcomes as `UNIDENTIFIED` in DB while returning `archetypeKey: null` to callers.
+- Scenario A/B gating appears only for campaign-linked wizard runs when scoring returns `INSUFFICIENT`; non-campaign runs keep quality panel guidance without modal gating.
 - ICP editor persistence requires non-empty list values per editable ICP field; empty lists are rejected by `PATCH /api/icp/profiles/:icpProfileId`.
 - Campaign-linked wizard resume requires `campaignId` query param (`/app/campaigns/new?campaignId=<id>`); without a campaign id, wizard state persistence is intentionally skipped.
 - Resume-wizard links disable route prefetch and wizard-state persistence now triggers `router.refresh()` to reduce stale app-router cache when reopening wizard after edits.
@@ -792,6 +805,7 @@ Campaign control-surface additions:
 - 2026-02-07: Implemented `POST /api/icp/score` with deterministic rubric scoring persistence in `icp_quality_scores` and integration coverage for ownership and explainable payload behavior.
 - 2026-02-07: Added Step 2 ICP Quality Panel UX with score/tier/missing-field display, Improve CTA, and Continue-anyway path for non-high tiers.
 - 2026-02-07: Implemented `POST /api/icp/classify-archetype` with persisted archetype decisions and integration coverage using a mocked classifier hook.
+- 2026-02-07: Added Scenario A/B modal gating flow in Step 2 wizard, including disambiguation-question retry path and continue-anyway state persistence.
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).

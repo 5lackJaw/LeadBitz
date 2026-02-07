@@ -77,6 +77,25 @@ type IcpScoreResponse = {
   error?: string;
 };
 
+type ArchetypeClassificationResponse = {
+  archetypeKey?: string | null;
+  confidence?: number;
+  evidence?: string[];
+  error?: string;
+};
+
+type ScenarioModalType = "A" | "B" | null;
+
+type DisambiguationAnswers = {
+  targetUserType: string;
+  pricingModel: string;
+  salesMotion: string;
+  implementationType: string;
+  buyerRole: string;
+};
+
+const ARCHETYPE_CONFIDENCE_THRESHOLD = 0.65;
+
 function listToTextarea(values: string[]): string {
   return values.join("\n");
 }
@@ -104,6 +123,18 @@ export function WizardStep1Form({ campaignId, initialState }: WizardStep1FormPro
   );
   const [isScoringIcp, setIsScoringIcp] = useState(false);
   const [icpScore, setIcpScore] = useState<IcpScoreResponse | null>(null);
+  const [isClassifyingArchetype, setIsClassifyingArchetype] = useState(false);
+  const [scenarioModal, setScenarioModal] = useState<ScenarioModalType>(null);
+  const [showDisambiguationForm, setShowDisambiguationForm] = useState(false);
+  const [archetypeClassification, setArchetypeClassification] =
+    useState<ArchetypeClassificationResponse | null>(null);
+  const [disambiguationAnswers, setDisambiguationAnswers] = useState<DisambiguationAnswers>({
+    targetUserType: "",
+    pricingModel: "",
+    salesMotion: "",
+    implementationType: "",
+    buyerRole: "",
+  });
   const [lastSavedAtLabel, setLastSavedAtLabel] = useState<string | null>(null);
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -177,6 +208,79 @@ export function WizardStep1Form({ campaignId, initialState }: WizardStep1FormPro
     } finally {
       setIsScoringIcp(false);
     }
+  }
+
+  async function runArchetypeClassification(input: {
+    campaignId: string;
+    icpVersionId: string;
+    productProfile?: Record<string, string>;
+  }) {
+    setIsClassifyingArchetype(true);
+
+    try {
+      const response = await fetch("/api/icp/classify-archetype", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(input),
+      });
+
+      const data = (await response.json()) as ArchetypeClassificationResponse;
+      if (!response.ok || typeof data.confidence !== "number") {
+        throw new Error(data.error ?? "Failed to classify product archetype.");
+      }
+
+      setArchetypeClassification(data);
+      return data;
+    } catch (error) {
+      setArchetypeClassification(null);
+      setErrorMessage(error instanceof Error ? error.message : "Failed to classify product archetype.");
+      return null;
+    } finally {
+      setIsClassifyingArchetype(false);
+    }
+  }
+
+  async function evaluateScenarioGate(input: {
+    campaignId: string;
+    icpVersionId: string;
+    scoreTier?: IcpQualityTier;
+    productProfile?: Record<string, string>;
+  }) {
+    if (input.scoreTier !== "INSUFFICIENT") {
+      setScenarioModal(null);
+      setShowDisambiguationForm(false);
+      return;
+    }
+
+    const classification = await runArchetypeClassification({
+      campaignId: input.campaignId,
+      icpVersionId: input.icpVersionId,
+      productProfile: input.productProfile,
+    });
+
+    if (!classification) {
+      return;
+    }
+
+    const hasArchetype =
+      Boolean(classification.archetypeKey) &&
+      (classification.confidence ?? 0) >= ARCHETYPE_CONFIDENCE_THRESHOLD;
+
+    setScenarioModal(hasArchetype ? "A" : "B");
+    setShowDisambiguationForm(false);
+  }
+
+  async function persistCurrentWizardState() {
+    await persistWizardState({
+      websiteUrl,
+      productDescription,
+      profileName,
+      icpVersionId,
+      generatedIcpProfileId,
+      icpEditorState,
+    });
   }
 
   function onWebsiteUrlChange(nextValue: string) {
@@ -257,6 +361,11 @@ export function WizardStep1Form({ campaignId, initialState }: WizardStep1FormPro
         });
 
         if (score) {
+          await evaluateScenarioGate({
+            campaignId,
+            icpVersionId: data.icpVersionId,
+            scoreTier: score.tier,
+          });
           setStatusMessage(
             `Step 1 validated. Step 2 draft scored ${score.score}/100 (${score.tier}).`,
           );
@@ -350,6 +459,11 @@ export function WizardStep1Form({ campaignId, initialState }: WizardStep1FormPro
           icpVersionId,
         });
         if (score) {
+          await evaluateScenarioGate({
+            campaignId,
+            icpVersionId,
+            scoreTier: score.tier,
+          });
           setStatusMessage(
             savedAtLabel
               ? `ICP edits saved at ${savedAtLabel}. Current quality score: ${score.score}/100 (${score.tier}).`
@@ -600,6 +714,11 @@ export function WizardStep1Form({ campaignId, initialState }: WizardStep1FormPro
 
                   const score = await runIcpScore({ campaignId, icpVersionId });
                   if (score) {
+                    await evaluateScenarioGate({
+                      campaignId,
+                      icpVersionId,
+                      scoreTier: score.tier,
+                    });
                     setStatusMessage(`ICP scored ${score.score}/100 (${score.tier}).`);
                   }
                 }}
@@ -667,6 +786,221 @@ export function WizardStep1Form({ campaignId, initialState }: WizardStep1FormPro
               </p>
             ) : null}
           </section>
+        </section>
+      ) : null}
+
+      {scenarioModal ? (
+        <section className="lb-panel" style={{ marginTop: "16px", borderColor: "var(--ui-sem-warning)" }}>
+          <h4 className="lb-title" style={{ fontSize: "18px", lineHeight: "28px" }}>
+            ICP quality gate
+          </h4>
+
+          {scenarioModal === "A" ? (
+            <div style={{ display: "grid", gap: "10px", marginTop: "10px" }}>
+              <p className="lb-subtitle">
+                We could not produce a high-quality ICP from website input alone.
+              </p>
+              <p className="lb-subtitle">
+                Detected archetype: <strong>{archetypeClassification?.archetypeKey ?? "Unknown"}</strong> (
+                confidence {Math.round((archetypeClassification?.confidence ?? 0) * 100)}%)
+              </p>
+              {archetypeClassification?.evidence?.length ? (
+                <ul className="lb-subtitle" style={{ margin: 0, paddingLeft: "20px" }}>
+                  {archetypeClassification.evidence.map((item, index) => (
+                    <li key={`${item}-${index}`}>{item}</li>
+                  ))}
+                </ul>
+              ) : null}
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
+                <button
+                  type="button"
+                  className="lb-button lb-button-secondary"
+                  onClick={() => {
+                    setStatusMessage(
+                      "Template application flow is the next implementation step. Continue anyway is available now.",
+                    );
+                  }}
+                >
+                  Apply {archetypeClassification?.archetypeKey ?? "archetype"} template
+                </button>
+                <button
+                  type="button"
+                  className="lb-button lb-button-secondary"
+                  onClick={() => {
+                    setStatusMessage(
+                      "Specialist ICP interview flow is queued in the next checklist task.",
+                    );
+                  }}
+                >
+                  Improve with Specialist AI
+                </button>
+                <button
+                  type="button"
+                  className="lb-button lb-button-primary"
+                  onClick={async () => {
+                    await persistCurrentWizardState();
+                    setScenarioModal(null);
+                    setStatusMessage("Scenario A bypass recorded. Continue anyway is enabled.");
+                  }}
+                >
+                  Continue anyway
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div style={{ display: "grid", gap: "10px", marginTop: "10px" }}>
+              <p className="lb-subtitle">
+                We could not classify your product archetype from the current ICP.
+              </p>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
+                <button
+                  type="button"
+                  className="lb-button lb-button-secondary"
+                  onClick={() => setShowDisambiguationForm((current) => !current)}
+                >
+                  Answer questions
+                </button>
+                <button
+                  type="button"
+                  className="lb-button lb-button-secondary"
+                  onClick={() => {
+                    setStatusMessage(
+                      "Specialist ICP interview flow is queued in the next checklist task.",
+                    );
+                  }}
+                >
+                  Improve with Specialist AI
+                </button>
+                <button
+                  type="button"
+                  className="lb-button lb-button-primary"
+                  onClick={async () => {
+                    await persistCurrentWizardState();
+                    setScenarioModal(null);
+                    setStatusMessage("Scenario B bypass recorded. Continue anyway is enabled.");
+                  }}
+                >
+                  Continue anyway
+                </button>
+              </div>
+
+              {showDisambiguationForm ? (
+                <form
+                  className="lb-form-grid"
+                  onSubmit={async (event) => {
+                    event.preventDefault();
+                    setErrorMessage(null);
+                    setStatusMessage(null);
+
+                    if (!campaignId || !icpVersionId) {
+                      setErrorMessage("Campaign-linked ICP version is required.");
+                      return;
+                    }
+
+                    const classification = await runArchetypeClassification({
+                      campaignId,
+                      icpVersionId,
+                      productProfile: disambiguationAnswers,
+                    });
+
+                    if (!classification) {
+                      return;
+                    }
+
+                    const hasArchetype =
+                      Boolean(classification.archetypeKey) &&
+                      (classification.confidence ?? 0) >= ARCHETYPE_CONFIDENCE_THRESHOLD;
+
+                    if (hasArchetype) {
+                      setScenarioModal("A");
+                      setShowDisambiguationForm(false);
+                      await persistCurrentWizardState();
+                      setStatusMessage("Disambiguation identified an archetype. Scenario A is now available.");
+                    } else {
+                      await persistCurrentWizardState();
+                      setStatusMessage(
+                        "Archetype still unresolved. You can continue anyway or use Specialist AI next.",
+                      );
+                    }
+                  }}
+                >
+                  <label className="lb-field">
+                    <span className="lb-label">Target user type</span>
+                    <input
+                      className="lb-input"
+                      value={disambiguationAnswers.targetUserType}
+                      onChange={(event) =>
+                        setDisambiguationAnswers((current) => ({
+                          ...current,
+                          targetUserType: event.target.value,
+                        }))
+                      }
+                      disabled={isClassifyingArchetype}
+                    />
+                  </label>
+                  <label className="lb-field">
+                    <span className="lb-label">Pricing model</span>
+                    <input
+                      className="lb-input"
+                      value={disambiguationAnswers.pricingModel}
+                      onChange={(event) =>
+                        setDisambiguationAnswers((current) => ({
+                          ...current,
+                          pricingModel: event.target.value,
+                        }))
+                      }
+                      disabled={isClassifyingArchetype}
+                    />
+                  </label>
+                  <label className="lb-field">
+                    <span className="lb-label">Sales motion</span>
+                    <input
+                      className="lb-input"
+                      value={disambiguationAnswers.salesMotion}
+                      onChange={(event) =>
+                        setDisambiguationAnswers((current) => ({
+                          ...current,
+                          salesMotion: event.target.value,
+                        }))
+                      }
+                      disabled={isClassifyingArchetype}
+                    />
+                  </label>
+                  <label className="lb-field">
+                    <span className="lb-label">Implementation type</span>
+                    <input
+                      className="lb-input"
+                      value={disambiguationAnswers.implementationType}
+                      onChange={(event) =>
+                        setDisambiguationAnswers((current) => ({
+                          ...current,
+                          implementationType: event.target.value,
+                        }))
+                      }
+                      disabled={isClassifyingArchetype}
+                    />
+                  </label>
+                  <label className="lb-field">
+                    <span className="lb-label">Typical buyer role</span>
+                    <input
+                      className="lb-input"
+                      value={disambiguationAnswers.buyerRole}
+                      onChange={(event) =>
+                        setDisambiguationAnswers((current) => ({
+                          ...current,
+                          buyerRole: event.target.value,
+                        }))
+                      }
+                      disabled={isClassifyingArchetype}
+                    />
+                  </label>
+                  <button className="lb-button lb-button-secondary" type="submit" disabled={isClassifyingArchetype}>
+                    {isClassifyingArchetype ? "Classifying..." : "Submit answers"}
+                  </button>
+                </form>
+              ) : null}
+            </div>
+          )}
         </section>
       ) : null}
 
