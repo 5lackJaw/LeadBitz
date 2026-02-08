@@ -91,6 +91,9 @@ if (!canRun) {
       assert.deepEqual(stats, {
         fetched: 2,
         candidatesCreated: 1,
+        approvableCandidates: 1,
+        suppressedByBlocklist: 0,
+        suppressedByDuplicate: 0,
         skippedMissingEmail: 1,
       });
 

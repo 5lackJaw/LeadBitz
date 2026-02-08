@@ -650,6 +650,23 @@ Deliverability-first cold outreach operations app:
 - Added integration coverage:
   - `tests/integration/email-verification-worker.test.ts` validates verification row writes and candidate status updates with mocked verifier responses.
 
+### Phase 5 progress: suppression + dedupe during candidate creation (2026-02-08)
+- Extended discovery worker suppression/dedupe enforcement in `lib/sources/discovery-run-worker.ts`:
+  - applies workspace suppression list matches by email
+  - applies lead-email dedupe (existing approved contacts)
+  - applies existing campaign-candidate dedupe (email + provider person/company ids)
+  - applies same-run dedupe (email + provider person/company ids)
+- Candidate status behavior:
+  - blocked/duplicate candidates are persisted as `status=SUPPRESSED`
+  - only non-blocked, non-duplicate candidates remain `status=NEW` (approvable)
+- Worker stats now include:
+  - `approvableCandidates`
+  - `suppressedByBlocklist`
+  - `suppressedByDuplicate`
+  - existing `fetched`, `candidatesCreated`, `skippedMissingEmail`
+- Added integration coverage:
+  - `tests/integration/discovery-run-suppression-dedupe.test.ts` validates suppression-list matches and both existing + in-run dedupe behavior.
+
 ### Phase 0b workflow hardening follow-up (2026-02-06)
 - Added baseline developer workflow automation focused on consistency and speed:
   - `AGENTS.md` path/writing clarifications to reduce instruction ambiguity.
@@ -977,6 +994,7 @@ Campaign control-surface additions:
 - 2026-02-07: Added Phase 5 PDL provider wrapper (`lib/sources/pdl-client.ts`) with transient retry/backoff, request pacing, typed parsing, and cursor pagination plus unit/mock-integration tests.
 - 2026-02-07: Added Phase 5 discovery run worker (`lib/sources/discovery-run-worker.ts`) to fetch/normalize/store candidates and persist source-run lifecycle stats with mocked integration coverage.
 - 2026-02-07: Added Phase 5 email verification client and batch worker to persist `email_verifications` and update candidate verification status with mocked integration coverage.
+- 2026-02-08: Added Phase 5 suppression + dedupe enforcement during candidate creation; blocked/duplicate candidates are marked `SUPPRESSED` and excluded from approvable counts.
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).

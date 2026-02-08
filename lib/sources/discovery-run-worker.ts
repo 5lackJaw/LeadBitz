@@ -14,6 +14,12 @@ type DiscoveryClient = {
   fetchAllCandidates(input: { filters?: Record<string, unknown>; limit: number }): Promise<PdlCandidate[]>;
 };
 
+type CandidatePreparedRow = Prisma.CandidateCreateManyInput & {
+  dedupeKeyEmail: string;
+  dedupeKeyPersonProviderId: string | null;
+  dedupeKeyCompanyProviderId: string | null;
+};
+
 function normalizeQueryJson(queryJson: unknown): { filters: Record<string, unknown>; limit: number } {
   const root = queryJson && typeof queryJson === "object" && !Array.isArray(queryJson)
     ? (queryJson as Record<string, unknown>)
@@ -35,7 +41,7 @@ function toCandidateCreateInput(input: {
   campaignId: string;
   sourceRunId: string;
   candidate: PdlCandidate;
-}): Prisma.CandidateCreateManyInput | null {
+}): CandidatePreparedRow | null {
   const email = input.candidate.email?.trim().toLowerCase() ?? "";
   if (!email) {
     return null;
@@ -60,6 +66,176 @@ function toCandidateCreateInput(input: {
     confidenceScore: null,
     verificationStatus: CandidateVerificationStatus.UNKNOWN,
     status: CandidateStatus.NEW,
+    dedupeKeyEmail: email,
+    dedupeKeyPersonProviderId: input.candidate.personProviderId,
+    dedupeKeyCompanyProviderId: input.candidate.company.id,
+  };
+}
+
+function normalizeNonEmptyStringSet(values: Array<string | null | undefined>): Set<string> {
+  const normalized = values
+    .map((value) => (typeof value === "string" ? value.trim().toLowerCase() : ""))
+    .filter((value) => value.length > 0);
+
+  return new Set(normalized);
+}
+
+async function applySuppressionAndDedupe(input: {
+  workspaceId: string;
+  campaignId: string;
+  candidateRows: CandidatePreparedRow[];
+}): Promise<{
+  rows: Prisma.CandidateCreateManyInput[];
+  suppressedByBlocklist: number;
+  suppressedByDuplicate: number;
+}> {
+  const emails = Array.from(new Set(input.candidateRows.map((row) => row.dedupeKeyEmail)));
+  const personProviderIds = Array.from(
+    new Set(
+      input.candidateRows
+        .map((row) => row.dedupeKeyPersonProviderId?.trim().toLowerCase() ?? "")
+        .filter(Boolean),
+    ),
+  );
+  const companyProviderIds = Array.from(
+    new Set(
+      input.candidateRows
+        .map((row) => row.dedupeKeyCompanyProviderId?.trim().toLowerCase() ?? "")
+        .filter(Boolean),
+    ),
+  );
+
+  const [suppressionRows, leadRows, existingCandidateRows] = await Promise.all([
+    prisma.suppression.findMany({
+      where: {
+        workspaceId: input.workspaceId,
+        email: {
+          in: emails,
+        },
+      },
+      select: {
+        email: true,
+      },
+    }),
+    prisma.lead.findMany({
+      where: {
+        workspaceId: input.workspaceId,
+        email: {
+          in: emails,
+        },
+      },
+      select: {
+        email: true,
+      },
+    }),
+    prisma.candidate.findMany({
+      where: {
+        campaignId: input.campaignId,
+        OR: [
+          {
+            email: {
+              in: emails,
+            },
+          },
+          ...(personProviderIds.length > 0
+            ? [
+                {
+                  personProviderId: {
+                    in: personProviderIds,
+                  },
+                },
+              ]
+            : []),
+          ...(companyProviderIds.length > 0
+            ? [
+                {
+                  companyProviderId: {
+                    in: companyProviderIds,
+                  },
+                },
+              ]
+            : []),
+        ],
+      },
+      select: {
+        email: true,
+        personProviderId: true,
+        companyProviderId: true,
+      },
+    }),
+  ]);
+
+  const blockedEmails = normalizeNonEmptyStringSet([...suppressionRows.map((row) => row.email), ...leadRows.map((row) => row.email)]);
+  const existingCandidateEmails = normalizeNonEmptyStringSet(existingCandidateRows.map((row) => row.email));
+  const existingCandidatePersonIds = normalizeNonEmptyStringSet(
+    existingCandidateRows.map((row) => row.personProviderId),
+  );
+  const existingCandidateCompanyIds = normalizeNonEmptyStringSet(
+    existingCandidateRows.map((row) => row.companyProviderId),
+  );
+
+  const seenEmails = new Set<string>();
+  const seenPersonIds = new Set<string>();
+  const seenCompanyIds = new Set<string>();
+
+  let suppressedByBlocklist = 0;
+  let suppressedByDuplicate = 0;
+
+  const rows = input.candidateRows.map((row) => {
+    const email = row.dedupeKeyEmail;
+    const personId = row.dedupeKeyPersonProviderId?.trim().toLowerCase() ?? "";
+    const companyId = row.dedupeKeyCompanyProviderId?.trim().toLowerCase() ?? "";
+
+    const isBlocked = blockedEmails.has(email);
+    const isDuplicate =
+      existingCandidateEmails.has(email) ||
+      seenEmails.has(email) ||
+      (personId.length > 0 && (existingCandidatePersonIds.has(personId) || seenPersonIds.has(personId))) ||
+      (companyId.length > 0 && (existingCandidateCompanyIds.has(companyId) || seenCompanyIds.has(companyId)));
+
+    if (isBlocked) {
+      suppressedByBlocklist += 1;
+    } else if (isDuplicate) {
+      suppressedByDuplicate += 1;
+    }
+
+    seenEmails.add(email);
+    if (personId.length > 0) {
+      seenPersonIds.add(personId);
+    }
+    if (companyId.length > 0) {
+      seenCompanyIds.add(companyId);
+    }
+
+    return {
+      workspaceId: row.workspaceId,
+      campaignId: row.campaignId,
+      sourceRunId: row.sourceRunId,
+      personProviderId: row.personProviderId,
+      companyProviderId: row.companyProviderId,
+      email: row.email,
+      firstName: row.firstName,
+      lastName: row.lastName,
+      title: row.title,
+      seniority: row.seniority,
+      department: row.department,
+      companyName: row.companyName,
+      companyDomain: row.companyDomain,
+      companyWebsite: row.companyWebsite,
+      locationJson: row.locationJson,
+      confidenceScore: row.confidenceScore,
+      verificationStatus: row.verificationStatus,
+      status:
+        isBlocked || isDuplicate
+          ? CandidateStatus.SUPPRESSED
+          : CandidateStatus.NEW,
+    };
+  });
+
+  return {
+    rows,
+    suppressedByBlocklist,
+    suppressedByDuplicate,
   };
 }
 
@@ -145,7 +321,7 @@ export async function executeDiscoveryRun(input: {
       limit: normalizedQuery.limit,
     });
 
-    const candidateRows = fetchedCandidates
+    const preparedCandidateRows = fetchedCandidates
       .map((candidate) =>
         toCandidateCreateInput({
           workspaceId: sourceRun.workspaceId,
@@ -154,18 +330,28 @@ export async function executeDiscoveryRun(input: {
           candidate,
         }),
       )
-      .filter((candidate): candidate is Prisma.CandidateCreateManyInput => candidate !== null);
+      .filter((candidate): candidate is CandidatePreparedRow => candidate !== null);
 
-    if (candidateRows.length > 0) {
+    const dedupedCandidates = await applySuppressionAndDedupe({
+      workspaceId: sourceRun.workspaceId,
+      campaignId: sourceRun.campaignId,
+      candidateRows: preparedCandidateRows,
+    });
+
+    if (dedupedCandidates.rows.length > 0) {
       await prisma.candidate.createMany({
-        data: candidateRows,
+        data: dedupedCandidates.rows,
       });
     }
 
+    const approvableCount = dedupedCandidates.rows.filter((row) => row.status === CandidateStatus.NEW).length;
     const stats = {
       fetched: fetchedCandidates.length,
-      candidatesCreated: candidateRows.length,
-      skippedMissingEmail: fetchedCandidates.length - candidateRows.length,
+      candidatesCreated: dedupedCandidates.rows.length,
+      approvableCandidates: approvableCount,
+      suppressedByBlocklist: dedupedCandidates.suppressedByBlocklist,
+      suppressedByDuplicate: dedupedCandidates.suppressedByDuplicate,
+      skippedMissingEmail: fetchedCandidates.length - preparedCandidateRows.length,
     };
 
     await prisma.sourceRun.update({
