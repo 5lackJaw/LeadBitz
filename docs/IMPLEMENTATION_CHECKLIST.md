@@ -254,9 +254,10 @@
   - Acceptance: fallback explicitly positioned; does not replace discovery
   - Tests: n/a
   - Note (2026-02-08): Confirmed Phase 6 is a fallback ingestion surface only (CSV/paste/manual) and does not replace licensed-provider discovery as the primary lead acquisition path. Documented mapping UX boundaries, dedupe/suppression/provenance expectations, and out-of-scope constraints in `docs/SOFTWARE_DOCUMENTATION.md`. Files touched: `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
-- [ ] Implement CSV import API with dedupe + suppression + provenance source csv_import
+- [x] Implement CSV import API with dedupe + suppression + provenance source csv_import
   - Acceptance: row-level errors; provenance recorded
   - Tests: integration
+  - Note (2026-02-08): Added `POST /api/campaigns/:campaignId/leads/import/csv` backed by `importCsvLeadsForWorkspace` service with CSV parsing, row-level outcome reporting, suppression filtering, dedupe (in-file + existing leads), campaign lead linking, and provenance writes via `lead_sources(name=csv_import)` + `lead_field_provenance`. Added integration coverage in `tests/integration/csv-import-api.test.ts`. Files touched: `app/api/campaigns/[campaignId]/leads/import/csv/route.ts`, `lib/leads/csv-import.ts`, `tests/integration/csv-import-api.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 - [ ] Implement paste/manual add API with dedupe + suppression
   - Acceptance: validates email; prevents duplicates
   - Tests: unit+integration
