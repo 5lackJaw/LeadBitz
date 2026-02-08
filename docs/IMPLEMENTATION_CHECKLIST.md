@@ -237,9 +237,10 @@
   - Acceptance: filters work (verification, confidence, role, source_run)
   - Tests: integration
   - Note (2026-02-08): Added workspace-scoped candidates listing service and API endpoint `GET /api/campaigns/:campaignId/candidates` with filter support (`verificationStatus`, `confidenceMin`, `role`, `sourceRunId`) and cursor pagination (`pageSize`, `cursor`). Added integration coverage in `tests/integration/candidates-list.test.ts` for filters, pagination, workspace isolation, and invalid-input/not-found handling. Files touched: `lib/sources/candidates.ts`, `app/api/campaigns/[campaignId]/candidates/route.ts`, `tests/integration/candidates-list.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
-- [ ] Implement candidates review UI (/candidates) with approve/reject flows
+- [x] Implement candidates review UI (/candidates) with approve/reject flows
   - Acceptance: bulk approve moves to Leads; reject persists
   - Tests: e2e
+  - Note (2026-02-08): Replaced `/app/campaigns/:id/candidates` placeholder with a working candidates review UI including filters, selectable table rows, bulk "Approve to leads" and "Reject selected" flows, and cursor pagination controls. Implemented server-side review actions and candidate-review service to persist candidate status updates and campaign lead creation. Added integration coverage in `tests/integration/candidates-review.test.ts`. Files touched: `app/app/campaigns/[campaignId]/candidates/page.tsx`, `app/app/campaigns/[campaignId]/candidates/candidates-review-client.tsx`, `app/app/campaigns/[campaignId]/candidates/actions.ts`, `lib/sources/candidate-review.ts`, `tests/integration/candidates-review.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 - [ ] Implement approve endpoint (Candidates → Leads) with enforcement rules
   - Acceptance: cannot approve invalid emails; verified-only default; explicit allowUnverified requires confirmation
   - Tests: integration
