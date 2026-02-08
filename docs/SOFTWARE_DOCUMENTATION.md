@@ -762,6 +762,19 @@ Deliverability-first cold outreach operations app:
 - Added integration coverage:
   - `tests/integration/csv-import-api.test.ts` validates row-level outcomes, dedupe/suppression behavior, campaign link persistence, and provenance writes.
 
+### Phase 6 progress: manual/paste import API with dedupe/suppression (2026-02-08)
+- Added endpoint:
+  - `POST /api/campaigns/:campaignId/leads/import/manual`
+  - request body: `{ rows: [{ email, firstName?, lastName?, title?, companyName?, companyDomain? }] }`
+  - response body includes import counters + per-row outcomes.
+- Added manual import service `importManualLeadsForWorkspace`:
+  - validates input row shape and email format
+  - applies suppression checks and dedupe (in-request + existing leads)
+  - links imported or existing leads to the campaign
+  - writes provenance via `lead_sources(name=manual_import)` and `lead_field_provenance`
+- Added integration coverage:
+  - `tests/integration/manual-import-api.test.ts` verifies validation, dedupe/suppression outcomes, campaign linking, and provenance writes.
+
 ### Phase 0b workflow hardening follow-up (2026-02-06)
 - Added baseline developer workflow automation focused on consistency and speed:
   - `AGENTS.md` path/writing clarifications to reduce instruction ambiguity.
@@ -829,6 +842,7 @@ API (high level):
 - Discovery runs: `/api/campaigns/:id/discovery/run`, `/api/campaigns/:id/discovery/runs`
 - Candidates: `/api/campaigns/:id/candidates`, `/api/campaigns/:id/candidates/approve`, `/api/campaigns/:id/candidates/reject`
 - Lead import fallback: `/api/campaigns/:id/leads/import/csv`
+- Lead import manual: `/api/campaigns/:id/leads/import/manual`
 - Verification: `/api/verification/batch`
 - ICP + drafting: `/api/icp/generate`, `/api/messages/draft`
 - `/api/icp/score`
@@ -1097,6 +1111,7 @@ Campaign control-surface additions:
 - 2026-02-08: Closed Phase 5 documentation with consolidated summary, implementation decisions, and operational gotchas.
 - 2026-02-08: Confirmed Phase 6 fallback import scope and mapping UX boundaries (fallback-only, discovery remains primary).
 - 2026-02-08: Added Phase 6 CSV import API with row-level outcomes, suppression/dedupe enforcement, campaign linking, and `csv_import` provenance.
+- 2026-02-08: Added Phase 6 manual/paste import API with email validation, suppression/dedupe enforcement, campaign linking, and `manual_import` provenance.
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).
