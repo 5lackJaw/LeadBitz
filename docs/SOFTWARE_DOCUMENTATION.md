@@ -679,6 +679,20 @@ Deliverability-first cold outreach operations app:
 - Added integration coverage:
   - `tests/integration/candidates-list.test.ts` verifies filter behavior, cursor paging, workspace isolation, and validation/not-found errors.
 
+### Phase 5 progress: candidates review UI with approve/reject flows (2026-02-08)
+- Replaced `/app/campaigns/:id/candidates` placeholder with functional review UI:
+  - filters (`verificationStatus`, `role`, `sourceRunId`, `confidenceMin`)
+  - selectable candidates table with bulk actions
+  - bulk actions: `Approve to leads` and `Reject selected`
+  - cursor pagination via the candidates list API
+- Added campaign-scoped review action layer:
+  - `approveCandidatesToLeadsForWorkspace` creates/updates `leads`, links `campaign_leads`, and marks candidates `APPROVED`
+  - `rejectCandidatesForWorkspace` marks selected new candidates `REJECTED`
+- Added App Router server actions for UI flow persistence:
+  - `approveCandidatesAction` and `rejectCandidatesAction` in campaign candidates route
+- Added integration coverage:
+  - `tests/integration/candidates-review.test.ts` validates approve-to-lead linkage and reject persistence.
+
 ### Phase 0b workflow hardening follow-up (2026-02-06)
 - Added baseline developer workflow automation focused on consistency and speed:
   - `AGENTS.md` path/writing clarifications to reduce instruction ambiguity.
@@ -1008,6 +1022,7 @@ Campaign control-surface additions:
 - 2026-02-07: Added Phase 5 email verification client and batch worker to persist `email_verifications` and update candidate verification status with mocked integration coverage.
 - 2026-02-08: Added Phase 5 suppression + dedupe enforcement during candidate creation; blocked/duplicate candidates are marked `SUPPRESSED` and excluded from approvable counts.
 - 2026-02-08: Added Phase 5 candidates list API (`GET /api/campaigns/:id/candidates`) with verification/confidence/role/source-run filters and cursor pagination, plus integration coverage.
+- 2026-02-08: Replaced candidates review placeholder UI with bulk approve/reject flows and added server-side candidate review persistence plus integration coverage.
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).
