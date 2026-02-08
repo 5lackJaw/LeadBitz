@@ -233,9 +233,10 @@
   - Acceptance: suppressed/duplicate candidates marked and excluded from “approvable”
   - Tests: integration
   - Note (2026-02-08): Extended discovery worker candidate creation path to apply suppression list + dedupe rules (existing suppressions, existing leads, existing campaign candidates, and same-run duplicates by email/person/company IDs). Candidates matching these checks are persisted with `status=SUPPRESSED`, while approvable rows remain `status=NEW`. Added integration coverage in `tests/integration/discovery-run-suppression-dedupe.test.ts` and updated worker stats to include `approvableCandidates`, `suppressedByBlocklist`, and `suppressedByDuplicate`. Files touched: `lib/sources/discovery-run-worker.ts`, `tests/integration/discovery-run-worker.test.ts`, `tests/integration/discovery-run-suppression-dedupe.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
-- [ ] Implement candidates list API (filters, pagination)
+- [x] Implement candidates list API (filters, pagination)
   - Acceptance: filters work (verification, confidence, role, source_run)
   - Tests: integration
+  - Note (2026-02-08): Added workspace-scoped candidates listing service and API endpoint `GET /api/campaigns/:campaignId/candidates` with filter support (`verificationStatus`, `confidenceMin`, `role`, `sourceRunId`) and cursor pagination (`pageSize`, `cursor`). Added integration coverage in `tests/integration/candidates-list.test.ts` for filters, pagination, workspace isolation, and invalid-input/not-found handling. Files touched: `lib/sources/candidates.ts`, `app/api/campaigns/[campaignId]/candidates/route.ts`, `tests/integration/candidates-list.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 - [ ] Implement candidates review UI (/candidates) with approve/reject flows
   - Acceptance: bulk approve moves to Leads; reject persists
   - Tests: e2e
