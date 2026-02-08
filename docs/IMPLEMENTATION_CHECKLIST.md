@@ -250,9 +250,10 @@
 
 
 ## Phase 6 — Lead import fallback (CSV/paste/manual) + provenance (optional but recommended)
-- [ ] Plan/confirm Phase 6 fallback import scope + mapping UX
+- [x] Plan/confirm Phase 6 fallback import scope + mapping UX
   - Acceptance: fallback explicitly positioned; does not replace discovery
   - Tests: n/a
+  - Note (2026-02-08): Confirmed Phase 6 is a fallback ingestion surface only (CSV/paste/manual) and does not replace licensed-provider discovery as the primary lead acquisition path. Documented mapping UX boundaries, dedupe/suppression/provenance expectations, and out-of-scope constraints in `docs/SOFTWARE_DOCUMENTATION.md`. Files touched: `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 - [ ] Implement CSV import API with dedupe + suppression + provenance source csv_import
   - Acceptance: row-level errors; provenance recorded
   - Tests: integration

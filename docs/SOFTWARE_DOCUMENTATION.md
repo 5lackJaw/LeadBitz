@@ -731,6 +731,23 @@ Deliverability-first cold outreach operations app:
   - `npm run test:integration`
   - `npm run build`
 
+### Phase 6 scope confirmation: fallback import surfaces (2026-02-08)
+- Confirmed Phase 6 role: fallback lead ingestion only, not a replacement for provider-driven discovery.
+- In scope for Phase 6:
+  - CSV import API with explicit field mapping and row-level validation errors.
+  - Paste/manual add API for small-batch operator input.
+  - Dedupe + suppression checks aligned with existing candidate/lead safety rules.
+  - Provenance capture for fallback imports (`source: csv_import` and manual equivalent).
+  - UI tools for import inside campaign leads management surface.
+- Out of scope for Phase 6:
+  - Any bypass of candidate approval safety model for provider-discovered records.
+  - Automated scraping or new external discovery providers.
+  - Sequence/sending behavior changes (handled by later phases).
+- Mapping UX contract:
+  - Required target fields: email (required), first name, last name, title, company name/domain.
+  - Unknown/unmapped columns are ignored unless explicitly mapped.
+  - Invalid rows are reported without blocking valid-row imports.
+
 ### Phase 0b workflow hardening follow-up (2026-02-06)
 - Added baseline developer workflow automation focused on consistency and speed:
   - `AGENTS.md` path/writing clarifications to reduce instruction ambiguity.
@@ -1063,6 +1080,7 @@ Campaign control-surface additions:
 - 2026-02-08: Replaced candidates review placeholder UI with bulk approve/reject flows and added server-side candidate review persistence plus integration coverage.
 - 2026-02-08: Added candidates approve API endpoint with verified-only defaults, invalid-email blocking, explicit unverified override confirmation, and structured rejection reasons.
 - 2026-02-08: Closed Phase 5 documentation with consolidated summary, implementation decisions, and operational gotchas.
+- 2026-02-08: Confirmed Phase 6 fallback import scope and mapping UX boundaries (fallback-only, discovery remains primary).
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).
