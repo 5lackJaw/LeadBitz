@@ -355,6 +355,16 @@ App shell:
 - md+: left nav 264px (collapsible to 80px) + top bar 56px
 - xs: hamburger drawer nav
 
+### Top Utility Bar - Responsive Behavior (SHELL-U-002)
+- The top utility bar MUST remain visible on all breakpoints.
+- On mobile, the navigation drawer opens beneath the fixed top bar (no overlap of top bar controls).
+- Controls MUST collapse responsively to prevent overlap while keeping all actions accessible.
+
+### Right Rail - Responsive Rules
+- Desktop: fixed right rail when present per screen contract
+- Tablet: overlay panel (default closed)
+- Mobile: right-rail content collapses below primary content or is omitted per screen contract (SHELL-013/SHELL-023)
+
 Main container:
 - max width 1440px, except tables may go full width.
 

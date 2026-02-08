@@ -5,7 +5,8 @@ Product: LeadBitz
 Website: https://www.leadbitz.com
 
 ## Information architecture (routes/sections)
-- `/app` App shell (auth required)
+- `/app` Dashboard (canonical; auth required inside app shell)
+- `/app/dashboard` Dashboard alias route (redirect-only to `/app`)
 - `/app/onboarding` Connect inbox + workspace defaults
 - `/app/campaigns` Campaign list
 - `/app/campaigns/new` Campaign wizard
@@ -18,6 +19,7 @@ Website: https://www.leadbitz.com
 - `/app/campaigns/:id/icp/improve` Specialist ICP Interview wizard
 - `/app/settings/icp-templates` (optional admin-only in MVP; can be hidden behind feature flag)
 - `/app/replies` Unified replies inbox
+- `/app/leads` Leads list (canonical)
 - `/app/leads/:leadId` Lead detail (profile, provenance, timeline)
 - `/app/settings` Workspace settings
   - `/app/settings/inboxes`
@@ -25,6 +27,42 @@ Website: https://www.leadbitz.com
   - `/app/settings/suppressions`
   - `/app/settings/sources` Source connectors + governance
   - `/app/settings/verification` Email verification provider settings (MVP minimal)
+
+### Dashboard (Canonical)
+- Canonical route: `/app`
+- Alias route (redirect-only): `/app/dashboard` MUST 308 redirect to `/app`
+- Global nav item "Dashboard" MUST link to `/app`
+- Any internal links, breadcrumbs, and deep-link generation MUST use `/app` as the canonical Dashboard URL
+
+### Leads
+- Leads list (canonical): `/app/leads`
+- Lead detail (preserved): `/app/leads/:leadId`
+- Global nav item "Leads" MUST link to `/app/leads`
+- Active-nav: "Leads" is active on `/app/leads` and `/app/leads/:leadId`
+
+## App Shell
+### Global Search - Behavior
+- Placement: Top utility bar (SHELL-008). Must remain global and non-page-specific (SHELL-009).
+- Mode: typeahead with inline results panel anchored to the search input.
+- Scope (IA-defined domains only):
+  - Campaigns (route targets under `/app/campaigns/*`)
+  - Leads (route targets under `/app/leads` and `/app/leads/:leadId`)
+  - Replies (route target: `/app/replies`)
+  - Settings (route targets under `/app/settings/*`)
+- Interaction:
+  - Results update as the user types (debounced).
+  - ArrowUp/ArrowDown moves selection.
+  - Enter navigates to the selected result's canonical route.
+  - Esc closes the results panel; focus remains on the input.
+  - Clicking outside closes the results panel.
+- Result rendering:
+  - Results MUST be grouped by domain (Campaigns, Leads, Replies, Settings).
+  - Each result MUST show a primary label and secondary context when available.
+
+### Support / Help
+- Entry: Sidebar lower section (SHELL-005)
+- Behavior: Opens external support/docs destination in a new tab/window
+- No in-app route is required for Support/Help
 
 ## Permissions model
 - MVP roles: `Owner` only.
