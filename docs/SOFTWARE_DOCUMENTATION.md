@@ -775,6 +775,17 @@ Deliverability-first cold outreach operations app:
 - Added integration coverage:
   - `tests/integration/manual-import-api.test.ts` verifies validation, dedupe/suppression outcomes, campaign linking, and provenance writes.
 
+### Phase 6 progress: campaign leads import UI (2026-02-08)
+- Added campaign leads page:
+  - `GET /app/campaigns/:id/leads`
+  - includes CSV import panel, manual/paste import panel, import outcome table, and campaign leads table.
+- UI behaviors:
+  - calls `/api/campaigns/:id/leads/import/csv` and `/api/campaigns/:id/leads/import/manual`
+  - displays dedupe/suppression/invalid outcomes returned by APIs
+  - refreshes campaign leads list after successful import
+- Navigation:
+  - added `Leads` CTA link on campaign overview action row.
+
 ### Phase 0b workflow hardening follow-up (2026-02-06)
 - Added baseline developer workflow automation focused on consistency and speed:
   - `AGENTS.md` path/writing clarifications to reduce instruction ambiguity.
@@ -1112,6 +1123,7 @@ Campaign control-surface additions:
 - 2026-02-08: Confirmed Phase 6 fallback import scope and mapping UX boundaries (fallback-only, discovery remains primary).
 - 2026-02-08: Added Phase 6 CSV import API with row-level outcomes, suppression/dedupe enforcement, campaign linking, and `csv_import` provenance.
 - 2026-02-08: Added Phase 6 manual/paste import API with email validation, suppression/dedupe enforcement, campaign linking, and `manual_import` provenance.
+- 2026-02-08: Added `/app/campaigns/:id/leads` import UI with CSV/manual tools and visible row-level import outcomes.
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).

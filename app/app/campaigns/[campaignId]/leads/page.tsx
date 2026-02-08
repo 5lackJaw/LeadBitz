@@ -1,0 +1,54 @@
+import Link from "next/link";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+
+import { authOptions } from "@/auth";
+import { getPrimaryWorkspaceForUserEmail } from "@/lib/auth/get-primary-workspace";
+import { getCampaignOverviewForWorkspace } from "@/lib/campaigns/campaign-crud";
+import { listCampaignLeadsForWorkspace } from "@/lib/leads/campaign-leads";
+
+import { LeadsImportClient } from "./leads-import-client";
+
+type CampaignLeadsPageProps = {
+  params: Promise<{ campaignId: string }>;
+};
+
+export default async function CampaignLeadsPage({ params }: CampaignLeadsPageProps) {
+  const session = await getServerSession(authOptions);
+
+  if (!session?.user?.email) {
+    redirect("/login");
+  }
+
+  const workspace = await getPrimaryWorkspaceForUserEmail(session.user.email);
+  const { campaignId } = await params;
+  const campaign = await getCampaignOverviewForWorkspace({ workspaceId: workspace.workspaceId, campaignId });
+  const leads = await listCampaignLeadsForWorkspace({
+    workspaceId: workspace.workspaceId,
+    campaignId,
+  });
+
+  return (
+    <main className="lb-page">
+      <section className="lb-container">
+        <header className="lb-row">
+          <div>
+            <h1 className="lb-title">Campaign Leads</h1>
+            <p className="lb-subtitle">Campaign: {campaign.name}</p>
+          </div>
+          <Link href={`/app/campaigns/${campaign.id}`} className="lb-link">
+            Back to overview
+          </Link>
+        </header>
+
+        <LeadsImportClient
+          campaignId={campaign.id}
+          initialLeads={leads.map((lead) => ({
+            ...lead,
+            createdAt: lead.createdAt.toISOString(),
+          }))}
+        />
+      </section>
+    </main>
+  );
+}
