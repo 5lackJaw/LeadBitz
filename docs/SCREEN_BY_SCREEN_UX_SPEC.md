@@ -324,6 +324,49 @@ Right rail content moves below primary content.
 
 ---
 
+## Dashboard - Canonical Route
+- Route: `/app` (canonical)
+- Alias: `/app/dashboard` (redirect-only -> `/app`)
+- Navigation: Global "Dashboard" nav item targets `/app`
+- Active-nav: "Dashboard" is active on `/app` and remains active during redirect from `/app/dashboard`
+
+## Leads - Routes
+- Leads list route: `/app/leads` (global nav target)
+- Lead detail route: `/app/leads/:leadId` (preserved)
+
+## Leads List - Screen Contract (Minimum)
+- Primary content: Leads table/list
+- Row click: navigates to `/app/leads/:leadId`
+- Empty state: communicates "No leads yet" and points to the existing in-app path that results in leads being created/imported (no new routes introduced)
+- Active-nav: "Leads" remains highlighted on both list and detail routes
+
+## Global Search - Interaction Contract
+- Component: global search input in top utility bar
+- Typeahead panel: anchored inline results panel
+- Keyboard:
+  - Arrow keys move selection
+  - Enter navigates to selected item
+  - Esc closes panel and preserves input focus
+- Accessibility:
+  - Must follow standard combobox + listbox expectations (ARIA), fully keyboard operable, with visible focus states.
+
+## Top Bar - Tablet/Mobile Contract
+- Persistent: visible on all breakpoints
+- Drawer: opens below the top bar on mobile
+- Top bar remains global-only (no page-specific controls) per SHELL-009
+
+## Right Rail - Tablet Contract
+- Default state on tablet: closed
+- Toggle: screen-level control (not in global top bar)
+- Open state: overlay panel; dismissible via close button + Esc
+
+## Support / Help - Navigation Contract
+- Sidebar lower-section entry
+- Opens external support/docs destination in a new tab/window
+- No authenticated `/app/*` route is introduced for Support/Help
+
+---
+
 # 6. Persistence Rules
 
 The following must persist across sessions:
@@ -393,6 +436,7 @@ New sections must:
 ### 1.1 Full route tree (UX_SPEC-defined app routes)
 
 - `app`
+  - `dashboard` (alias; redirect-only to `/app`)
   - `campaigns`
     - `:id`
       - `candidates`
@@ -403,6 +447,7 @@ New sections must:
       - `sequence`
     - `new`
   - `leads`
+    - `(list)`
     - `:leadId`
   - `onboarding`
   - `replies`
@@ -417,7 +462,8 @@ New sections must:
 
 ### 1.2 Route → screen mapping (UX_SPEC-defined)
 
-- `/app` → Screen: `/app` (Purpose source: UX-R-417)
+- `/app` → Screen: Dashboard (canonical) (Purpose source: UX-R-417)
+- `/app/dashboard` → Screen: Dashboard alias (redirect-only to `/app`)
 - `/app/campaigns` → Screen: `/app/campaigns` (Purpose source: UX-R-419)
 - `/app/campaigns/:id` → Screen: `/app/campaigns/:id` (Purpose source: UX-R-421)
 - `/app/campaigns/:id/candidates` → Screen: `/app/campaigns/:id/candidates` (Purpose source: UX-R-423)
@@ -427,7 +473,8 @@ New sections must:
 - `/app/campaigns/:id/leads` → Screen: `/app/campaigns/:id/leads` (Purpose source: UX-R-424)
 - `/app/campaigns/:id/sequence` → Screen: `/app/campaigns/:id/sequence` (Purpose source: UX-R-425)
 - `/app/campaigns/new` → Screen: `/app/campaigns/new` (Purpose source: UX-R-420)
-- `/app/leads/:leadId` → Screen: `/app/leads/:leadId` (Purpose source: UX-R-430)
+- `/app/leads` → Screen: Leads list (canonical global Leads destination)
+- `/app/leads/:leadId` → Screen: Lead detail (Purpose source: UX-R-430)
 - `/app/onboarding` → Screen: `/app/onboarding` (Purpose source: UX-R-448)
 - `/app/replies` → Screen: `/app/replies` (Purpose source: UX-R-467)
 - `/app/settings` → Screen: `/app/settings` (Purpose source: UX-R-431)

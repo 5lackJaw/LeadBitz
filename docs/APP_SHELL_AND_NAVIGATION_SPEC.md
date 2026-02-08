@@ -50,6 +50,13 @@
 - Support/help entry. (Refs: SHELL-005)
 - Lower section is visually separated from primary navigation. (Refs: SHELL-005)
 
+### Support / Help Entry
+
+- Location: Sidebar lower section. (Refs: SHELL-005)
+- Destination: External support/docs URL (configurable).
+- Behavior: Opens in a new browser tab/window.
+- Must remain separate from primary navigation grouping.
+
 **Bottom identity tray components (must be present):**
 - User avatar. (Refs: SHELL-005)
 - User display name. (Refs: SHELL-005)
@@ -84,6 +91,12 @@
 ### B4. Dimensions (responsive)
 
 - On `md+`, the shell uses a top bar height of 56px. (Refs: SHELL-030)
+
+### B5. Top Utility Bar — Responsive behavior (SHELL-U-002)
+
+- The Top Utility Bar remains visible on all breakpoints.
+- On Mobile, the navigation drawer opens beneath the fixed Top Utility Bar.
+- Top Utility Bar controls must collapse responsively to prevent overlap while keeping all actions accessible.
 
 ---
 
@@ -120,6 +133,14 @@
 ### D3. Responsive behavior
 
 - The Right Rail must collapse below primary content on smaller screens. (Refs: SHELL-013, SHELL-023)
+
+### D4. Right Rail — Tablet interaction (SHELL-U-003)
+
+- Tablet default: CLOSED.
+- Open/close control MAY be provided at the screen level (for example, primary content header area) but MUST NOT be added to the global Top Utility Bar.
+- When open on Tablet, the Right Rail renders as an OVERLAY panel (does not reflow primary content).
+- Dismissal: close button + Esc. Outside click closes when it is non-destructive.
+- Right Rail remains non-primary and must not be required for primary task completion. (Refs: SHELL-013)
 
 ---
 
@@ -218,8 +239,8 @@
 
 ---
 
-## Gaps (must remain unresolved)
+## Resolved Decision References
 
-- [UNSPECIFIED — REQUIRES PRODUCT DECISION] Global search behavior beyond placement (entities, typeahead vs results, availability/visibility in Mobile drawer mode). (Refs: SHELL-U-001, SHELL-008)
-- [UNSPECIFIED — REQUIRES PRODUCT DECISION] Top bar behavior on Tablet/Mobile (e.g., whether it remains visible on Mobile, and coexistence with drawer navigation). (Refs: SHELL-U-002, SHELL-007, SHELL-023)
-- [UNSPECIFIED — REQUIRES PRODUCT DECISION] Right-rail collapsible panel interaction specifics on Tablet (default open/closed, affordance placement, overlay vs reflow). (Refs: SHELL-U-003, SHELL-022)
+- Global search behavior beyond placement (SHELL-U-001) is defined in `docs/UX_SPEC.md` under "Global Search — Behavior" and in `docs/SCREEN_BY_SCREEN_UX_SPEC.md` under "Global Search — Interaction Contract".
+- Top bar Tablet/Mobile behavior (SHELL-U-002) is defined in this document and mirrored in `docs/UI_SPEC.md` and `docs/SCREEN_BY_SCREEN_UX_SPEC.md`.
+- Right-rail Tablet interaction specifics (SHELL-U-003) are defined in this document and mirrored in `docs/UI_SPEC.md` and `docs/SCREEN_BY_SCREEN_UX_SPEC.md`.

@@ -1045,6 +1045,41 @@ Campaign control-surface additions:
 - Verified Vercel production branch source is `main`:
   - Production alias includes `https://leadbitz-git-main-5lackjaws-projects.vercel.app`.
 
+### App shell + navigation + screen skeleton scaffold (2026-02-08)
+- Scope: UI structure only for canonical app shell/navigation/skeleton layout surfaces.
+- Implemented reusable shell wrapping all authenticated app routes:
+  - `app/app/layout.tsx`
+  - `app/app/_components/app-shell.tsx`
+  - `app/app/_components/app-shell.constants.ts`
+- Implemented primary navigation domains required by shell spec:
+  - Dashboard, Campaigns, Leads, Replies, Settings
+- Implemented placeholder skeleton screens:
+  - `app/app/dashboard/page.tsx`
+  - `app/app/campaigns/page.tsx`
+  - `app/app/leads/page.tsx`
+  - `app/app/leads/[leadId]/page.tsx`
+  - `app/app/replies/page.tsx`
+  - `app/app/settings/page.tsx`
+- Added extracted dashboard skeleton component:
+  - `app/app/_components/dashboard-screen.tsx`
+- Added reusable skeleton layout primitives:
+  - `app/app/_components/screen-skeleton.tsx`
+- Updated canonical dashboard routing contract:
+  - `app/app/page.tsx`
+  - `app/app/dashboard/page.tsx` (308 redirect to `/app`)
+- Updated Leads route contract:
+  - Global Leads nav target is `/app/leads`
+  - Lead detail route remains `/app/leads/:leadId`
+- Added shell/skeleton token-based styling (no inline styles) in:
+  - `app/globals.css`
+- Resolved shell behavior gaps in implementation and specs:
+  - Global search is top-bar typeahead with anchored grouped results (Campaigns, Leads, Replies, Settings) and keyboard interactions (Arrow keys, Enter, Esc).
+  - Top utility bar remains visible on all breakpoints; mobile drawer opens beneath the fixed top bar.
+  - Tablet right rail defaults closed and opens as a screen-level overlay panel with close/Esc/scrim dismissal.
+  - Sidebar Support/Help opens a configurable external URL in a new tab (`NEXT_PUBLIC_SUPPORT_URL`, fallback in constants).
+- Still intentionally placeholder in this task:
+  - Deep domain functionality beyond structural shell/skeleton scaffolding.
+
 ## Operational gotchas
 - Prisma migrations require a reachable PostgreSQL server.
 - Prisma migrate commands read `.env` by default. Keep `.env` aligned with `.env.development.local` (or explicitly set `DATABASE_URL` in shell) before running migration commands.
@@ -1056,6 +1091,7 @@ Campaign control-surface additions:
 - Neon Auth trusted domains accept origins only (scheme + host [+ port]); do not enter path segments such as `/app` or `/dashboard`.
 - Google OAuth callback URI must exactly match `${NEXTAUTH_URL}/api/inboxes/google/callback` in Google Cloud OAuth credentials per environment.
 - `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` must be present in local and Preview environments before testing inbox connect flow.
+- `NEXT_PUBLIC_SUPPORT_URL` controls the sidebar Support/Help external destination; if unset, the shell falls back to `https://www.leadbitz.com`.
 - `TOKEN_ENCRYPTION_KEY` is required for Google token encryption/decryption and refresh; a missing/invalid key will break callback persistence and token refresh operations.
 - Campaign names are validated server-side and client-side:
   - required after trim
@@ -1146,7 +1182,9 @@ Campaign control-surface additions:
 - 2026-02-08: Added Phase 6 manual/paste import API with email validation, suppression/dedupe enforcement, campaign linking, and `manual_import` provenance.
 - 2026-02-08: Added `/app/campaigns/:id/leads` import UI with CSV/manual tools and visible row-level import outcomes.
 - 2026-02-08: Closed Phase 6 documentation with consolidated fallback-import summary, decisions, and operational gotchas.
+- 2026-02-08: Finalized canonical shell routing and gap resolutions: `/app` Dashboard canon with `/app/dashboard` 308 redirect, canonical `/app/leads` + preserved `/app/leads/:leadId`, global search typeahead interaction contract, persistent mobile top bar with drawer-below behavior, tablet right-rail overlay contract, and external Support/Help destination behavior.
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).
 - Temporary auth bridge still uses NextAuth credentials flow; Neon Auth-backed session integration is planned in subsequent Phase 2/3 tasks.
+

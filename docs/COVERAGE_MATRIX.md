@@ -1,5 +1,14 @@
 # COVERAGE_MATRIX.md
 
+## Routes -> Screens
+
+| Route | Screen | Notes |
+|------|--------|-------|
+| /app | Dashboard | Canonical |
+| /app/dashboard | Dashboard | Redirect-only -> /app |
+| /app/leads | Leads List | Canonical global Leads destination |
+| /app/leads/:leadId | Lead Detail | Preserved contract |
+
 | Requirement ID | Source File | Likely Screen(s) Impacted | Needs UX Spec Coverage (Yes/No) | Notes |
 |---|---|---|---|---|
 | COMP-001 | `CANONICAL_VISUAL_BRAND_SPECIFICATION.md` | [UNSPECIFIED — REQUIRES PRODUCT DECISION] | Yes |  |
