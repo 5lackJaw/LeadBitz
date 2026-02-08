@@ -258,9 +258,10 @@
   - Acceptance: row-level errors; provenance recorded
   - Tests: integration
   - Note (2026-02-08): Added `POST /api/campaigns/:campaignId/leads/import/csv` backed by `importCsvLeadsForWorkspace` service with CSV parsing, row-level outcome reporting, suppression filtering, dedupe (in-file + existing leads), campaign lead linking, and provenance writes via `lead_sources(name=csv_import)` + `lead_field_provenance`. Added integration coverage in `tests/integration/csv-import-api.test.ts`. Files touched: `app/api/campaigns/[campaignId]/leads/import/csv/route.ts`, `lib/leads/csv-import.ts`, `tests/integration/csv-import-api.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
-- [ ] Implement paste/manual add API with dedupe + suppression
+- [x] Implement paste/manual add API with dedupe + suppression
   - Acceptance: validates email; prevents duplicates
   - Tests: unit+integration
+  - Note (2026-02-08): Added `POST /api/campaigns/:campaignId/leads/import/manual` backed by `importManualLeadsForWorkspace` with payload-level email validation, suppression filtering, dedupe (in-request + existing leads), campaign lead linking, and provenance writes via `lead_sources(name=manual_import)` + `lead_field_provenance`. Added integration coverage in `tests/integration/manual-import-api.test.ts`. Files touched: `app/api/campaigns/[campaignId]/leads/import/manual/route.ts`, `lib/leads/manual-import.ts`, `tests/integration/manual-import-api.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 - [ ] Implement UI import tools inside campaign leads page
   - Acceptance: import works; dedupe outcomes visible
   - Tests: e2e
