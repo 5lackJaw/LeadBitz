@@ -229,9 +229,10 @@
   - Acceptance: writes email_verifications; updates candidates verification_status
   - Tests: integration (mock verifier)
   - Note (2026-02-07): Added `lib/sources/email-verification-client.ts` (retry-capable, provider-keyed batch verify client) and `lib/sources/email-verification-worker.ts` (`verifyCandidateEmailsForSourceRun`) that writes `email_verifications` rows and updates candidate `verification_status` values for the source run. Added integration coverage in `tests/integration/email-verification-worker.test.ts` with a mocked verifier implementation. Files touched: `lib/sources/email-verification-client.ts`, `lib/sources/email-verification-worker.ts`, `tests/integration/email-verification-worker.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
-- [ ] Implement suppression + dedupe application during candidate creation
+- [x] Implement suppression + dedupe application during candidate creation
   - Acceptance: suppressed/duplicate candidates marked and excluded from “approvable”
   - Tests: integration
+  - Note (2026-02-08): Extended discovery worker candidate creation path to apply suppression list + dedupe rules (existing suppressions, existing leads, existing campaign candidates, and same-run duplicates by email/person/company IDs). Candidates matching these checks are persisted with `status=SUPPRESSED`, while approvable rows remain `status=NEW`. Added integration coverage in `tests/integration/discovery-run-suppression-dedupe.test.ts` and updated worker stats to include `approvableCandidates`, `suppressedByBlocklist`, and `suppressedByDuplicate`. Files touched: `lib/sources/discovery-run-worker.ts`, `tests/integration/discovery-run-worker.test.ts`, `tests/integration/discovery-run-suppression-dedupe.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 - [ ] Implement candidates list API (filters, pagination)
   - Acceptance: filters work (verification, confidence, role, source_run)
   - Tests: integration
