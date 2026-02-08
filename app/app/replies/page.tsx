@@ -1,25 +1,23 @@
-import { ScreenScaffold, SkeletonList, SkeletonSurface } from "../_components/screen-skeleton";
+import Link from "next/link";
 
 export default function RepliesPage() {
   return (
-    <ScreenScaffold
-      description="Unified replies inbox skeleton with needs-response queue and thread workspace."
-      rightRail={
-        <SkeletonSurface description="Context-only summary placeholders." title="Reply categories">
-          <SkeletonList rows={6} />
-        </SkeletonSurface>
-      }
-      title="Replies"
-    >
-      <div className="lb-replies-layout">
-        <SkeletonSurface description="Needs-response queue placeholder." title="Needs response">
-          <SkeletonList rows={8} />
-        </SkeletonSurface>
+    <section className="lb-shell-stack">
+      <section className="lb-panel">
+        <h1 className="lb-title">Replies</h1>
+        <p className="lb-subtitle">Unified replies workflow surfaces are in progress.</p>
+      </section>
 
-        <SkeletonSurface description="Thread view placeholder." title="Conversation thread">
-          <SkeletonList rows={6} />
-        </SkeletonSurface>
-      </div>
-    </ScreenScaffold>
+      <section className="lb-panel">
+        <p className="lb-subtitle">
+          Continue operating campaigns while reply inbox flows are connected.
+        </p>
+        <div className="lb-shell-link-grid">
+          <Link className="lb-link lb-link-accent" href="/app/campaigns">
+            Open campaigns
+          </Link>
+        </div>
+      </section>
+    </section>
   );
 }

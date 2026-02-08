@@ -310,36 +310,6 @@ export function AppShell({ children, userDisplayName, userEmail, workspaceName }
           id="lb-primary-navigation"
           role="navigation"
         >
-          <nav className="lb-shell-rail" aria-label="Navigation rail">
-            {PRIMARY_NAV_ITEMS.map((item) => {
-              const isActive = isItemActive(item, pathname ?? "");
-              return (
-                <Link
-                  aria-current={isActive ? "page" : undefined}
-                  className="lb-shell-rail-link"
-                  data-active={isActive}
-                  href={item.href}
-                  key={`rail-${item.key}`}
-                  onClick={() => {
-                    window.localStorage.setItem(LAST_PRIMARY_SECTION_STORAGE_KEY, item.href);
-                    setMobileNavOpen(false);
-                  }}
-                  title={item.label}
-                >
-                  {item.icon}
-                </Link>
-              );
-            })}
-
-            <button
-              className="lb-shell-rail-toggle"
-              onClick={() => setSidebarCollapsed((previousValue) => !previousValue)}
-              type="button"
-            >
-              {sidebarCollapsed ? ">" : "<"}
-            </button>
-          </nav>
-
           <div className="lb-shell-sidebar" data-collapsed={sidebarCollapsed}>
             <div className="lb-shell-sidebar-top">
               <div className="lb-shell-brand-mark" aria-hidden="true">

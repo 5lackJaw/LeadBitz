@@ -1045,40 +1045,35 @@ Campaign control-surface additions:
 - Verified Vercel production branch source is `main`:
   - Production alias includes `https://leadbitz-git-main-5lackjaws-projects.vercel.app`.
 
-### App shell + navigation + screen skeleton scaffold (2026-02-08)
-- Scope: UI structure only for canonical app shell/navigation/skeleton layout surfaces.
+### App shell + navigation integration (2026-02-08)
+- Scope: canonical app shell layout wrapped around existing authenticated routes while preserving real data screens and route behavior.
 - Implemented reusable shell wrapping all authenticated app routes:
   - `app/app/layout.tsx`
   - `app/app/_components/app-shell.tsx`
   - `app/app/_components/app-shell.constants.ts`
 - Implemented primary navigation domains required by shell spec:
   - Dashboard, Campaigns, Leads, Replies, Settings
-- Implemented placeholder skeleton screens:
-  - `app/app/dashboard/page.tsx`
-  - `app/app/campaigns/page.tsx`
+- Restored non-skeleton route content surfaces:
+  - `app/app/page.tsx` (workspace/campaign summary + quick actions, backed by real campaign data)
+  - `app/app/campaigns/page.tsx` (real campaign list wiring preserved via `CampaignsClient`)
+  - `app/app/settings/page.tsx` (real settings entry surface for implemented settings routes)
   - `app/app/leads/page.tsx`
   - `app/app/leads/[leadId]/page.tsx`
   - `app/app/replies/page.tsx`
-  - `app/app/settings/page.tsx`
-- Added extracted dashboard skeleton component:
+- Removed scaffold-only placeholder components:
   - `app/app/_components/dashboard-screen.tsx`
-- Added reusable skeleton layout primitives:
   - `app/app/_components/screen-skeleton.tsx`
-- Updated canonical dashboard routing contract:
-  - `app/app/page.tsx`
+- Kept canonical route handling:
   - `app/app/dashboard/page.tsx` (308 redirect to `/app`)
 - Updated Leads route contract:
   - Global Leads nav target is `/app/leads`
   - Lead detail route remains `/app/leads/:leadId`
-- Added shell/skeleton token-based styling (no inline styles) in:
+- Updated shell styling to better use authenticated app width and avoid narrow centered layout:
   - `app/globals.css`
 - Resolved shell behavior gaps in implementation and specs:
   - Global search is top-bar typeahead with anchored grouped results (Campaigns, Leads, Replies, Settings) and keyboard interactions (Arrow keys, Enter, Esc).
   - Top utility bar remains visible on all breakpoints; mobile drawer opens beneath the fixed top bar.
-  - Tablet right rail defaults closed and opens as a screen-level overlay panel with close/Esc/scrim dismissal.
   - Sidebar Support/Help opens a configurable external URL in a new tab (`NEXT_PUBLIC_SUPPORT_URL`, fallback in constants).
-- Still intentionally placeholder in this task:
-  - Deep domain functionality beyond structural shell/skeleton scaffolding.
 
 ## Operational gotchas
 - Prisma migrations require a reachable PostgreSQL server.

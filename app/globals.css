@@ -803,8 +803,43 @@ select {
 
 .lb-shell-content-inner {
   width: 100%;
-  max-width: 1440px;
-  margin: 0 auto;
+  max-width: none;
+  margin: 0;
+}
+
+.lb-shell-content .lb-page {
+  min-height: auto;
+  padding: 0;
+  background: transparent;
+}
+
+.lb-shell-content .lb-container {
+  max-width: none;
+  margin: 0;
+}
+
+.lb-shell-stack {
+  width: 100%;
+  display: grid;
+  gap: var(--space-6);
+}
+
+.lb-shell-link-grid {
+  margin-top: var(--space-4);
+  display: grid;
+  gap: var(--space-3);
+}
+
+.lb-kpi-grid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.lb-settings-card-grid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
 .lb-screen {

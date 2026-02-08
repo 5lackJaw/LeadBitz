@@ -84,25 +84,4 @@ export const GLOBAL_SEARCH_ITEMS: GlobalSearchItem[] = [
     context: "/app/settings/sources",
     href: "/app/settings/sources",
   },
-  {
-    id: "settings-deliverability",
-    domain: "Settings",
-    label: "Deliverability settings",
-    context: "/app/settings/deliverability",
-    href: "/app/settings/deliverability",
-  },
-  {
-    id: "settings-suppressions",
-    domain: "Settings",
-    label: "Suppressions",
-    context: "/app/settings/suppressions",
-    href: "/app/settings/suppressions",
-  },
-  {
-    id: "settings-verification",
-    domain: "Settings",
-    label: "Verification settings",
-    context: "/app/settings/verification",
-    href: "/app/settings/verification",
-  },
 ];
