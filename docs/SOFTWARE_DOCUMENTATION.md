@@ -709,6 +709,28 @@ Deliverability-first cold outreach operations app:
 - Added integration coverage:
   - `tests/integration/candidates-approve-rules.test.ts` validates default policy, explicit unverified override confirmation, and invalid-email hard block behavior.
 
+### Phase 5 closeout (2026-02-08)
+- Phase 5 scope status: complete (licensed provider discovery pipeline + candidates review + verification + approval enforcement).
+- Delivered implementation in Phase 5:
+  - Discovery schema + connector/run APIs + provider client wrapper + discovery/verification workers.
+  - Suppression + dedupe enforcement at candidate creation time.
+  - Candidates listing API with filter + cursor pagination contract.
+  - Candidates review UI with bulk approve/reject flows.
+  - Approval API with verified-only default policy and explicit unverified override confirmation.
+- Decisions locked for downstream phases:
+  - Discovery remains provider-first (`pdl`) and does not include unauthorized scraping.
+  - Candidate stage remains a mandatory operator approval gate before outreach eligibility.
+  - Invalid verification status is a hard block for approvals.
+- Operational gotchas for implementers:
+  - Candidate review UI currently persists approvals/rejections via App Router server actions; approve API is available for external/automation use.
+  - `POST /api/campaigns/:campaignId/candidates/approve` requires `confirmAllowUnverified=true` whenever `allowUnverified=true`, otherwise returns `400`.
+  - Suppression/dedupe marks records as `SUPPRESSED`; those rows are present in candidate lists unless filters exclude them.
+  - Cursor pagination uses candidate id cursor within workspace/campaign scope; invalid cursor returns validation error.
+- Validation evidence captured for Phase 5 completion:
+  - `npm run lint`
+  - `npm run test:integration`
+  - `npm run build`
+
 ### Phase 0b workflow hardening follow-up (2026-02-06)
 - Added baseline developer workflow automation focused on consistency and speed:
   - `AGENTS.md` path/writing clarifications to reduce instruction ambiguity.
@@ -1040,6 +1062,7 @@ Campaign control-surface additions:
 - 2026-02-08: Added Phase 5 candidates list API (`GET /api/campaigns/:id/candidates`) with verification/confidence/role/source-run filters and cursor pagination, plus integration coverage.
 - 2026-02-08: Replaced candidates review placeholder UI with bulk approve/reject flows and added server-side candidate review persistence plus integration coverage.
 - 2026-02-08: Added candidates approve API endpoint with verified-only defaults, invalid-email blocking, explicit unverified override confirmation, and structured rejection reasons.
+- 2026-02-08: Closed Phase 5 documentation with consolidated summary, implementation decisions, and operational gotchas.
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).
