@@ -262,9 +262,10 @@
   - Acceptance: validates email; prevents duplicates
   - Tests: unit+integration
   - Note (2026-02-08): Added `POST /api/campaigns/:campaignId/leads/import/manual` backed by `importManualLeadsForWorkspace` with payload-level email validation, suppression filtering, dedupe (in-request + existing leads), campaign lead linking, and provenance writes via `lead_sources(name=manual_import)` + `lead_field_provenance`. Added integration coverage in `tests/integration/manual-import-api.test.ts`. Files touched: `app/api/campaigns/[campaignId]/leads/import/manual/route.ts`, `lib/leads/manual-import.ts`, `tests/integration/manual-import-api.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
-- [ ] Implement UI import tools inside campaign leads page
+- [x] Implement UI import tools inside campaign leads page
   - Acceptance: import works; dedupe outcomes visible
   - Tests: e2e
+  - Note (2026-02-08): Added `/app/campaigns/:campaignId/leads` with working CSV + manual import tools wired to import APIs, visible per-row outcome reporting, and current campaign leads table refresh after imports. Added campaign overview CTA to the leads page. Files touched: `app/app/campaigns/[campaignId]/leads/page.tsx`, `app/app/campaigns/[campaignId]/leads/leads-import-client.tsx`, `lib/leads/campaign-leads.ts`, `app/app/campaigns/[campaignId]/campaign-overview-client.tsx`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 - [ ] Update SOFTWARE_DOCUMENTATION.md (phase summary + decisions + gotchas)
 
 

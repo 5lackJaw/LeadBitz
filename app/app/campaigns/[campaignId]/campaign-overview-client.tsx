@@ -144,6 +144,9 @@ export function CampaignOverviewClient({ campaign, inboxConnections }: CampaignO
             <Link className="lb-button lb-button-secondary" href={`/app/campaigns/${campaign.id}/candidates`}>
               Candidates
             </Link>
+            <Link className="lb-button lb-button-secondary" href={`/app/campaigns/${campaign.id}/leads`}>
+              Leads
+            </Link>
             <Link className="lb-button lb-button-secondary" href={`/app/campaigns/${campaign.id}/sequence`}>
               Sequence
             </Link>
