@@ -667,6 +667,18 @@ Deliverability-first cold outreach operations app:
 - Added integration coverage:
   - `tests/integration/discovery-run-suppression-dedupe.test.ts` validates suppression-list matches and both existing + in-run dedupe behavior.
 
+### Phase 5 progress: candidates list API (filters + pagination) (2026-02-08)
+- Added workspace-scoped candidates listing service in `lib/sources/candidates.ts`:
+  - validates campaign ownership and optional source-run ownership
+  - supports filters: `verificationStatus`, `confidenceMin`, `role`, `sourceRunId`
+  - supports cursor pagination using `pageSize` + `cursor`
+- Added authenticated API endpoint:
+  - `GET /api/campaigns/:campaignId/candidates`
+  - query params: `verificationStatus`, `confidenceMin`, `role`, `sourceRunId`, `pageSize`, `cursor`
+  - response shape: `{ items, pageInfo }` with `hasMore` + `nextCursor`
+- Added integration coverage:
+  - `tests/integration/candidates-list.test.ts` verifies filter behavior, cursor paging, workspace isolation, and validation/not-found errors.
+
 ### Phase 0b workflow hardening follow-up (2026-02-06)
 - Added baseline developer workflow automation focused on consistency and speed:
   - `AGENTS.md` path/writing clarifications to reduce instruction ambiguity.
@@ -995,6 +1007,7 @@ Campaign control-surface additions:
 - 2026-02-07: Added Phase 5 discovery run worker (`lib/sources/discovery-run-worker.ts`) to fetch/normalize/store candidates and persist source-run lifecycle stats with mocked integration coverage.
 - 2026-02-07: Added Phase 5 email verification client and batch worker to persist `email_verifications` and update candidate verification status with mocked integration coverage.
 - 2026-02-08: Added Phase 5 suppression + dedupe enforcement during candidate creation; blocked/duplicate candidates are marked `SUPPRESSED` and excluded from approvable counts.
+- 2026-02-08: Added Phase 5 candidates list API (`GET /api/campaigns/:id/candidates`) with verification/confidence/role/source-run filters and cursor pagination, plus integration coverage.
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).
