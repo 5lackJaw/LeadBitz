@@ -693,6 +693,22 @@ Deliverability-first cold outreach operations app:
 - Added integration coverage:
   - `tests/integration/candidates-review.test.ts` validates approve-to-lead linkage and reject persistence.
 
+### Phase 5 progress: approve endpoint with enforcement rules (2026-02-08)
+- Added endpoint:
+  - `POST /api/campaigns/:campaignId/candidates/approve`
+  - request body: `{ candidateIds: string[], allowUnverified?: boolean, confirmAllowUnverified?: boolean }`
+  - response body: `{ approvedCount, rejected: [{ candidateId, reason }] }`
+- Enforcement behavior implemented:
+  - invalid emails are never approvable (`INVALID_EMAIL`)
+  - verified-only approvals by default (`UNVERIFIED_EMAIL` rejections when `allowUnverified` is not true)
+  - `allowUnverified=true` requires explicit `confirmAllowUnverified=true`
+  - candidates not found or not in `NEW` state are rejected with explicit reasons
+- Persistence behavior:
+  - approved candidates are converted/linked into `leads` + `campaign_leads`
+  - approved candidates are marked `status=APPROVED`
+- Added integration coverage:
+  - `tests/integration/candidates-approve-rules.test.ts` validates default policy, explicit unverified override confirmation, and invalid-email hard block behavior.
+
 ### Phase 0b workflow hardening follow-up (2026-02-06)
 - Added baseline developer workflow automation focused on consistency and speed:
   - `AGENTS.md` path/writing clarifications to reduce instruction ambiguity.
@@ -1023,6 +1039,7 @@ Campaign control-surface additions:
 - 2026-02-08: Added Phase 5 suppression + dedupe enforcement during candidate creation; blocked/duplicate candidates are marked `SUPPRESSED` and excluded from approvable counts.
 - 2026-02-08: Added Phase 5 candidates list API (`GET /api/campaigns/:id/candidates`) with verification/confidence/role/source-run filters and cursor pagination, plus integration coverage.
 - 2026-02-08: Replaced candidates review placeholder UI with bulk approve/reject flows and added server-side candidate review persistence plus integration coverage.
+- 2026-02-08: Added candidates approve API endpoint with verified-only defaults, invalid-email blocking, explicit unverified override confirmation, and structured rejection reasons.
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).
