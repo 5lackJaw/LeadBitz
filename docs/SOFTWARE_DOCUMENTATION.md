@@ -786,6 +786,27 @@ Deliverability-first cold outreach operations app:
 - Navigation:
   - added `Leads` CTA link on campaign overview action row.
 
+### Phase 6 closeout (2026-02-08)
+- Phase 6 scope status: complete (fallback import surfaces for CSV and manual entry, plus campaign-level import UI).
+- Delivered implementation in Phase 6:
+  - `POST /api/campaigns/:campaignId/leads/import/csv` with row-level outcomes and mapping support.
+  - `POST /api/campaigns/:campaignId/leads/import/manual` for paste/manual lead ingestion.
+  - `/app/campaigns/:id/leads` UI with CSV/manual tools and outcome visibility.
+  - Provenance persistence for both fallback sources (`csv_import`, `manual_import`).
+- Decisions locked for downstream phases:
+  - Fallback imports remain secondary to licensed discovery and do not bypass safety checks.
+  - Dedupe behavior links existing leads to campaigns instead of creating duplicates.
+  - Suppressed emails remain blocked regardless of import source.
+- Operational gotchas for implementers:
+  - CSV parsing expects a header row and supports common aliases; missing `email` header returns validation error.
+  - Manual import expects `rows` array payload and enforces email format per row.
+  - Both import APIs return mixed outcomes per row; callers must handle partial success.
+  - Provenance rows are append-only per import event and can grow quickly on repeated imports.
+- Validation evidence captured for Phase 6 completion:
+  - `npm run lint`
+  - `npm run test:integration`
+  - `npm run build`
+
 ### Phase 0b workflow hardening follow-up (2026-02-06)
 - Added baseline developer workflow automation focused on consistency and speed:
   - `AGENTS.md` path/writing clarifications to reduce instruction ambiguity.
@@ -1124,6 +1145,7 @@ Campaign control-surface additions:
 - 2026-02-08: Added Phase 6 CSV import API with row-level outcomes, suppression/dedupe enforcement, campaign linking, and `csv_import` provenance.
 - 2026-02-08: Added Phase 6 manual/paste import API with email validation, suppression/dedupe enforcement, campaign linking, and `manual_import` provenance.
 - 2026-02-08: Added `/app/campaigns/:id/leads` import UI with CSV/manual tools and visible row-level import outcomes.
+- 2026-02-08: Closed Phase 6 documentation with consolidated fallback-import summary, decisions, and operational gotchas.
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).

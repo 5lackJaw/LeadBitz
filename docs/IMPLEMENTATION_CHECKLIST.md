@@ -266,7 +266,8 @@
   - Acceptance: import works; dedupe outcomes visible
   - Tests: e2e
   - Note (2026-02-08): Added `/app/campaigns/:campaignId/leads` with working CSV + manual import tools wired to import APIs, visible per-row outcome reporting, and current campaign leads table refresh after imports. Added campaign overview CTA to the leads page. Files touched: `app/app/campaigns/[campaignId]/leads/page.tsx`, `app/app/campaigns/[campaignId]/leads/leads-import-client.tsx`, `lib/leads/campaign-leads.ts`, `app/app/campaigns/[campaignId]/campaign-overview-client.tsx`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
-- [ ] Update SOFTWARE_DOCUMENTATION.md (phase summary + decisions + gotchas)
+- [x] Update SOFTWARE_DOCUMENTATION.md (phase summary + decisions + gotchas)
+  - Note (2026-02-08): Added explicit Phase 6 closeout documentation summarizing fallback import implementation, key decisions, and operational gotchas for CSV/manual ingestion and provenance behavior. Updated changelog continuity in `docs/SOFTWARE_DOCUMENTATION.md`. Files touched: `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 
 
 ## Phase 7 — Sequence + templates + lint + AI draft
