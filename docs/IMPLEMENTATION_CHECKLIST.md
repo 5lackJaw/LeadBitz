@@ -225,9 +225,10 @@
   - Acceptance: creates candidates with confidence + provenance; run stats recorded
   - Tests: integration (mock provider)
   - Note (2026-02-07): Added discovery run worker `executeDiscoveryRun` in `lib/sources/discovery-run-worker.ts` to transition run status (`QUEUED` -> `RUNNING` -> `COMPLETED/FAILED`), fetch candidates via provider client abstraction, normalize and persist candidate rows, and record run stats in `source_runs.stats_json`. Added integration coverage in `tests/integration/discovery-run-worker.test.ts` with mocked provider responses. Files touched: `lib/sources/discovery-run-worker.ts`, `tests/integration/discovery-run-worker.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
-- [ ] Implement email verification client + batch verify worker
+- [x] Implement email verification client + batch verify worker
   - Acceptance: writes email_verifications; updates candidates verification_status
   - Tests: integration (mock verifier)
+  - Note (2026-02-07): Added `lib/sources/email-verification-client.ts` (retry-capable, provider-keyed batch verify client) and `lib/sources/email-verification-worker.ts` (`verifyCandidateEmailsForSourceRun`) that writes `email_verifications` rows and updates candidate `verification_status` values for the source run. Added integration coverage in `tests/integration/email-verification-worker.test.ts` with a mocked verifier implementation. Files touched: `lib/sources/email-verification-client.ts`, `lib/sources/email-verification-worker.ts`, `tests/integration/email-verification-worker.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 - [ ] Implement suppression + dedupe application during candidate creation
   - Acceptance: suppressed/duplicate candidates marked and excluded from “approvable”
   - Tests: integration

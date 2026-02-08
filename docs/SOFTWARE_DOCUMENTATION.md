@@ -637,6 +637,19 @@ Deliverability-first cold outreach operations app:
 - Added integration coverage:
   - `tests/integration/discovery-run-worker.test.ts` validates end-to-end worker execution with mocked provider candidates and status/stat updates.
 
+### Phase 5 progress: email verification client + batch worker (2026-02-07)
+- Added email verification client `lib/sources/email-verification-client.ts`:
+  - provider-keyed batch verification contract
+  - normalized verification status mapping to `CandidateVerificationStatus`
+  - transient retry handling for `429/5xx`
+- Added batch verification worker `verifyCandidateEmailsForSourceRun` in `lib/sources/email-verification-worker.ts`:
+  - finds unique candidate emails with `verification_status=UNKNOWN` for a source run
+  - executes batch verification using injected verifier (or connector-configured client)
+  - writes `email_verifications` records (one per verified email input)
+  - updates `candidates.verification_status` for source-run candidates
+- Added integration coverage:
+  - `tests/integration/email-verification-worker.test.ts` validates verification row writes and candidate status updates with mocked verifier responses.
+
 ### Phase 0b workflow hardening follow-up (2026-02-06)
 - Added baseline developer workflow automation focused on consistency and speed:
   - `AGENTS.md` path/writing clarifications to reduce instruction ambiguity.
@@ -963,6 +976,7 @@ Campaign control-surface additions:
 - 2026-02-07: Added Phase 5 discovery run creation endpoint (`POST /api/campaigns/:id/discovery/run`) with queued status persistence and connector-enabled validation.
 - 2026-02-07: Added Phase 5 PDL provider wrapper (`lib/sources/pdl-client.ts`) with transient retry/backoff, request pacing, typed parsing, and cursor pagination plus unit/mock-integration tests.
 - 2026-02-07: Added Phase 5 discovery run worker (`lib/sources/discovery-run-worker.ts`) to fetch/normalize/store candidates and persist source-run lifecycle stats with mocked integration coverage.
+- 2026-02-07: Added Phase 5 email verification client and batch worker to persist `email_verifications` and update candidate verification status with mocked integration coverage.
 
 ## Known issues / limitations
 - Vercel CLI/API did not expose a working non-interactive command in this repo session to change `link.productionBranch`; current guardrail is enforced through branch policy and workflow (`release` integration + protected `main`).
