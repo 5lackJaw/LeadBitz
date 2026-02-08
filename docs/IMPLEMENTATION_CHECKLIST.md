@@ -245,7 +245,8 @@
   - Acceptance: cannot approve invalid emails; verified-only default; explicit allowUnverified requires confirmation
   - Tests: integration
   - Note (2026-02-08): Added `POST /api/campaigns/:campaignId/candidates/approve` with workspace/campaign ownership checks and enforcement rules: invalid emails are always rejected, approvals are verified-only by default, and `allowUnverified=true` requires `confirmAllowUnverified=true`. Implemented approval service with structured rejection reasons and persisted lead/campaign_lead creation for approved candidates. Added integration coverage in `tests/integration/candidates-approve-rules.test.ts`. Files touched: `app/api/campaigns/[campaignId]/candidates/approve/route.ts`, `lib/sources/candidate-approval.ts`, `tests/integration/candidates-approve-rules.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
-- [ ] Update SOFTWARE_DOCUMENTATION.md (phase summary + decisions + gotchas)
+- [x] Update SOFTWARE_DOCUMENTATION.md (phase summary + decisions + gotchas)
+  - Note (2026-02-08): Added explicit Phase 5 closeout documentation with completion summary, implementation decisions, and operational gotchas for discovery runs, candidate approval gating, and verification enforcement. Updated route/API/data-model summaries and changelog continuity in `docs/SOFTWARE_DOCUMENTATION.md`. Files touched: `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 
 
 ## Phase 6 — Lead import fallback (CSV/paste/manual) + provenance (optional but recommended)
