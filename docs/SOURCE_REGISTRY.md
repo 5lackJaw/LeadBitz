@@ -1,0 +1,4599 @@
+# SOURCE_REGISTRY.md
+
+> Mode: LOSSLESS SOURCE COMPILATION PREPARATION (no inference; wireframe is LAYOUT_REFERENCE_ONLY).
+
+## CANONICAL_VISUAL_BRAND_SPECIFICATION.md
+
+### 1) File Role Summary
+Defines the canonical brand/visual system (CVBS) including visual DNA, color tokens, typography, geometry, and behavioral styling rules across all surfaces.
+
+### 2) LOSSLESS REQUIREMENT EXTRACTION
+
+- **COMP-001** [COMPLIANCE_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Scope and intent`
+  - Original Text Snippet: - High-trust, compliance-sensitive outbound email operations
+- **COMP-002** [COMPLIANCE_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Scope and intent`
+  - Original Text Snippet: - Operator control, safety, auditability, and clarity
+- **UI-R-001** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Scope and intent`
+  - Original Text Snippet: - Long-term consistency across human designers and multiple AI systems
+- **UI-R-002** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `1.1 Brand traits (immutable; max 6)`
+  - Original Text Snippet: 1) **Trust-forward** (serious, precise, non-salesy)
+- **STATE-001** [STATE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `1.1 Brand traits (immutable; max 6)`
+  - Original Text Snippet: 2) **Operator-grade** (control panels, clarity, predictable states)
+- **DATA-001** [DATA_MODEL]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `1.1 Brand traits (immutable; max 6)`
+  - Original Text Snippet: 3) **Calm** (low visual noise; stable hierarchy)
+- **COMP-003** [COMPLIANCE_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `1.1 Brand traits (immutable; max 6)`
+  - Original Text Snippet: 4) **Accountable** (auditability cues; explicit confirmations)
+- **UI-R-003** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `1.1 Brand traits (immutable; max 6)`
+  - Original Text Snippet: 5) **Efficient** (dense but readable; “work gets done”)
+- **SAFE-001** [SAFETY_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `1.1 Brand traits (immutable; max 6)`
+  - Original Text Snippet: 6) **Safety-first** (guardrails are visible; risk is surfaced early)
+- **UI-R-004** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `1.2 Anti-traits (must avoid)`
+  - Original Text Snippet: - Playful/gamified
+- **UI-R-005** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `1.2 Anti-traits (must avoid)`
+  - Original Text Snippet: - Trend-chasing “Dribbble” aesthetics that reduce legibility
+- **UI-R-006** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `1.2 Anti-traits (must avoid)`
+  - Original Text Snippet: - Overly aggressive “growth-hacker” vibe
+- **UI-R-007** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `1.2 Anti-traits (must avoid)`
+  - Original Text Snippet: - High-chroma neon palettes, rainbow gradients, heavy blur/glow
+- **UI-R-008** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `1.2 Anti-traits (must avoid)`
+  - Original Text Snippet: - Decorative complexity that competes with operational signals
+- **STATE-002** [STATE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `1.2 Anti-traits (must avoid)`
+  - Original Text Snippet: - Ambiguous states (unclear whether action succeeded, is pending, or failed)
+- **UI-R-009** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `1.3 Emotional tone`
+  - Original Text Snippet: - “Calm control room”
+- **UI-R-010** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `1.3 Emotional tone`
+  - Original Text Snippet: - Neutral confidence; minimal persuasion
+- **STATE-003** [STATE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `1.3 Emotional tone`
+  - Original Text Snippet: - Errors are factual; warnings are actionable; success is understated
+- **UI-R-011** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `1.4 Visual philosophy`
+  - Original Text Snippet: - **System-first**: tokens + components, not one-off art decisions.
+- **UI-R-012** [ACCESSIBILITY]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `1.4 Visual philosophy`
+  - Original Text Snippet: - **Information clarity over decoration**: functional contrast and hierarchy.
+- **SAFE-002** [SAFETY_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `1.4 Visual philosophy`
+  - Original Text Snippet: - **Safety is visible**: risk indicators and confirmations are standard.
+- **UI-R-013** [SCREEN]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `1.4 Visual philosophy`
+  - Original Text Snippet: - **Consistency beats novelty**: reuse patterns; avoid custom styling per screen.
+- **UI-R-014** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `1.5 Brand Do / Don’t rules (enforceable)`
+  - Original Text Snippet: - Use semantic colors only for semantic meaning (success/warn/danger/info).
+- **UI-R-015** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `1.5 Brand Do / Don’t rules (enforceable)`
+  - Original Text Snippet: - Preserve a strict text hierarchy (primary/secondary/muted) and spacing scale.
+- **UI-R-016** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `1.5 Brand Do / Don’t rules (enforceable)`
+  - Original Text Snippet: - Use “quiet” surfaces + one primary accent for actions.
+- **STATE-004** [STATE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `1.5 Brand Do / Don’t rules (enforceable)`
+  - Original Text Snippet: - Show state changes explicitly (pending → success/fail).
+- **STATE-005** [STATE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `1.5 Brand Do / Don’t rules (enforceable)`
+  - Original Text Snippet: - Use red/amber/green for anything other than state.
+- **UI-R-017** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `1.5 Brand Do / Don’t rules (enforceable)`
+  - Original Text Snippet: - Use more than **one** accent color on a single interactive control.
+- **UI-R-018** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `1.5 Brand Do / Don’t rules (enforceable)`
+  - Original Text Snippet: - Use gradients on interactive components by default (exceptions only in marketing hero, governed below).
+- **UI-R-019** [ACCESSIBILITY]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `1.5 Brand Do / Don’t rules (enforceable)`
+  - Original Text Snippet: - Use light-mode variants unless explicitly added by governance (this system is dark-first).
+- **UI-R-020** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `2.1 Color principles`
+  - Original Text Snippet: - Dark-first, low glare, high legibility.
+- **UI-R-021** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `2.1 Color principles`
+  - Original Text Snippet: - Accent color signals *intentional action*, not decoration.
+- **STATE-006** [STATE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `2.1 Color principles`
+  - Original Text Snippet: - Semantic colors must be reserved for state and alerts only.
+- **UI-R-022** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Background & surfaces (layering)`
+  - Original Text Snippet: - `--color-bg-primary: #0b0e0d;`
+- **UI-R-023** [SCREEN]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Background & surfaces (layering)`
+  - Original Text Snippet: - Purpose: app/page base background.
+- **UI-R-024** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Background & surfaces (layering)`
+  - Original Text Snippet: - Usage: full-bleed backgrounds; behind all surfaces.
+- **UI-R-025** [ACCESSIBILITY]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Background & surfaces (layering)`
+  - Original Text Snippet: - Accessibility: must keep sufficient contrast with surface boundaries.
+- **UI-R-026** [ACCESSIBILITY]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Background & surfaces (layering)`
+  - Original Text Snippet: - Forbidden: do not place body text directly on this without a surface unless contrast is verified.
+- **UI-R-027** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Background & surfaces (layering)`
+  - Original Text Snippet: - `--color-bg-surface: #111516;`
+- **UI-R-028** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Background & surfaces (layering)`
+  - Original Text Snippet: - Purpose: default content surface (cards, panels).
+- **DATA-002** [DATA_MODEL]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Background & surfaces (layering)`
+  - Original Text Snippet: - Usage: primary containers; tables; form panels.
+- **UI-R-029** [ACCESSIBILITY]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Background & surfaces (layering)`
+  - Original Text Snippet: - Accessibility: body text on this surface must meet WCAG AA contrast.
+- **UI-R-030** [SCREEN]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Background & surfaces (layering)`
+  - Original Text Snippet: - Forbidden: do not use as global page background.
+- **UI-R-031** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Background & surfaces (layering)`
+  - Original Text Snippet: - `--color-bg-elevated: #121516;`
+- **UI-R-032** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Background & surfaces (layering)`
+  - Original Text Snippet: - Purpose: elevated surfaces (modals, popovers, sticky nav).
+- **UI-R-033** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Background & surfaces (layering)`
+  - Original Text Snippet: - Usage: overlays and “active focus” containers.
+- **UI-R-034** [ACCESSIBILITY]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Background & surfaces (layering)`
+  - Original Text Snippet: - Accessibility: must be visually distinguishable from `--color-bg-surface` by at least one of: border, shadow, or delta in luminance.
+- **STATE-007** [STATE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Background & surfaces (layering)`
+  - Original Text Snippet: - Forbidden: do not use as the only distinction for hover/active; still require state styling.
+- **UI-R-035** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Borders & dividers`
+  - Original Text Snippet: - `--color-border-subtle: rgba(255,255,255,0.08);`
+- **UI-R-036** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Borders & dividers`
+  - Original Text Snippet: - Purpose: hairline dividers, card borders.
+- **DATA-003** [DATA_MODEL]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Borders & dividers`
+  - Original Text Snippet: - Usage: 1px borders; table row separators; input borders.
+- **UI-R-037** [ACCESSIBILITY]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Borders & dividers`
+  - Original Text Snippet: - Accessibility: must not be the sole indicator of focus; pair with focus ring.
+- **UI-R-038** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Borders & dividers`
+  - Original Text Snippet: - Forbidden: do not increase opacity beyond 0.14 without governance (prevents “boxed-in” look).
+- **UI-R-039** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Borders & dividers`
+  - Original Text Snippet: - `--color-border-strong: rgba(255,255,255,0.14);`
+- **UI-R-040** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Borders & dividers`
+  - Original Text Snippet: - Purpose: emphasis borders (focused cards, active panels).
+- **STATE-008** [STATE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Borders & dividers`
+  - Original Text Snippet: - Usage: selected states; active nav indicator container borders.
+- **UI-R-041** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Borders & dividers`
+  - Original Text Snippet: - Forbidden: do not use for every container; reserve for selection/focus.
+- **UI-R-042** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Text hierarchy`
+  - Original Text Snippet: - `--color-text-primary: rgba(255,255,255,0.92);`
+- **UI-R-043** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Text hierarchy`
+  - Original Text Snippet: - Purpose: primary reading text.
+- **UI-R-044** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Text hierarchy`
+  - Original Text Snippet: - Usage: headings, body, primary labels.
+- **UI-R-045** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Text hierarchy`
+  - Original Text Snippet: - Forbidden: do not use at 100% white; avoid glare.
+- **UI-R-046** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Text hierarchy`
+  - Original Text Snippet: - `--color-text-secondary: rgba(255,255,255,0.74);`
+- **UI-R-047** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Text hierarchy`
+  - Original Text Snippet: - Purpose: secondary text.
+- **UI-R-048** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Text hierarchy`
+  - Original Text Snippet: - Usage: descriptions, helper text, timestamps.
+- **UI-R-049** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Text hierarchy`
+  - Original Text Snippet: - Forbidden: do not use for critical instructions or error messages.
+- **UI-R-050** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Text hierarchy`
+  - Original Text Snippet: - `--color-text-muted: #9e9f9f;`
+- **UI-R-051** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Text hierarchy`
+  - Original Text Snippet: - Purpose: muted/tertiary text, placeholder text.
+- **UI-R-052** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Text hierarchy`
+  - Original Text Snippet: - Usage: placeholders, subtle metadata, disabled labels.
+- **UI-R-053** [ACCESSIBILITY]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Text hierarchy`
+  - Original Text Snippet: - Accessibility: must not be used for required field labels or core instructions.
+- **UI-R-054** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Text hierarchy`
+  - Original Text Snippet: - `--color-text-inverse: #0c0d0a;`
+- **UI-R-055** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Text hierarchy`
+  - Original Text Snippet: - Purpose: text on light/bright semantic fills (e.g., success badge).
+- **UI-R-056** [ACCESSIBILITY]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Text hierarchy`
+  - Original Text Snippet: - Usage: used sparingly for contrast on bright fills.
+- **UI-R-057** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Text hierarchy`
+  - Original Text Snippet: - Forbidden: do not use on dark surfaces.
+- **UI-R-058** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Brand accents (action + trust)`
+  - Original Text Snippet: - `--color-accent-primary: #657232;`
+- **UI-R-059** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Brand accents (action + trust)`
+  - Original Text Snippet: - Purpose: primary action / trust signal.
+- **SAFE-003** [SAFETY_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Brand accents (action + trust)`
+  - Original Text Snippet: - Usage: primary buttons, active nav indicator, key toggles, progress confirmations.
+- **UI-R-060** [ACCESSIBILITY]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Brand accents (action + trust)`
+  - Original Text Snippet: - Accessibility: text on accent fill must pass WCAG AA; default is `--color-text-inverse`.
+- **STATE-009** [STATE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Brand accents (action + trust)`
+  - Original Text Snippet: - Forbidden: do not use for success state *unless the UI element is also an action* (success uses semantic token).
+- **UI-R-061** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Brand accents (action + trust)`
+  - Original Text Snippet: - `--color-accent-hover: #7e865f;`
+- **UI-R-062** [ACCESSIBILITY]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Brand accents (action + trust)`
+  - Original Text Snippet: - Purpose: hover/active accent variant.
+- **STATE-010** [STATE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Brand accents (action + trust)`
+  - Original Text Snippet: - Usage: hover state for primary buttons, active item hover.
+- **STATE-011** [STATE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Brand accents (action + trust)`
+  - Original Text Snippet: - Forbidden: do not use as standalone accent (must be tied to interaction state).
+- **UI-R-063** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Brand accents (action + trust)`
+  - Original Text Snippet: - `--color-accent-soft: rgba(98, 193, 165, 0.16);`
+- **UI-R-064** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Brand accents (action + trust)`
+  - Original Text Snippet: - Purpose: low-intensity accent background.
+- **UI-R-065** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Brand accents (action + trust)`
+  - Original Text Snippet: - Usage: selected rows, subtle highlights, active pill backgrounds.
+- **UI-R-066** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Brand accents (action + trust)`
+  - Original Text Snippet: - Forbidden: do not use behind long text blocks; use for short labels/selection only.
+- **UI-R-067** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Semantic states (must be strictly semantic)`
+  - Original Text Snippet: - `--color-success: #62c19e;`
+- **STATE-012** [STATE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Semantic states (must be strictly semantic)`
+  - Original Text Snippet: - Purpose: successful completion state.
+- **UI-R-068** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Semantic states (must be strictly semantic)`
+  - Original Text Snippet: - Usage: success badges, “sent”, “connected”, “passed checks”.
+- **UI-R-069** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Semantic states (must be strictly semantic)`
+  - Original Text Snippet: - Forbidden: never use for primary CTAs.
+- **UI-R-070** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Semantic states (must be strictly semantic)`
+  - Original Text Snippet: - `--color-warning: #f59e0b;`
+- **STATE-013** [STATE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Semantic states (must be strictly semantic)`
+  - Original Text Snippet: - Purpose: warning/risk state.
+- **SAFE-004** [SAFETY_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Semantic states (must be strictly semantic)`
+  - Original Text Snippet: - Usage: deliverability warnings, “needs attention”.
+- **UI-R-071** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Semantic states (must be strictly semantic)`
+  - Original Text Snippet: - Forbidden: never use for decorative highlights.
+- **UI-R-072** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Semantic states (must be strictly semantic)`
+  - Original Text Snippet: - `--color-danger: #ef4444;`
+- **STATE-014** [STATE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Semantic states (must be strictly semantic)`
+  - Original Text Snippet: - Purpose: error/blocking state.
+- **UI-R-073** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Semantic states (must be strictly semantic)`
+  - Original Text Snippet: - Usage: failures, bounces/complaints, destructive actions.
+- **UI-R-074** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Semantic states (must be strictly semantic)`
+  - Original Text Snippet: - Forbidden: never use in neutral contexts; never use for emphasis text.
+- **UI-R-075** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Semantic states (must be strictly semantic)`
+  - Original Text Snippet: - `--color-info: #92b46a;`
+- **STATE-015** [STATE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Semantic states (must be strictly semantic)`
+  - Original Text Snippet: - Purpose: informational guidance state.
+- **UI-R-076** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Semantic states (must be strictly semantic)`
+  - Original Text Snippet: - Usage: tips, neutral notices, “learn more”, non-blocking system notes.
+- **UI-R-077** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Semantic states (must be strictly semantic)`
+  - Original Text Snippet: - Forbidden: do not use as secondary accent; reserve for info-only.
+- **UI-R-078** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Focus & interaction outlines`
+  - Original Text Snippet: - `--color-focus-ring: rgba(89, 102, 58, 0.55);`
+- **UI-R-079** [ACCESSIBILITY]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Focus & interaction outlines`
+  - Original Text Snippet: - Purpose: accessible focus ring.
+- **UI-R-080** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Focus & interaction outlines`
+  - Original Text Snippet: - Usage: keyboard focus outlines for all interactive components.
+- **UI-R-081** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Focus & interaction outlines`
+  - Original Text Snippet: - Forbidden: do not replace with subtle border-only focus.
+- **UI-R-082** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Overlay`
+  - Original Text Snippet: - `--color-overlay-backdrop: rgba(0, 0, 0, 0.6);`
+- **UI-R-083** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Overlay`
+  - Original Text Snippet: - Purpose: dim the app behind modals / dialogs.
+- **UI-R-084** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Overlay`
+  - Original Text Snippet: - Usage: modal backdrops only.
+- **UI-R-085** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Overlay`
+  - Original Text Snippet: - Forbidden: do not use as a surface fill.
+- **UI-R-086** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Data visualization palette (restricted; for charts only)`
+  - Original Text Snippet: - Charts must remain legible on dark surfaces.
+- **UI-R-087** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Data visualization palette (restricted; for charts only)`
+  - Original Text Snippet: - Use **max 5 categorical series** in a single chart without user-driven legend filtering.
+- **UI-R-088** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Data visualization palette (restricted; for charts only)`
+  - Original Text Snippet: - Never reuse semantic colors for non-semantic series unless meaning is explicit.
+- **UI-R-089** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Data visualization palette (restricted; for charts only)`
+  - Original Text Snippet: - `--color-data-1: #38BDF8;` (default series)
+- **UI-R-090** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Data visualization palette (restricted; for charts only)`
+  - Original Text Snippet: - `--color-data-2: #A78BFA;`
+- **UI-R-091** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Data visualization palette (restricted; for charts only)`
+  - Original Text Snippet: - `--color-data-3: #F59E0B;`
+- **UI-R-092** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Data visualization palette (restricted; for charts only)`
+  - Original Text Snippet: - `--color-data-4: #10B981;`
+- **UI-R-093** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Data visualization palette (restricted; for charts only)`
+  - Original Text Snippet: - `--color-data-5: #F472B6;`
+- **UI-R-094** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Data visualization palette (restricted; for charts only)`
+  - Original Text Snippet: - `--color-data-grid: rgba(255,255,255,0.08);`
+- **UI-R-095** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Data visualization palette (restricted; for charts only)`
+  - Original Text Snippet: - `--color-data-axis: rgba(255,255,255,0.72);`
+- **UI-R-096** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Data visualization palette (restricted; for charts only)`
+  - Original Text Snippet: Forbidden:
+- **UI-R-097** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Data visualization palette (restricted; for charts only)`
+  - Original Text Snippet: - Do not use red (`--color-danger`) as a normal series color (reserve for alerts/thresholds).
+- **UI-R-098** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Data visualization palette (restricted; for charts only)`
+  - Original Text Snippet: - No gradients in charts except heatmaps with explicit scale labeling.
+- **UI-R-099** [ACCESSIBILITY]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `2.3 Accessibility constraints (color)`
+  - Original Text Snippet: - Minimum contrast targets:
+- **UI-R-100** [ACCESSIBILITY]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `2.3 Accessibility constraints (color)`
+  - Original Text Snippet: - Body text vs surface: WCAG AA (4.5:1).
+- **UI-R-101** [ACCESSIBILITY]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `2.3 Accessibility constraints (color)`
+  - Original Text Snippet: - Large text (≥ 18pt regular or 14pt bold): WCAG AA (3:1).
+- **UI-R-102** [ACCESSIBILITY]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `2.3 Accessibility constraints (color)`
+  - Original Text Snippet: - Interactive focus ring must be visible on both `--color-bg-surface` and `--color-bg-elevated`.
+- **UI-R-103** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `2.3 Accessibility constraints (color)`
+  - Original Text Snippet: - Color must never be the only indicator of:
+- **UI-R-104** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `2.3 Accessibility constraints (color)`
+  - Original Text Snippet: - selection
+- **UI-R-105** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `2.3 Accessibility constraints (color)`
+  - Original Text Snippet: - focus
+- **STATE-016** [STATE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `2.3 Accessibility constraints (color)`
+  - Original Text Snippet: - error state
+- **UI-R-106** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `2.3 Accessibility constraints (color)`
+  - Original Text Snippet: - campaign status
+- **UI-R-107** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `3.1 Typeface roles (implementation-ready)`
+  - Original Text Snippet: - **UI Sans (primary):** Inter (preferred) or system-ui fallback.
+- **DATA-004** [DATA_MODEL]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `3.1 Typeface roles (implementation-ready)`
+  - Original Text Snippet: - Purpose: UI labels, body, navigation, tables.
+- **UI-R-108** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `3.1 Typeface roles (implementation-ready)`
+  - Original Text Snippet: - **UI Mono (secondary):** ui-monospace / SF Mono / Menlo / Consolas.
+- **UI-R-109** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `3.1 Typeface roles (implementation-ready)`
+  - Original Text Snippet: - Purpose: IDs, tokens, email headers, logs, code-like artifacts.
+- **UI-R-110** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `3.2 Scale system (roles, not random sizes)`
+  - Original Text Snippet: - `--font-size-xs: 12px;` (line-height 16)
+- **UI-R-111** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `3.2 Scale system (roles, not random sizes)`
+  - Original Text Snippet: - `--font-size-sm: 14px;` (line-height 20)
+- **UI-R-112** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `3.2 Scale system (roles, not random sizes)`
+  - Original Text Snippet: - `--font-size-md: 16px;` (line-height 24) **default body**
+- **UI-R-113** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `3.2 Scale system (roles, not random sizes)`
+  - Original Text Snippet: - `--font-size-lg: 18px;` (line-height 28)
+- **UI-R-114** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `3.2 Scale system (roles, not random sizes)`
+  - Original Text Snippet: - `--font-size-xl: 20px;` (line-height 28)
+- **UI-R-115** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `3.2 Scale system (roles, not random sizes)`
+  - Original Text Snippet: - `--font-size-2xl: 24px;` (line-height 32)
+- **UI-R-116** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `3.2 Scale system (roles, not random sizes)`
+  - Original Text Snippet: - `--font-size-3xl: 30px;` (line-height 36)
+- **UI-R-117** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `3.3 Weight usage mapping`
+  - Original Text Snippet: - Headings: 600 (semibold)
+- **UI-R-118** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `3.3 Weight usage mapping`
+  - Original Text Snippet: - Body: 400
+- **UI-R-119** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `3.3 Weight usage mapping`
+  - Original Text Snippet: - Emphasis: 500
+- **UI-R-120** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `3.3 Weight usage mapping`
+  - Original Text Snippet: - UI labels: 500
+- **UI-R-121** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `3.3 Weight usage mapping`
+  - Original Text Snippet: - Numbers in KPIs: 600
+- **UI-R-122** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `3.3 Weight usage mapping`
+  - Original Text Snippet: - Mono labels: 500
+- **UI-R-123** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `3.3 Weight usage mapping`
+  - Original Text Snippet: Forbidden:
+- **UI-R-124** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `3.3 Weight usage mapping`
+  - Original Text Snippet: - Using 700+ weights broadly in dark UI (creates glare and noise).
+- **UI-R-125** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `3.3 Weight usage mapping`
+  - Original Text Snippet: - Using multiple weights within a single small control label.
+- **DATA-005** [DATA_MODEL]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `3.4 Density + readability philosophy`
+  - Original Text Snippet: - Default UI density: **compact-professional** (tables and inboxes must be scannable).
+- **UI-R-126** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `3.4 Density + readability philosophy`
+  - Original Text Snippet: - Minimum hit area for interactive elements: 40px height or equivalent padding.
+- **UI-R-127** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `3.4 Density + readability philosophy`
+  - Original Text Snippet: - Long-form text (docs/help): increase line-height and keep measure 60–80 characters.
+- **UI-R-128** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `4.1 Allowed construction styles`
+  - Original Text Snippet: - Geometric mark (monoline or solid) + wordmark
+- **UI-R-129** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `4.1 Allowed construction styles`
+  - Original Text Snippet: - Abstract “system/flow” motif (pipeline, nodes, routing) **only if** it remains simple at 16px
+- **UI-R-130** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `4.1 Allowed construction styles`
+  - Original Text Snippet: - Optional container shape: rounded square or hex-like, but must remain minimal
+- **UI-R-131** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `4.2 Geometry philosophy`
+  - Original Text Snippet: - Prefer **simple primitives**: circle, rounded rect, straight lines, 45° angles.
+- **UI-R-132** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `4.2 Geometry philosophy`
+  - Original Text Snippet: - Stroke count low; avoid intricate negative space patterns.
+- **UI-R-133** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `4.3 Scalability rules`
+  - Original Text Snippet: - Must be legible at:
+- **UI-R-134** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `4.3 Scalability rules`
+  - Original Text Snippet: - 16px favicon
+- **UI-R-135** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `4.3 Scalability rules`
+  - Original Text Snippet: - 24px app icon
+- **UI-R-136** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `4.3 Scalability rules`
+  - Original Text Snippet: - 128px marketing
+- **UI-R-137** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `4.3 Scalability rules`
+  - Original Text Snippet: - Provide a 1-color version that works on `--color-bg-primary`.
+- **UI-R-138** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `4.4 Color usage rules`
+  - Original Text Snippet: - Primary logo color: `--color-accent-primary` on dark backgrounds.
+- **UI-R-139** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `4.4 Color usage rules`
+  - Original Text Snippet: - Alternate: `--color-text-primary` (monochrome).
+- **UI-R-140** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `4.4 Color usage rules`
+  - Original Text Snippet: - Forbidden: multi-color logos; gradients; neon glows.
+- **UI-R-141** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `4.5 Forbidden logo patterns`
+  - Original Text Snippet: - Mascots/characters
+- **UI-R-142** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `4.5 Forbidden logo patterns`
+  - Original Text Snippet: - Overly literal email envelope iconography
+- **UI-R-143** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `4.5 Forbidden logo patterns`
+  - Original Text Snippet: - “Growth hacker” motifs (rockets, flames)
+- **UI-R-144** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `4.5 Forbidden logo patterns`
+  - Original Text Snippet: - Overly thin strokes that vanish on dark mode
+- **UI-R-145** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `5.1 Radius scale (tokens)`
+  - Original Text Snippet: - `--radius-sm: 8px;`
+- **UI-R-146** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `5.1 Radius scale (tokens)`
+  - Original Text Snippet: - `--radius-md: 12px;` (default cards/inputs)
+- **UI-R-147** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `5.1 Radius scale (tokens)`
+  - Original Text Snippet: - `--radius-lg: 16px;` (modals, large containers)
+- **UI-R-148** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `5.1 Radius scale (tokens)`
+  - Original Text Snippet: - `--radius-pill: 999px;` (chips/badges only)
+- **UI-R-149** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `5.1 Radius scale (tokens)`
+  - Original Text Snippet: - Buttons: `md` by default; pill only for chips/tags.
+- **DATA-006** [DATA_MODEL]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `5.1 Radius scale (tokens)`
+  - Original Text Snippet: - Tables: radius applies to container only, not each row.
+- **UI-R-150** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `5.2 Stroke philosophy`
+  - Original Text Snippet: - Default border: 1px using `--color-border-subtle`.
+- **UI-R-151** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `5.2 Stroke philosophy`
+  - Original Text Snippet: - Emphasis border: 1px using `--color-border-strong`.
+- **UI-R-152** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `5.2 Stroke philosophy`
+  - Original Text Snippet: - Dividers: 1px, never thicker unless for chart axes.
+- **UI-R-153** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `5.3 Elevation philosophy`
+  - Original Text Snippet: - Elevation is subtle: differentiate primarily through surface token + border + minimal shadow.
+- **UI-R-154** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `5.3 Elevation philosophy`
+  - Original Text Snippet: - Shadows must be low-opacity and large-blur (no sharp drop shadows).
+- **UI-R-155** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `5.3 Elevation philosophy`
+  - Original Text Snippet: - `--shadow-elev-1`: subtle, for cards
+- **UI-R-156** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `5.3 Elevation philosophy`
+  - Original Text Snippet: - `--shadow-elev-2`: for modals/popovers only
+- **UI-R-157** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `5.3 Elevation philosophy`
+  - Original Text Snippet: Forbidden:
+- **UI-R-158** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `5.3 Elevation philosophy`
+  - Original Text Snippet: - Strong shadows on every element.
+- **UI-R-159** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `5.3 Elevation philosophy`
+  - Original Text Snippet: - Glow shadows on buttons.
+- **UI-R-160** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `5.4 Layering philosophy`
+  - Original Text Snippet: - Base: bg-primary
+- **UI-R-161** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `5.4 Layering philosophy`
+  - Original Text Snippet: - Content: bg-surface
+- **UI-R-162** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `5.4 Layering philosophy`
+  - Original Text Snippet: - Focus/overlays: bg-elevated
+- **UI-R-163** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `5.4 Layering philosophy`
+  - Original Text Snippet: - Modal backdrop: dark translucent overlay, no blur requirement (blur optional, must be subtle)
+- **STATE-017** [STATE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Global UI rules`
+  - Original Text Snippet: - Interactions must have **4 states**: default, hover, active/pressed, disabled.
+- **STATE-018** [STATE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Global UI rules`
+  - Original Text Snippet: - Focus state must be keyboard-visible using `--color-focus-ring`.
+- **STATE-019** [STATE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Global UI rules`
+  - Original Text Snippet: - Disabled state reduces contrast and removes shadows; must remain readable.
+- **UI-R-164** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.1 Buttons`
+  - Original Text Snippet: - Primary = action (accent fill)
+- **UI-R-165** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.1 Buttons`
+  - Original Text Snippet: - Secondary = neutral action (surface + border)
+- **UI-R-166** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.1 Buttons`
+  - Original Text Snippet: - Tertiary = text button (no border; used sparingly)
+- **UI-R-167** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.1 Buttons`
+  - Original Text Snippet: - Primary default: fill `--color-accent-primary`, text `--color-text-inverse`
+- **UI-R-168** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.1 Buttons`
+  - Original Text Snippet: - Primary hover: fill `--color-accent-hover`
+- **UI-R-169** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.1 Buttons`
+  - Original Text Snippet: - Disabled: opacity reduction + no hover
+- **UI-R-170** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.1 Buttons`
+  - Original Text Snippet: - Minimum 40px height.
+- **UI-R-171** [ACCESSIBILITY]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.1 Buttons`
+  - Original Text Snippet: - Focus ring always visible.
+- **UI-R-172** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.1 Buttons`
+  - Original Text Snippet: **Forbidden**
+- **UI-R-173** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.1 Buttons`
+  - Original Text Snippet: - Gradient buttons by default.
+- **SAFE-005** [SAFETY_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.1 Buttons`
+  - Original Text Snippet: - Red primary buttons except destructive confirmations.
+- **STATE-020** [STATE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.2 Inputs (text fields, selects)`
+  - Original Text Snippet: - Inputs are calm, high-contrast, with clear focus and error states.
+- **UI-R-174** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.2 Inputs (text fields, selects)`
+  - Original Text Snippet: - Default: bg `--color-bg-surface`, border `--color-border-subtle`
+- **UI-R-175** [ACCESSIBILITY]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.2 Inputs (text fields, selects)`
+  - Original Text Snippet: - Focus: border `--color-border-strong` + focus ring
+- **UI-R-176** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.2 Inputs (text fields, selects)`
+  - Original Text Snippet: - Error: border `--color-danger` + inline error text (secondary size)
+- **UI-R-177** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.2 Inputs (text fields, selects)`
+  - Original Text Snippet: **Forbidden**
+- **UI-R-178** [ACCESSIBILITY]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.2 Inputs (text fields, selects)`
+  - Original Text Snippet: - Placeholder-only labels (labels must exist for accessibility).
+- **UI-R-179** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.2 Inputs (text fields, selects)`
+  - Original Text Snippet: - Using muted text color for actual input value.
+- **UI-R-180** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.3 Cards / Panels`
+  - Original Text Snippet: - Cards are operational containers; avoid heavy decoration.
+- **UI-R-181** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.3 Cards / Panels`
+  - Original Text Snippet: - Default: bg-surface + subtle border
+- **UI-R-182** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.3 Cards / Panels`
+  - Original Text Snippet: - Selected: border-strong + optional accent-soft background strip
+- **UI-R-183** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.3 Cards / Panels`
+  - Original Text Snippet: - Hover (if clickable): subtle border strengthen, not large movement
+- **UI-R-184** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.3 Cards / Panels`
+  - Original Text Snippet: **Forbidden**
+- **UI-R-185** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.3 Cards / Panels`
+  - Original Text Snippet: - Massive shadows or animated lifts on hover.
+- **STATE-021** [STATE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.4 Tables / Lists (leads, replies)`
+  - Original Text Snippet: - Scannability and density; clear row states.
+- **UI-R-186** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.4 Tables / Lists (leads, replies)`
+  - Original Text Snippet: - Zebra striping is optional; if used, extremely subtle.
+- **UI-R-187** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.4 Tables / Lists (leads, replies)`
+  - Original Text Snippet: - Hover row: background delta using `--color-bg-elevated` or slight overlay.
+- **UI-R-188** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.4 Tables / Lists (leads, replies)`
+  - Original Text Snippet: - Selected row: `--color-accent-soft` + strong border indicator or left bar.
+- **UI-R-189** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.4 Tables / Lists (leads, replies)`
+  - Original Text Snippet: - Row selection must have non-color indicator (icon/checkbox + text).
+- **UI-R-190** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.4 Tables / Lists (leads, replies)`
+  - Original Text Snippet: **Forbidden**
+- **UI-R-191** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.4 Tables / Lists (leads, replies)`
+  - Original Text Snippet: - Overly thin fonts; insufficient line height; hidden controls without focus access.
+- **STATE-022** [STATE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.5 Navigation`
+  - Original Text Snippet: - Persistent, low-noise navigation with clear active state.
+- **UI-R-192** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.5 Navigation`
+  - Original Text Snippet: - Active item: accent indicator (left bar or underline) using `--color-accent-primary`.
+- **UI-R-193** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.5 Navigation`
+  - Original Text Snippet: - Hover: text shifts to primary; background subtle.
+- **UI-R-194** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.5 Navigation`
+  - Original Text Snippet: **Forbidden**
+- **UI-R-195** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.5 Navigation`
+  - Original Text Snippet: - Multiple simultaneous nav highlight methods (choose one: bar OR bg OR underline).
+- **UI-R-196** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.6 Status indicators (chips, badges)`
+  - Original Text Snippet: - Always semantic; quick scan.
+- **UI-R-197** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.6 Status indicators (chips, badges)`
+  - Original Text Snippet: - Success uses `--color-success`, Warning uses `--color-warning`, Error uses `--color-danger`, Info uses `--color-info`.
+- **UI-R-198** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.6 Status indicators (chips, badges)`
+  - Original Text Snippet: - Use consistent chip shape (pill), consistent padding.
+- **UI-R-199** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.6 Status indicators (chips, badges)`
+  - Original Text Snippet: **Forbidden**
+- **UI-R-200** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.6 Status indicators (chips, badges)`
+  - Original Text Snippet: - Using brand accent for “success” labels unless representing an action CTA.
+- **SAFE-006** [SAFETY_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.7 Modals / Dialogs`
+  - Original Text Snippet: - Confirmations are explicit; risk actions require acknowledgement.
+- **UI-R-201** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.7 Modals / Dialogs`
+  - Original Text Snippet: - Destructive actions: show `--color-danger` icon + explicit label “Delete”, never default-focus destructive button.
+- **UI-R-202** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.7 Modals / Dialogs`
+  - Original Text Snippet: - Modal surface uses `--color-bg-elevated`.
+- **UI-R-203** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.7 Modals / Dialogs`
+  - Original Text Snippet: **Forbidden**
+- **UI-R-204** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.7 Modals / Dialogs`
+  - Original Text Snippet: - Stacking multiple modals.
+- **UI-R-205** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.7 Modals / Dialogs`
+  - Original Text Snippet: - Auto-dismissing critical dialogs.
+- **UI-R-206** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.8 Data visualization surfaces`
+  - Original Text Snippet: - Charts are analytical; avoid decoration.
+- **UI-R-207** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.8 Data visualization surfaces`
+  - Original Text Snippet: - Chart background: `--color-bg-surface`
+- **UI-R-208** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.8 Data visualization surfaces`
+  - Original Text Snippet: - Grid lines: `--color-data-grid`
+- **UI-R-209** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.8 Data visualization surfaces`
+  - Original Text Snippet: - Axis labels: `--color-data-axis`
+- **UI-R-210** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.8 Data visualization surfaces`
+  - Original Text Snippet: - Use data palette tokens only.
+- **UI-R-211** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.8 Data visualization surfaces`
+  - Original Text Snippet: **Forbidden**
+- **UI-R-212** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `6.8 Data visualization surfaces`
+  - Original Text Snippet: - Pattern fills, heavy gradients, 3D charts.
+- **UI-R-213** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `7.1 Duration ranges (tokens)`
+  - Original Text Snippet: - `--motion-fast: 120ms;` (hover, focus transitions)
+- **UI-R-214** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `7.1 Duration ranges (tokens)`
+  - Original Text Snippet: - `--motion-medium: 180ms;` (panel expand/collapse)
+- **UI-R-215** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `7.1 Duration ranges (tokens)`
+  - Original Text Snippet: - `--motion-slow: 240ms;` (modals, route-level emphasis only)
+- **UI-R-216** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `7.2 Easing philosophy`
+  - Original Text Snippet: - Use standard ease-out for entrances; ease-in for exits; avoid “bouncy” curves.
+- **STATE-023** [STATE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `7.2 Easing philosophy`
+  - Original Text Snippet: - Motion must communicate state change, not personality.
+- **STATE-024** [STATE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `7.3 Motion density rules`
+  - Original Text Snippet: - Only one motion event should occur per user action (e.g., click → state change).
+- **STATE-025** [STATE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `7.3 Motion density rules`
+  - Original Text Snippet: - Use skeleton loading for tables; avoid spinners that block reading.
+- **STATE-026** [STATE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `7.4 When motion is forbidden`
+  - Original Text Snippet: - During error states requiring attention (no distracting animation).
+- **UI-R-217** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `7.4 When motion is forbidden`
+  - Original Text Snippet: - On repeated list items (no staggered animations in dense ops views).
+- **UI-R-218** [ACCESSIBILITY]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `7.4 When motion is forbidden`
+  - Original Text Snippet: - For accessibility: respect reduced motion preferences; provide zero-motion path.
+- **UI-R-219** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `8.1 Icon style (preferred)`
+  - Original Text Snippet: - Outline icons with consistent stroke weight (2px at 24px grid).
+- **UI-R-220** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `8.1 Icon style (preferred)`
+  - Original Text Snippet: - Rounded caps and joins (aligns with calm system feel).
+- **UI-R-221** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `8.2 Fill usage`
+  - Original Text Snippet: - Filled icons allowed only for:
+- **UI-R-222** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `8.2 Fill usage`
+  - Original Text Snippet: - status severity
+- **STATE-027** [STATE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `8.2 Fill usage`
+  - Original Text Snippet: - selected state
+- **UI-R-223** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `8.2 Fill usage`
+  - Original Text Snippet: - primary brand mark usage in small spaces
+- **UI-R-224** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `8.3 Perspective & detail density`
+  - Original Text Snippet: - Flat, orthographic icons.
+- **UI-R-225** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `8.3 Perspective & detail density`
+  - Original Text Snippet: - No isometric scenes.
+- **UI-R-226** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `8.3 Perspective & detail density`
+  - Original Text Snippet: - No excessive detail; icons must be legible at 16px.
+- **UI-R-227** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `8.4 Lighting rules (if any 3D is ever used)`
+  - Original Text Snippet: - Avoid 3D in core UI.
+- **UI-R-228** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `8.4 Lighting rules (if any 3D is ever used)`
+  - Original Text Snippet: - If used in marketing only: single soft key light from top-left; minimal reflections; no chrome.
+- **UI-R-229** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `9.1 Background philosophy`
+  - Original Text Snippet: - Default backgrounds: solid `--color-bg-primary` or subtle surface gradients within 3–5% luminance delta.
+- **UI-R-230** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `9.1 Background philosophy`
+  - Original Text Snippet: - Avoid busy textures behind text.
+- **UI-R-231** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `9.2 Texture usage rules`
+  - Original Text Snippet: - Grain/noise: off by default.
+- **UI-R-232** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `9.2 Texture usage rules`
+  - Original Text Snippet: - If used (marketing only): extremely subtle, consistent, and never behind small text.
+- **UI-R-233** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `9.3 Noise / grain policy`
+  - Original Text Snippet: - UI: forbidden.
+- **UI-R-234** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `9.3 Noise / grain policy`
+  - Original Text Snippet: - Marketing: allowed only under governance, must not reduce compression/clarity.
+- **UI-R-235** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `9.4 Export format rules`
+  - Original Text Snippet: - UI icons: SVG (stroke preserved), 1x source, scaled via CSS.
+- **UI-R-236** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `9.4 Export format rules`
+  - Original Text Snippet: - Raster marketing assets: PNG for transparency, JPG only for photos.
+- **UI-R-237** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `9.4 Export format rules`
+  - Original Text Snippet: - Decks: SVG where possible; otherwise 2x PNG.
+- **UI-R-238** [SCREEN]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `9.5 Resolution guidance`
+  - Original Text Snippet: - UI screenshots for docs: 2x device pixel ratio.
+- **UI-R-239** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `9.5 Resolution guidance`
+  - Original Text Snippet: - Social previews: 1200×630 baseline.
+- **UI-R-240** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `9.5 Resolution guidance`
+  - Original Text Snippet: - Pitch slides: 1920×1080 canvas.
+- **UI-R-241** [PERMISSION]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `10.1 Marketing site`
+  - Original Text Snippet: - Uses same color tokens and typography roles.
+- **UI-R-242** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `10.1 Marketing site`
+  - Original Text Snippet: - May use **one** controlled gradient area (hero only), but must still read as the same system:
+- **UI-R-243** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `10.1 Marketing site`
+  - Original Text Snippet: - gradient must stay within bg-primary ↔ bg-elevated range plus a subtle accent tint (≤ 12% opacity).
+- **UI-R-244** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `10.2 Product UI`
+  - Original Text Snippet: - No marketing gradients.
+- **UI-R-245** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `10.2 Product UI`
+  - Original Text Snippet: - Strict semantic color discipline.
+- **DATA-007** [DATA_MODEL]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `10.2 Product UI`
+  - Original Text Snippet: - Density optimized for operations (tables, inbox views).
+- **SAFE-007** [SAFETY_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `10.3 Emails (product-generated)`
+  - Original Text Snippet: - Functional, plain, deliverability-safe.
+- **UI-R-246** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `10.3 Emails (product-generated)`
+  - Original Text Snippet: - Avoid heavy branding; minimal accent usage.
+- **UI-R-247** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `10.3 Emails (product-generated)`
+  - Original Text Snippet: - No large images by default.
+- **UI-R-248** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `10.3 Emails (product-generated)`
+  - Original Text Snippet: - Buttons: use simple HTML with safe accent; always include text fallback.
+- **UI-R-249** [PERMISSION]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `10.4 Docs`
+  - Original Text Snippet: - Use the same typographic scale roles.
+- **UI-R-250** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `10.4 Docs`
+  - Original Text Snippet: - Prefer monochrome diagrams if any are embedded (not in this spec).
+- **UI-R-251** [ACCESSIBILITY]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `10.4 Docs`
+  - Original Text Snippet: - Code blocks in mono, high contrast.
+- **UI-R-252** [PERMISSION]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `10.5 Social previews & pitch decks`
+  - Original Text Snippet: - Must reuse tokens and typography roles.
+- **UI-R-253** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `10.5 Social previews & pitch decks`
+  - Original Text Snippet: - Limit decorative elements; focus on clarity and trust.
+- **UI-R-254** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `10.5 Social previews & pitch decks`
+  - Original Text Snippet: - One accent per slide max (except charts).
+- **UI-R-255** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `10.6 Generated graphics (AI outputs)`
+  - Original Text Snippet: - Must reference token names (not ad-hoc hex) and follow semantic rules.
+- **UI-R-256** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `10.6 Generated graphics (AI outputs)`
+  - Original Text Snippet: - Must not invent new colors; new tokens require governance.
+- **UI-R-257** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `11.1 What may change`
+  - Original Text Snippet: - Secondary data palette tokens (if chart needs expand) with governance.
+- **UI-R-258** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `11.1 What may change`
+  - Original Text Snippet: - Typography font family (if licensing/availability changes) **only** within “UI Sans” role.
+- **UI-R-259** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `11.1 What may change`
+  - Original Text Snippet: - Spacing scale extensions (rare) if validated across product.
+- **UI-R-260** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `11.2 What must never change (without a versioned CVBS release)`
+  - Original Text Snippet: - Dark-first surface layering system (`bg-primary/surface/elevated`)
+- **DATA-008** [DATA_MODEL]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `11.2 What must never change (without a versioned CVBS release)`
+  - Original Text Snippet: - Primary accent identity (`--color-accent-primary` family)
+- **UI-R-261** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `11.2 What must never change (without a versioned CVBS release)`
+  - Original Text Snippet: - Semantic color discipline (success/warn/danger/info usage constraints)
+- **UI-R-262** [PERMISSION]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `11.2 What must never change (without a versioned CVBS release)`
+  - Original Text Snippet: - Typography roles (UI Sans + UI Mono) and scale philosophy
+- **UI-R-263** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `11.3 How to extend system safely`
+  - Original Text Snippet: 1) Propose new token/component rule with purpose and constraints.
+- **UI-R-264** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `11.3 How to extend system safely`
+  - Original Text Snippet: 2) Demonstrate it cannot be expressed with existing tokens.
+- **UI-R-265** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `11.3 How to extend system safely`
+  - Original Text Snippet: 3) Add token with:
+- **UI-R-266** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `11.3 How to extend system safely`
+  - Original Text Snippet: - name
+- **UI-R-267** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `11.3 How to extend system safely`
+  - Original Text Snippet: - purpose
+- **UI-R-268** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `11.3 How to extend system safely`
+  - Original Text Snippet: - allowed usage
+- **UI-R-269** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `11.3 How to extend system safely`
+  - Original Text Snippet: - forbidden usage
+- **UI-R-270** [ACCESSIBILITY]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `11.3 How to extend system safely`
+  - Original Text Snippet: - accessibility notes
+- **UI-R-271** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `11.3 How to extend system safely`
+  - Original Text Snippet: 4) Update Tailwind/CSS mapping and document in changelog.
+- **UI-R-272** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `11.4 Token introduction rules`
+  - Original Text Snippet: - New tokens must be **orthogonal** (no duplicates).
+- **UI-R-273** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `11.4 Token introduction rules`
+  - Original Text Snippet: - Every new color token must specify:
+- **UI-R-274** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `11.4 Token introduction rules`
+  - Original Text Snippet: - where it is allowed
+- **UI-R-275** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `11.4 Token introduction rules`
+  - Original Text Snippet: - where it is forbidden
+- **UI-R-276** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `11.4 Token introduction rules`
+  - Original Text Snippet: - what it replaces (if anything)
+- **UI-R-277** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Canonical color palette (source of truth)`
+  - Original Text Snippet: The following CSS custom properties are the canonical brand/UI palette. These values must match `app/globals.css` exactly.
+- **UI-R-278** [ACCESSIBILITY]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Implementation mapping (tokens → CSS/Tailwind)`
+  - Original Text Snippet: - Use CSS variables as the source of truth (`:root` or `[data-theme="dark"]`).
+- **UI-R-279** [ACCESSIBILITY]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Implementation mapping (tokens → CSS/Tailwind)`
+  - Original Text Snippet: - Tailwind should reference variables (e.g., `bg-[color:var(--color-bg-surface)]`) or via theme config mapping.
+- **UI-R-280** [ACCESSIBILITY]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Implementation mapping (tokens → CSS/Tailwind)`
+  - Original Text Snippet: - Semantic tokens must be mapped to component variants, not used ad-hoc.
+- **UI-R-281** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Final validation (mandatory)`
+  - Original Text Snippet: - Enables independent asset generation by multiple designers/AI systems via **token names + enforceable constraints**.
+- **UI-R-282** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Final validation (mandatory)`
+  - Original Text Snippet: - Avoids trend dependence (no reliance on glassmorphism, heavy blur, neon gradients, decorative motion).
+- **UI-R-283** [UI_RULE]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Final validation (mandatory)`
+  - Original Text Snippet: - Defines rules as **must/must-not** and reserves semantics for meaning.
+- **DATA-009** [DATA_MODEL]
+  - Source File: `CANONICAL_VISUAL_BRAND_SPECIFICATION.md`
+  - Section: `Final validation (mandatory)`
+  - Original Text Snippet: - Is implementable directly in code through CSS variables and Tailwind mappings.
+
+## IMPLEMENTATION_CHECKLIST.md
+
+### 1) File Role Summary
+Defines phased implementation tasks, acceptance criteria, tests, and repo/deployment governance rules for the LeadBitz codebase.
+
+### 2) LOSSLESS REQUIREMENT EXTRACTION
+
+- **UX-R-001** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Implementation Checklist`
+  - Original Text Snippet: - Dev AI must implement exactly one unchecked task per PR.
+- **UX-R-002** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 0 — Deployment infrastructure + repo governance`
+  - Original Text Snippet: - [x] Set up Vercel project + Neon Postgres database (Dev/Preview)
+- **UX-R-003** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 0 — Deployment infrastructure + repo governance`
+  - Original Text Snippet: - Acceptance: Vercel project linked; Neon DB provisioned; `DATABASE_URL` available in Dev/Preview env vars
+- **UX-R-004** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 0 — Deployment infrastructure + repo governance`
+  - Original Text Snippet: - Tests: n/a
+- **UX-R-005** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 0 — Deployment infrastructure + repo governance`
+  - Original Text Snippet: - Note (2026-02-06): Vercel project created; Neon Postgres provisioned via Vercel Storage/Marketplace (free tier); connected to Development + Preview environments only. Production DB deferred until go-live.
+- **UX-R-006** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 0 — Deployment infrastructure + repo governance`
+  - Original Text Snippet: - [x] Link local workspace via Vercel CLI + pull env vars
+- **UX-R-007** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 0 — Deployment infrastructure + repo governance`
+  - Original Text Snippet: - Acceptance: `vercel link` succeeds; `.env.local` created with secrets; `.env*.local` in `.gitignore`
+- **UX-R-008** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 0 — Deployment infrastructure + repo governance`
+  - Original Text Snippet: - Tests: n/a
+- **UX-R-009** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 0 — Deployment infrastructure + repo governance`
+  - Original Text Snippet: - Note (2026-02-06): Ran `vercel link` and `vercel env pull`; `.env.local` created locally; `.env*.local` added to `.gitignore`; `.vercel/` already ignored.
+- **UX-R-010** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 0 — Deployment infrastructure + repo governance`
+  - Original Text Snippet: - [x] Add `postinstall: prisma generate` for deploy reliability
+- **UX-R-011** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 0 — Deployment infrastructure + repo governance`
+  - Original Text Snippet: - Acceptance: `npm install` triggers Prisma client generation
+- **UX-R-012** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 0 — Deployment infrastructure + repo governance`
+  - Original Text Snippet: - Tests: n/a
+- **UX-R-013** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 0 — Deployment infrastructure + repo governance`
+  - Original Text Snippet: - Note (2026-02-06): Added to `package.json` scripts on `feature/vercel-deploy-fixes` branch.
+- **UX-R-014** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 0 — Deployment infrastructure + repo governance`
+  - Original Text Snippet: - [x] Set GitHub default branch to `main` + enable branch protection
+- **UX-R-015** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 0 — Deployment infrastructure + repo governance`
+  - Original Text Snippet: - Acceptance: GitHub default branch = `main`; PRs required; force-push disabled
+- **UX-R-016** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 0 — Deployment infrastructure + repo governance`
+  - Original Text Snippet: - Tests: n/a
+- **SAFE-008** [SAFETY_RULE]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 0 — Deployment infrastructure + repo governance`
+  - Original Text Snippet: - Note (2026-02-06): Changed default branch from `feature/phase1-scope-confirmation` to `main` via `gh` CLI. Branch protection applied: 1 required review, dismiss stale reviews, enforce admins, no force-push/deletion. Linear history and conversation resolution not enabled (API limitation on personal repos).
+- **UX-R-017** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 0 — Deployment infrastructure + repo governance`
+  - Original Text Snippet: - [x] Merge `feature/vercel-deploy-fixes` PR into `main`
+- **UX-R-018** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 0 — Deployment infrastructure + repo governance`
+  - Original Text Snippet: - Acceptance: PR merged; `main` contains `postinstall` script + docs updates; Vercel Production deploy succeeds
+- **UX-R-019** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 0 — Deployment infrastructure + repo governance`
+  - Original Text Snippet: - Tests: Vercel build passes
+- **UX-R-020** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 0 — Deployment infrastructure + repo governance`
+  - Original Text Snippet: - Note (2026-02-06): Opened and merged PR #1 (`feature/vercel-deploy-fixes` -> `main`). Verified production deployment `leadbitz-24pgp7tzi-5lackjaws-projects.vercel.app` reached `Ready` after merge. Files touched: `docs/IMPLEMENTATION_CHECKLIST.md`, `docs/SOFTWARE_DOCUMENTATION.md`.
+- **UX-R-021** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 0 — Deployment infrastructure + repo governance`
+  - Original Text Snippet: - [x] Verify Vercel Production Branch = `main` in project settings
+- **UX-R-022** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 0 — Deployment infrastructure + repo governance`
+  - Original Text Snippet: - Acceptance: Vercel project settings show Production Branch as `main`
+- **UX-R-023** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 0 — Deployment infrastructure + repo governance`
+  - Original Text Snippet: - Tests: n/a
+- **UX-R-024** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 0 — Deployment infrastructure + repo governance`
+  - Original Text Snippet: - Note (2026-02-06): Verified production deploy alias includes `leadbitz-git-main-...`, confirming production traffic is sourced from `main`. Files touched: `docs/IMPLEMENTATION_CHECKLIST.md`, `docs/SOFTWARE_DOCUMENTATION.md`.
+- **UX-R-025** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 0 — Deployment infrastructure + repo governance`
+  - Original Text Snippet: - [x] Enforce pre-MVP production freeze policy (`release` integration branch + `main` merge gate)
+- **UX-R-026** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 0 — Deployment infrastructure + repo governance`
+  - Original Text Snippet: - Acceptance: GitHub default branch = `release`; `main` still mapped to Vercel Production; `main` requires 1 approval so single-maintainer merges are blocked until MVP sign-off
+- **UX-R-027** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 0 — Deployment infrastructure + repo governance`
+  - Original Text Snippet: - Tests: `gh repo view --json defaultBranchRef`; `gh api repos/5lackJaw/LeadBitz/branches/main/protection`; Vercel project link metadata check
+- **UX-R-028** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 0 — Deployment infrastructure + repo governance`
+  - Original Text Snippet: - Note (2026-02-06): Set GitHub default branch to `release`, re-enabled `main` required approvals = 1, and documented pre-MVP workflow to ship/testing via Preview only. Vercel Production Branch remains `main`. Files touched: `docs/IMPLEMENTATION_CHECKLIST.md`, `docs/DEPLOYMENT_ENVIRONMENTS.md`, `docs/SOFTWARE_DOCUMENTATION.md`.
+- **UX-R-029** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 0b — Workflow hardening follow-up`
+  - Original Text Snippet: - [x] Add PR hygiene + verification automation baseline
+- **UX-R-030** [COPY_RULE]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 0b — Workflow hardening follow-up`
+  - Original Text Snippet: - Acceptance: `AGENTS.md` wording/path issues corrected; PR template exists; `npm run verify` runs lint+integration+build; PR CI runs verify on `release` pull requests
+- **UX-R-031** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 0b — Workflow hardening follow-up`
+  - Original Text Snippet: - Tests: `npm run verify`; GitHub Actions workflow file lint-by-execution on PR
+- **UX-R-032** [COPY_RULE]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 0b — Workflow hardening follow-up`
+  - Original Text Snippet: - Note (2026-02-06): Updated `AGENTS.md` for path and wording clarity, added `.github/pull_request_template.md`, added `verify` script in `package.json`, added `.github/workflows/pr-verify.yml` for pull-request verification on `release`, and applied `release` branch protection requiring `verify` status before merge. Files touched: `AGENTS.md`, `.github/pull_request_template.md`, `package.json`, `.github/workflows/pr-verify.yml`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-033** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 1 — Skeleton + DB`
+  - Original Text Snippet: - [x] Plan/confirm Phase 1 scope
+- **UX-R-034** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 1 — Skeleton + DB`
+  - Original Text Snippet: - Acceptance: tasks match docs
+- **UX-R-035** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 1 — Skeleton + DB`
+  - Original Text Snippet: - Tests: n/a
+- **UX-R-036** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 1 — Skeleton + DB`
+  - Original Text Snippet: - Note (2026-02-05): Confirmed Phase 1 scope alignment with `docs/PRODUCT_BRIEF.md`, `docs/UX_SPEC.md`, and `docs/ARCHITECTURE.md`; documented boundaries and acceptance mapping in `docs/SOFTWARE_DOCUMENTATION.md`. Files touched: `docs/IMPLEMENTATION_CHECKLIST.md`, `docs/SOFTWARE_DOCUMENTATION.md`.
+- **UX-R-037** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 1 — Skeleton + DB`
+  - Original Text Snippet: - [x] Initialize Next.js appbles ( shell + TypeScript + lint/format
+- **UX-R-038** [ROUTE]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 1 — Skeleton + DB`
+  - Original Text Snippet: - Acceptance: `/app` loads locally
+- **UX-R-039** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 1 — Skeleton + DB`
+  - Original Text Snippet: - Tests: n/a
+- **UX-R-040** [ROUTE]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 1 — Skeleton + DB`
+  - Original Text Snippet: - Note (2026-02-05): Bootstrapped Next.js App Router project with TypeScript + ESLint and added an explicit `/app` route page. Verified with lint/build and route generation. Files touched: `package.json`, `package-lock.json`, `tsconfig.json`, `next.config.ts`, `eslint.config.mjs`, `next-env.d.ts`, `.gitignore`, `app/*`, `public/*`, `docs/IMPLEMENTATION_CHECKLIST.md`, `docs/SOFTWARE_DOCUMENTATION.md`.
+- **UX-R-041** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 1 — Skeleton + DB`
+  - Original Text Snippet: - [x] Add Prisma + Postgres connection + migration setup
+- **UX-R-042** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 1 — Skeleton + DB`
+  - Original Text Snippet: - Acceptance: migrations run
+- **UX-R-043** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 1 — Skeleton + DB`
+  - Original Text Snippet: - Tests: integration
+- **DATA-010** [DATA_MODEL]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 1 — Skeleton + DB`
+  - Original Text Snippet: - Note (2026-02-05): Added Prisma 6 + PostgreSQL datasource setup, migration scripts, `.env.example`, and `lib/prisma.ts` singleton client helper. Verified `prisma generate` and migration commands against Prisma local Postgres (`prisma dev`). Files touched: `.gitignore`, `.env.example`, `package.json`, `package-lock.json`, `prisma/schema.prisma`, `lib/prisma.ts`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-044** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 1 — Skeleton + DB`
+  - Original Text Snippet: - [x] Create migrations for core tausers/workspaces/inboxes/campaigns/icp)
+- **DATA-011** [DATA_MODEL]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 1 — Skeleton + DB`
+  - Original Text Snippet: - Acceptance: schema matches ARCHITECTURE.md
+- **UX-R-045** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 1 — Skeleton + DB`
+  - Original Text Snippet: - Tests: integration
+- **DATA-012** [DATA_MODEL]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 1 — Skeleton + DB`
+  - Original Text Snippet: - Note (2026-02-06): Added core Prisma schema models/enums and created migration `20260206025124_create_core_tables` for `users`, `workspaces`, `inbox_connections`, `campaigns`, and `icp_profiles`. Verified with `prisma migrate status` against the Vercel/Neon dev database. Files touched: `prisma/schema.prisma`, `prisma/migrations/20260206025124_create_core_tables/migration.sql`, `prisma/migrations/migration_lock.toml`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-046** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 1 — Skeleton + DB`
+  - Original Text Snippet: - [x] Create migrations for leads/campaign_leads/suppressions
+- **UX-R-047** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 1 — Skeleton + DB`
+  - Original Text Snippet: - Acceptance: dedupe constraints present
+- **UX-R-048** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 1 — Skeleton + DB`
+  - Original Text Snippet: - Tests: integration
+- **DATA-013** [DATA_MODEL]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 1 — Skeleton + DB`
+  - Original Text Snippet: - Note (2026-02-06): Added `Lead`, `CampaignLead`, and `Suppression` Prisma models with dedupe constraints (`@@unique([workspaceId, email])` on leads/suppressions and `@@unique([campaignId, leadId])` on campaign_leads). Created migration `20260206043217_create_leads_and_suppressions` and verified `prisma migrate status` reports schema up to date on the Neon dev database. Files touched: `prisma/schema.prisma`, `prisma/migrations/20260206043217_create_leads_and_suppressions/migration.sql`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **COMP-004** [COMPLIANCE_RULE]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 1 — Skeleton + DB`
+  - Original Text Snippet: - [x] Create migrations for sequences/templates/send_jobs/conversations/messages/audit/provenance
+- **UX-R-049** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 1 — Skeleton + DB`
+  - Original Text Snippet: - Acceptance: idempotency unique key on send_jobs
+- **UX-R-050** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 1 — Skeleton + DB`
+  - Original Text Snippet: - Tests: integration
+- **COMP-005** [COMPLIANCE_RULE]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 1 — Skeleton + DB`
+  - Original Text Snippet: - Note (2026-02-06): Added Prisma models/enums for `sequences`, `sequence_steps`, `message_templates`, `send_jobs`, `conversations`, `messages`, `audit_events`, `lead_sources`, and `lead_field_provenance`; created migration `20260206050107` and verified `send_jobs_idempotency_key_key` unique index exists in SQL. Verified with `prisma migrate status` against Neon dev database. Files touched: `prisma/schema.prisma`, `prisma/migrations/20260206050107/migration.sql`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-051** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 1 — Skeleton + DB`
+  - Original Text Snippet: - [x] Update SOFTWARE_DOCUMENTATION.md (phase summary + decisions + gotchas)
+- **UX-R-052** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 1 — Skeleton + DB`
+  - Original Text Snippet: - Acceptance: Phase 1 summary, implementation decisions, and operational gotchas recorded
+- **UX-R-053** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 1 — Skeleton + DB`
+  - Original Text Snippet: - Tests: n/a (documentation task)
+- **UX-R-054** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 1 — Skeleton + DB`
+  - Original Text Snippet: - Note (2026-02-06): Added Phase 1 closeout section, Phase 1 decisions, and migration/environment gotchas to `docs/SOFTWARE_DOCUMENTATION.md`, including Prisma `.env` behavior and UI-spec source-of-truth reference. Files touched: `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`, `docs/UI_SPEC.md`.
+- **DATA-014** [DATA_MODEL]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 1 — Skeleton + DB`
+  - Original Text Snippet: - [x] **Add schema + migration for ICP versions + quality scoring + archetype + templates + interview sessions**
+- **DATA-015** [DATA_MODEL]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 1 — Skeleton + DB`
+  - Original Text Snippet: - Acceptance: tables exist (`icp_versions`, `icp_quality_scores`, `product_archetype_classifications`, `icp_templates`, `icp_interview_sessions`)
+- **UX-R-055** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 1 — Skeleton + DB`
+  - Original Text Snippet: - Tests: integration (migration applies)
+- **DATA-016** [DATA_MODEL]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 1 — Skeleton + DB`
+  - Original Text Snippet: - Notes: Keep existing `icp_profiles` intact; treat new tables as additive. Consider backfill path later.
+- **DATA-017** [DATA_MODEL]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 1 — Skeleton + DB`
+  - Original Text Snippet: - Note (2026-02-07): Added additive Prisma models/enums for `icp_versions`, `icp_quality_scores`, `product_archetype_classifications`, `icp_templates`, and `icp_interview_sessions` while keeping `icp_profiles` unchanged; generated migration `20260207045941_add_icp_quality_tables` with foreign keys and indexes, and validated migration apply on local Prisma Postgres (`prisma dev`). Files touched: `prisma/schema.prisma`, `prisma/migrations/20260207045941_add_icp_quality_tables/migration.sql`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-056** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 2 — Auth + workspace scoping`
+  - Original Text Snippet: - [x] Plan/confirm Phase 2 scope
+- **UX-R-057** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 2 — Auth + workspace scoping`
+  - Original Text Snippet: - Acceptance: route protections defined
+- **UX-R-058** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 2 — Auth + workspace scoping`
+  - Original Text Snippet: - Tests: n/a
+- **UX-R-059** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 2 — Auth + workspace scoping`
+  - Original Text Snippet: - Note (2026-02-06): Confirmed Phase 2 boundaries in `docs/SOFTWARE_DOCUMENTATION.md`, including explicit public vs auth-required app routes and protected API scopes for workspace-scoped authorization implementation. Files touched: `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`, `AGENTS.md`.
+- **UX-R-060** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 2 — Auth + workspace scoping`
+  - Original Text Snippet: - [x] Plan/confirm auth provider + signup/billing strategy (Neon Auth + Google primary)
+- **UX-R-061** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 2 — Auth + workspace scoping`
+  - Original Text Snippet: - Acceptance: architecture/UX/auth configuration decisions documented, including trusted-domain policy and trial billing entry path
+- **UX-R-062** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 2 — Auth + workspace scoping`
+  - Original Text Snippet: - Tests: n/a (documentation task)
+- **UX-R-063** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 2 — Auth + workspace scoping`
+  - Original Text Snippet: - Note (2026-02-06): Documented Neon Auth strategy (Google primary, email/password secondary), trusted-domain guidance, email provider policy, and paid-trial billing flow in `docs/ARCHITECTURE.md`, `docs/UX_SPEC.md`, and `docs/SOFTWARE_DOCUMENTATION.md`. Added implementation follow-up notes and env naming updates to avoid ambiguity in upcoming auth tasks. Files touched: `docs/ARCHITECTURE.md`, `docs/UX_SPEC.md`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-064** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 2 — Auth + workspace scoping`
+  - Original Text Snippet: - [x] Add NextAuth for app login
+- **UX-R-065** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 2 — Auth + workspace scoping`
+  - Original Text Snippet: - Acceptance: sign-in/out works
+- **UX-R-066** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 2 — Auth + workspace scoping`
+  - Original Text Snippet: - Tests: e2e smoke
+- **UX-R-067** [ROUTE]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 2 — Auth + workspace scoping`
+  - Original Text Snippet: - Note (2026-02-06): Added NextAuth credentials login route (`/api/auth/[...nextauth]`), login UI (`/login`), app route protection (`proxy.ts` matcher for `/app/*`), and sign-out action from `/app`. Added required env placeholders in `.env.example`. Files touched: `auth.ts`, `app/api/auth/[...nextauth]/route.ts`, `app/login/page.tsx`, `app/app/page.tsx`, `app/app/sign-out-button.tsx`, `proxy.ts`, `.env.example`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-068** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 2 — Auth + workspace scoping`
+  - Original Text Snippet: - [x] Auto-provision workspace on first login
+- **UX-R-069** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 2 — Auth + workspace scoping`
+  - Original Text Snippet: - Acceptance: workspace created once
+- **UX-R-070** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 2 — Auth + workspace scoping`
+  - Original Text Snippet: - Tests: integration
+- **UX-R-071** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 2 — Auth + workspace scoping`
+  - Original Text Snippet: - Note (2026-02-06): Added `ensureUserWorkspace` provisioning helper and invoked it in NextAuth `signIn` callback so first successful login upserts user + creates one default workspace, while subsequent logins reuse the existing workspace. Added integration coverage for idempotent provisioning behavior. Files touched: `auth.ts`, `lib/auth/ensure-user-workspace.ts`, `tests/integration/ensure-user-workspace.test.ts`, `package.json`, `package-lock.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-072** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 2 — Auth + workspace scoping`
+  - Original Text Snippet: - [x] Add workspace-scoped authorization helper
+- **UX-R-073** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 2 — Auth + workspace scoping`
+  - Original Text Snippet: - Acceptance: cross-workspace access blocked
+- **UX-R-074** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 2 — Auth + workspace scoping`
+  - Original Text Snippet: - Tests: integration
+- **UX-R-075** [PERMISSION]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 2 — Auth + workspace scoping`
+  - Original Text Snippet: - Note (2026-02-06): Added `requireWorkspaceAccess` helper with explicit error codes (`UNAUTHENTICATED`, `NOT_FOUND`, `FORBIDDEN`) to enforce workspace ownership checks by session email + workspace id. Added integration coverage proving same-workspace access succeeds and cross-workspace access is rejected. Files touched: `lib/auth/require-workspace-access.ts`, `tests/integration/workspace-authorization.test.ts`, `tests/integration/test-env.ts`, `tests/integration/ensure-user-workspace.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-076** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 2 — Auth + workspace scoping`
+  - Original Text Snippet: - [x] Update SOFTWARE_DOCUMENTATION.md (phase summary + decisions + gotchas)
+- **UX-R-077** [PERMISSION]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 2 — Auth + workspace scoping`
+  - Original Text Snippet: - Note (2026-02-06): Added explicit "Phase 2 closeout" documentation with completion summary, carry-forward decisions (temporary NextAuth bridge + ownership access model), route-handler error mapping guidance for workspace authorization helper, and validation command evidence. Files touched: `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-078** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 3 — Gmail connect`
+  - Original Text Snippet: - [x] Plan/confirm token encryption approach
+- **UX-R-079** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 3 — Gmail connect`
+  - Original Text Snippet: - Acceptance: documented decision
+- **UX-R-080** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 3 — Gmail connect`
+  - Original Text Snippet: - Tests: n/a
+- **UX-R-081** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 3 — Gmail connect`
+  - Original Text Snippet: - Note (2026-02-06): Documented Phase 3 token encryption approach with AES-256-GCM, versioned encrypted-token envelope format, `TOKEN_ENCRYPTION_KEY` usage, decryption boundaries, and MVP key-rotation policy in `docs/ARCHITECTURE.md` and `docs/SOFTWARE_DOCUMENTATION.md`. Files touched: `docs/ARCHITECTURE.md`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-082** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 3 — Gmail connect`
+  - Original Text Snippet: - [x] Implement Google OAuth connect flow for inbox_connections
+- **UX-R-083** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 3 — Gmail connect`
+  - Original Text Snippet: - Acceptance: inbox shows connected
+- **UX-R-084** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 3 — Gmail connect`
+  - Original Text Snippet: - Tests: e2e with mocks
+- **UX-R-085** [ROUTE]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 3 — Gmail connect`
+  - Original Text Snippet: - Note (2026-02-06): Implemented Google OAuth connect + callback routes (`/api/inboxes/google/connect`, `/api/inboxes/google/callback`), added `/app/settings/inboxes` UI to show Gmail connection status, and persisted `inbox_connections` as connected after OAuth exchange. Added integration test with mocked Google token/userinfo responses to validate connection creation and cross-workspace provider-account conflict blocking. Files touched: `app/api/inboxes/google/connect/route.ts`, `app/api/inboxes/google/callback/route.ts`, `app/app/settings/inboxes/page.tsx`, `app/app/page.tsx`, `lib/inbox/google-oauth.ts`, `lib/inbox/complete-google-connection.ts`, `lib/auth/get-primary-workspace.ts`, `tests/integration/google-connect-flow.test.ts`, `package.json`, `.env.example`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/ARCHITECTURE.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-086** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 3 — Gmail connect`
+  - Original Text Snippet: - [x] Store encrypted tokens + refresh on demand
+- **UX-R-087** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 3 — Gmail connect`
+  - Original Text Snippet: - Acceptance: refresh updates DB
+- **UX-R-088** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 3 — Gmail connect`
+  - Original Text Snippet: - Tests: unit+integration
+- **DATA-018** [DATA_MODEL]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 3 — Gmail connect`
+  - Original Text Snippet: - Note (2026-02-06): Added AES-256-GCM token encryption/decryption helper, stored encrypted access/refresh tokens during Google OAuth callback completion, and implemented on-demand token refresh helper that updates encrypted token fields in `inbox_connections`. Added unit test coverage for token encryption format/roundtrip and integration coverage for refresh update behavior. Files touched: `lib/inbox/token-encryption.ts`, `lib/inbox/complete-google-connection.ts`, `lib/inbox/google-token-refresh.ts`, `tests/unit/token-encryption.test.ts`, `tests/integration/google-connect-flow.test.ts`, `tests/integration/google-token-refresh.test.ts`, `tests/integration/test-env.ts`, `package.json`, `.env.example`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-089** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 3 — Gmail connect`
+  - Original Text Snippet: - [x] Inbox settings (caps/windows/ramp) UI + API
+- **UX-R-090** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 3 — Gmail connect`
+  - Original Text Snippet: - Acceptance: persisted settings
+- **UX-R-091** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 3 — Gmail connect`
+  - Original Text Snippet: - Tests: e2e
+- **UX-R-092** [ROUTE]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 3 — Gmail connect`
+  - Original Text Snippet: - Note (2026-02-06): Added persisted inbox settings fields on `inbox_connections` (`daily_send_cap`, `send_window_start_hour`, `send_window_end_hour`, `ramp_up_per_day`), implemented `PATCH /api/inboxes/:inboxConnectionId/settings` with workspace-ownership and input validation, and added `/app/settings/inboxes` form for saving settings. Added integration coverage for persistence and validation failures. Files touched: `prisma/schema.prisma`, `prisma/migrations/20260206142046_add_inbox_connection_sending_settings/migration.sql`, `lib/inbox/inbox-settings.ts`, `app/api/inboxes/[inboxConnectionId]/settings/route.ts`, `app/app/settings/inboxes/inbox-settings-form.tsx`, `app/app/settings/inboxes/page.tsx`, `tests/integration/inbox-settings.test.ts`, `package.json`, `docs/ARCHITECTURE.md`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-093** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 3 — Gmail connect`
+  - Original Text Snippet: - [x] Update SOFTWARE_DOCUMENTATION.md (phase summary + decisions + gotchas)
+- **UX-R-094** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 3 — Gmail connect`
+  - Original Text Snippet: - Note (2026-02-06): Added explicit "Phase 3 closeout" documentation with completion summary (Google OAuth connect, encrypted token storage/refresh, inbox settings API/UI), carry-forward decisions, migration/runtime gotchas, and validation command evidence. Also corrected stale Phase 3 note so token persistence status matches implementation. Files touched: `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-095** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - [x] Plan/confirm wizard routes/steps
+- **UX-R-096** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Acceptance: matches UX_SPEC.md
+- **UX-R-097** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Tests: n/a
+- **UX-R-098** [ROUTE]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Note (2026-02-06): Confirmed Phase 4 wizard route/step boundaries in `docs/SOFTWARE_DOCUMENTATION.md` for `/app/campaigns/new`, including Step 1 xor-input validation contract and explicit scope limits (Step 1 + ICP draft/edit only). Files touched: `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-099** [SCREEN]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - [x] Campaign CRUD + list page
+- **UX-R-100** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Acceptance: create/list/rename works
+- **UX-R-101** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Tests: integration+e2e
+- **UX-R-102** [ROUTE]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Note (2026-02-06): Added workspace-scoped campaign CRUD service + API routes (`GET/POST /api/campaigns`, `PATCH /api/campaigns/:campaignId`) and implemented `/app/campaigns` list UI with create + inline rename controls using the CVBS/UI spec token system. Added integration coverage in `tests/integration/campaign-crud.test.ts`. Files touched: `lib/campaigns/campaign-crud.ts`, `app/api/campaigns/route.ts`, `app/api/campaigns/[campaignId]/route.ts`, `app/app/campaigns/page.tsx`, `app/app/campaigns/campaigns-client.tsx`, `app/globals.css`, `app/login/page.tsx`, `app/app/page.tsx`, `app/app/settings/inboxes/*`, `tests/integration/campaign-crud.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-103** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - [x] Wizard Step 1 inputs + validation
+- **UX-R-104** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Acceptance: URL xor text enforced
+- **UX-R-105** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Tests: e2e
+- **UX-R-106** [ROUTE]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Note (2026-02-06): Added `/app/campaigns/new` Step 1 form and `POST /api/campaigns/wizard/step1` validation endpoint enforcing `websiteUrl` xor `productDescription` with URL format checks (`http/https` only). Added unit validation coverage in `tests/unit/wizard-step1-validation.test.ts` and wired campaigns list CTA to wizard route. Files touched: `app/app/campaigns/new/page.tsx`, `app/app/campaigns/new/wizard-step1-form.tsx`, `app/api/campaigns/wizard/step1/route.ts`, `lib/campaigns/wizard-step1.ts`, `app/app/campaigns/campaigns-client.tsx`, `tests/unit/wizard-step1-validation.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-107** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - [x] ICP generate endpoint (AI mocked in tests)
+- **UX-R-108** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Acceptance: saves icp_profile row
+- **UX-R-109** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Tests: integration
+- **UX-R-110** [PERMISSION]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Note (2026-02-06): Added `POST /api/icp/generate` with Step 1 xor-input validation, workspace-scoped `icp_profiles` persistence, optional campaign linkage (`campaigns.icp_profile_id`), and structured response payload. Added integration test coverage with mocked AI generator in `tests/integration/icp-generate.test.ts` to verify persisted ICP rows and workspace ownership checks. Files touched: `app/api/icp/generate/route.ts`, `lib/icp/generate-icp-profile.ts`, `tests/integration/icp-generate.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-111** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - [x] ICP editor UI
+- **UX-R-112** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Acceptance: edits persist
+- **UX-R-113** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Tests: e2e
+- **UX-R-114** [ROUTE]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Note (2026-02-06): Added Step 2 ICP editor UI on `/app/campaigns/new`, wired Step 1 generation to `POST /api/icp/generate`, and implemented persisted save via `PATCH /api/icp/profiles/:icpProfileId`. Added workspace-scoped edit persistence service + integration coverage in `tests/integration/icp-editor.test.ts`. Files touched: `app/app/campaigns/new/wizard-step1-form.tsx`, `app/api/icp/profiles/[icpProfileId]/route.ts`, `lib/icp/update-icp-profile.ts`, `lib/icp/generate-icp-profile.ts`, `app/api/icp/generate/route.ts`, `tests/integration/icp-editor.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-115** [ROUTE]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Follow-up note (2026-02-06): Adjusted Step 1 UX so typing into website/product-description auto-clears the alternate source, and added explicit Step 2 "last saved" feedback in the editor after `PATCH` success. Files touched: `app/app/campaigns/new/wizard-step1-form.tsx`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-116** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - [x] Update SOFTWARE_DOCUMENTATION.md (phase summary + decisions + gotchas)
+- **UX-R-117** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Note (2026-02-06): Added explicit "Phase 4 closeout" section to `docs/SOFTWARE_DOCUMENTATION.md` with completion summary, carry-forward decisions (strict Step 1 XOR contract + explicit-save ICP editor behavior), operational gotchas, and validation evidence (`lint`, `unit`, `integration`, `build`). Files touched: `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-118** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - [x] Phase 4 follow-up: campaign overview + wizard resume + sources settings stub
+- **UX-R-119** [ROUTE]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Acceptance: `/app/campaigns/:id` shows ICP summary + inbox + next-step CTAs + status lifecycle placeholder; campaign row supports Resume Wizard; wizard state persists by campaign; `/app/settings/sources` stub exists.
+- **UX-R-120** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Tests: integration+build
+- **UX-R-121** [ROUTE]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Note (2026-02-06): Added campaign control-surface fields (`messaging_rules`, `discovery_rules`, `wizard_state`, optional `inbox_connection_id`) with migration `20260206202000_add_campaign_control_surfaces`; expanded campaign API/service contracts to support overview + updates; added `/app/campaigns/[campaignId]` overview UI and discovery/candidates/sequence placeholder routes; added `Resume wizard` flow from campaign row and campaign-linked wizard state persistence on `/app/campaigns/new?campaignId=...`; added sources registry stub at `/app/settings/sources`; expanded campaign CRUD integration coverage for rules/wizard state updates. Files touched: `prisma/schema.prisma`, `prisma/migrations/20260206202000_add_campaign_control_surfaces/migration.sql`, `lib/campaigns/campaign-crud.ts`, `app/api/campaigns/route.ts`, `app/api/campaigns/[campaignId]/route.ts`, `app/app/campaigns/page.tsx`, `app/app/campaigns/campaigns-client.tsx`, `app/app/campaigns/new/page.tsx`, `app/app/campaigns/new/wizard-step1-form.tsx`, `app/app/campaigns/[campaignId]/page.tsx`, `app/app/campaigns/[campaignId]/campaign-overview-client.tsx`, `app/app/campaigns/[campaignId]/discovery/page.tsx`, `app/app/campaigns/[campaignId]/candidates/page.tsx`, `app/app/campaigns/[campaignId]/sequence/page.tsx`, `app/app/settings/sources/page.tsx`, `app/app/page.tsx`, `tests/integration/campaign-crud.test.ts`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-122** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - [x] **Define ICP rubric + tier thresholds (deterministic)**
+- **UX-R-123** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Acceptance: rubric documented in code as constants; returns score 0–100 + tier mapping
+- **UX-R-124** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Tests: unit
+- **DATA-019** [DATA_MODEL]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Notes: No model call needed for rubric math; model only produces structured ICP and missing-field detection if required.
+- **UX-R-125** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Note (2026-02-07): Added deterministic ICP quality rubric constants and scoring utility with explicit tier thresholds and 100-point weighting in `lib/icp/icp-quality-rubric.ts`; added unit tests covering complete/partial/sparse payload scoring, tier boundary mapping, and rubric total validation in `tests/unit/icp-quality-rubric.test.ts`. Files touched: `lib/icp/icp-quality-rubric.ts`, `tests/unit/icp-quality-rubric.test.ts`, `package.json`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-126** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - [x] **Add ICP Versioning (website/manual) for campaigns**
+- **UX-R-127** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Acceptance: generating ICP creates an `icp_versions` row; edits create new version or update same version per defined rule
+- **UX-R-128** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Tests: integration
+- **DATA-020** [DATA_MODEL]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Notes: Do not break current wizard persistence; wire to new tables behind feature flag if needed.
+- **DATA-021** [DATA_MODEL]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Note (2026-02-07): Added campaign-scoped ICP version persistence in generation/edit services: `POST /api/icp/generate` now creates an active `icp_versions` row (`WEBSITE` for website input, `MANUAL` for product-description input), and profile edits update the active website/manual version in place or create a new active manual version when the active source is non-editable (e.g., template/specialist). Added integration assertions in `tests/integration/icp-generate.test.ts` and `tests/integration/icp-editor.test.ts` for creation, active-version updates, and fallback new-version creation behavior. Files touched: `lib/icp/generate-icp-profile.ts`, `lib/icp/update-icp-profile.ts`, `app/api/icp/generate/route.ts`, `tests/integration/icp-generate.test.ts`, `tests/integration/icp-editor.test.ts`, `docs/IMPLEMENTATION_CHECKLIST.md`, `docs/SOFTWARE_DOCUMENTATION.md`.
+- **UX-R-129** [ROUTE]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - [x] **Implement `/api/icp/score` endpoint + persistence of `icp_quality_scores`**
+- **UX-R-130** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Acceptance: scoring runs for a given icpVersionId and saves results; returns explainable payload
+- **UX-R-131** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Tests: integration
+- **UX-R-132** [PERMISSION]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Note (2026-02-07): Added `POST /api/icp/score` endpoint and `scoreIcpVersionForWorkspace` service to validate workspace/campaign/version ownership, normalize ICP JSON, run deterministic rubric scoring, and persist explainable results to `icp_quality_scores` (`missingFields`, `explanations`, `questions`, scorer metadata). Added integration coverage in `tests/integration/icp-score.test.ts` and wired it into `npm run test:integration`. Files touched: `app/api/icp/score/route.ts`, `lib/icp/score-icp-version.ts`, `tests/integration/icp-score.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-133** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - [x] **Add ICP Quality Panel in wizard Step 2**
+- **DATA-022** [DATA_MODEL]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Acceptance: shows score, tier, missing fields, “Improve ICP” CTA; supports “Continue anyway” paths
+- **UX-R-134** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Tests: e2e (happy path + insufficient path)
+- **UX-R-135** [ROUTE]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Note (2026-02-07): Added an ICP Quality Panel to Step 2 in `app/app/campaigns/new/wizard-step1-form.tsx` with rubric scoring integration (`POST /api/icp/score`), score/tier display, missing-fields/questions visibility, `Improve ICP` CTA, and `Continue anyway to Step 3` behavior that adapts to `USABLE`/`INSUFFICIENT` tiers. Quality scoring is automatically triggered after generation and after saves when `campaignId` + `icpVersionId` are available, and can be manually re-run. Files touched: `app/app/campaigns/new/wizard-step1-form.tsx`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-136** [ROUTE]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - [x] **Implement archetype classification endpoint `/api/icp/classify-archetype`**
+- **UX-R-137** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Acceptance: returns archetypeKey/confidence/evidence; persisted to `product_archetype_classifications`
+- **UX-R-138** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Tests: integration (mock AI)
+- **UX-R-139** [PERMISSION]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Note (2026-02-07): Added `POST /api/icp/classify-archetype` and `classifyProductArchetypeForWorkspace` service with workspace/campaign/version ownership checks, classifier hook for mocked AI behavior, and persistence to `product_archetype_classifications` (including undecided fallback key `UNIDENTIFIED`). Added integration coverage in `tests/integration/icp-classify-archetype.test.ts` and wired it into `npm run test:integration`. Files touched: `app/api/icp/classify-archetype/route.ts`, `lib/icp/classify-product-archetype.ts`, `tests/integration/icp-classify-archetype.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-140** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - [x] **Add Scenario A/B modal flows in wizard**
+- **UX-R-141** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Acceptance: <50 score triggers modal; A if archetype identified above threshold, else B; includes required buttons and persistence behavior
+- **UX-R-142** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Tests: e2e
+- **UX-R-143** [ROUTE]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Note (2026-02-07): Added Scenario A/B quality-gate modal flow logic to `app/app/campaigns/new/wizard-step1-form.tsx`: insufficient-score (`tier=INSUFFICIENT`) now triggers archetype classification, opens Scenario A when archetype confidence meets threshold, otherwise Scenario B with disambiguation-question submission loop. Included required buttons (`Apply template`, `Improve with Specialist AI`, `Continue anyway` / `Answer questions`) and persistence behavior by recording wizard state on continue/disambiguation actions. Files touched: `app/app/campaigns/new/wizard-step1-form.tsx`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-144** [ROUTE]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - [x] **Implement Specialist ICP Interview wizard route `/app/campaigns/:id/icp/improve`**
+- **UX-R-145** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Acceptance: start session → answer questions → completes and creates a new ICP version; shows diff summary
+- **UX-R-146** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Tests: e2e (mock AI)
+- **UX-R-147** [ROUTE]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Note (2026-02-07): Implemented Specialist Interview session service + APIs (`/api/icp/interview/start`, `/api/icp/interview/answer`, `/api/icp/interview/complete`) and campaign route UI at `/app/campaigns/[campaignId]/icp/improve` with session start/answer/complete flow and visible ICP diff summary. Wired Scenario A/B "Improve with Specialist AI" actions in wizard Step 2 to navigate into the new route. Added lifecycle integration coverage in `tests/integration/icp-specialist-interview.test.ts`. Files touched: `lib/icp/specialist-interview.ts`, `app/api/icp/interview/*`, `app/app/campaigns/[campaignId]/icp/improve/*`, `app/app/campaigns/new/wizard-step1-form.tsx`, `tests/integration/icp-specialist-interview.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-148** [ROUTE]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - [x] **Add ICP Center route `/app/campaigns/:id/icp` (versions + select active)**
+- **UX-R-149** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Acceptance: list versions, show scores, set active version; “Re-score” action works
+- **UX-R-150** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Tests: e2e smoke
+- **UX-R-151** [ROUTE]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Note (2026-02-07): Added campaign-scoped ICP Center route at `/app/campaigns/[campaignId]/icp` with versions table, latest score/tier display, active-version indicator, `Set active` action, and `Re-score` action wired to `/api/icp/score`. Added active-version API `PATCH /api/campaigns/[campaignId]/icp/active` and ICP center service layer for version listing/ownership-safe activation. Added integration coverage in `tests/integration/icp-center.test.ts`. Files touched: `app/app/campaigns/[campaignId]/icp/page.tsx`, `app/app/campaigns/[campaignId]/icp/icp-center-client.tsx`, `app/api/campaigns/[campaignId]/icp/active/route.ts`, `lib/icp/icp-center.ts`, `app/app/campaigns/[campaignId]/campaign-overview-client.tsx`, `tests/integration/icp-center.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-152** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - [x] **Update SOFTWARE_DOCUMENTATION.md (phase summary + decisions + gotchas)**
+- **DATA-023** [DATA_MODEL]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Acceptance: Phase 4 extension + ICP surfaces documented (quality gate, scenario flows, templates, interview, routes, data model, APIs)
+- **UX-R-153** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Tests: n/a (documentation task)
+- **UX-R-154** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Notes: Record implementation decisions, gotchas, and any follow-up actions.
+- **DATA-024** [DATA_MODEL]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 4 — Campaign wizard (draft + ICP)`
+  - Original Text Snippet: - Note (2026-02-07): Added explicit Phase 4 extension closeout section in `docs/SOFTWARE_DOCUMENTATION.md` consolidating delivered ICP quality surfaces (scoring, Scenario A/B, archetype classification, Specialist interview, ICP Center), carry-forward decisions, and validation evidence. Also confirmed route/API/data-model references are represented in summary sections and operational gotchas. Files touched: `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **DATA-025** [DATA_MODEL]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - [x] Plan/confirm Phase 5 provider selection + fields + quotas
+- **UX-R-155** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - Acceptance: provider chosen and documented; supported filters listed
+- **UX-R-156** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - Tests: n/a
+- **COMP-006** [COMPLIANCE_RULE]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - Note (2026-02-06): Selected People Data Labs (`provider_key: pdl`) as the single MVP licensed discovery connector and documented supported filter contract, required normalized fields, and quota/cost guardrails (per-run cap, daily workspace cap, partial/failure behavior) in `docs/SOFTWARE_DOCUMENTATION.md`. Files touched: `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **DATA-026** [DATA_MODEL]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - [x] Add DB tables for source_connectors, source_runs, candidates, email_verifications
+- **UX-R-157** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - Acceptance: migration applies; indexes on campaign_id, source_run_id, email
+- **UX-R-158** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - Tests: integration
+- **DATA-027** [DATA_MODEL]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - Note (2026-02-07): Added Prisma models/enums for `source_connectors`, `source_runs`, `candidates`, and `email_verifications` with required indexes (`candidates_campaign_id_idx`, `candidates_source_run_id_idx`, `candidates_email_idx`) and generated migration `20260207162122_add_source_discovery_tables`. Added integration coverage in `tests/integration/source-discovery-schema.test.ts` to verify table + index presence. Files touched: `prisma/schema.prisma`, `prisma/migrations/20260207162122_add_source_discovery_tables/migration.sql`, `tests/integration/source-discovery-schema.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-159** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - [x] Implement source connector CRUD API (create/update/enable/disable)
+- **UX-R-160** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - Acceptance: can create connector; disable blocks runs
+- **UX-R-161** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - Tests: integration
+- **UX-R-162** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - Note (2026-02-07): Added `GET/POST /api/sources` and `PATCH /api/sources/:id` routes backed by workspace-scoped source connector service functions. Added disabled-connector run guard (`assertSourceConnectorEnabledForWorkspace`) and integration coverage in `tests/integration/source-connectors-crud.test.ts` proving create/update/disable behavior and disabled-run blocking. Files touched: `app/api/sources/route.ts`, `app/api/sources/[sourceConnectorId]/route.ts`, `lib/sources/source-connectors.ts`, `tests/integration/source-connectors-crud.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-163** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - [x] Implement discovery run creation endpoint (creates source_run)
+- **UX-R-164** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - Acceptance: validates connector enabled; stores query_json; status queued
+- **UX-R-165** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - Tests: integration
+- **UX-R-166** [PERMISSION]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - Note (2026-02-07): Added `POST /api/campaigns/:id/discovery/run` backed by `createDiscoveryRunForWorkspace` service (`lib/sources/source-runs.ts`) with workspace ownership checks, connector-enabled enforcement, `query_json` persistence (`filters` + `limit`), and queued run status. Added integration coverage in `tests/integration/discovery-run-create.test.ts`. Files touched: `app/api/campaigns/[campaignId]/discovery/run/route.ts`, `lib/sources/source-runs.ts`, `tests/integration/discovery-run-create.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-167** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - [x] Implement provider client wrapper (rate limiting, retries, pagination, typed responses)
+- **UX-R-168** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - Acceptance: handles transient errors; respects provider limits
+- **UX-R-169** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - Tests: unit (retry/backoff), integration (mock provider)
+- **UX-R-170** [SCREEN]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - Note (2026-02-07): Added PDL provider wrapper `lib/sources/pdl-client.ts` with typed candidate response parsing, request pacing (`minRequestIntervalMs`), transient retry/backoff for `429/5xx`, and cursor-based pagination (`searchPage`, `fetchAllCandidates`). Added unit retry/backoff coverage in `tests/unit/pdl-client.test.ts` and mock-provider pagination integration coverage in `tests/integration/pdl-client-mock.test.ts`. Files touched: `lib/sources/pdl-client.ts`, `tests/unit/pdl-client.test.ts`, `tests/integration/pdl-client-mock.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-171** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - [x] Implement discovery run worker (fetch → normalize → store candidates)
+- **UX-R-172** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - Acceptance: creates candidates with confidence + provenance; run stats recorded
+- **UX-R-173** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - Tests: integration (mock provider)
+- **UX-R-174** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - Note (2026-02-07): Added discovery run worker `executeDiscoveryRun` in `lib/sources/discovery-run-worker.ts` to transition run status (`QUEUED` -> `RUNNING` -> `COMPLETED/FAILED`), fetch candidates via provider client abstraction, normalize and persist candidate rows, and record run stats in `source_runs.stats_json`. Added integration coverage in `tests/integration/discovery-run-worker.test.ts` with mocked provider responses. Files touched: `lib/sources/discovery-run-worker.ts`, `tests/integration/discovery-run-worker.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-175** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - [x] Implement email verification client + batch verify worker
+- **UX-R-176** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - Acceptance: writes email_verifications; updates candidates verification_status
+- **UX-R-177** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - Tests: integration (mock verifier)
+- **UX-R-178** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - Note (2026-02-07): Added `lib/sources/email-verification-client.ts` (retry-capable, provider-keyed batch verify client) and `lib/sources/email-verification-worker.ts` (`verifyCandidateEmailsForSourceRun`) that writes `email_verifications` rows and updates candidate `verification_status` values for the source run. Added integration coverage in `tests/integration/email-verification-worker.test.ts` with a mocked verifier implementation. Files touched: `lib/sources/email-verification-client.ts`, `lib/sources/email-verification-worker.ts`, `tests/integration/email-verification-worker.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-179** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - [x] Implement suppression + dedupe application during candidate creation
+- **UX-R-180** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - Acceptance: suppressed/duplicate candidates marked and excluded from “approvable”
+- **UX-R-181** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - Tests: integration
+- **UX-R-182** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - Note (2026-02-08): Extended discovery worker candidate creation path to apply suppression list + dedupe rules (existing suppressions, existing leads, existing campaign candidates, and same-run duplicates by email/person/company IDs). Candidates matching these checks are persisted with `status=SUPPRESSED`, while approvable rows remain `status=NEW`. Added integration coverage in `tests/integration/discovery-run-suppression-dedupe.test.ts` and updated worker stats to include `approvableCandidates`, `suppressedByBlocklist`, and `suppressedByDuplicate`. Files touched: `lib/sources/discovery-run-worker.ts`, `tests/integration/discovery-run-worker.test.ts`, `tests/integration/discovery-run-suppression-dedupe.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-183** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - [x] Implement candidates list API (filters, pagination)
+- **UX-R-184** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - Acceptance: filters work (verification, confidence, role, source_run)
+- **UX-R-185** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - Tests: integration
+- **UX-R-186** [SCREEN]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - Note (2026-02-08): Added workspace-scoped candidates listing service and API endpoint `GET /api/campaigns/:campaignId/candidates` with filter support (`verificationStatus`, `confidenceMin`, `role`, `sourceRunId`) and cursor pagination (`pageSize`, `cursor`). Added integration coverage in `tests/integration/candidates-list.test.ts` for filters, pagination, workspace isolation, and invalid-input/not-found handling. Files touched: `lib/sources/candidates.ts`, `app/api/campaigns/[campaignId]/candidates/route.ts`, `tests/integration/candidates-list.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-187** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - [x] Implement candidates review UI (/candidates) with approve/reject flows
+- **UX-R-188** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - Acceptance: bulk approve moves to Leads; reject persists
+- **UX-R-189** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - Tests: e2e
+- **UX-R-190** [ROUTE]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - Note (2026-02-08): Replaced `/app/campaigns/:id/candidates` placeholder with a working candidates review UI including filters, selectable table rows, bulk "Approve to leads" and "Reject selected" flows, and cursor pagination controls. Implemented server-side review actions and candidate-review service to persist candidate status updates and campaign lead creation. Added integration coverage in `tests/integration/candidates-review.test.ts`. Files touched: `app/app/campaigns/[campaignId]/candidates/page.tsx`, `app/app/campaigns/[campaignId]/candidates/candidates-review-client.tsx`, `app/app/campaigns/[campaignId]/candidates/actions.ts`, `lib/sources/candidate-review.ts`, `tests/integration/candidates-review.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-191** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - [x] Implement approve endpoint (Candidates → Leads) with enforcement rules
+- **SAFE-009** [SAFETY_RULE]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - Acceptance: cannot approve invalid emails; verified-only default; explicit allowUnverified requires confirmation
+- **UX-R-192** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - Tests: integration
+- **UX-R-193** [PERMISSION]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - Note (2026-02-08): Added `POST /api/campaigns/:campaignId/candidates/approve` with workspace/campaign ownership checks and enforcement rules: invalid emails are always rejected, approvals are verified-only by default, and `allowUnverified=true` requires `confirmAllowUnverified=true`. Implemented approval service with structured rejection reasons and persisted lead/campaign_lead creation for approved candidates. Added integration coverage in `tests/integration/candidates-approve-rules.test.ts`. Files touched: `app/api/campaigns/[campaignId]/candidates/approve/route.ts`, `lib/sources/candidate-approval.ts`, `tests/integration/candidates-approve-rules.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-194** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - [x] Update SOFTWARE_DOCUMENTATION.md (phase summary + decisions + gotchas)
+- **DATA-028** [DATA_MODEL]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 5 — Lead discovery pipeline (licensed provider) + candidates + verification`
+  - Original Text Snippet: - Note (2026-02-08): Added explicit Phase 5 closeout documentation with completion summary, implementation decisions, and operational gotchas for discovery runs, candidate approval gating, and verification enforcement. Updated route/API/data-model summaries and changelog continuity in `docs/SOFTWARE_DOCUMENTATION.md`. Files touched: `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-195** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 6 — Lead import fallback (CSV/paste/manual) + provenance (optional but recommended)`
+  - Original Text Snippet: - [x] Plan/confirm Phase 6 fallback import scope + mapping UX
+- **UX-R-196** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 6 — Lead import fallback (CSV/paste/manual) + provenance (optional but recommended)`
+  - Original Text Snippet: - Acceptance: fallback explicitly positioned; does not replace discovery
+- **UX-R-197** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 6 — Lead import fallback (CSV/paste/manual) + provenance (optional but recommended)`
+  - Original Text Snippet: - Tests: n/a
+- **COMP-007** [COMPLIANCE_RULE]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 6 — Lead import fallback (CSV/paste/manual) + provenance (optional but recommended)`
+  - Original Text Snippet: - Note (2026-02-08): Confirmed Phase 6 is a fallback ingestion surface only (CSV/paste/manual) and does not replace licensed-provider discovery as the primary lead acquisition path. Documented mapping UX boundaries, dedupe/suppression/provenance expectations, and out-of-scope constraints in `docs/SOFTWARE_DOCUMENTATION.md`. Files touched: `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-198** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 6 — Lead import fallback (CSV/paste/manual) + provenance (optional but recommended)`
+  - Original Text Snippet: - [x] Implement CSV import API with dedupe + suppression + provenance source csv_import
+- **UX-R-199** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 6 — Lead import fallback (CSV/paste/manual) + provenance (optional but recommended)`
+  - Original Text Snippet: - Acceptance: row-level errors; provenance recorded
+- **UX-R-200** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 6 — Lead import fallback (CSV/paste/manual) + provenance (optional but recommended)`
+  - Original Text Snippet: - Tests: integration
+- **UX-R-201** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 6 — Lead import fallback (CSV/paste/manual) + provenance (optional but recommended)`
+  - Original Text Snippet: - Note (2026-02-08): Added `POST /api/campaigns/:campaignId/leads/import/csv` backed by `importCsvLeadsForWorkspace` service with CSV parsing, row-level outcome reporting, suppression filtering, dedupe (in-file + existing leads), campaign lead linking, and provenance writes via `lead_sources(name=csv_import)` + `lead_field_provenance`. Added integration coverage in `tests/integration/csv-import-api.test.ts`. Files touched: `app/api/campaigns/[campaignId]/leads/import/csv/route.ts`, `lib/leads/csv-import.ts`, `tests/integration/csv-import-api.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-202** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 6 — Lead import fallback (CSV/paste/manual) + provenance (optional but recommended)`
+  - Original Text Snippet: - [x] Implement paste/manual add API with dedupe + suppression
+- **UX-R-203** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 6 — Lead import fallback (CSV/paste/manual) + provenance (optional but recommended)`
+  - Original Text Snippet: - Acceptance: validates email; prevents duplicates
+- **UX-R-204** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 6 — Lead import fallback (CSV/paste/manual) + provenance (optional but recommended)`
+  - Original Text Snippet: - Tests: unit+integration
+- **UX-R-205** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 6 — Lead import fallback (CSV/paste/manual) + provenance (optional but recommended)`
+  - Original Text Snippet: - Note (2026-02-08): Added `POST /api/campaigns/:campaignId/leads/import/manual` backed by `importManualLeadsForWorkspace` with payload-level email validation, suppression filtering, dedupe (in-request + existing leads), campaign lead linking, and provenance writes via `lead_sources(name=manual_import)` + `lead_field_provenance`. Added integration coverage in `tests/integration/manual-import-api.test.ts`. Files touched: `app/api/campaigns/[campaignId]/leads/import/manual/route.ts`, `lib/leads/manual-import.ts`, `tests/integration/manual-import-api.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-206** [SCREEN]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 6 — Lead import fallback (CSV/paste/manual) + provenance (optional but recommended)`
+  - Original Text Snippet: - [x] Implement UI import tools inside campaign leads page
+- **UX-R-207** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 6 — Lead import fallback (CSV/paste/manual) + provenance (optional but recommended)`
+  - Original Text Snippet: - Acceptance: import works; dedupe outcomes visible
+- **UX-R-208** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 6 — Lead import fallback (CSV/paste/manual) + provenance (optional but recommended)`
+  - Original Text Snippet: - Tests: e2e
+- **UX-R-209** [ROUTE]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 6 — Lead import fallback (CSV/paste/manual) + provenance (optional but recommended)`
+  - Original Text Snippet: - Note (2026-02-08): Added `/app/campaigns/:campaignId/leads` with working CSV + manual import tools wired to import APIs, visible per-row outcome reporting, and current campaign leads table refresh after imports. Added campaign overview CTA to the leads page. Files touched: `app/app/campaigns/[campaignId]/leads/page.tsx`, `app/app/campaigns/[campaignId]/leads/leads-import-client.tsx`, `lib/leads/campaign-leads.ts`, `app/app/campaigns/[campaignId]/campaign-overview-client.tsx`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-210** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 6 — Lead import fallback (CSV/paste/manual) + provenance (optional but recommended)`
+  - Original Text Snippet: - [x] Update SOFTWARE_DOCUMENTATION.md (phase summary + decisions + gotchas)
+- **UX-R-211** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 6 — Lead import fallback (CSV/paste/manual) + provenance (optional but recommended)`
+  - Original Text Snippet: - Note (2026-02-08): Added explicit Phase 6 closeout documentation summarizing fallback import implementation, key decisions, and operational gotchas for CSV/manual ingestion and provenance behavior. Updated changelog continuity in `docs/SOFTWARE_DOCUMENTATION.md`. Files touched: `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
+- **UX-R-212** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 7 — Sequence + templates + lint + AI draft`
+  - Original Text Snippet: - [ ] Plan/confirm stop rules + placeholder enforcement
+- **COMP-008** [COMPLIANCE_RULE]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 7 — Sequence + templates + lint + AI draft`
+  - Original Text Snippet: - Acceptance: unsubscribe placeholder required
+- **UX-R-213** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 7 — Sequence + templates + lint + AI draft`
+  - Original Text Snippet: - Tests: n/a
+- **UX-R-214** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 7 — Sequence + templates + lint + AI draft`
+  - Original Text Snippet: - [ ] Sequence CRUD APIs
+- **UX-R-215** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 7 — Sequence + templates + lint + AI draft`
+  - Original Text Snippet: - Acceptance: steps persist
+- **UX-R-216** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 7 — Sequence + templates + lint + AI draft`
+  - Original Text Snippet: - Tests: integration
+- **UX-R-217** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 7 — Sequence + templates + lint + AI draft`
+  - Original Text Snippet: - [ ] Template editor UI + save API
+- **UX-R-218** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 7 — Sequence + templates + lint + AI draft`
+  - Original Text Snippet: - Acceptance: reload works
+- **UX-R-219** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 7 — Sequence + templates + lint + AI draft`
+  - Original Text Snippet: - Tests: e2e
+- **COMP-009** [COMPLIANCE_RULE]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 7 — Sequence + templates + lint + AI draft`
+  - Original Text Snippet: - [ ] Lint rules (spam/link/unsubscribe)
+- **COMP-010** [COMPLIANCE_RULE]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 7 — Sequence + templates + lint + AI draft`
+  - Original Text Snippet: - Acceptance: blocking rule for missing unsubscribe
+- **UX-R-220** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 7 — Sequence + templates + lint + AI draft`
+  - Original Text Snippet: - Tests: unit
+- **UX-R-221** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 7 — Sequence + templates + lint + AI draft`
+  - Original Text Snippet: - [ ] AI draft endpoint (draft-only)
+- **UX-R-222** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 7 — Sequence + templates + lint + AI draft`
+  - Original Text Snippet: - Acceptance: never auto-saves
+- **UX-R-223** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 7 — Sequence + templates + lint + AI draft`
+  - Original Text Snippet: - Tests: integration
+- **UX-R-224** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 7 — Sequence + templates + lint + AI draft`
+  - Original Text Snippet: - [ ] Update SOFTWARE_DOCUMENTATION.md (phase summary + decisions + gotchas)
+- **UX-R-225** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 8 — Launch + job scheduling`
+  - Original Text Snippet: - [ ] Plan/confirm launch validators
+- **UX-R-226** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 8 — Launch + job scheduling`
+  - Original Text Snippet: - Acceptance: blockers/warnings defined
+- **UX-R-227** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 8 — Launch + job scheduling`
+  - Original Text Snippet: - Tests: n/a
+- **UX-R-228** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 8 — Launch + job scheduling`
+  - Original Text Snippet: - [ ] Launch endpoint validation
+- **UX-R-229** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 8 — Launch + job scheduling`
+  - Original Text Snippet: - Acceptance: blocks missing requirements
+- **UX-R-230** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 8 — Launch + job scheduling`
+  - Original Text Snippet: - Tests: integration
+- **UX-R-231** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 8 — Launch + job scheduling`
+  - Original Text Snippet: - [ ] Generate send_jobs with idempotency keys
+- **UX-R-232** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 8 — Launch + job scheduling`
+  - Original Text Snippet: - Acceptance: queued jobs created
+- **UX-R-233** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 8 — Launch + job scheduling`
+  - Original Text Snippet: - Tests: integration
+- **UX-R-234** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 8 — Launch + job scheduling`
+  - Original Text Snippet: - [ ] Pause/resume campaign endpoints
+- **UX-R-235** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 8 — Launch + job scheduling`
+  - Original Text Snippet: - Acceptance: affects processing
+- **UX-R-236** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 8 — Launch + job scheduling`
+  - Original Text Snippet: - Tests: integration
+- **UX-R-237** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 8 — Launch + job scheduling`
+  - Original Text Snippet: - [ ] Update SOFTWARE_DOCUMENTATION.md (phase summary + decisions + gotchas)
+- **UX-R-238** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 9 — Cron sender + Gmail send`
+  - Original Text Snippet: - [ ] Plan/confirm scheduling algorithm (caps/ramp/windows)
+- **UX-R-239** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 9 — Cron sender + Gmail send`
+  - Original Text Snippet: - Acceptance: deterministic logic
+- **UX-R-240** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 9 — Cron sender + Gmail send`
+  - Original Text Snippet: - Tests: unit plan
+- **UX-R-241** [ROUTE]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 9 — Cron sender + Gmail send`
+  - Original Text Snippet: - [ ] `/api/cron/tick` due-job selection + locking
+- **UX-R-242** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 9 — Cron sender + Gmail send`
+  - Original Text Snippet: - Acceptance: no double-send
+- **UX-R-243** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 9 — Cron sender + Gmail send`
+  - Original Text Snippet: - Tests: integration
+- **UX-R-244** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 9 — Cron sender + Gmail send`
+  - Original Text Snippet: - [ ] Gmail send implementation + provider_message_id persistence
+- **UX-R-245** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 9 — Cron sender + Gmail send`
+  - Original Text Snippet: - Acceptance: success+error paths handled
+- **UX-R-246** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 9 — Cron sender + Gmail send`
+  - Original Text Snippet: - Tests: integration (mock)
+- **UX-R-247** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 9 — Cron sender + Gmail send`
+  - Original Text Snippet: - [ ] Enforce caps/ramp/windows in runner
+- **UX-R-248** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 9 — Cron sender + Gmail send`
+  - Original Text Snippet: - Acceptance: never exceeds caps
+- **UX-R-249** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 9 — Cron sender + Gmail send`
+  - Original Text Snippet: - Tests: unit+integration
+- **UX-R-250** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 9 — Cron sender + Gmail send`
+  - Original Text Snippet: - [ ] Update SOFTWARE_DOCUMENTATION.md (phase summary + decisions + gotchas)
+- **UX-R-251** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 10 — Inbox polling + replies inbox`
+  - Original Text Snippet: - [ ] Plan/confirm polling + thread matching
+- **UX-R-252** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 10 — Inbox polling + replies inbox`
+  - Original Text Snippet: - Acceptance: rules documented
+- **UX-R-253** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 10 — Inbox polling + replies inbox`
+  - Original Text Snippet: - Tests: n/a
+- **UX-R-254** [ROUTE]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 10 — Inbox polling + replies inbox`
+  - Original Text Snippet: - [ ] `/api/cron/sync-inbox` polling for replies
+- **UX-R-255** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 10 — Inbox polling + replies inbox`
+  - Original Text Snippet: - Acceptance: inbound saved
+- **UX-R-256** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 10 — Inbox polling + replies inbox`
+  - Original Text Snippet: - Tests: integration (mock)
+- **UX-R-257** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 10 — Inbox polling + replies inbox`
+  - Original Text Snippet: - [ ] Stop sequence on reply + cancel future jobs
+- **UX-R-258** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 10 — Inbox polling + replies inbox`
+  - Original Text Snippet: - Acceptance: no further sends after reply
+- **UX-R-259** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 10 — Inbox polling + replies inbox`
+  - Original Text Snippet: - Tests: integration
+- **UX-R-260** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 10 — Inbox polling + replies inbox`
+  - Original Text Snippet: - [ ] Replies inbox UI + thread view
+- **UX-R-261** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 10 — Inbox polling + replies inbox`
+  - Original Text Snippet: - Acceptance: needs-response flow works
+- **UX-R-262** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 10 — Inbox polling + replies inbox`
+  - Original Text Snippet: - Tests: e2e
+- **COMP-011** [COMPLIANCE_RULE]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 10 — Inbox polling + replies inbox`
+  - Original Text Snippet: - [ ] Categorize endpoint + unsubscribe suppression
+- **UX-R-263** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 10 — Inbox polling + replies inbox`
+  - Original Text Snippet: - Acceptance: suppression created
+- **UX-R-264** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 10 — Inbox polling + replies inbox`
+  - Original Text Snippet: - Tests: integration
+- **UX-R-265** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 10 — Inbox polling + replies inbox`
+  - Original Text Snippet: - [ ] AI draft reply + manual send reply
+- **UX-R-266** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 10 — Inbox polling + replies inbox`
+  - Original Text Snippet: - Acceptance: user-approved send only
+- **UX-R-267** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 10 — Inbox polling + replies inbox`
+  - Original Text Snippet: - Tests: integration
+- **UX-R-268** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 10 — Inbox polling + replies inbox`
+  - Original Text Snippet: - [ ] Update SOFTWARE_DOCUMENTATION.md (phase summary + decisions + gotchas)
+- **COMP-012** [COMPLIANCE_RULE]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 11 — Compliance hardening`
+  - Original Text Snippet: - [ ] Plan/confirm compliance UX
+- **UX-R-269** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 11 — Compliance hardening`
+  - Original Text Snippet: - Acceptance: launch attestation required
+- **UX-R-270** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 11 — Compliance hardening`
+  - Original Text Snippet: - Tests: n/a
+- **UX-R-271** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 11 — Compliance hardening`
+  - Original Text Snippet: - [ ] Launch attestation checkbox + persistence
+- **UX-R-272** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 11 — Compliance hardening`
+  - Original Text Snippet: - Acceptance: cannot launch without it
+- **UX-R-273** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 11 — Compliance hardening`
+  - Original Text Snippet: - Tests: e2e
+- **UX-R-274** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 11 — Compliance hardening`
+  - Original Text Snippet: - [ ] Global suppression management UI
+- **UX-R-275** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 11 — Compliance hardening`
+  - Original Text Snippet: - Acceptance: affects import/sending
+- **UX-R-276** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 11 — Compliance hardening`
+  - Original Text Snippet: - Tests: integration+e2e
+- **UX-R-277** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 11 — Compliance hardening`
+  - Original Text Snippet: - [ ] Export campaign results CSV
+- **DATA-029** [DATA_MODEL]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 11 — Compliance hardening`
+  - Original Text Snippet: - Acceptance: correct fields included
+- **UX-R-278** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 11 — Compliance hardening`
+  - Original Text Snippet: - Tests: integration
+- **UX-R-279** [CONSTRAINT]
+  - Source File: `IMPLEMENTATION_CHECKLIST.md`
+  - Section: `Phase 11 — Compliance hardening`
+  - Original Text Snippet: - [ ] Update SOFTWARE_DOCUMENTATION.md (phase summary + decisions + gotchas)
+
+## PRODUCT_BRIEF.md
+
+### 1) File Role Summary
+Defines product scope, target users, in-scope MVP features, non-goals, success criteria, key entities, and primary workflows for LeadBitz.
+
+### 2) LOSSLESS REQUIREMENT EXTRACTION
+
+- **UX-R-280** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Target users + primary JTBD`
+  - Original Text Snippet: - **Users:** Small B2B teams and agencies running outbound campaigns.
+- **UX-R-281** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Target users + primary JTBD`
+  - Original Text Snippet: - **JTBD:** “Create and run a controlled outbound campaign without juggling tools or damaging domain reputation; keep messaging human-quality; handle replies reliably.”
+- **UX-R-282** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: 1) **Workspace + Campaigns**
+- **UX-R-283** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - Create workspace (single-tenant per user by default) and campaigns.
+- **UX-R-284** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - Campaign wizard: Website/product input → ICP draft → lead import → sequence → review → launch.
+- **UX-R-285** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: 2) **ICP generation + editing (quality-gated)**
+- **UX-R-286** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - Ingest website URL or pasted product description.
+- **UX-R-287** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - AI produces a structured ICP draft:
+- **UX-R-288** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - target industries, company size bands, geos
+- **UX-R-289** [PERMISSION]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - buyer roles/titles + seniority + departments
+- **UX-R-290** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - pains + triggers ("why now")
+- **UX-R-291** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - exclusions / anti-ICP
+- **UX-R-292** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - value props + proof points
+- **UX-R-293** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - User can edit and save ICP versions.
+- **UX-R-294** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: 2.1) **ICP Quality Gate (required)**
+- **UX-R-295** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - After initial ICP generation, the system computes an **ICP Quality Score (0–100)** using a deterministic rubric and returns:
+- **DATA-030** [DATA_MODEL]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - score, tier, missing fields, and top questions to improve
+- **UX-R-296** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - “why” bullets (explainable scoring)
+- **UX-R-297** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - Quality tiers:
+- **UX-R-298** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - **≥ 75**: “High-quality ICP” → proceed normally
+- **UX-R-299** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - **50–74**: “Usable ICP” → warn + recommend improvement
+- **UX-R-300** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - **< 50**: “Insufficient ICP” → trigger Scenario A/B flow
+- **UX-R-301** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: 2.2) **Scenario A — insufficient ICP but product archetype identified**
+- **UX-R-302** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - If the system identifies a **product archetype** (e.g., “Outbound Automation SaaS”, “Dev Tools”, “Vertical SaaS”) above confidence threshold:
+- **UX-R-303** [COPY_RULE]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - Show a gating message:
+- **UX-R-304** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - “We couldn’t create a high-quality ICP from your website alone.”
+- **DATA-031** [DATA_MODEL]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - “We think you fit the **{archetype}** model.”
+- **UX-R-305** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - If an ICP template exists for the archetype:
+- **UX-R-306** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - Offer: “Apply our {archetype} ICP template” (guided, structured)
+- **UX-R-307** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - If no template exists:
+- **UX-R-308** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - Offer: “Request a template” (logs an internal event)
+- **UX-R-309** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - Offer: “Improve ICP with Specialist AI” (structured interview)
+- **UX-R-310** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - Always include: “No, continue anyway” (saves website ICP as-is)
+- **UX-R-311** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: 2.3) **Scenario B — insufficient ICP and archetype not identified**
+- **UX-R-312** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - Ask a short set of disambiguation questions to identify archetype:
+- **DATA-032** [DATA_MODEL]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - e.g., target user type, pricing model, sales motion, implementation type, buyer role
+- **UX-R-313** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - If archetype becomes identified → Scenario A.
+- **UX-R-314** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - If still not identified → offer “Specialist AI interview” to create a high-quality ICP.
+- **UX-R-315** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - Always include: “No, continue anyway” (saves website ICP as-is)
+- **UX-R-316** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: 2.4) **ICP Templates (archetype library)**
+- **UX-R-317** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - The product includes a small archetype template library (start with 5–10 archetypes).
+- **UX-R-318** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - Each template defines:
+- **UX-R-319** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - required questions
+- **UX-R-320** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - default ICP skeleton
+- **UX-R-321** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - rubric weighting adjustments
+- **UX-R-322** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - constraints/exclusions common to that archetype
+- **UX-R-323** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: 2.5) **Specialist ICP Interview (structured, not open chat)**
+- **UX-R-324** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - A guided wizard that asks only the questions needed to raise the ICP score.
+- **DATA-033** [DATA_MODEL]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - Output must conform to the same structured ICP schema.
+- **UX-R-325** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - Produces:
+- **UX-R-326** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - “Improved ICP” version saved alongside the website ICP
+- **UX-R-327** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - a concise diff summary: what changed + why (for operator trust)
+- **COMP-013** [COMPLIANCE_RULE]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: 3) **Leads: Automated discovery + enrichment + verification (compliance-first)**
+- **UX-R-328** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - ICP-driven lead discovery pipeline that produces **candidate companies + contacts** automatically.
+- **COMP-014** [COMPLIANCE_RULE]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - Lead sources are **licensed/authorized** connectors (no unauthorized scraping as a product feature).
+- **UX-R-329** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - The system maintains **field-level provenance** (source + timestamp + confidence) for every lead attribute.
+- **UX-R-330** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - Email sending requires either **verified** email status or an explicit campaign-level override.
+- **UX-R-331** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - Dedupe rules: by email (case-insensitive) + optional domain + optional provider person/company IDs.
+- **UX-R-332** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: 3.1) **Source connectors (MVP: implement 1 data provider end-to-end)**
+- **COMP-015** [COMPLIANCE_RULE]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - One licensed B2B data provider connector as the default lead engine (see Open Decisions).
+- **UX-R-333** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - Optional: CRM import/sync connector (Phase 2 unless required).
+- **COMP-016** [COMPLIANCE_RULE]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - Optional: company discovery via compliant search API (Phase 2; contacts still from licensed provider).
+- **UX-R-334** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: 3.2) **Candidate review + approval gate**
+- **UX-R-335** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - Discovery results land in a **Candidates** stage (not immediately sendable).
+- **UX-R-336** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - Users can filter, sample, and approve candidates into campaign leads.
+- **COMP-017** [COMPLIANCE_RULE]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - Approval gate is mandatory to prevent unintended outreach and to support compliance posture.
+- **SAFE-010** [SAFETY_RULE]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: 3.3) **Email verification + suppression safety**
+- **UX-R-337** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - Integrated email verification provider; store result + timestamp.
+- **COMP-018** [COMPLIANCE_RULE]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - Auto-suppress: unsubscribes, hard bounces, complaints.
+- **COMP-019** [COMPLIANCE_RULE]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - Enforced: global do-not-contact list and per-workspace anti-abuse sending caps.
+- **UX-R-338** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: 4) **Source governance layer**
+- **DATA-034** [DATA_MODEL]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - “Source Registry” that records which source produced which fields for a lead: source name, constraints note, timestamps, confidence/freshness.
+- **UX-R-339** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - Ability to disable a source globally (affects enrichment/import pipelines).
+- **UX-R-340** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: 5) **Sequences + AI drafting (operator-first)**
+- **UX-R-341** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - Sequence builder for **email** steps (MVP): step timing, stop-on-reply, per-step templates.
+- **DATA-035** [DATA_MODEL]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - AI drafts: subject/body, optional first-line “icebreaker” generated from allowed inputs (lead fields + company website if provided by user).
+- **UX-R-342** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - Human review/approval required before launch; AI is a co-pilot, not autopilot.
+- **SAFE-011** [SAFETY_RULE]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: 6) **Deliverability “safe primitives” (enforced defaults)**
+- **UX-R-343** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - Domain/inbox setup checklist: SPF/DKIM/DMARC guidance + validation checks where feasible.
+- **UX-R-344** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - Throttling, send windows, ramp schedules, per-inbox daily caps.
+- **COMP-020** [COMPLIANCE_RULE]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - Bounce/complaint suppression list; global do-not-contact list.
+- **UX-R-345** [COPY_RULE]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - Copy linting (spammy phrasing checks) and link/image warnings.
+- **UX-R-346** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - Warm-up is optional and implemented as “integration or guidance-only,” not a core dependency.
+- **UX-R-347** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: 7) **Sending (connected inbox)**
+- **UX-R-348** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - Connect Gmail and Microsoft 365 via OAuth; send via provider API.
+- **UX-R-349** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - Queue-based sending; idempotent send jobs; pause/resume campaign.
+- **UX-R-350** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: 8) **Replies + pipeline**
+- **COMP-021** [COMPLIANCE_RULE]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - Unified “Replies” view: categorize (Interested / Objection / Not now / Unsubscribe / Wrong person / Bounce).
+- **UX-R-351** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - AI suggested replies (draft-only) for human approval.
+- **UX-R-352** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - Basic pipeline stages for replied leads (Needs response → In conversation → Meeting requested → Closed).
+- **COMP-022** [COMPLIANCE_RULE]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: 9) **Compliance + anti-abuse**
+- **COMP-023** [COMPLIANCE_RULE]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - Unsubscribe handling (link + one-click suppression).
+- **DATA-036** [DATA_MODEL]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - Per-workspace sending caps; blocklist for abusive content; mandatory identification/footer fields.
+- **COMP-024** [COMPLIANCE_RULE]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `In-scope features (MVP)`
+  - Original Text Snippet: - Audit logs for critical events (connect inbox, launch campaign, sends, suppressions).
+- **UX-R-353** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Out-of-scope / non-goals (MVP)`
+  - Original Text Snippet: - “Universal lead scraping” or claims of scraping any site/platform (explicit non-goal).
+- **UX-R-354** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Out-of-scope / non-goals (MVP)`
+  - Original Text Snippet: - Browser-extension-based LinkedIn automation as a core pillar.
+- **UX-R-355** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Out-of-scope / non-goals (MVP)`
+  - Original Text Snippet: - Full CRM replacement (opportunity forecasting, quotas, complex deal stages).
+- **UX-R-356** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Out-of-scope / non-goals (MVP)`
+  - Original Text Snippet: - Automated AI replies without human approval.
+- **UX-R-357** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Out-of-scope / non-goals (MVP)`
+  - Original Text Snippet: - Multi-tenant agency client portals (can be added later).
+- **UX-R-358** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Out-of-scope / non-goals (MVP)`
+  - Original Text Snippet: - Warm-up network built in-house (integration later).
+- **UX-R-359** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Success criteria (measurable; MVP)`
+  - Original Text Snippet: - A user can launch a campaign end-to-end (ICP → import leads → sequence → send) in **≤ 20 minutes**.
+- **COMP-025** [COMPLIANCE_RULE]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Success criteria (measurable; MVP)`
+  - Original Text Snippet: - System enforces: unsubscribe link + suppression + throttling/ramp on every campaign.
+- **STATE-028** [STATE]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Success criteria (measurable; MVP)`
+  - Original Text Snippet: - Campaign sending is reliable: **≥ 99%** scheduled send jobs either sent or fail with actionable error + retry state.
+- **UX-R-360** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Success criteria (measurable; MVP)`
+  - Original Text Snippet: - Replies are captured and visible in app for connected inboxes; user can categorize and respond.
+- **UX-R-361** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Success criteria (measurable; MVP)`
+  - Original Text Snippet: - ICP Quality Gate works end-to-end: score + missing-field checklist + improvement path; users can reach “High-quality ICP” tier for typical SaaS websites (via templates or Specialist interview).
+- **UX-R-362** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Key entities (plain English)`
+  - Original Text Snippet: - **User**: authenticated operator.
+- **UX-R-363** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Key entities (plain English)`
+  - Original Text Snippet: - **Workspace**: container for data, settings, connected inboxes, sources.
+- **UX-R-364** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Key entities (plain English)`
+  - Original Text Snippet: - **Campaign**: outreach effort tied to an ICP, lead pipeline config, and sequence.
+- **UX-R-365** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Key entities (plain English)`
+  - Original Text Snippet: - **ICP Profile**: targeting rules + positioning notes used for discovery and drafting.
+- **COMP-026** [COMPLIANCE_RULE]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Key entities (plain English)`
+  - Original Text Snippet: - **Source Connector**: a configured integration that can discover/enrich leads (licensed provider, CRM, etc.).
+- **UX-R-366** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Key entities (plain English)`
+  - Original Text Snippet: - **Source Run**: an execution of discovery/enrichment against an ICP with parameters (limits, filters).
+- **UX-R-367** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Key entities (plain English)`
+  - Original Text Snippet: - **Candidate**: a discovered company/contact **not yet approved for outreach**.
+- **UX-R-368** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Key entities (plain English)`
+  - Original Text Snippet: - **Lead**: an approved contact record eligible for sequencing (email required for email channel).
+- **DATA-037** [DATA_MODEL]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Key entities (plain English)`
+  - Original Text Snippet: - **Company**: associated organization record (domain, name, site, enrichment fields).
+- **UX-R-369** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Key entities (plain English)`
+  - Original Text Snippet: - **Email Verification**: verification result record (status, provider, checked_at).
+- **UX-R-370** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Key entities (plain English)`
+  - Original Text Snippet: - **Sequence Step**: scheduled action (email step in MVP).
+- **DATA-038** [DATA_MODEL]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Key entities (plain English)`
+  - Original Text Snippet: - **Message Template**: editable subject/body with variables.
+- **UX-R-371** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Key entities (plain English)`
+  - Original Text Snippet: - **Send Job**: queued unit of work to send a specific message to a lead.
+- **UX-R-372** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Key entities (plain English)`
+  - Original Text Snippet: - **Conversation**: thread of inbound/outbound messages for a lead.
+- **COMP-027** [COMPLIANCE_RULE]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Key entities (plain English)`
+  - Original Text Snippet: - **Suppression**: do-not-contact entry (unsubscribed, bounced, complained, manual).
+- **UX-R-373** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Key entities (plain English)`
+  - Original Text Snippet: - **Provenance**: field-level source metadata (source, timestamp, confidence, allowed usage note).
+- **UX-R-374** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Key entities (plain English)`
+  - Original Text Snippet: - **ICP Version**: a saved version of an ICP for a campaign (website draft, improved, template-applied).
+- **DATA-039** [DATA_MODEL]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Key entities (plain English)`
+  - Original Text Snippet: - **ICP Quality Score**: rubric score + tier + missing fields + explanations for a specific ICP version.
+- **DATA-040** [DATA_MODEL]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Key entities (plain English)`
+  - Original Text Snippet: - **Product Archetype**: classified model/category used to select an ICP template.
+- **UX-R-375** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Key entities (plain English)`
+  - Original Text Snippet: - **ICP Template**: archetype-specific guided framework that produces a structured ICP.
+- **UX-R-376** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Key entities (plain English)`
+  - Original Text Snippet: - **ICP Interview Session**: a structured Q&A session used to improve an ICP to meet the quality bar.
+- **UX-R-377** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `1) Create campaign (wizard) — ICP → discovery → approve → sequence → launch`
+  - Original Text Snippet: 1. Create campaign → input website URL or paste product description.
+- **UX-R-378** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `1) Create campaign (wizard) — ICP → discovery → approve → sequence → launch`
+  - Original Text Snippet: 2. AI generates ICP draft → user edits + confirms.
+- **UX-R-379** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `1) Create campaign (wizard) — ICP → discovery → approve → sequence → launch`
+  - Original Text Snippet: 3. Configure **Lead Discovery**:
+- **UX-R-380** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `1) Create campaign (wizard) — ICP → discovery → approve → sequence → launch`
+  - Original Text Snippet: - choose source connector(s)
+- **DATA-041** [DATA_MODEL]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `1) Create campaign (wizard) — ICP → discovery → approve → sequence → launch`
+  - Original Text Snippet: - define required fields (email required)
+- **UX-R-381** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `1) Create campaign (wizard) — ICP → discovery → approve → sequence → launch`
+  - Original Text Snippet: - set filters (geo/industry/size/title) and max results
+- **UX-R-382** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `1) Create campaign (wizard) — ICP → discovery → approve → sequence → launch`
+  - Original Text Snippet: 4. Run discovery → system produces **Candidates** with provenance + confidence.
+- **UX-R-383** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `1) Create campaign (wizard) — ICP → discovery → approve → sequence → launch`
+  - Original Text Snippet: 5. Review candidates:
+- **SAFE-012** [SAFETY_RULE]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `1) Create campaign (wizard) — ICP → discovery → approve → sequence → launch`
+  - Original Text Snippet: - filter/sort, inspect samples, exclude risky segments
+- **UX-R-384** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `1) Create campaign (wizard) — ICP → discovery → approve → sequence → launch`
+  - Original Text Snippet: - require email verification status (or set override)
+- **UX-R-385** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `1) Create campaign (wizard) — ICP → discovery → approve → sequence → launch`
+  - Original Text Snippet: 6. Approve candidates into campaign leads.
+- **UX-R-386** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `1) Create campaign (wizard) — ICP → discovery → approve → sequence → launch`
+  - Original Text Snippet: 7. Configure sequence (steps + timing) → AI drafts templates → user edits.
+- **SAFE-013** [SAFETY_RULE]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `1) Create campaign (wizard) — ICP → discovery → approve → sequence → launch`
+  - Original Text Snippet: 8. Deliverability checks run (required) → user resolves blockers.
+- **UX-R-387** [SCREEN]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `1) Create campaign (wizard) — ICP → discovery → approve → sequence → launch`
+  - Original Text Snippet: 9. Review screen: sample renders, daily volume plan, compliance footer, unsubscribe.
+- **UX-R-388** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `1) Create campaign (wizard) — ICP → discovery → approve → sequence → launch`
+  - Original Text Snippet: 10. Launch → campaign schedules jobs into send queue.
+- **UX-R-389** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `2) Automated lead discovery pipeline (behind the scenes)`
+  - Original Text Snippet: 1. Create a Source Run from ICP + filters + limits.
+- **COMP-028** [COMPLIANCE_RULE]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `2) Automated lead discovery pipeline (behind the scenes)`
+  - Original Text Snippet: 2. Connector fetches company/contact candidates from licensed provider API.
+- **UX-R-390** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `2) Automated lead discovery pipeline (behind the scenes)`
+  - Original Text Snippet: 3. Normalize and upsert Company/Contact records; write field provenance.
+- **UX-R-391** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `2) Automated lead discovery pipeline (behind the scenes)`
+  - Original Text Snippet: 4. Verify emails (batch) → attach verification status + checked_at.
+- **UX-R-392** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `2) Automated lead discovery pipeline (behind the scenes)`
+  - Original Text Snippet: 5. Apply suppressions and dedupe → mark remaining as Candidates (ready for review).
+- **UX-R-393** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `3) Safe sending loop`
+  - Original Text Snippet: 1. Scheduler selects due send jobs (respecting caps, ramp, quiet hours).
+- **UX-R-394** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `3) Safe sending loop`
+  - Original Text Snippet: 2. Send via Gmail/M365 API.
+- **UX-R-395** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `3) Safe sending loop`
+  - Original Text Snippet: 3. Record outcome; update lead status; log event.
+- **UX-R-396** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `3) Safe sending loop`
+  - Original Text Snippet: 4. On bounce/complaint → suppress lead and optionally pause campaign.
+- **UX-R-397** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `4) Reply handling`
+  - Original Text Snippet: 1. Inbound message detected (provider sync).
+- **UX-R-398** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `4) Reply handling`
+  - Original Text Snippet: 2. Thread matched to lead/campaign.
+- **UX-R-399** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `4) Reply handling`
+  - Original Text Snippet: 3. User sees reply in “Replies” inbox.
+- **UX-R-400** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `4) Reply handling`
+  - Original Text Snippet: 4. User categorizes; AI suggests response (optional); user sends or marks done.
+- **UX-R-401** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `4) Reply handling`
+  - Original Text Snippet: 5. Lead stage updates and stops future steps as configured.
+- **COMP-029** [COMPLIANCE_RULE]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Open decisions (only truly blocking) + recommended default`
+  - Original Text Snippet: 1) **Default licensed lead data provider (MVP)**
+- **UX-R-402** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Open decisions (only truly blocking) + recommended default`
+  - Original Text Snippet: - Options: Apollo / People Data Labs / Clearbit / others.
+- **UX-R-403** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Open decisions (only truly blocking) + recommended default`
+  - Original Text Snippet: - **Default:** Choose ONE and implement fully end-to-end (search → enrich → rate limits → retries → pagination).
+- **DATA-042** [DATA_MODEL]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Open decisions (only truly blocking) + recommended default`
+  - Original Text Snippet: - Consequence: determines API shapes, cost model, and which fields are reliably available.
+- **UX-R-404** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Open decisions (only truly blocking) + recommended default`
+  - Original Text Snippet: 2) **Email verification provider**
+- **UX-R-405** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Open decisions (only truly blocking) + recommended default`
+  - Original Text Snippet: - Options: NeverBounce / ZeroBounce / Kickbox / others.
+- **UX-R-406** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Open decisions (only truly blocking) + recommended default`
+  - Original Text Snippet: - **Default:** Pick one; enforce “verified-only” sending by default with campaign override.
+- **UX-R-407** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Open decisions (only truly blocking) + recommended default`
+  - Original Text Snippet: 3) **Candidate approval strictness**
+- **UX-R-408** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Open decisions (only truly blocking) + recommended default`
+  - Original Text Snippet: - Options: mandatory approval vs allow auto-approve.
+- **UX-R-409** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Open decisions (only truly blocking) + recommended default`
+  - Original Text Snippet: - **Default:** Mandatory approval in MVP; consider “auto-approve with rules” later.
+- **UX-R-410** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Open decisions (only truly blocking) + recommended default`
+  - Original Text Snippet: 4) **Company discovery beyond the data provider**
+- **UX-R-411** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Open decisions (only truly blocking) + recommended default`
+  - Original Text Snippet: - Options: provider-only vs add compliant web search API.
+- **SAFE-014** [SAFETY_RULE]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Open decisions (only truly blocking) + recommended default`
+  - Original Text Snippet: - **Default:** Provider-only for MVP to avoid ToS risk and reduce scope.
+- **UX-R-412** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Constraints`
+  - Original Text Snippet: - **Hosting:** Vercel-first (Next.js).
+- **UX-R-413** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Constraints`
+  - Original Text Snippet: - **Costs:** Minimize third-party paid dependencies; no built-in lead database.
+- **COMP-030** [COMPLIANCE_RULE]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Constraints`
+  - Original Text Snippet: - **Compliance:** enforce unsubscribe + suppression; user attests lawful basis; store minimal PII; delete/export support.
+- **SAFE-015** [SAFETY_RULE]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Constraints`
+  - Original Text Snippet: - **Outbound email safety:** conservative caps, throttling, ramp schedules; no “growth-hack” exploits.
+- **COMP-031** [COMPLIANCE_RULE]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Assumptions/defaults made`
+  - Original Text Snippet: - Lead discovery is implemented via **licensed/authorized** data sources (no unauthorized scraping as a core feature).
+- **COMP-032** [COMPLIANCE_RULE]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Assumptions/defaults made`
+  - Original Text Snippet: - MVP includes exactly **one** licensed provider connector implemented end-to-end.
+- **UX-R-414** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Assumptions/defaults made`
+  - Original Text Snippet: - Contacts are not auto-contacted without a **human approval gate** (Candidates → Leads).
+- **UX-R-415** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Assumptions/defaults made`
+  - Original Text Snippet: - Email sending defaults to **verified emails only**; users can override per campaign with explicit warnings.
+- **UX-R-416** [CONSTRAINT]
+  - Source File: `PRODUCT_BRIEF.md`
+  - Section: `Assumptions/defaults made`
+  - Original Text Snippet: - Email is the only automated channel in MVP; other channels can be “tasks” later.
+
+## UI_SPEC.md
+
+### 1) File Role Summary
+Defines the UI design system rules (CVBS-aligned) including tokens, components, interaction states, styling rules, and layout/styling constraints.
+
+### 2) LOSSLESS REQUIREMENT EXTRACTION
+
+- **SAFE-016** [SAFETY_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `0. Product Intent & Non-negotiables (UI)`
+  - Original Text Snippet: - Safety > speed: any send/launch action must surface risk checks and require explicit confirmation.
+- **DATA-043** [DATA_MODEL]
+  - Source File: `UI_SPEC.md`
+  - Section: `0. Product Intent & Non-negotiables (UI)`
+  - Original Text Snippet: - AI is assistive, never autonomous: all AI output is attributable, editable, and must be explicitly confirmed before it affects sending.
+- **SAFE-017** [SAFETY_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `0. Product Intent & Non-negotiables (UI)`
+  - Original Text Snippet: - Tables are first-class: dense, scannable, keyboard-friendly; bulk actions must have confirmation.
+- **UI-R-284** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `0. Product Intent & Non-negotiables (UI)`
+  - Original Text Snippet: - Low-noise, high-signal: calm dark “control panel” SaaS; **semantic colors only for semantics** and never as the only signal.
+- **UI-R-285** [ACCESSIBILITY]
+  - Source File: `UI_SPEC.md`
+  - Section: `1.1 Token-only rule (prevents inconsistent styling)`
+  - Original Text Snippet: - Use tokens only (CSS variables / Tailwind tokens). No ad-hoc spacing, radii, or colors.
+- **UI-R-286** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `1.1 Token-only rule (prevents inconsistent styling)`
+  - Original Text Snippet: - Components must never hardcode hex values (except in token definitions).
+- **STATE-029** [STATE]
+  - Source File: `UI_SPEC.md`
+  - Section: `1.1 Token-only rule (prevents inconsistent styling)`
+  - Original Text Snippet: - All interactive elements must define: default, hover, pressed, focus-visible, disabled, loading.
+- **UI-R-287** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `1.1 Token-only rule (prevents inconsistent styling)`
+  - Original Text Snippet: - Dark-first system; no light mode unless introduced via governance.
+- **UI-R-288** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `1.2 Canonical CVBS tokens (authoritative)`
+  - Original Text Snippet: **All UI must map to these token names** (no parallel “primary-*” systems). Values below are canonical.
+- **STATE-030** [STATE]
+  - Source File: `UI_SPEC.md`
+  - Section: `1.2 Canonical CVBS tokens (authoritative)`
+  - Original Text Snippet: - Do not introduce glow tokens for brand or state (no neon/glow). Shadow is allowed only as subtle elevation (see §5).
+- **STATE-031** [STATE]
+  - Source File: `UI_SPEC.md`
+  - Section: `1.2 Canonical CVBS tokens (authoritative)`
+  - Original Text Snippet: - Do not use `--color-accent-primary` as a “success” indicator. Use `--color-success` for success states; accent is for *actions*.
+- **UI-R-289** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `1.3 Semantic alias tokens (component-facing)`
+  - Original Text Snippet: Components must consume semantic aliases so future palette updates do not require component rewrites.
+- **UI-R-290** [ACCESSIBILITY]
+  - Source File: `UI_SPEC.md`
+  - Section: `1.4 Accessibility constraints (color)`
+  - Original Text Snippet: - Text < 18px: contrast ≥ 4.5:1
+- **UI-R-291** [ACCESSIBILITY]
+  - Source File: `UI_SPEC.md`
+  - Section: `1.4 Accessibility constraints (color)`
+  - Original Text Snippet: - Text ≥ 18px or ≥ 14px semibold: contrast ≥ 3:1
+- **UI-R-292** [ACCESSIBILITY]
+  - Source File: `UI_SPEC.md`
+  - Section: `1.4 Accessibility constraints (color)`
+  - Original Text Snippet: - Non-text UI required for understanding: contrast ≥ 3:1
+- **UI-R-293** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `1.4 Accessibility constraints (color)`
+  - Original Text Snippet: - Focus indicator must be visible with **2px minimum** thickness; must not rely on border-only changes.
+- **UI-R-294** [ACCESSIBILITY]
+  - Source File: `UI_SPEC.md`
+  - Section: `2. Typography (Roles + Scale)`
+  - Original Text Snippet: - Sans (primary UI): Inter (variable), system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif
+- **UI-R-295** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `2. Typography (Roles + Scale)`
+  - Original Text Snippet: - Mono (IDs/logs/headers): ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace
+- **UI-R-296** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `2. Typography (Roles + Scale)`
+  - Original Text Snippet: - text-xs: 12/16
+- **UI-R-297** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `2. Typography (Roles + Scale)`
+  - Original Text Snippet: - text-sm: 14/20
+- **UI-R-298** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `2. Typography (Roles + Scale)`
+  - Original Text Snippet: - text-md: 16/24 (default body)
+- **UI-R-299** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `2. Typography (Roles + Scale)`
+  - Original Text Snippet: - text-lg: 18/28
+- **UI-R-300** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `2. Typography (Roles + Scale)`
+  - Original Text Snippet: - text-xl: 20/28
+- **UI-R-301** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `2. Typography (Roles + Scale)`
+  - Original Text Snippet: - text-2xl: 24/32
+- **UI-R-302** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `2. Typography (Roles + Scale)`
+  - Original Text Snippet: - text-3xl: 30/36
+- **UI-R-303** [SCREEN]
+  - Source File: `UI_SPEC.md`
+  - Section: `2. Typography (Roles + Scale)`
+  - Original Text Snippet: - Page titles: 600
+- **UI-R-304** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `2. Typography (Roles + Scale)`
+  - Original Text Snippet: - Section titles: 600
+- **UI-R-305** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `2. Typography (Roles + Scale)`
+  - Original Text Snippet: - Body: 400
+- **UI-R-306** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `2. Typography (Roles + Scale)`
+  - Original Text Snippet: - Labels: 500
+- **UI-R-307** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `2. Typography (Roles + Scale)`
+  - Original Text Snippet: - Emphasis: 500
+- **UI-R-308** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `2. Typography (Roles + Scale)`
+  - Original Text Snippet: - KPIs: 600
+- **UI-R-309** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `2. Typography (Roles + Scale)`
+  - Original Text Snippet: - Avoid 700+ broadly in dark UI (glare/noise).
+- **UI-R-310** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `2. Typography (Roles + Scale)`
+  - Original Text Snippet: - Default: text-sm, 400 for cells
+- **UI-R-311** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `2. Typography (Roles + Scale)`
+  - Original Text Snippet: - Headers: text-xs, 600 (uppercase optional; if used, keep tracking subtle and consistent)
+- **UI-R-312** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `3. Spacing System (Tokenized)`
+  - Original Text Snippet: 4px base scale (token-only):
+- **UI-R-313** [SCREEN]
+  - Source File: `UI_SPEC.md`
+  - Section: `3. Spacing System (Tokenized)`
+  - Original Text Snippet: - Page section gap: `--space-6`
+- **UI-R-314** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `3. Spacing System (Tokenized)`
+  - Original Text Snippet: - Dense operational views: `--space-4`
+- **UI-R-315** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `3. Spacing System (Tokenized)`
+  - Original Text Snippet: - Panel padding: `--space-4` to `--space-6` depending on density
+- **DATA-044** [DATA_MODEL]
+  - Source File: `UI_SPEC.md`
+  - Section: `3. Spacing System (Tokenized)`
+  - Original Text Snippet: - Table row heights: 36 (compact), 44 (default), 56 (comfortable)
+- **UI-R-316** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `4. Radius & Geometry (CVBS-aligned)`
+  - Original Text Snippet: --radius-pill: 999px; /* chips/badges only */
+- **UI-R-317** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `4. Radius & Geometry (CVBS-aligned)`
+  - Original Text Snippet: - Buttons: radius-md by default (no “pill buttons”).
+- **UI-R-318** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `4. Radius & Geometry (CVBS-aligned)`
+  - Original Text Snippet: - Cards: radius-md.
+- **UI-R-319** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `4. Radius & Geometry (CVBS-aligned)`
+  - Original Text Snippet: - Modals: radius-lg.
+- **DATA-045** [DATA_MODEL]
+  - Source File: `UI_SPEC.md`
+  - Section: `4. Radius & Geometry (CVBS-aligned)`
+  - Original Text Snippet: - Tables: radius applies to container only.
+- **UI-R-320** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `5. Elevation & Shadows (No glow; subtle only)`
+  - Original Text Snippet: --shadow-elev-1: 0 8px 24px rgba(0,0,0,0.25);  /* cards only if needed */
+- **UI-R-321** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `5. Elevation & Shadows (No glow; subtle only)`
+  - Original Text Snippet: --shadow-elev-2: 0 16px 48px rgba(0,0,0,0.35); /* modals/popovers only */
+- **UI-R-322** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `5. Elevation & Shadows (No glow; subtle only)`
+  - Original Text Snippet: Forbidden:
+- **UI-R-323** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `5. Elevation & Shadows (No glow; subtle only)`
+  - Original Text Snippet: - Any “glow” shadows tied to accent or semantics.
+- **UI-R-324** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `5. Elevation & Shadows (No glow; subtle only)`
+  - Original Text Snippet: - Strong drop shadows on every element.
+- **UI-R-325** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `5. Elevation & Shadows (No glow; subtle only)`
+  - Original Text Snippet: - Glassmorphism/backdrop blur as a default style (see §19).
+- **UI-R-326** [COPY_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `6. Buttons (Behavior + Styling Rules)`
+  - Original Text Snippet: - One primary button per view for the main commit action (e.g., “Lock Copy”, “Launch Campaign”).
+- **SAFE-018** [SAFETY_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `6. Buttons (Behavior + Styling Rules)`
+  - Original Text Snippet: - Destructive actions require explicit confirmation (modal or two-step inline confirm).
+- **UI-R-327** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `6. Buttons (Behavior + Styling Rules)`
+  - Original Text Snippet: - Sizes:
+- **UI-R-328** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `6. Buttons (Behavior + Styling Rules)`
+  - Original Text Snippet: - sm: 32px height (dense toolbars only)
+- **UI-R-329** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `6. Buttons (Behavior + Styling Rules)`
+  - Original Text Snippet: - md: 40px height (default)
+- **UI-R-330** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `6. Buttons (Behavior + Styling Rules)`
+  - Original Text Snippet: - lg: 48px height (wizard primary CTAs)
+- **UI-R-331** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `6.1 Primary button (action)`
+  - Original Text Snippet: - Background: `--ui-action-primary`
+- **UI-R-332** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `6.1 Primary button (action)`
+  - Original Text Snippet: - Text: `--ui-fg-inverse`
+- **UI-R-333** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `6.1 Primary button (action)`
+  - Original Text Snippet: - Hover: background `--ui-action-primary-hover`
+- **UI-R-334** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `6.1 Primary button (action)`
+  - Original Text Snippet: - Active: same as hover + slight opacity or inset border (no glow)
+- **UI-R-335** [ACCESSIBILITY]
+  - Source File: `UI_SPEC.md`
+  - Section: `6.1 Primary button (action)`
+  - Original Text Snippet: - Focus-visible: focus ring (see §21)
+- **UI-R-336** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `6.1 Primary button (action)`
+  - Original Text Snippet: - Disabled: reduced opacity + no hover + not-allowed
+- **UI-R-337** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `6.2 Secondary button (neutral action)`
+  - Original Text Snippet: - Background: transparent or `--ui-bg-surface`
+- **UI-R-338** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `6.2 Secondary button (neutral action)`
+  - Original Text Snippet: - Border: 1px solid `--ui-border-default`
+- **UI-R-339** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `6.2 Secondary button (neutral action)`
+  - Original Text Snippet: - Text: `--ui-fg-primary`
+- **UI-R-340** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `6.2 Secondary button (neutral action)`
+  - Original Text Snippet: - Hover: background `--ui-bg-elevated`, border `--ui-border-strong`
+- **UI-R-341** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `6.3 Tertiary (text) button`
+  - Original Text Snippet: - Background: none
+- **UI-R-342** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `6.3 Tertiary (text) button`
+  - Original Text Snippet: - Border: none
+- **UI-R-343** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `6.3 Tertiary (text) button`
+  - Original Text Snippet: - Text: `--ui-fg-secondary`
+- **UI-R-344** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `6.3 Tertiary (text) button`
+  - Original Text Snippet: - Hover: text `--ui-fg-primary` + subtle underline (optional)
+- **UI-R-345** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `6.4 Destructive button (semantic)`
+  - Original Text Snippet: - Background: `--ui-sem-danger`
+- **UI-R-346** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `6.4 Destructive button (semantic)`
+  - Original Text Snippet: - Text: `--ui-fg-inverse`
+- **UI-R-347** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `6.4 Destructive button (semantic)`
+  - Original Text Snippet: - Must be paired with confirm pattern; never default-focused.
+- **UI-R-348** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `6.4 Destructive button (semantic)`
+  - Original Text Snippet: Forbidden:
+- **UI-R-349** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `6.4 Destructive button (semantic)`
+  - Original Text Snippet: - Accent glow on hover.
+- **UI-R-350** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `6.4 Destructive button (semantic)`
+  - Original Text Snippet: - Using semantic colors for non-semantic actions.
+- **UI-R-351** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `6.4 Destructive button (semantic)`
+  - Original Text Snippet: - Gradient buttons.
+- **UI-R-352** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `7. Inputs (Text fields, selects, search)`
+  - Original Text Snippet: - Labels are always visible (no placeholder-only labels).
+- **UI-R-353** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `7. Inputs (Text fields, selects, search)`
+  - Original Text Snippet: - Default: bg `--ui-bg-surface`, border `--ui-border-default`, radius `--radius-md`
+- **UI-R-354** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `7. Inputs (Text fields, selects, search)`
+  - Original Text Snippet: - Padding: 10px 14px (tokenize in Tailwind spacing; do not ad-hoc)
+- **UI-R-355** [ACCESSIBILITY]
+  - Source File: `UI_SPEC.md`
+  - Section: `7. Inputs (Text fields, selects, search)`
+  - Original Text Snippet: - Focus: border `--ui-border-strong` + focus ring `--ui-focus-ring`
+- **UI-R-356** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `7. Inputs (Text fields, selects, search)`
+  - Original Text Snippet: - Error: border `--ui-sem-danger` + inline error text and icon (not color-only)
+- **UI-R-357** [ACCESSIBILITY]
+  - Source File: `UI_SPEC.md`
+  - Section: `7. Inputs (Text fields, selects, search)`
+  - Original Text Snippet: - Disabled: text `--ui-fg-muted`, reduced contrast background, no pointer events
+- **UI-R-358** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `8. Cards / Panels`
+  - Original Text Snippet: - Background: `--ui-bg-surface`
+- **UI-R-359** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `8. Cards / Panels`
+  - Original Text Snippet: - Border: 1px solid `--ui-border-default`
+- **UI-R-360** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `8. Cards / Panels`
+  - Original Text Snippet: - Radius: `--radius-md`
+- **UI-R-361** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `8. Cards / Panels`
+  - Original Text Snippet: - Padding: `--space-4` to `--space-6`
+- **UI-R-362** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `8. Cards / Panels`
+  - Original Text Snippet: - Shadow: optional `--shadow-elev-1` only if needed
+- **UI-R-363** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `8. Cards / Panels`
+  - Original Text Snippet: - Border: `--ui-border-strong`
+- **UI-R-364** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `8. Cards / Panels`
+  - Original Text Snippet: - Optional: small left indicator bar using `--ui-action-primary`
+- **UI-R-365** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `8. Cards / Panels`
+  - Original Text Snippet: Forbidden:
+- **UI-R-366** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `8. Cards / Panels`
+  - Original Text Snippet: - Glass cards / backdrop blur as default.
+- **UI-R-367** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `8. Cards / Panels`
+  - Original Text Snippet: - Decorative gradients on operational cards.
+- **UI-R-368** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `9. Tables (Lead lists, campaign lists, replies)`
+  - Original Text Snippet: - Background: `--ui-bg-surface`
+- **UI-R-369** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `9. Tables (Lead lists, campaign lists, replies)`
+  - Original Text Snippet: - Border: `--ui-border-default`
+- **UI-R-370** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `9. Tables (Lead lists, campaign lists, replies)`
+  - Original Text Snippet: - Radius: `--radius-md`
+- **UI-R-371** [SCREEN]
+  - Source File: `UI_SPEC.md`
+  - Section: `9. Tables (Lead lists, campaign lists, replies)`
+  - Original Text Snippet: - Overflow: hidden; horizontal scroll on small screens
+- **UI-R-372** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `9. Tables (Lead lists, campaign lists, replies)`
+  - Original Text Snippet: - Sticky by default
+- **UI-R-373** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `9. Tables (Lead lists, campaign lists, replies)`
+  - Original Text Snippet: - Text: `--ui-fg-secondary`
+- **UI-R-374** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `9. Tables (Lead lists, campaign lists, replies)`
+  - Original Text Snippet: - Background: `--ui-bg-surface` or `--ui-bg-elevated` (choose globally)
+- **UI-R-375** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `9. Tables (Lead lists, campaign lists, replies)`
+  - Original Text Snippet: - Height: 44px default; compact 36px allowed
+- **UI-R-376** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `9. Tables (Lead lists, campaign lists, replies)`
+  - Original Text Snippet: - Hover: subtle background delta using `--ui-bg-elevated`
+- **UI-R-377** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `9. Tables (Lead lists, campaign lists, replies)`
+  - Original Text Snippet: - Selected: checkbox + left indicator bar + optional `--ui-action-primary-soft` background
+- **SAFE-019** [SAFETY_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `9. Tables (Lead lists, campaign lists, replies)`
+  - Original Text Snippet: - Risk indicators: icon + label; tooltips allowed; never color-only
+- **UI-R-378** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `9. Tables (Lead lists, campaign lists, replies)`
+  - Original Text Snippet: - Arrow keys move row focus
+- **UI-R-379** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `9. Tables (Lead lists, campaign lists, replies)`
+  - Original Text Snippet: - Space toggles selection
+- **UI-R-380** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `9. Tables (Lead lists, campaign lists, replies)`
+  - Original Text Snippet: - Enter opens detail
+- **UI-R-381** [PERFORMANCE]
+  - Source File: `UI_SPEC.md`
+  - Section: `9. Tables (Lead lists, campaign lists, replies)`
+  - Original Text Snippet: - If >2,000 rows: virtualization required; reduce effects.
+- **UI-R-382** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `10. Badges / Status Chips (Strict semantics)`
+  - Original Text Snippet: - Success: `--ui-sem-success`
+- **UI-R-383** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `10. Badges / Status Chips (Strict semantics)`
+  - Original Text Snippet: - Warning: `--ui-sem-warning`
+- **UI-R-384** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `10. Badges / Status Chips (Strict semantics)`
+  - Original Text Snippet: - Danger: `--ui-sem-danger`
+- **UI-R-385** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `10. Badges / Status Chips (Strict semantics)`
+  - Original Text Snippet: - Info: `--ui-sem-info`
+- **UI-R-386** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `10. Badges / Status Chips (Strict semantics)`
+  - Original Text Snippet: - Neutral: border `--ui-border-default`, text `--ui-fg-secondary`
+- **UI-R-387** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `10. Badges / Status Chips (Strict semantics)`
+  - Original Text Snippet: Shape: pill only for chips/badges.
+- **UI-R-388** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `11. Navigation`
+  - Original Text Snippet: - Active indicator: single method only (recommended: left bar in `--ui-action-primary`)
+- **UI-R-389** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `11. Navigation`
+  - Original Text Snippet: - Hover: subtle background + text to primary
+- **UI-R-390** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `12. “Safety Strip” (Persistent operational health)`
+  - Original Text Snippet: - Sender health (Good/Degraded/Critical)
+- **SAFE-020** [SAFETY_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `12. “Safety Strip” (Persistent operational health)`
+  - Original Text Snippet: - Bounce risk (Low/Medium/High)
+- **UI-R-391** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `12. “Safety Strip” (Persistent operational health)`
+  - Original Text Snippet: - Daily cap (used/total)
+- **COMP-033** [COMPLIANCE_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `12. “Safety Strip” (Persistent operational health)`
+  - Original Text Snippet: - Compliance (suppression active, unsubscribe present)
+- **UI-R-392** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `12. “Safety Strip” (Persistent operational health)`
+  - Original Text Snippet: - Use semantic color on chip/icon only
+- **UI-R-393** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `12. “Safety Strip” (Persistent operational health)`
+  - Original Text Snippet: - Always include label text
+- **UI-R-394** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `12. “Safety Strip” (Persistent operational health)`
+  - Original Text Snippet: - Click opens remediation drawer
+- **UI-R-395** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `13. Modals / Dialogs`
+  - Original Text Snippet: - Surface: `--ui-bg-elevated`, border `--ui-border-default`, radius `--radius-lg`
+- **UI-R-396** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `13. Modals / Dialogs`
+  - Original Text Snippet: - Backdrop: `--color-overlay-backdrop`
+- **UI-R-397** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `13. Modals / Dialogs`
+  - Original Text Snippet: - danger icon + explicit verb
+- **UI-R-398** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `13. Modals / Dialogs`
+  - Original Text Snippet: - never default-focus destructive CTA
+- **UI-R-399** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `14. Responsive Layout System`
+  - Original Text Snippet: - xs: 0–639
+- **UI-R-400** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `14. Responsive Layout System`
+  - Original Text Snippet: - sm: 640–1023
+- **UI-R-401** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `14. Responsive Layout System`
+  - Original Text Snippet: - md: 1024–1279
+- **UI-R-402** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `14. Responsive Layout System`
+  - Original Text Snippet: - lg: 1280–1535
+- **UI-R-403** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `14. Responsive Layout System`
+  - Original Text Snippet: - xl: 1536+
+- **UI-R-404** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `14. Responsive Layout System`
+  - Original Text Snippet: - md+: left nav 264px (collapsible to 80px) + top bar 56px
+- **UI-R-405** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `14. Responsive Layout System`
+  - Original Text Snippet: - xs: hamburger drawer nav
+- **DATA-046** [DATA_MODEL]
+  - Source File: `UI_SPEC.md`
+  - Section: `14. Responsive Layout System`
+  - Original Text Snippet: - max width 1440px, except tables may go full width.
+- **UI-R-406** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `15. Motion Standards (CVBS-aligned)`
+  - Original Text Snippet: - hover/focus: 120ms
+- **UI-R-407** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `15. Motion Standards (CVBS-aligned)`
+  - Original Text Snippet: - panels: 180ms
+- **UI-R-408** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `15. Motion Standards (CVBS-aligned)`
+  - Original Text Snippet: - modals: 240ms
+- **UI-R-409** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `15. Motion Standards (CVBS-aligned)`
+  - Original Text Snippet: Forbidden:
+- **UI-R-410** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `15. Motion Standards (CVBS-aligned)`
+  - Original Text Snippet: - glows, heavy shimmer, stagger animations in dense lists.
+- **UI-R-411** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `16. Iconography (Contract)`
+  - Original Text Snippet: - Outline icons, 2px stroke @ 24px grid, rounded caps/joins.
+- **UI-R-412** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `16. Iconography (Contract)`
+  - Original Text Snippet: - Fill only for selected/severity emphasis (rare).
+- **UI-R-413** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `16. Iconography (Contract)`
+  - Original Text Snippet: - No multi-color icons in operational views.
+- **UI-R-414** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `17. Data Visualization (Charts)`
+  - Original Text Snippet: Use CVBS data palette tokens only; no semantic red as normal series.
+- **UI-R-415** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `18. Copy + Microcopy (Behavioral constraints)`
+  - Original Text Snippet: - Factual, action-oriented.
+- **SAFE-021** [SAFETY_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `18. Copy + Microcopy (Behavioral constraints)`
+  - Original Text Snippet: - AI outputs labeled as draft; require explicit confirmation before launch/send.
+- **COMP-034** [COMPLIANCE_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `18. Copy + Microcopy (Behavioral constraints)`
+  - Original Text Snippet: - Compliance prompts at launch are mandatory.
+- **UI-R-416** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `19. Performance + Forbidden patterns`
+  - Original Text Snippet: Forbidden unless governed:
+- **UI-R-417** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `19. Performance + Forbidden patterns`
+  - Original Text Snippet: - Glassmorphism/backdrop blur defaults
+- **UI-R-418** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `19. Performance + Forbidden patterns`
+  - Original Text Snippet: - accent/semantic glows
+- **UI-R-419** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `19. Performance + Forbidden patterns`
+  - Original Text Snippet: - heavy blur transitions
+- **UI-R-420** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `19. Performance + Forbidden patterns`
+  - Original Text Snippet: - decorative gradients in core UI
+- **UI-R-421** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `19. Performance + Forbidden patterns`
+  - Original Text Snippet: - subtle shadows for modals/popovers
+- **STATE-032** [STATE]
+  - Source File: `UI_SPEC.md`
+  - Section: `19. Performance + Forbidden patterns`
+  - Original Text Snippet: - skeleton loading (subtle)
+- **UI-R-422** [ACCESSIBILITY]
+  - Source File: `UI_SPEC.md`
+  - Section: `20. Recommended Implementation Stack (CVBS-safe)`
+  - Original Text Snippet: - Tailwind CSS mapped to CSS variables (source of truth)
+- **UI-R-423** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `20. Recommended Implementation Stack (CVBS-safe)`
+  - Original Text Snippet: - Headless UI / Radix UI primitives
+- **UI-R-424** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `20. Recommended Implementation Stack (CVBS-safe)`
+  - Original Text Snippet: - Avoid UI kits that impose non-compliant glass/glow defaults unless overridden.
+- **UI-R-425** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `21. Global Interaction State Styling (Standard)`
+  - Original Text Snippet: All interactive components must implement:
+- **STATE-033** [STATE]
+  - Source File: `UI_SPEC.md`
+  - Section: `21. Global Interaction State Styling (Standard)`
+  - Original Text Snippet: - Default, Hover, Active, Focus-visible, Disabled, Loading, Selected, Semantic states (where applicable)
+- **UI-R-426** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `22. Accessibility Visual Requirements`
+  - Original Text Snippet: - Focus visible everywhere (2px ring minimum).
+- **DATA-047** [DATA_MODEL]
+  - Source File: `UI_SPEC.md`
+  - Section: `22. Accessibility Visual Requirements`
+  - Original Text Snippet: - Touch targets: ≥ 44x44 on mobile/tablet; ≥ 32px in dense tables on desktop only.
+- **UI-R-427** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `22. Accessibility Visual Requirements`
+  - Original Text Snippet: - Errors include text + icon + association; never color-only.
+- **UI-R-428** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `22. Accessibility Visual Requirements`
+  - Original Text Snippet: - Status includes label text; never color-only.
+- **UI-R-429** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `Color tokens (canonical)`
+  - Original Text Snippet: All UI work must use the canonical color tokens below. This palette must remain in sync with `app/globals.css`.
+- **UI-R-430** [UI_RULE]
+  - Source File: `UI_SPEC.md`
+  - Section: `Color tokens (canonical)`
+  - Original Text Snippet: > If any other section in this document defines different color values for the same tokens, it must be updated to match the block above.
+
+## UX_SPEC.md
+
+### 1) File Role Summary
+Defines behavioral UX requirements including information architecture (routes), core journeys, per-screen requirements, and key interaction/edge-case rules.
+
+### 2) LOSSLESS REQUIREMENT EXTRACTION
+
+- **UX-R-417** [ROUTE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Information architecture (routes/sections)`
+  - Original Text Snippet: - `/app` App shell (auth required)
+- **UX-R-418** [ROUTE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Information architecture (routes/sections)`
+  - Original Text Snippet: - `/app/onboarding` Connect inbox + workspace defaults
+- **UX-R-419** [ROUTE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Information architecture (routes/sections)`
+  - Original Text Snippet: - `/app/campaigns` Campaign list
+- **UX-R-420** [ROUTE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Information architecture (routes/sections)`
+  - Original Text Snippet: - `/app/campaigns/new` Campaign wizard
+- **UX-R-421** [ROUTE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Information architecture (routes/sections)`
+  - Original Text Snippet: - `/app/campaigns/:id` Campaign overview (status, metrics, controls)
+- **UX-R-422** [ROUTE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Information architecture (routes/sections)`
+  - Original Text Snippet: - `/app/campaigns/:id/discovery` Lead discovery configuration + runs
+- **UX-R-423** [ROUTE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Information architecture (routes/sections)`
+  - Original Text Snippet: - `/app/campaigns/:id/candidates` Candidates review (filter/sort/approve)
+- **UX-R-424** [ROUTE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Information architecture (routes/sections)`
+  - Original Text Snippet: - `/app/campaigns/:id/leads` Approved leads table (filter, suppression)
+- **UX-R-425** [ROUTE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Information architecture (routes/sections)`
+  - Original Text Snippet: - `/app/campaigns/:id/sequence` Sequence builder + templates
+- **UX-R-426** [ROUTE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Information architecture (routes/sections)`
+  - Original Text Snippet: - `/app/campaigns/:id/icp` ICP versions + quality score + actions
+- **UX-R-427** [ROUTE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Information architecture (routes/sections)`
+  - Original Text Snippet: - `/app/campaigns/:id/icp/improve` Specialist ICP Interview wizard
+- **UX-R-428** [ROUTE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Information architecture (routes/sections)`
+  - Original Text Snippet: - `/app/settings/icp-templates` (optional admin-only in MVP; can be hidden behind feature flag)
+- **UX-R-429** [ROUTE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Information architecture (routes/sections)`
+  - Original Text Snippet: - `/app/replies` Unified replies inbox
+- **UX-R-430** [ROUTE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Information architecture (routes/sections)`
+  - Original Text Snippet: - `/app/leads/:leadId` Lead detail (profile, provenance, timeline)
+- **UX-R-431** [ROUTE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Information architecture (routes/sections)`
+  - Original Text Snippet: - `/app/settings` Workspace settings
+- **UX-R-432** [ROUTE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Information architecture (routes/sections)`
+  - Original Text Snippet: - `/app/settings/inboxes`
+- **UX-R-433** [ROUTE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Information architecture (routes/sections)`
+  - Original Text Snippet: - `/app/settings/deliverability`
+- **UX-R-434** [ROUTE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Information architecture (routes/sections)`
+  - Original Text Snippet: - `/app/settings/suppressions`
+- **UX-R-435** [ROUTE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Information architecture (routes/sections)`
+  - Original Text Snippet: - `/app/settings/sources` Source connectors + governance
+- **UX-R-436** [ROUTE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Information architecture (routes/sections)`
+  - Original Text Snippet: - `/app/settings/verification` Email verification provider settings (MVP minimal)
+- **UX-R-437** [PERMISSION]
+  - Source File: `UX_SPEC.md`
+  - Section: `Permissions model`
+  - Original Text Snippet: - MVP roles: `Owner` only.
+- **UX-R-438** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Auth + signup UX decisions`
+  - Original Text Snippet: - Primary sign-in option: Google OAuth.
+- **UX-R-439** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Auth + signup UX decisions`
+  - Original Text Snippet: - Secondary sign-in option: email/password.
+- **UX-R-440** [ROUTE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Auth + signup UX decisions`
+  - Original Text Snippet: - Login/signup should be one shared entry flow at `/login` with minimal fields and clear provider choices.
+- **UX-R-441** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Auth + signup UX decisions`
+  - Original Text Snippet: - Do not require extra profile steps before authentication completes.
+- **UX-R-442** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Auth + signup UX decisions`
+  - Original Text Snippet: - After first successful auth, user is routed into onboarding and workspace provisioning flow.
+- **UX-R-443** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Billing + trial UX decisions`
+  - Original Text Snippet: - Trial starts through subscription checkout with payment method captured up front.
+- **UX-R-444** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Billing + trial UX decisions`
+  - Original Text Snippet: - Flow target:
+- **UX-R-445** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Billing + trial UX decisions`
+  - Original Text Snippet: 1. Authenticate (Google or email/password)
+- **UX-R-446** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Billing + trial UX decisions`
+  - Original Text Snippet: 2. Confirm plan/trial terms
+- **UX-R-447** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Billing + trial UX decisions`
+  - Original Text Snippet: 3. Complete checkout
+- **UX-R-448** [ROUTE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Billing + trial UX decisions`
+  - Original Text Snippet: 4. Land in `/app/onboarding`
+- **UX-R-449** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Billing + trial UX decisions`
+  - Original Text Snippet: - Do not implement a synthetic `$0` one-off purchase flow.
+- **STATE-034** [STATE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Billing + trial UX decisions`
+  - Original Text Snippet: - Billing state messaging must be explicit:
+- **UX-R-450** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Billing + trial UX decisions`
+  - Original Text Snippet: - trialing, active, payment required, canceled.
+- **UX-R-451** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Core user journeys (numbered)`
+  - Original Text Snippet: 1) **Connect inbox**
+- **UX-R-452** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Core user journeys (numbered)`
+  - Original Text Snippet: 1. User signs in → onboarding prompts to connect Gmail/M365.
+- **UX-R-453** [PERMISSION]
+  - Source File: `UX_SPEC.md`
+  - Section: `Core user journeys (numbered)`
+  - Original Text Snippet: 2. OAuth completes → app verifies send permission and stores encrypted tokens.
+- **UX-R-454** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Core user journeys (numbered)`
+  - Original Text Snippet: 3. User sets sending limits (defaults applied).
+- **UX-R-455** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Core user journeys (numbered)`
+  - Original Text Snippet: 2) **Create campaign (wizard) with automated lead discovery**
+- **UX-R-456** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Core user journeys (numbered)`
+  - Original Text Snippet: 1. Start campaign → name + select connected inbox.
+- **UX-R-457** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Core user journeys (numbered)`
+  - Original Text Snippet: 2. Provide website URL or paste description.
+- **UX-R-458** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Core user journeys (numbered)`
+  - Original Text Snippet: 3. AI returns ICP draft; user edits and confirms.
+- **DATA-048** [DATA_MODEL]
+  - Source File: `UX_SPEC.md`
+  - Section: `Core user journeys (numbered)`
+  - Original Text Snippet: 4. Configure lead discovery (source connector, filters, required fields, limit).
+- **UX-R-459** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Core user journeys (numbered)`
+  - Original Text Snippet: 5. Run discovery → system builds Candidates.
+- **UX-R-460** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Core user journeys (numbered)`
+  - Original Text Snippet: 6. Review Candidates → approve to Leads.
+- **UX-R-461** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Core user journeys (numbered)`
+  - Original Text Snippet: 7. Build sequence → AI drafts templates → user edits.
+- **SAFE-022** [SAFETY_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Core user journeys (numbered)`
+  - Original Text Snippet: 8. Deliverability checklist runs → resolve blockers.
+- **UX-R-462** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Core user journeys (numbered)`
+  - Original Text Snippet: 9. Review + launch.
+- **UX-R-463** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Core user journeys (numbered)`
+  - Original Text Snippet: 3) **Operate campaign**
+- **UX-R-464** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Core user journeys (numbered)`
+  - Original Text Snippet: 1. Monitor campaign status, queue, warnings.
+- **UX-R-465** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Core user journeys (numbered)`
+  - Original Text Snippet: 2. Pause/resume; edits only affect unsent jobs.
+- **SAFE-023** [SAFETY_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Core user journeys (numbered)`
+  - Original Text Snippet: 3. Deliverability events trigger prompts (e.g., high bounce rate → recommend pause).
+- **UX-R-466** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Core user journeys (numbered)`
+  - Original Text Snippet: 4) **Handle replies**
+- **UX-R-467** [ROUTE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Core user journeys (numbered)`
+  - Original Text Snippet: 1. Replies appear in `/app/replies`.
+- **UX-R-468** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Core user journeys (numbered)`
+  - Original Text Snippet: 2. User categorizes and responds; follow-ups stop per rules.
+- **UX-R-469** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Core user journeys (numbered)`
+  - Original Text Snippet: 3. AI suggested reply is optional and always requires explicit “Send.”
+- **UX-R-470** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Login`
+  - Original Text Snippet: - Show Google OAuth as primary CTA.
+- **UX-R-471** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Login`
+  - Original Text Snippet: - Show email/password as secondary option.
+- **STATE-035** [STATE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Login`
+  - Original Text Snippet: - Error states are specific and actionable (invalid credentials, expired session, auth provider unavailable).
+- **UX-R-472** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Trial start/paywall gate`
+  - Original Text Snippet: - Explain trial duration, renewal date behavior, and cancellation terms before checkout.
+- **UX-R-473** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Trial start/paywall gate`
+  - Original Text Snippet: - Block access to protected app routes if trial/subscription is missing or invalid.
+- **STATE-036** [STATE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Onboarding`
+  - Original Text Snippet: - Connect Gmail/M365; show connected/error states; require required scopes.
+- **DATA-049** [DATA_MODEL]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - Fields: campaign name, connected inbox, website URL or product description textarea.
+- **UX-R-474** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - Validation: require exactly one of URL or description.
+- **UX-R-475** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - AI failure: retry + “continue manually” (user can enter ICP without AI).
+- **UX-R-476** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - Display AI draft sections; user can edit and save.
+- **UX-R-477** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - After generation (or on demand), show **ICP Quality Panel**:
+- **DATA-050** [DATA_MODEL]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - score (0–100), tier badge, missing fields checklist, “top questions” list
+- **UX-R-478** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - “Continue” is always available, but behavior differs by tier:
+- **UX-R-479** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - ≥ 75: Continue normally
+- **UX-R-480** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - 50–74: show warning + “Improve ICP” CTA
+- **UX-R-481** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - < 50: block progression by default and show Scenario A/B modal (override allowed)
+- **UX-R-482** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - Actions:
+- **UX-R-483** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - “Improve ICP” → routes to Specialist Interview wizard (structured)
+- **UX-R-484** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - “Apply Template” → if archetype identified and template exists
+- **UX-R-485** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - “Continue anyway” → saves the current ICP version and proceeds
+- **UX-R-486** [COPY_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - Copy requirements:
+- **DATA-051** [DATA_MODEL]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - Must show why the ICP is insufficient (missing fields list)
+- **UX-R-487** [COPY_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - Must show identified archetype + confidence (human-readable)
+- **UX-R-488** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - Buttons:
+- **UX-R-489** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - “Apply {archetype} template”
+- **UX-R-490** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - “Improve with Specialist AI”
+- **UX-R-491** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - “Continue anyway”
+- **UX-R-492** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - Must ask a minimal disambiguation set (5–8 questions max) before offering template:
+- **DATA-052** [DATA_MODEL]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - e.g., business model, pricing, target user, sales motion, implementation type, typical buyer title
+- **UX-R-493** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - Buttons:
+- **UX-R-494** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - “Answer questions”
+- **UX-R-495** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - “Improve with Specialist AI”
+- **UX-R-496** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - “Continue anyway”
+- **UX-R-497** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - User selects:
+- **COMP-035** [COMPLIANCE_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - source connector (licensed provider)
+- **UX-R-498** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - geo/industry/company size/title filters supported by provider
+- **DATA-053** [DATA_MODEL]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - required fields (email required for sending)
+- **UX-R-499** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - max results + run label
+- **UX-R-500** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - Actions:
+- **UX-R-501** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - “Run discovery” (creates Source Run)
+- **STATE-037** [STATE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - States:
+- **STATE-038** [STATE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - idle, running (progress), completed, failed (provider error), partial (rate limited)
+- **EDGE-001** [EDGE_CASE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - Edge cases:
+- **EDGE-002** [EDGE_CASE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - provider quota exceeded → explain and stop run
+- **UX-R-502** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - connector disabled in settings → block and link to settings
+- **UX-R-503** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - missing verification provider configured → allow run but warn that sending will be restricted
+- **UX-R-504** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - Candidates list supports:
+- **UX-R-505** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - filters: verification status, role, seniority, company size, geo, confidence
+- **UX-R-506** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - sorting: confidence, recency, company size
+- **DATA-054** [DATA_MODEL]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - sampling: open candidate detail drawer (show provenance for key fields)
+- **UX-R-507** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - Approval flow:
+- **UX-R-508** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - select candidates → “Approve to Leads”
+- **UX-R-509** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - approval enforces suppression + dedupe + verification rules
+- **UX-R-510** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - Required behavior:
+- **UX-R-511** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - default view hides unverified/unknown unless toggled
+- **SAFE-024** [SAFETY_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - bulk approve requires confirmation if including risky statuses
+- **UX-R-512** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - Sequence builder linear; stop conditions enforced.
+- **UX-R-513** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - Template editor includes lint panel.
+- **COMP-036** [COMPLIANCE_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - System enforces unsubscribe placeholder and compliance footer.
+- **UX-R-514** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - Shows:
+- **UX-R-515** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - send plan and caps
+- **UX-R-516** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - sample renders across approved leads
+- **SAFE-025** [SAFETY_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - deliverability checklist blockers/warnings
+- **COMP-037** [COMPLIANCE_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - compliance + attestation
+- **UX-R-517** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - Launch requires:
+- **UX-R-518** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - no blockers
+- **UX-R-519** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign wizard (updated steps)`
+  - Original Text Snippet: - attestation checkbox checked
+- **UX-R-520** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign overview`
+  - Original Text Snippet: - Metrics: queued/sent/failed/replies/bounces/unsubs.
+- **UX-R-521** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Campaign overview`
+  - Original Text Snippet: - Controls: pause/resume; edit future steps only.
+- **UX-R-522** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `ICP center (campaign-scoped)`
+  - Original Text Snippet: - Shows ICP versions list:
+- **UX-R-523** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `ICP center (campaign-scoped)`
+  - Original Text Snippet: - Website draft
+- **UX-R-524** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `ICP center (campaign-scoped)`
+  - Original Text Snippet: - Template-applied (if any)
+- **UX-R-525** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `ICP center (campaign-scoped)`
+  - Original Text Snippet: - Specialist-improved (if any)
+- **UX-R-526** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `ICP center (campaign-scoped)`
+  - Original Text Snippet: - Each version shows:
+- **UX-R-527** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `ICP center (campaign-scoped)`
+  - Original Text Snippet: - quality score + tier
+- **DATA-055** [DATA_MODEL]
+  - Source File: `UX_SPEC.md`
+  - Section: `ICP center (campaign-scoped)`
+  - Original Text Snippet: - missing fields checklist
+- **UX-R-528** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `ICP center (campaign-scoped)`
+  - Original Text Snippet: - “Use this ICP for discovery/messaging” selector (default = latest)
+- **UX-R-529** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `ICP center (campaign-scoped)`
+  - Original Text Snippet: - Actions:
+- **UX-R-530** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `ICP center (campaign-scoped)`
+  - Original Text Snippet: - “Re-score” (if edited)
+- **UX-R-531** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `ICP center (campaign-scoped)`
+  - Original Text Snippet: - “Apply template” (if archetype identified)
+- **UX-R-532** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `ICP center (campaign-scoped)`
+  - Original Text Snippet: - “Improve with Specialist AI”
+- **EDGE-003** [EDGE_CASE]
+  - Source File: `UX_SPEC.md`
+  - Section: `ICP center (campaign-scoped)`
+  - Original Text Snippet: - Edge cases:
+- **UX-R-533** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `ICP center (campaign-scoped)`
+  - Original Text Snippet: - If AI scoring fails: show last known score + allow proceed
+- **UX-R-534** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `ICP center (campaign-scoped)`
+  - Original Text Snippet: - If user edits ICP: mark score stale until re-score runs
+- **UX-R-535** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `E) Approved Leads table (updated)`
+  - Original Text Snippet: - Shows only **approved** leads.
+- **UX-R-536** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `E) Approved Leads table (updated)`
+  - Original Text Snippet: - Filters by: status, replied, suppressed, verification status, source run.
+- **UX-R-537** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `E) Approved Leads table (updated)`
+  - Original Text Snippet: - Bulk actions: suppress, remove from campaign, export.
+- **UX-R-538** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `E) Approved Leads table (updated)`
+  - Original Text Snippet: - Lead detail shows: timeline + provenance + verification record.
+- **UX-R-539** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Replies inbox`
+  - Original Text Snippet: - Needs-response queue; thread view; optional AI draft reply; user must click Send.
+- **UX-R-540** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Settings — sources (updated)`
+  - Original Text Snippet: - Manage source connectors:
+- **UX-R-541** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Settings — sources (updated)`
+  - Original Text Snippet: - enabled/disabled
+- **UX-R-542** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Settings — sources (updated)`
+  - Original Text Snippet: - API key/config status
+- **UX-R-543** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Settings — sources (updated)`
+  - Original Text Snippet: - allowed usage note
+- **UX-R-544** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Settings — sources (updated)`
+  - Original Text Snippet: - last run status/errors
+- **UX-R-545** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Settings — sources (updated)`
+  - Original Text Snippet: - Disabling a connector blocks new discovery runs and enrichment.
+- **UX-R-546** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Validation + error handling`
+  - Original Text Snippet: - Inline validation + form-level summary.
+- **UX-R-547** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Validation + error handling`
+  - Original Text Snippet: - AI failures never block manual progress.
+- **UX-R-548** [UX_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Validation + error handling`
+  - Original Text Snippet: - Sending errors classified and actionable.
+- **DATA-056** [DATA_MODEL]
+  - Source File: `UX_SPEC.md`
+  - Section: `Responsive`
+  - Original Text Snippet: - Mobile-first; tables become cards under ~768px; wizard stepper collapses.
+- **STATE-039** [STATE]
+  - Source File: `UX_SPEC.md`
+  - Section: `Accessibility`
+  - Original Text Snippet: - Keyboard navigable, focus states, ARIA labels, non-color indicators for severity.
+- **COMP-038** [COMPLIANCE_RULE]
+  - Source File: `UX_SPEC.md`
+  - Section: `UX tone (behavioral)`
+  - Original Text Snippet: - Factual, action-oriented, no auto-send; mandatory compliance confirmation at launch.
