@@ -241,9 +241,10 @@
   - Acceptance: bulk approve moves to Leads; reject persists
   - Tests: e2e
   - Note (2026-02-08): Replaced `/app/campaigns/:id/candidates` placeholder with a working candidates review UI including filters, selectable table rows, bulk "Approve to leads" and "Reject selected" flows, and cursor pagination controls. Implemented server-side review actions and candidate-review service to persist candidate status updates and campaign lead creation. Added integration coverage in `tests/integration/candidates-review.test.ts`. Files touched: `app/app/campaigns/[campaignId]/candidates/page.tsx`, `app/app/campaigns/[campaignId]/candidates/candidates-review-client.tsx`, `app/app/campaigns/[campaignId]/candidates/actions.ts`, `lib/sources/candidate-review.ts`, `tests/integration/candidates-review.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
-- [ ] Implement approve endpoint (Candidates → Leads) with enforcement rules
+- [x] Implement approve endpoint (Candidates → Leads) with enforcement rules
   - Acceptance: cannot approve invalid emails; verified-only default; explicit allowUnverified requires confirmation
   - Tests: integration
+  - Note (2026-02-08): Added `POST /api/campaigns/:campaignId/candidates/approve` with workspace/campaign ownership checks and enforcement rules: invalid emails are always rejected, approvals are verified-only by default, and `allowUnverified=true` requires `confirmAllowUnverified=true`. Implemented approval service with structured rejection reasons and persisted lead/campaign_lead creation for approved candidates. Added integration coverage in `tests/integration/candidates-approve-rules.test.ts`. Files touched: `app/api/campaigns/[campaignId]/candidates/approve/route.ts`, `lib/sources/candidate-approval.ts`, `tests/integration/candidates-approve-rules.test.ts`, `package.json`, `docs/SOFTWARE_DOCUMENTATION.md`, `docs/IMPLEMENTATION_CHECKLIST.md`.
 - [ ] Update SOFTWARE_DOCUMENTATION.md (phase summary + decisions + gotchas)
 
 
